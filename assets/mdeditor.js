@@ -24,23 +24,18 @@ define('mdeditor/app', ['exports', 'mdeditor/resolver', 'ember-load-initializers
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const LinkComponent = Ember.LinkComponent,
-        Route = Ember.Route,
-        Component = Ember.Component,
-        Application = Ember.Application,
-        get = Ember.get,
-        getWithDefault = Ember.getWithDefault,
-        defineProperty = Ember.defineProperty,
-        computed = Ember.computed,
-        isNone = Ember.isNone,
-        assert = Ember.assert;
-
+  /**
+   * The mdEditor application instance.
+   *
+   * @module mdeditor
+   * @category docs
+   */
 
   let App;
 
   //Ember.MODEL_FACTORY_INJECTIONS = true;
 
-  App = Application.extend({
+  App = Ember.Application.extend({
     modulePrefix: _environment.default.modulePrefix,
     podModulePrefix: _environment.default.podModulePrefix,
     Resolver: _resolver.default
@@ -49,51 +44,39 @@ define('mdeditor/app', ['exports', 'mdeditor/resolver', 'ember-load-initializers
   (0, _emberLoadInitializers.default)(App, _environment.default.modulePrefix);
 
   //for bootstrap
-  LinkComponent.reopen({
+  Ember.LinkComponent.reopen({
     attributeBindings: ['data-toggle', 'data-placement']
   });
   //for crumbly
-  Route.reopen({
+  Ember.Route.reopen({
     //breadCrumb: null
     currentRouteModel: function currentRouteModel() {
       return this.modelFor(this.routeName);
     }
   });
   //for profiles
-  Component.reopen({
+  Ember.Component.reopen({
     init() {
       this._super(...arguments);
 
-      let profile = get(this, 'profile');
-      let path = get(this, 'profilePath');
-      let visibility = get(this, 'visibility');
-      let isVisible = isNone(visibility) ? true : visibility;
+      let profile = Ember.get(this, 'profile');
+      let path = Ember.get(this, 'profilePath');
+      let visibility = Ember.get(this, 'visibility');
+      let isVisible = Ember.isNone(visibility) ? true : visibility;
 
       if (path !== undefined) {
-        assert(`${path} is not a profile path!`, path.charAt(0) !== '.');
-        defineProperty(this, 'isVisible', computed('profile.active', function () {
-          let fullPath = 'profiles.' + get(profile, 'active') + '.components.' + path;
+        (true && !(path.charAt(0) !== '.') && Ember.assert(`${path} is not a profile path!`, path.charAt(0) !== '.'));
+
+        Ember.defineProperty(this, 'isVisible', Ember.computed('profile.active', function () {
+          let fullPath = 'profiles.' + Ember.get(profile, 'active') + '.components.' + path;
 
           //console.log(fullPath);
-          return getWithDefault(profile, fullPath, isVisible);
+          return Ember.getWithDefault(profile, fullPath, isVisible);
         }));
       }
     }
   });
   exports.default = App;
-});
-define('mdeditor/blueprints/ember-string-helpers', ['exports', 'ember-string-helpers/blueprints/ember-string-helpers'], function (exports, _emberStringHelpers) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(exports, 'default', {
-    enumerable: true,
-    get: function () {
-      return _emberStringHelpers.default;
-    }
-  });
 });
 define("mdeditor/cldrs/en", ["exports"], function (exports) {
   "use strict";
@@ -226,17 +209,14 @@ define('mdeditor/components/bread-crumbs', ['exports', 'ember-crumbly/components
     }
   });
 });
-define('mdeditor/components/bs-datetimepicker', ['exports', 'ember-bootstrap-datetimepicker/components/bs-datetimepicker'], function (exports, _bsDatetimepicker) {
+define('mdeditor/components/bs-datetimepicker', ['exports', 'ember-cli-bootstrap-datetimepicker/components/bs-datetimepicker', 'mdeditor/config/environment'], function (exports, _bsDatetimepicker, _environment) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  Object.defineProperty(exports, 'default', {
-    enumerable: true,
-    get: function () {
-      return _bsDatetimepicker.default;
-    }
+  exports.default = _bsDatetimepicker.default.extend({
+    config: _environment.default['ember-cli-bootstrap-datetimepicker']
   });
 });
 define('mdeditor/components/circle-layer', ['exports', 'ember-leaflet/components/circle-layer'], function (exports, _circleLayer) {
@@ -385,6 +365,19 @@ define('mdeditor/components/ember-modal-dialog/-tether-dialog', ['exports', 'emb
     }
   });
 });
+define('mdeditor/components/ember-popover', ['exports', 'ember-tooltips/components/ember-popover'], function (exports, _emberPopover) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _emberPopover.default;
+    }
+  });
+});
 define('mdeditor/components/ember-tether', ['exports', 'ember-tether/components/ember-tether'], function (exports, _emberTether) {
   'use strict';
 
@@ -395,6 +388,19 @@ define('mdeditor/components/ember-tether', ['exports', 'ember-tether/components/
     enumerable: true,
     get: function () {
       return _emberTether.default;
+    }
+  });
+});
+define('mdeditor/components/ember-tooltip', ['exports', 'ember-tooltips/components/ember-tooltip'], function (exports, _emberTooltip) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _emberTooltip.default;
     }
   });
 });
@@ -1022,6 +1028,19 @@ define('mdeditor/components/models-table/global-filter', ['exports', 'ember-mode
     }
   });
 });
+define('mdeditor/components/models-table/group-summary-row', ['exports', 'ember-models-table/components/models-table/group-summary-row'], function (exports, _groupSummaryRow) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _groupSummaryRow.default;
+    }
+  });
+});
 define('mdeditor/components/models-table/grouped-header', ['exports', 'ember-models-table/components/models-table/grouped-header'], function (exports, _groupedHeader) {
   'use strict';
 
@@ -1431,7 +1450,12 @@ define('mdeditor/components/multiselect-checkboxes', ['exports', 'ember-multisel
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _multiselectCheckboxes.default;
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _multiselectCheckboxes.default;
+    }
+  });
 });
 define('mdeditor/components/nestable-draggable-object', ['exports', 'ember-json-tree/components/nestable-draggable-object'], function (exports, _nestableDraggableObject) {
   'use strict';
@@ -1503,32 +1527,6 @@ define('mdeditor/components/polyline-layer', ['exports', 'ember-leaflet/componen
     enumerable: true,
     get: function () {
       return _polylineLayer.default;
-    }
-  });
-});
-define('mdeditor/components/popover-on-component', ['exports', 'ember-tooltips/components/popover-on-component'], function (exports, _popoverOnComponent) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(exports, 'default', {
-    enumerable: true,
-    get: function () {
-      return _popoverOnComponent.default;
-    }
-  });
-});
-define('mdeditor/components/popover-on-element', ['exports', 'ember-tooltips/components/popover-on-element'], function (exports, _popoverOnElement) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(exports, 'default', {
-    enumerable: true,
-    get: function () {
-      return _popoverOnElement.default;
     }
   });
 });
@@ -1774,58 +1772,6 @@ define('mdeditor/components/tether-dialog', ['exports', 'ember-modal-dialog/comp
     }
   });
 });
-define('mdeditor/components/tether-popover-on-component', ['exports', 'ember-tooltips/components/tether-popover-on-component'], function (exports, _tetherPopoverOnComponent) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(exports, 'default', {
-    enumerable: true,
-    get: function () {
-      return _tetherPopoverOnComponent.default;
-    }
-  });
-});
-define('mdeditor/components/tether-popover-on-element', ['exports', 'ember-tooltips/components/tether-popover-on-element'], function (exports, _tetherPopoverOnElement) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(exports, 'default', {
-    enumerable: true,
-    get: function () {
-      return _tetherPopoverOnElement.default;
-    }
-  });
-});
-define('mdeditor/components/tether-tooltip-on-component', ['exports', 'ember-tooltips/components/tether-tooltip-on-component'], function (exports, _tetherTooltipOnComponent) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(exports, 'default', {
-    enumerable: true,
-    get: function () {
-      return _tetherTooltipOnComponent.default;
-    }
-  });
-});
-define('mdeditor/components/tether-tooltip-on-element', ['exports', 'ember-tooltips/components/tether-tooltip-on-element'], function (exports, _tetherTooltipOnElement) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(exports, 'default', {
-    enumerable: true,
-    get: function () {
-      return _tetherTooltipOnElement.default;
-    }
-  });
-});
 define('mdeditor/components/tile-layer', ['exports', 'ember-leaflet/components/tile-layer'], function (exports, _tileLayer) {
   'use strict';
 
@@ -1851,31 +1797,6 @@ define('mdeditor/components/to-elsewhere', ['exports', 'ember-elsewhere/componen
       return _toElsewhere.default;
     }
   });
-});
-define('mdeditor/components/tooltip-on-component', ['exports', 'ember-tooltips/components/tooltip-on-component'], function (exports, _tooltipOnComponent) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(exports, 'default', {
-    enumerable: true,
-    get: function () {
-      return _tooltipOnComponent.default;
-    }
-  });
-});
-define('mdeditor/components/tooltip-on-element', ['exports', 'mdeditor/config/environment', 'ember-tooltips/components/tooltip-on-element'], function (exports, _environment, _tooltipOnElement) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-
-
-  let _didUpdateTimeoutLength = _environment.default.environment === 'test' ? 0 : 1000;
-
-  exports.default = _tooltipOnElement.default.extend({ _didUpdateTimeoutLength });
 });
 define('mdeditor/components/tree-branch', ['exports', 'ember-json-tree/components/tree-branch'], function (exports, _treeBranch) {
   'use strict';
@@ -1968,6 +1889,32 @@ define('mdeditor/components/wms-tile-layer', ['exports', 'ember-leaflet/componen
     }
   });
 });
+define('mdeditor/components/x-toggle-label', ['exports', 'ember-toggle/components/x-toggle-label/component'], function (exports, _component) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _component.default;
+    }
+  });
+});
+define('mdeditor/components/x-toggle-switch', ['exports', 'ember-toggle/components/x-toggle-switch/component'], function (exports, _component) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _component.default;
+    }
+  });
+});
 define('mdeditor/components/x-toggle', ['exports', 'ember-toggle/components/x-toggle/component', 'mdeditor/config/environment'], function (exports, _component, _environment) {
   'use strict';
 
@@ -1979,6 +1926,7 @@ define('mdeditor/components/x-toggle', ['exports', 'ember-toggle/components/x-to
   const config = _environment.default['ember-toggle'] || {};
 
   exports.default = _component.default.extend({
+    /* eslint-disable ember/avoid-leaking-state-in-ember-objects */
     theme: config.defaultTheme || 'default',
     defaultOffLabel: config.defaultOffLabel || 'Off::off',
     defaultOnLabel: config.defaultOnLabel || 'On::on',
@@ -1995,44 +1943,123 @@ define('mdeditor/csv2geojson', ['exports', 'npm:csv2geojson'], function (exports
   exports.csv2geojson = undefined;
   exports.csv2geojson = _npmCsv2geojson.default;
 });
+define('mdeditor/ember-gestures/recognizers/pan', ['exports', 'ember-gestures/recognizers/pan'], function (exports, _pan) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = _pan.default;
+});
+define('mdeditor/ember-gestures/recognizers/pinch', ['exports', 'ember-gestures/recognizers/pinch'], function (exports, _pinch) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = _pinch.default;
+});
+define('mdeditor/ember-gestures/recognizers/press', ['exports', 'ember-gestures/recognizers/press'], function (exports, _press) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = _press.default;
+});
+define('mdeditor/ember-gestures/recognizers/rotate', ['exports', 'ember-gestures/recognizers/rotate'], function (exports, _rotate) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = _rotate.default;
+});
+define('mdeditor/ember-gestures/recognizers/swipe', ['exports', 'ember-gestures/recognizers/swipe'], function (exports, _swipe) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = _swipe.default;
+});
+define('mdeditor/ember-gestures/recognizers/tap', ['exports', 'ember-gestures/recognizers/tap'], function (exports, _tap) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _tap.default;
+    }
+  });
+});
+define('mdeditor/ember-gestures/recognizers/vertical-pan', ['exports', 'ember-gestures/recognizers/vertical-pan'], function (exports, _verticalPan) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _verticalPan.default;
+    }
+  });
+});
+define('mdeditor/ember-gestures/recognizers/vertical-swipe', ['exports', 'ember-gestures/recognizers/vertical-swipe'], function (exports, _verticalSwipe) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _verticalSwipe.default;
+    }
+  });
+});
 define('mdeditor/ember-json-tree/tests/addon.lint-test', [], function () {
   'use strict';
 
   QUnit.module('ESLint | addon');
 
-  QUnit.test('ember-json-tree/components/nestable-draggable-object.js', function (assert) {
+  QUnit.test('addon/components/nestable-draggable-object.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'ember-json-tree/components/nestable-draggable-object.js should pass ESLint\n\n');
+    assert.ok(true, 'addon/components/nestable-draggable-object.js should pass ESLint\n\n');
   });
 
-  QUnit.test('ember-json-tree/components/tree-branch.js', function (assert) {
+  QUnit.test('addon/components/tree-branch.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'ember-json-tree/components/tree-branch.js should pass ESLint\n\n');
+    assert.ok(true, 'addon/components/tree-branch.js should pass ESLint\n\n');
   });
 
-  QUnit.test('ember-json-tree/components/tree-label.js', function (assert) {
+  QUnit.test('addon/components/tree-label.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'ember-json-tree/components/tree-label.js should pass ESLint\n\n');
+    assert.ok(true, 'addon/components/tree-label.js should pass ESLint\n\n');
   });
 
-  QUnit.test('ember-json-tree/components/tree-leaf.js', function (assert) {
+  QUnit.test('addon/components/tree-leaf.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'ember-json-tree/components/tree-leaf.js should pass ESLint\n\n');
+    assert.ok(true, 'addon/components/tree-leaf.js should pass ESLint\n\n');
   });
 
-  QUnit.test('ember-json-tree/components/tree-search.js', function (assert) {
+  QUnit.test('addon/components/tree-search.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'ember-json-tree/components/tree-search.js should pass ESLint\n\n');
+    assert.ok(true, 'addon/components/tree-search.js should pass ESLint\n\n');
   });
 
-  QUnit.test('ember-json-tree/components/tree-view.js', function (assert) {
+  QUnit.test('addon/components/tree-view.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'ember-json-tree/components/tree-view.js should pass ESLint\n\n');
+    assert.ok(true, 'addon/components/tree-view.js should pass ESLint\n\n');
   });
 
-  QUnit.test('ember-json-tree/helpers/make-range.js', function (assert) {
+  QUnit.test('addon/helpers/make-range.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'ember-json-tree/helpers/make-range.js should pass ESLint\n\n');
+    assert.ok(true, 'addon/helpers/make-range.js should pass ESLint\n\n');
   });
 });
 define('mdeditor/ember-json-tree/tests/app.lint-test', [], function () {
@@ -2040,39 +2067,39 @@ define('mdeditor/ember-json-tree/tests/app.lint-test', [], function () {
 
   QUnit.module('ESLint | app');
 
-  QUnit.test('ember-json-tree/components/nestable-draggable-object.js', function (assert) {
+  QUnit.test('app/components/nestable-draggable-object.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'ember-json-tree/components/nestable-draggable-object.js should pass ESLint\n\n');
+    assert.ok(true, 'app/components/nestable-draggable-object.js should pass ESLint\n\n');
   });
 
-  QUnit.test('ember-json-tree/components/tree-branch.js', function (assert) {
+  QUnit.test('app/components/tree-branch.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'ember-json-tree/components/tree-branch.js should pass ESLint\n\n');
+    assert.ok(true, 'app/components/tree-branch.js should pass ESLint\n\n');
   });
 
-  QUnit.test('ember-json-tree/components/tree-label.js', function (assert) {
+  QUnit.test('app/components/tree-label.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'ember-json-tree/components/tree-label.js should pass ESLint\n\n');
+    assert.ok(true, 'app/components/tree-label.js should pass ESLint\n\n');
   });
 
-  QUnit.test('ember-json-tree/components/tree-leaf.js', function (assert) {
+  QUnit.test('app/components/tree-leaf.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'ember-json-tree/components/tree-leaf.js should pass ESLint\n\n');
+    assert.ok(true, 'app/components/tree-leaf.js should pass ESLint\n\n');
   });
 
-  QUnit.test('ember-json-tree/components/tree-search.js', function (assert) {
+  QUnit.test('app/components/tree-search.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'ember-json-tree/components/tree-search.js should pass ESLint\n\n');
+    assert.ok(true, 'app/components/tree-search.js should pass ESLint\n\n');
   });
 
-  QUnit.test('ember-json-tree/components/tree-view.js', function (assert) {
+  QUnit.test('app/components/tree-view.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'ember-json-tree/components/tree-view.js should pass ESLint\n\n');
+    assert.ok(true, 'app/components/tree-view.js should pass ESLint\n\n');
   });
 
-  QUnit.test('ember-json-tree/helpers/make-range.js', function (assert) {
+  QUnit.test('app/helpers/make-range.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'ember-json-tree/helpers/make-range.js should pass ESLint\n\n');
+    assert.ok(true, 'app/helpers/make-range.js should pass ESLint\n\n');
   });
 });
 define('mdeditor/ember-leaflet-table/tests/addon.lint-test', [], function () {
@@ -2080,44 +2107,44 @@ define('mdeditor/ember-leaflet-table/tests/addon.lint-test', [], function () {
 
   QUnit.module('ESLint | addon');
 
-  QUnit.test('ember-leaflet-table/components/feature-form.js', function (assert) {
+  QUnit.test('addon/components/feature-form.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'ember-leaflet-table/components/feature-form.js should pass ESLint\n\n');
+    assert.ok(true, 'addon/components/feature-form.js should pass ESLint\n\n');
   });
 
-  QUnit.test('ember-leaflet-table/components/feature-group.js', function (assert) {
+  QUnit.test('addon/components/feature-group.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'ember-leaflet-table/components/feature-group.js should pass ESLint\n\n');
+    assert.ok(true, 'addon/components/feature-group.js should pass ESLint\n\n');
   });
 
-  QUnit.test('ember-leaflet-table/components/feature-table.js', function (assert) {
+  QUnit.test('addon/components/feature-table.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'ember-leaflet-table/components/feature-table.js should pass ESLint\n\n');
+    assert.ok(true, 'addon/components/feature-table.js should pass ESLint\n\n');
   });
 
-  QUnit.test('ember-leaflet-table/components/leaflet-draw.js', function (assert) {
+  QUnit.test('addon/components/leaflet-draw.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'ember-leaflet-table/components/leaflet-draw.js should pass ESLint\n\n');
+    assert.ok(true, 'addon/components/leaflet-draw.js should pass ESLint\n\n');
   });
 
-  QUnit.test('ember-leaflet-table/components/leaflet-table-row-actions.js', function (assert) {
+  QUnit.test('addon/components/leaflet-table-row-actions.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'ember-leaflet-table/components/leaflet-table-row-actions.js should pass ESLint\n\n');
+    assert.ok(true, 'addon/components/leaflet-table-row-actions.js should pass ESLint\n\n');
   });
 
-  QUnit.test('ember-leaflet-table/components/leaflet-table-row.js', function (assert) {
+  QUnit.test('addon/components/leaflet-table-row.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'ember-leaflet-table/components/leaflet-table-row.js should pass ESLint\n\n');
+    assert.ok(true, 'addon/components/leaflet-table-row.js should pass ESLint\n\n');
   });
 
-  QUnit.test('ember-leaflet-table/components/leaflet-table.js', function (assert) {
+  QUnit.test('addon/components/leaflet-table.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'ember-leaflet-table/components/leaflet-table.js should pass ESLint\n\n');
+    assert.ok(true, 'addon/components/leaflet-table.js should pass ESLint\n\n');
   });
 
-  QUnit.test('ember-leaflet-table/components/lgeojson-layer.js', function (assert) {
+  QUnit.test('addon/components/lgeojson-layer.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'ember-leaflet-table/components/lgeojson-layer.js should pass ESLint\n\n');
+    assert.ok(true, 'addon/components/lgeojson-layer.js should pass ESLint\n\n');
   });
 });
 define('mdeditor/ember-leaflet-table/tests/app.lint-test', [], function () {
@@ -2125,69 +2152,92 @@ define('mdeditor/ember-leaflet-table/tests/app.lint-test', [], function () {
 
   QUnit.module('ESLint | app');
 
-  QUnit.test('ember-leaflet-table/components/feature-form.js', function (assert) {
+  QUnit.test('app/components/feature-form.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'ember-leaflet-table/components/feature-form.js should pass ESLint\n\n');
+    assert.ok(true, 'app/components/feature-form.js should pass ESLint\n\n');
   });
 
-  QUnit.test('ember-leaflet-table/components/feature-group.js', function (assert) {
+  QUnit.test('app/components/feature-group.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'ember-leaflet-table/components/feature-group.js should pass ESLint\n\n');
+    assert.ok(true, 'app/components/feature-group.js should pass ESLint\n\n');
   });
 
-  QUnit.test('ember-leaflet-table/components/feature-table.js', function (assert) {
+  QUnit.test('app/components/feature-table.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'ember-leaflet-table/components/feature-table.js should pass ESLint\n\n');
+    assert.ok(true, 'app/components/feature-table.js should pass ESLint\n\n');
   });
 
-  QUnit.test('ember-leaflet-table/components/leaflet-draw.js', function (assert) {
+  QUnit.test('app/components/leaflet-draw.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'ember-leaflet-table/components/leaflet-draw.js should pass ESLint\n\n');
+    assert.ok(true, 'app/components/leaflet-draw.js should pass ESLint\n\n');
   });
 
-  QUnit.test('ember-leaflet-table/components/leaflet-table-row-actions.js', function (assert) {
+  QUnit.test('app/components/leaflet-table-row-actions.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'ember-leaflet-table/components/leaflet-table-row-actions.js should pass ESLint\n\n');
+    assert.ok(true, 'app/components/leaflet-table-row-actions.js should pass ESLint\n\n');
   });
 
-  QUnit.test('ember-leaflet-table/components/leaflet-table-row.js', function (assert) {
+  QUnit.test('app/components/leaflet-table-row.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'ember-leaflet-table/components/leaflet-table-row.js should pass ESLint\n\n');
+    assert.ok(true, 'app/components/leaflet-table-row.js should pass ESLint\n\n');
   });
 
-  QUnit.test('ember-leaflet-table/components/leaflet-table.js', function (assert) {
+  QUnit.test('app/components/leaflet-table.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'ember-leaflet-table/components/leaflet-table.js should pass ESLint\n\n');
+    assert.ok(true, 'app/components/leaflet-table.js should pass ESLint\n\n');
   });
 
-  QUnit.test('ember-leaflet-table/components/lgeojson-layer.js', function (assert) {
+  QUnit.test('app/components/lgeojson-layer.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'ember-leaflet-table/components/lgeojson-layer.js should pass ESLint\n\n');
+    assert.ok(true, 'app/components/lgeojson-layer.js should pass ESLint\n\n');
   });
 
-  QUnit.test('ember-leaflet-table/csv2geojson.js', function (assert) {
+  QUnit.test('app/csv2geojson.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'ember-leaflet-table/csv2geojson.js should pass ESLint\n\n');
+    assert.ok(true, 'app/csv2geojson.js should pass ESLint\n\n');
   });
 
-  QUnit.test('ember-leaflet-table/geojsoncoords.js', function (assert) {
+  QUnit.test('app/geojsoncoords.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'ember-leaflet-table/geojsoncoords.js should pass ESLint\n\n');
+    assert.ok(true, 'app/geojsoncoords.js should pass ESLint\n\n');
   });
 
-  QUnit.test('ember-leaflet-table/shapefile.js', function (assert) {
+  QUnit.test('app/shapefile.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'ember-leaflet-table/shapefile.js should pass ESLint\n\n');
+    assert.ok(true, 'app/shapefile.js should pass ESLint\n\n');
   });
 
-  QUnit.test('ember-leaflet-table/togeojson.js', function (assert) {
+  QUnit.test('app/togeojson.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'ember-leaflet-table/togeojson.js should pass ESLint\n\n');
+    assert.ok(true, 'app/togeojson.js should pass ESLint\n\n');
   });
 
-  QUnit.test('ember-leaflet-table/uuid.js', function (assert) {
+  QUnit.test('app/uuid.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'ember-leaflet-table/uuid.js should pass ESLint\n\n');
+    assert.ok(true, 'app/uuid.js should pass ESLint\n\n');
+  });
+});
+define('mdeditor/event_dispatcher', ['exports', 'ember-gestures/event_dispatcher', 'mdeditor/config/environment'], function (exports, _event_dispatcher, _environment) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+
+  const assign = Ember.assign || Ember.merge;
+
+  let gestures = assign({}, {
+    emberUseCapture: false,
+    removeTracking: false,
+    useFastPaths: false
+  });
+  gestures = assign(gestures, _environment.default.gestures);
+
+  exports.default = _event_dispatcher.default.extend({
+    useCapture: gestures.emberUseCapture,
+    removeTracking: gestures.removeTracking,
+    useFastPaths: gestures.useFastPaths
   });
 });
 define('mdeditor/flash/object', ['exports', 'ember-cli-flash/flash/object'], function (exports, _object) {
@@ -2344,17 +2394,18 @@ define('mdeditor/helpers/and', ['exports', 'ember-truth-helpers/helpers/and'], f
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-
-
-  var forExport = null;
-
-  if (Ember.Helper) {
-    forExport = Ember.Helper.helper(_and.andHelper);
-  } else if (Ember.HTMLBars.makeBoundHelper) {
-    forExport = Ember.HTMLBars.makeBoundHelper(_and.andHelper);
-  }
-
-  exports.default = forExport;
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _and.default;
+    }
+  });
+  Object.defineProperty(exports, 'and', {
+    enumerable: true,
+    get: function () {
+      return _and.and;
+    }
+  });
 });
 define('mdeditor/helpers/app-version', ['exports', 'mdeditor/config/environment', 'ember-cli-app-version/utils/regexp'], function (exports, _environment, _regexp) {
   'use strict';
@@ -2363,17 +2414,31 @@ define('mdeditor/helpers/app-version', ['exports', 'mdeditor/config/environment'
     value: true
   });
   exports.appVersion = appVersion;
-  const version = _environment.default.APP.version;
   function appVersion(_, hash = {}) {
-    if (hash.hideSha) {
-      return version.match(_regexp.versionRegExp)[0];
+    const version = _environment.default.APP.version;
+    // e.g. 1.0.0-alpha.1+4jds75hf
+
+    // Allow use of 'hideSha' and 'hideVersion' For backwards compatibility
+    let versionOnly = hash.versionOnly || hash.hideSha;
+    let shaOnly = hash.shaOnly || hash.hideVersion;
+
+    let match = null;
+
+    if (versionOnly) {
+      if (hash.showExtended) {
+        match = version.match(_regexp.versionExtendedRegExp); // 1.0.0-alpha.1
+      }
+      // Fallback to just version
+      if (!match) {
+        match = version.match(_regexp.versionRegExp); // 1.0.0
+      }
     }
 
-    if (hash.hideVersion) {
-      return version.match(_regexp.shaRegExp)[0];
+    if (shaOnly) {
+      match = version.match(_regexp.shaRegExp); // 4jds75hf
     }
 
-    return version;
+    return match ? match[0] : version;
   }
 
   exports.default = Ember.Helper.helper(appVersion);
@@ -2559,12 +2624,6 @@ define('mdeditor/helpers/cancel-all', ['exports', 'ember-concurrency/helpers/can
     enumerable: true,
     get: function () {
       return _cancelAll.default;
-    }
-  });
-  Object.defineProperty(exports, 'cancelAll', {
-    enumerable: true,
-    get: function () {
-      return _cancelAll.cancelAll;
     }
   });
 });
@@ -2935,17 +2994,18 @@ define('mdeditor/helpers/eq', ['exports', 'ember-truth-helpers/helpers/equal'], 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-
-
-  var forExport = null;
-
-  if (Ember.Helper) {
-    forExport = Ember.Helper.helper(_equal.equalHelper);
-  } else if (Ember.HTMLBars.makeBoundHelper) {
-    forExport = Ember.HTMLBars.makeBoundHelper(_equal.equalHelper);
-  }
-
-  exports.default = forExport;
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _equal.default;
+    }
+  });
+  Object.defineProperty(exports, 'equal', {
+    enumerable: true,
+    get: function () {
+      return _equal.equal;
+    }
+  });
 });
 define('mdeditor/helpers/exists-in', ['exports', 'ember-models-table/helpers/exists-in'], function (exports, _existsIn) {
   'use strict';
@@ -3099,7 +3159,7 @@ define('mdeditor/helpers/floor', ['exports', 'ember-math-helpers/helpers/floor']
     }
   });
 });
-define('mdeditor/helpers/format-date', ['exports', 'ember-string-helpers/helpers/format-date'], function (exports, _formatDate) {
+define('mdeditor/helpers/format-date', ['exports', 'ember-intl/helpers/format-date'], function (exports, _formatDate) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -3109,25 +3169,6 @@ define('mdeditor/helpers/format-date', ['exports', 'ember-string-helpers/helpers
     enumerable: true,
     get: function () {
       return _formatDate.default;
-    }
-  });
-  Object.defineProperty(exports, 'formatDate', {
-    enumerable: true,
-    get: function () {
-      return _formatDate.formatDate;
-    }
-  });
-});
-define('mdeditor/helpers/format-html-message', ['exports', 'ember-intl/helpers/format-html-message'], function (exports, _formatHtmlMessage) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(exports, 'default', {
-    enumerable: true,
-    get: function () {
-      return _formatHtmlMessage.default;
     }
   });
 });
@@ -3154,25 +3195,6 @@ define('mdeditor/helpers/format-number', ['exports', 'ember-intl/helpers/format-
     enumerable: true,
     get: function () {
       return _formatNumber.default;
-    }
-  });
-});
-define('mdeditor/helpers/format-phone', ['exports', 'ember-string-helpers/helpers/format-phone'], function (exports, _formatPhone) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(exports, 'default', {
-    enumerable: true,
-    get: function () {
-      return _formatPhone.default;
-    }
-  });
-  Object.defineProperty(exports, 'formatPhone', {
-    enumerable: true,
-    get: function () {
-      return _formatPhone.formatPhone;
     }
   });
 });
@@ -3221,27 +3243,44 @@ define('mdeditor/helpers/fround', ['exports', 'ember-math-helpers/helpers/fround
     }
   });
 });
-define("mdeditor/helpers/get-dash", ["exports"], function (exports) {
-  "use strict";
+define('mdeditor/helpers/gcd', ['exports', 'ember-math-helpers/helpers/gcd'], function (exports, _gcd) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _gcd.default;
+    }
+  });
+  Object.defineProperty(exports, 'gcd', {
+    enumerable: true,
+    get: function () {
+      return _gcd.gcd;
+    }
+  });
+});
+define('mdeditor/helpers/get-dash', ['exports'], function (exports) {
+  'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
   exports.getDash = getDash;
-  const Helper = Ember.Helper,
-        get = Ember.get;
   function getDash(params /*, hash*/) {
     let obj = params[0];
     let prop = params[1].trim();
     let val = null;
 
     if (obj) {
-      val = get(obj, prop);
+      val = Ember.get(obj, prop);
     }
     return val || "--";
   }
 
-  exports.default = Helper.helper(getDash);
+  exports.default = Ember.Helper.helper(getDash);
 });
 define('mdeditor/helpers/get-property', ['exports'], function (exports) {
   'use strict';
@@ -3286,17 +3325,18 @@ define('mdeditor/helpers/gt', ['exports', 'ember-truth-helpers/helpers/gt'], fun
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-
-
-  var forExport = null;
-
-  if (Ember.Helper) {
-    forExport = Ember.Helper.helper(_gt.gtHelper);
-  } else if (Ember.HTMLBars.makeBoundHelper) {
-    forExport = Ember.HTMLBars.makeBoundHelper(_gt.gtHelper);
-  }
-
-  exports.default = forExport;
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _gt.default;
+    }
+  });
+  Object.defineProperty(exports, 'gt', {
+    enumerable: true,
+    get: function () {
+      return _gt.gt;
+    }
+  });
 });
 define('mdeditor/helpers/gte', ['exports', 'ember-truth-helpers/helpers/gte'], function (exports, _gte) {
   'use strict';
@@ -3304,17 +3344,18 @@ define('mdeditor/helpers/gte', ['exports', 'ember-truth-helpers/helpers/gte'], f
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-
-
-  var forExport = null;
-
-  if (Ember.Helper) {
-    forExport = Ember.Helper.helper(_gte.gteHelper);
-  } else if (Ember.HTMLBars.makeBoundHelper) {
-    forExport = Ember.HTMLBars.makeBoundHelper(_gte.gteHelper);
-  }
-
-  exports.default = forExport;
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _gte.default;
+    }
+  });
+  Object.defineProperty(exports, 'gte', {
+    enumerable: true,
+    get: function () {
+      return _gte.gte;
+    }
+  });
 });
 define('mdeditor/helpers/has-next', ['exports', 'ember-composable-helpers/helpers/has-next'], function (exports, _hasNext) {
   'use strict';
@@ -3506,19 +3547,6 @@ define('mdeditor/helpers/intersect', ['exports', 'ember-composable-helpers/helpe
     }
   });
 });
-define('mdeditor/helpers/intl-get', ['exports', 'ember-intl/helpers/intl-get'], function (exports, _intlGet) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(exports, 'default', {
-    enumerable: true,
-    get: function () {
-      return _intlGet.default;
-    }
-  });
-});
 define('mdeditor/helpers/invoke', ['exports', 'ember-composable-helpers/helpers/invoke'], function (exports, _invoke) {
   'use strict';
 
@@ -3538,14 +3566,17 @@ define('mdeditor/helpers/invoke', ['exports', 'ember-composable-helpers/helpers/
     }
   });
 });
-define('mdeditor/helpers/is-after', ['exports', 'mdeditor/config/environment', 'ember-moment/helpers/is-after'], function (exports, _environment, _isAfter) {
+define('mdeditor/helpers/is-after', ['exports', 'ember-moment/helpers/is-after'], function (exports, _isAfter) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _isAfter.default.extend({
-    globalAllowEmpty: !!Ember.get(_environment.default, 'moment.allowEmpty')
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _isAfter.default;
+    }
   });
 });
 define('mdeditor/helpers/is-array', ['exports', 'ember-truth-helpers/helpers/is-array'], function (exports, _isArray) {
@@ -3554,36 +3585,56 @@ define('mdeditor/helpers/is-array', ['exports', 'ember-truth-helpers/helpers/is-
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-
-
-  var forExport = null;
-
-  if (Ember.Helper) {
-    forExport = Ember.Helper.helper(_isArray.isArrayHelper);
-  } else if (Ember.HTMLBars.makeBoundHelper) {
-    forExport = Ember.HTMLBars.makeBoundHelper(_isArray.isArrayHelper);
-  }
-
-  exports.default = forExport;
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _isArray.default;
+    }
+  });
+  Object.defineProperty(exports, 'isArray', {
+    enumerable: true,
+    get: function () {
+      return _isArray.isArray;
+    }
+  });
 });
-define('mdeditor/helpers/is-before', ['exports', 'mdeditor/config/environment', 'ember-moment/helpers/is-before'], function (exports, _environment, _isBefore) {
+define('mdeditor/helpers/is-before', ['exports', 'ember-moment/helpers/is-before'], function (exports, _isBefore) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _isBefore.default.extend({
-    globalAllowEmpty: !!Ember.get(_environment.default, 'moment.allowEmpty')
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _isBefore.default;
+    }
   });
 });
-define('mdeditor/helpers/is-between', ['exports', 'mdeditor/config/environment', 'ember-moment/helpers/is-between'], function (exports, _environment, _isBetween) {
+define('mdeditor/helpers/is-between', ['exports', 'ember-moment/helpers/is-between'], function (exports, _isBetween) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _isBetween.default.extend({
-    globalAllowEmpty: !!Ember.get(_environment.default, 'moment.allowEmpty')
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _isBetween.default;
+    }
+  });
+});
+define('mdeditor/helpers/is-empty', ['exports', 'ember-truth-helpers/helpers/is-empty'], function (exports, _isEmpty) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _isEmpty.default;
+    }
   });
 });
 define('mdeditor/helpers/is-equal', ['exports', 'ember-truth-helpers/helpers/is-equal'], function (exports, _isEqual) {
@@ -3605,34 +3656,43 @@ define('mdeditor/helpers/is-equal', ['exports', 'ember-truth-helpers/helpers/is-
     }
   });
 });
-define('mdeditor/helpers/is-same-or-after', ['exports', 'mdeditor/config/environment', 'ember-moment/helpers/is-same-or-after'], function (exports, _environment, _isSameOrAfter) {
+define('mdeditor/helpers/is-same-or-after', ['exports', 'ember-moment/helpers/is-same-or-after'], function (exports, _isSameOrAfter) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _isSameOrAfter.default.extend({
-    globalAllowEmpty: !!Ember.get(_environment.default, 'moment.allowEmpty')
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _isSameOrAfter.default;
+    }
   });
 });
-define('mdeditor/helpers/is-same-or-before', ['exports', 'mdeditor/config/environment', 'ember-moment/helpers/is-same-or-before'], function (exports, _environment, _isSameOrBefore) {
+define('mdeditor/helpers/is-same-or-before', ['exports', 'ember-moment/helpers/is-same-or-before'], function (exports, _isSameOrBefore) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _isSameOrBefore.default.extend({
-    globalAllowEmpty: !!Ember.get(_environment.default, 'moment.allowEmpty')
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _isSameOrBefore.default;
+    }
   });
 });
-define('mdeditor/helpers/is-same', ['exports', 'mdeditor/config/environment', 'ember-moment/helpers/is-same'], function (exports, _environment, _isSame) {
+define('mdeditor/helpers/is-same', ['exports', 'ember-moment/helpers/is-same'], function (exports, _isSame) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _isSame.default.extend({
-    globalAllowEmpty: !!Ember.get(_environment.default, 'moment.allowEmpty')
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _isSame.default;
+    }
   });
 });
 define('mdeditor/helpers/join', ['exports', 'ember-composable-helpers/helpers/join'], function (exports, _join) {
@@ -3654,19 +3714,6 @@ define('mdeditor/helpers/join', ['exports', 'ember-composable-helpers/helpers/jo
     }
   });
 });
-define('mdeditor/helpers/l', ['exports', 'ember-intl/helpers/l'], function (exports, _l) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(exports, 'default', {
-    enumerable: true,
-    get: function () {
-      return _l.default;
-    }
-  });
-});
 define('mdeditor/helpers/lat-lng-bounds', ['exports', 'ember-leaflet/helpers/lat-lng-bounds'], function (exports, _latLngBounds) {
   'use strict';
 
@@ -3683,6 +3730,25 @@ define('mdeditor/helpers/lat-lng-bounds', ['exports', 'ember-leaflet/helpers/lat
     enumerable: true,
     get: function () {
       return _latLngBounds.latLngBounds;
+    }
+  });
+});
+define('mdeditor/helpers/lcm', ['exports', 'ember-math-helpers/helpers/lcm'], function (exports, _lcm) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _lcm.default;
+    }
+  });
+  Object.defineProperty(exports, 'lcm', {
+    enumerable: true,
+    get: function () {
+      return _lcm.lcm;
     }
   });
 });
@@ -3800,25 +3866,6 @@ define('mdeditor/helpers/log2', ['exports', 'ember-math-helpers/helpers/log2'], 
     }
   });
 });
-define('mdeditor/helpers/lower-case', ['exports', 'ember-string-helpers/helpers/lower-case'], function (exports, _lowerCase) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(exports, 'default', {
-    enumerable: true,
-    get: function () {
-      return _lowerCase.default;
-    }
-  });
-  Object.defineProperty(exports, 'lowerCase', {
-    enumerable: true,
-    get: function () {
-      return _lowerCase.lowerCase;
-    }
-  });
-});
 define('mdeditor/helpers/lowercase', ['exports', 'ember-cli-string-helpers/helpers/lowercase'], function (exports, _lowercase) {
   'use strict';
 
@@ -3844,17 +3891,18 @@ define('mdeditor/helpers/lt', ['exports', 'ember-truth-helpers/helpers/lt'], fun
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-
-
-  var forExport = null;
-
-  if (Ember.Helper) {
-    forExport = Ember.Helper.helper(_lt.ltHelper);
-  } else if (Ember.HTMLBars.makeBoundHelper) {
-    forExport = Ember.HTMLBars.makeBoundHelper(_lt.ltHelper);
-  }
-
-  exports.default = forExport;
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _lt.default;
+    }
+  });
+  Object.defineProperty(exports, 'lt', {
+    enumerable: true,
+    get: function () {
+      return _lt.lt;
+    }
+  });
 });
 define('mdeditor/helpers/lte', ['exports', 'ember-truth-helpers/helpers/lte'], function (exports, _lte) {
   'use strict';
@@ -3862,17 +3910,18 @@ define('mdeditor/helpers/lte', ['exports', 'ember-truth-helpers/helpers/lte'], f
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-
-
-  var forExport = null;
-
-  if (Ember.Helper) {
-    forExport = Ember.Helper.helper(_lte.lteHelper);
-  } else if (Ember.HTMLBars.makeBoundHelper) {
-    forExport = Ember.HTMLBars.makeBoundHelper(_lte.lteHelper);
-  }
-
-  exports.default = forExport;
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _lte.default;
+    }
+  });
+  Object.defineProperty(exports, 'lte', {
+    enumerable: true,
+    get: function () {
+      return _lte.lte;
+    }
+  });
 });
 define('mdeditor/helpers/make-range', ['exports', 'ember-json-tree/helpers/make-range'], function (exports, _makeRange) {
   'use strict';
@@ -3957,7 +4006,6 @@ define('mdeditor/helpers/md-markdown', ['exports', 'npm:marked'], function (expo
     value: true
   });
   exports.mdMarkdown = mdMarkdown;
-  const EmString = Ember.String;
   function mdMarkdown(params /*, hash*/) {
     _npmMarked.default.setOptions({
       renderer: new _npmMarked.default.Renderer(),
@@ -3971,7 +4019,7 @@ define('mdeditor/helpers/md-markdown', ['exports', 'npm:marked'], function (expo
     });
 
     if (params[0]) {
-      return EmString.htmlSafe((0, _npmMarked.default)(params[0]));
+      return Ember.String.htmlSafe((0, _npmMarked.default)(params[0]));
     }
 
     return params[1] || 'No text supplied.';
@@ -4005,41 +4053,49 @@ define('mdeditor/helpers/mod', ['exports'], function (exports) {
     value: true
   });
   exports.mod = mod;
-  const Helper = Ember.Helper;
   function mod(params) {
     return params.reduce((a, b) => Number(a) % Number(b));
   }
 
-  exports.default = Helper.helper(mod);
+  exports.default = Ember.Helper.helper(mod);
 });
-define('mdeditor/helpers/moment-add', ['exports', 'mdeditor/config/environment', 'ember-moment/helpers/moment-add'], function (exports, _environment, _momentAdd) {
+define('mdeditor/helpers/moment-add', ['exports', 'ember-moment/helpers/moment-add'], function (exports, _momentAdd) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _momentAdd.default.extend({
-    globalAllowEmpty: !!Ember.get(_environment.default, 'moment.allowEmpty')
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _momentAdd.default;
+    }
   });
 });
-define('mdeditor/helpers/moment-calendar', ['exports', 'mdeditor/config/environment', 'ember-moment/helpers/moment-calendar'], function (exports, _environment, _momentCalendar) {
+define('mdeditor/helpers/moment-calendar', ['exports', 'ember-moment/helpers/moment-calendar'], function (exports, _momentCalendar) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _momentCalendar.default.extend({
-    globalAllowEmpty: !!Ember.get(_environment.default, 'moment.allowEmpty')
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _momentCalendar.default;
+    }
   });
 });
-define('mdeditor/helpers/moment-diff', ['exports', 'mdeditor/config/environment', 'ember-moment/helpers/moment-diff'], function (exports, _environment, _momentDiff) {
+define('mdeditor/helpers/moment-diff', ['exports', 'ember-moment/helpers/moment-diff'], function (exports, _momentDiff) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _momentDiff.default.extend({
-    globalAllowEmpty: !!Ember.get(_environment.default, 'moment.allowEmpty')
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _momentDiff.default;
+    }
   });
 });
 define('mdeditor/helpers/moment-duration', ['exports', 'ember-moment/helpers/moment-duration'], function (exports, _momentDuration) {
@@ -4055,74 +4111,95 @@ define('mdeditor/helpers/moment-duration', ['exports', 'ember-moment/helpers/mom
     }
   });
 });
-define('mdeditor/helpers/moment-format', ['exports', 'mdeditor/config/environment', 'ember-moment/helpers/moment-format'], function (exports, _environment, _momentFormat) {
+define('mdeditor/helpers/moment-format', ['exports', 'ember-moment/helpers/moment-format'], function (exports, _momentFormat) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _momentFormat.default.extend({
-    globalAllowEmpty: !!Ember.get(_environment.default, 'moment.allowEmpty')
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _momentFormat.default;
+    }
   });
 });
-define('mdeditor/helpers/moment-from-now', ['exports', 'mdeditor/config/environment', 'ember-moment/helpers/moment-from-now'], function (exports, _environment, _momentFromNow) {
+define('mdeditor/helpers/moment-from-now', ['exports', 'ember-moment/helpers/moment-from-now'], function (exports, _momentFromNow) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _momentFromNow.default.extend({
-    globalAllowEmpty: !!Ember.get(_environment.default, 'moment.allowEmpty')
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _momentFromNow.default;
+    }
   });
 });
-define('mdeditor/helpers/moment-from', ['exports', 'mdeditor/config/environment', 'ember-moment/helpers/moment-from'], function (exports, _environment, _momentFrom) {
+define('mdeditor/helpers/moment-from', ['exports', 'ember-moment/helpers/moment-from'], function (exports, _momentFrom) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _momentFrom.default.extend({
-    globalAllowEmpty: !!Ember.get(_environment.default, 'moment.allowEmpty')
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _momentFrom.default;
+    }
   });
 });
-define('mdeditor/helpers/moment-subtract', ['exports', 'mdeditor/config/environment', 'ember-moment/helpers/moment-subtract'], function (exports, _environment, _momentSubtract) {
+define('mdeditor/helpers/moment-subtract', ['exports', 'ember-moment/helpers/moment-subtract'], function (exports, _momentSubtract) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _momentSubtract.default.extend({
-    globalAllowEmpty: !!Ember.get(_environment.default, 'moment.allowEmpty')
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _momentSubtract.default;
+    }
   });
 });
-define('mdeditor/helpers/moment-to-date', ['exports', 'mdeditor/config/environment', 'ember-moment/helpers/moment-to-date'], function (exports, _environment, _momentToDate) {
+define('mdeditor/helpers/moment-to-date', ['exports', 'ember-moment/helpers/moment-to-date'], function (exports, _momentToDate) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _momentToDate.default.extend({
-    globalAllowEmpty: !!Ember.get(_environment.default, 'moment.allowEmpty')
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _momentToDate.default;
+    }
   });
 });
-define('mdeditor/helpers/moment-to-now', ['exports', 'mdeditor/config/environment', 'ember-moment/helpers/moment-to-now'], function (exports, _environment, _momentToNow) {
+define('mdeditor/helpers/moment-to-now', ['exports', 'ember-moment/helpers/moment-to-now'], function (exports, _momentToNow) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _momentToNow.default.extend({
-    globalAllowEmpty: !!Ember.get(_environment.default, 'moment.allowEmpty')
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _momentToNow.default;
+    }
   });
 });
-define('mdeditor/helpers/moment-to', ['exports', 'mdeditor/config/environment', 'ember-moment/helpers/moment-to'], function (exports, _environment, _momentTo) {
+define('mdeditor/helpers/moment-to', ['exports', 'ember-moment/helpers/moment-to'], function (exports, _momentTo) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _momentTo.default.extend({
-    globalAllowEmpty: !!Ember.get(_environment.default, 'moment.allowEmpty')
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _momentTo.default;
+    }
   });
 });
 define('mdeditor/helpers/moment-unix', ['exports', 'ember-moment/helpers/unix'], function (exports, _unix) {
@@ -4135,12 +4212,6 @@ define('mdeditor/helpers/moment-unix', ['exports', 'ember-moment/helpers/unix'],
     enumerable: true,
     get: function () {
       return _unix.default;
-    }
-  });
-  Object.defineProperty(exports, 'unix', {
-    enumerable: true,
-    get: function () {
-      return _unix.unix;
     }
   });
 });
@@ -4201,17 +4272,18 @@ define('mdeditor/helpers/not-eq', ['exports', 'ember-truth-helpers/helpers/not-e
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-
-
-  var forExport = null;
-
-  if (Ember.Helper) {
-    forExport = Ember.Helper.helper(_notEqual.notEqualHelper);
-  } else if (Ember.HTMLBars.makeBoundHelper) {
-    forExport = Ember.HTMLBars.makeBoundHelper(_notEqual.notEqualHelper);
-  }
-
-  exports.default = forExport;
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _notEqual.default;
+    }
+  });
+  Object.defineProperty(exports, 'notEq', {
+    enumerable: true,
+    get: function () {
+      return _notEqual.notEq;
+    }
+  });
 });
 define('mdeditor/helpers/not', ['exports', 'ember-truth-helpers/helpers/not'], function (exports, _not) {
   'use strict';
@@ -4219,17 +4291,18 @@ define('mdeditor/helpers/not', ['exports', 'ember-truth-helpers/helpers/not'], f
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-
-
-  var forExport = null;
-
-  if (Ember.Helper) {
-    forExport = Ember.Helper.helper(_not.notHelper);
-  } else if (Ember.HTMLBars.makeBoundHelper) {
-    forExport = Ember.HTMLBars.makeBoundHelper(_not.notHelper);
-  }
-
-  exports.default = forExport;
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _not.default;
+    }
+  });
+  Object.defineProperty(exports, 'not', {
+    enumerable: true,
+    get: function () {
+      return _not.not;
+    }
+  });
 });
 define('mdeditor/helpers/now', ['exports', 'ember-moment/helpers/now'], function (exports, _now) {
   'use strict';
@@ -4241,25 +4314,6 @@ define('mdeditor/helpers/now', ['exports', 'ember-moment/helpers/now'], function
     enumerable: true,
     get: function () {
       return _now.default;
-    }
-  });
-});
-define('mdeditor/helpers/number-format', ['exports', 'ember-string-helpers/helpers/number-format'], function (exports, _numberFormat) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(exports, 'default', {
-    enumerable: true,
-    get: function () {
-      return _numberFormat.default;
-    }
-  });
-  Object.defineProperty(exports, 'numberFormat', {
-    enumerable: true,
-    get: function () {
-      return _numberFormat.numberFormat;
     }
   });
 });
@@ -4307,17 +4361,18 @@ define('mdeditor/helpers/or', ['exports', 'ember-truth-helpers/helpers/or'], fun
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-
-
-  var forExport = null;
-
-  if (Ember.Helper) {
-    forExport = Ember.Helper.helper(_or.orHelper);
-  } else if (Ember.HTMLBars.makeBoundHelper) {
-    forExport = Ember.HTMLBars.makeBoundHelper(_or.orHelper);
-  }
-
-  exports.default = forExport;
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _or.default;
+    }
+  });
+  Object.defineProperty(exports, 'or', {
+    enumerable: true,
+    get: function () {
+      return _or.or;
+    }
+  });
 });
 define('mdeditor/helpers/page-title', ['exports', 'ember-page-title/helpers/page-title'], function (exports, _pageTitle) {
   'use strict';
@@ -4337,12 +4392,6 @@ define('mdeditor/helpers/perform', ['exports', 'ember-concurrency/helpers/perfor
     enumerable: true,
     get: function () {
       return _perform.default;
-    }
-  });
-  Object.defineProperty(exports, 'perform', {
-    enumerable: true,
-    get: function () {
-      return _perform.perform;
     }
   });
 });
@@ -4529,25 +4578,6 @@ define('mdeditor/helpers/reduce', ['exports', 'ember-composable-helpers/helpers/
     enumerable: true,
     get: function () {
       return _reduce.reduce;
-    }
-  });
-});
-define('mdeditor/helpers/regexp-replace', ['exports', 'ember-string-helpers/helpers/regexp-replace'], function (exports, _regexpReplace) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(exports, 'default', {
-    enumerable: true,
-    get: function () {
-      return _regexpReplace.default;
-    }
-  });
-  Object.defineProperty(exports, 'regexpReplace', {
-    enumerable: true,
-    get: function () {
-      return _regexpReplace.regexpReplace;
     }
   });
 });
@@ -4800,38 +4830,6 @@ define('mdeditor/helpers/sub', ['exports', 'ember-math-helpers/helpers/sub'], fu
     }
   });
 });
-define('mdeditor/helpers/substr', ['exports', 'ember-string-helpers/helpers/substr'], function (exports, _substr) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(exports, 'default', {
-    enumerable: true,
-    get: function () {
-      return _substr.default;
-    }
-  });
-  Object.defineProperty(exports, 'substr', {
-    enumerable: true,
-    get: function () {
-      return _substr.substr;
-    }
-  });
-});
-define('mdeditor/helpers/t-html', ['exports', 'ember-intl/helpers/format-html-message'], function (exports, _formatHtmlMessage) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(exports, 'default', {
-    enumerable: true,
-    get: function () {
-      return _formatHtmlMessage.default;
-    }
-  });
-});
 define('mdeditor/helpers/t', ['exports', 'ember-intl/helpers/t'], function (exports, _t) {
   'use strict';
 
@@ -4914,12 +4912,6 @@ define('mdeditor/helpers/task', ['exports', 'ember-concurrency/helpers/task'], f
       return _task.default;
     }
   });
-  Object.defineProperty(exports, 'task', {
-    enumerable: true,
-    get: function () {
-      return _task.task;
-    }
-  });
 });
 define('mdeditor/helpers/titleize', ['exports', 'ember-cli-string-helpers/helpers/titleize'], function (exports, _titleize) {
   'use strict';
@@ -4969,6 +4961,25 @@ define('mdeditor/helpers/toggle', ['exports', 'ember-composable-helpers/helpers/
     enumerable: true,
     get: function () {
       return _toggle.toggle;
+    }
+  });
+});
+define('mdeditor/helpers/trim', ['exports', 'ember-cli-string-helpers/helpers/trim'], function (exports, _trim) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _trim.default;
+    }
+  });
+  Object.defineProperty(exports, 'trim', {
+    enumerable: true,
+    get: function () {
+      return _trim.trim;
     }
   });
 });
@@ -5080,31 +5091,6 @@ define('mdeditor/helpers/unix', ['exports', 'ember-moment/helpers/unix'], functi
       return _unix.default;
     }
   });
-  Object.defineProperty(exports, 'unix', {
-    enumerable: true,
-    get: function () {
-      return _unix.unix;
-    }
-  });
-});
-define('mdeditor/helpers/upper-case', ['exports', 'ember-string-helpers/helpers/upper-case'], function (exports, _upperCase) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(exports, 'default', {
-    enumerable: true,
-    get: function () {
-      return _upperCase.default;
-    }
-  });
-  Object.defineProperty(exports, 'upperCase', {
-    enumerable: true,
-    get: function () {
-      return _upperCase.upperCase;
-    }
-  });
 });
 define('mdeditor/helpers/uppercase', ['exports', 'ember-cli-string-helpers/helpers/uppercase'], function (exports, _uppercase) {
   'use strict';
@@ -5122,6 +5108,25 @@ define('mdeditor/helpers/uppercase', ['exports', 'ember-cli-string-helpers/helpe
     enumerable: true,
     get: function () {
       return _uppercase.uppercase;
+    }
+  });
+});
+define('mdeditor/helpers/utc', ['exports', 'ember-moment/helpers/utc'], function (exports, _utc) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _utc.default;
+    }
+  });
+  Object.defineProperty(exports, 'utc', {
+    enumerable: true,
+    get: function () {
+      return _utc.utc;
     }
   });
 });
@@ -5257,17 +5262,18 @@ define('mdeditor/helpers/xor', ['exports', 'ember-truth-helpers/helpers/xor'], f
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-
-
-  var forExport = null;
-
-  if (Ember.Helper) {
-    forExport = Ember.Helper.helper(_xor.xorHelper);
-  } else if (Ember.HTMLBars.makeBoundHelper) {
-    forExport = Ember.HTMLBars.makeBoundHelper(_xor.xorHelper);
-  }
-
-  exports.default = forExport;
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _xor.default;
+    }
+  });
+  Object.defineProperty(exports, 'xor', {
+    enumerable: true,
+    get: function () {
+      return _xor.xor;
+    }
+  });
 });
 define('mdeditor/initializers/add-modals-container', ['exports', 'ember-modal-dialog/initializers/add-modals-container'], function (exports, _addModalsContainer) {
   'use strict';
@@ -5362,18 +5368,6 @@ define('mdeditor/initializers/crumbly', ['exports', 'ember-crumbly/initializers/
     }
   });
 });
-define('mdeditor/initializers/data-adapter', ['exports'], function (exports) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = {
-    name: 'data-adapter',
-    before: 'store',
-    initialize() {}
-  };
-});
 define('mdeditor/initializers/ember-concurrency', ['exports', 'ember-concurrency/initializers/ember-concurrency'], function (exports, _emberConcurrency) {
   'use strict';
 
@@ -5384,12 +5378,6 @@ define('mdeditor/initializers/ember-concurrency', ['exports', 'ember-concurrency
     enumerable: true,
     get: function () {
       return _emberConcurrency.default;
-    }
-  });
-  Object.defineProperty(exports, 'initialize', {
-    enumerable: true,
-    get: function () {
-      return _emberConcurrency.initialize;
     }
   });
 });
@@ -5403,6 +5391,36 @@ define('mdeditor/initializers/ember-data', ['exports', 'ember-data/setup-contain
     name: 'ember-data',
     initialize: _setupContainer.default
   };
+});
+define('mdeditor/initializers/ember-hammertime', ['exports', 'ember-hammertime/components/component'], function (exports) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = {
+    name: 'ember-hammertime',
+    initialize() {}
+  };
+});
+define('mdeditor/initializers/emt-themes', ['exports', 'ember-models-table/initializers/emt-themes'], function (exports, _emtThemes) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _emtThemes.default;
+    }
+  });
+  Object.defineProperty(exports, 'initialize', {
+    enumerable: true,
+    get: function () {
+      return _emtThemes.initialize;
+    }
+  });
 });
 define('mdeditor/initializers/export-application-global', ['exports', 'mdeditor/config/environment'], function (exports, _environment) {
   'use strict';
@@ -5516,10 +5534,9 @@ define('mdeditor/initializers/hide-loading-screen', ['exports', 'mdeditor/instan
     value: true
   });
   exports.initialize = initialize;
-  const VERSION = Ember.VERSION;
 
 
-  const EMBER_VERSION_REGEX = /^([0-9]+)\.([0-9]+)\.([0-9]+)(?:(?:\-(alpha|beta)\.([0-9]+)(?:\.([0-9]+))?)?)?(?:\+(canary))?(?:\.([0-9abcdef]+))?(?:\-([A-Za-z0-9\.\-]+))?(?:\+([A-Za-z0-9\.\-]+))?$/;
+  const EMBER_VERSION_REGEX = /^([0-9]+)\.([0-9]+)\.([0-9]+)(?:(?:-(alpha|beta)\.([0-9]+)(?:\.([0-9]+))?)?)?(?:\+(canary))?(?:\.([0-9abcdef]+))?(?:-([A-Za-z0-9.-]+))?(?:\+([A-Za-z0-9.-]+))?$/;
 
   /**
    * VERSION_INFO[i] is as follows:
@@ -5536,7 +5553,7 @@ define('mdeditor/initializers/hide-loading-screen', ['exports', 'mdeditor/instan
    *
    * @private
    */
-  const VERSION_INFO = EMBER_VERSION_REGEX.exec(VERSION);
+  const VERSION_INFO = EMBER_VERSION_REGEX.exec(Ember.VERSION);
   const isPre111 = parseInt(VERSION_INFO[1], 10) < 2 && parseInt(VERSION_INFO[2], 10) < 12;
 
   function initialize() {
@@ -5553,18 +5570,6 @@ define('mdeditor/initializers/hide-loading-screen', ['exports', 'mdeditor/instan
   exports.default = {
     name: 'hide-loading-screen',
     initialize
-  };
-});
-define('mdeditor/initializers/injectStore', ['exports'], function (exports) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = {
-    name: 'injectStore',
-    before: 'store',
-    initialize() {}
   };
 });
 define('mdeditor/initializers/leaflet-assets', ['exports', 'ember-leaflet/initializers/leaflet-assets'], function (exports, _leafletAssets) {
@@ -5610,7 +5615,7 @@ define('mdeditor/initializers/leaflet', ['exports', 'mdeditor/config/environment
     initialize
   };
 });
-define("mdeditor/initializers/liquid-fire", ["exports", "liquid-fire/ember-internals"], function (exports, _emberInternals) {
+define("mdeditor/initializers/liquid-fire", ["exports", "liquid-fire/ember-internals", "liquid-fire/velocity-ext"], function (exports, _emberInternals) {
   "use strict";
 
   Object.defineProperty(exports, "__esModule", {
@@ -5651,12 +5656,11 @@ define('mdeditor/initializers/local-storage-export', ['exports', 'ember-data', '
     value: true
   });
   exports.initialize = initialize;
-  const run = Ember.run;
 
-  const assign = Ember.assign || Ember.merge;
+
   const exportSelected = function exportSelected(store, types, options) {
     // merge defaults
-    options = assign({
+    options = Ember.assign({
       json: true,
       download: false,
       filename: 'ember-data.json',
@@ -5693,7 +5697,7 @@ define('mdeditor/initializers/local-storage-export', ['exports', 'ember-data', '
     }
 
     return new Ember.RSVP.Promise(resolve => {
-      run(null, resolve, data);
+      Ember.run(null, resolve, data);
     }, 'DS: LocalStorageAdapter#exportData');
   };
 
@@ -5728,137 +5732,53 @@ define('mdeditor/initializers/pollboy', ['exports'], function (exports) {
   };
 });
 define('mdeditor/initializers/resize', ['exports', 'ember-resize/services/resize', 'mdeditor/config/environment'], function (exports, _resize, _environment) {
-  'use strict';
+    'use strict';
 
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.initialize = initialize;
-  function initialize() {
-    let application = arguments[1] || arguments[0];
-
-    const resizeServiceDefaults = _environment.default.resizeServiceDefaults;
-    const injectionFactories = resizeServiceDefaults.injectionFactories;
-
-
-    application.register('config:resize-service', resizeServiceDefaults, { instantiate: false });
-    application.register('service:resize', _resize.default);
-    application.inject('service:resize', 'resizeServiceDefaults', 'config:resize-service');
-
-    injectionFactories.forEach(factory => {
-      application.inject(factory, 'resizeService', 'service:resize');
+    Object.defineProperty(exports, "__esModule", {
+        value: true
     });
-  }
-
-  exports.default = {
-    name: 'resize',
-    initialize: initialize
-  };
-});
-define('mdeditor/initializers/store', ['exports'], function (exports) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = {
-    name: 'store',
-    after: 'ember-data',
-    initialize() {}
-  };
-});
-define('mdeditor/initializers/transforms', ['exports'], function (exports) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = {
-    name: 'transforms',
-    before: 'store',
-    initialize() {}
-  };
-});
-define('mdeditor/initializers/truth-helpers', ['exports', 'ember-truth-helpers/utils/register-helper', 'ember-truth-helpers/helpers/and', 'ember-truth-helpers/helpers/or', 'ember-truth-helpers/helpers/equal', 'ember-truth-helpers/helpers/not', 'ember-truth-helpers/helpers/is-array', 'ember-truth-helpers/helpers/not-equal', 'ember-truth-helpers/helpers/gt', 'ember-truth-helpers/helpers/gte', 'ember-truth-helpers/helpers/lt', 'ember-truth-helpers/helpers/lte'], function (exports, _registerHelper, _and, _or, _equal, _not, _isArray, _notEqual, _gt, _gte, _lt, _lte) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.initialize = initialize;
-  function initialize() /* container, application */{
-
-    // Do not register helpers from Ember 1.13 onwards, starting from 1.13 they
-    // will be auto-discovered.
-    if (Ember.Helper) {
-      return;
+    exports.initialize = initialize;
+    function initialize(application) {
+        const resizeServiceDefaults = Ember.getWithDefault(_environment.default, 'resizeServiceDefaults', {
+            debounceTimeout: 200,
+            heightSensitive: true,
+            widthSensitive: true
+        });
+        const injectionFactories = Ember.getWithDefault(resizeServiceDefaults, 'injectionFactories', ['view', 'component']) || [];
+        application.unregister('config:resize-service');
+        application.register('config:resize-service', resizeServiceDefaults, { instantiate: false });
+        application.register('service:resize', _resize.default);
+        const resizeService = application.resolveRegistration('service:resize');
+        resizeService.prototype.resizeServiceDefaults = resizeServiceDefaults;
+        injectionFactories.forEach(factory => {
+            application.inject(factory, 'resizeService', 'service:resize');
+        });
     }
-
-    (0, _registerHelper.registerHelper)('and', _and.andHelper);
-    (0, _registerHelper.registerHelper)('or', _or.orHelper);
-    (0, _registerHelper.registerHelper)('eq', _equal.equalHelper);
-    (0, _registerHelper.registerHelper)('not', _not.notHelper);
-    (0, _registerHelper.registerHelper)('is-array', _isArray.isArrayHelper);
-    (0, _registerHelper.registerHelper)('not-eq', _notEqual.notEqualHelper);
-    (0, _registerHelper.registerHelper)('gt', _gt.gtHelper);
-    (0, _registerHelper.registerHelper)('gte', _gte.gteHelper);
-    (0, _registerHelper.registerHelper)('lt', _lt.ltHelper);
-    (0, _registerHelper.registerHelper)('lte', _lte.lteHelper);
-  }
-
-  exports.default = {
-    name: 'truth-helpers',
-    initialize: initialize
-  };
+    exports.default = {
+        initialize,
+        name: 'resize'
+    };
 });
-define('mdeditor/initializers/viewport-config', ['exports', 'mdeditor/config/environment', 'ember-in-viewport/utils/can-use-dom'], function (exports, _environment, _canUseDom) {
+define('mdeditor/initializers/viewport-config', ['exports', 'ember-in-viewport/initializers/viewport-config'], function (exports, _viewportConfig) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.initialize = initialize;
-
-
-  const defaultConfig = {
-    viewportEnabled: true,
-    viewportSpy: false,
-    viewportScrollSensitivity: 1,
-    viewportRefreshRate: 100,
-    viewportListeners: [{ context: window, event: 'scroll.scrollable' }, { context: window, event: 'resize.resizable' }],
-    viewportTolerance: {
-      top: 0,
-      left: 0,
-      bottom: 0,
-      right: 0
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _viewportConfig.default;
     }
-  };
-
-  if (_canUseDom.default) {
-    defaultConfig.viewportListeners.push({
-      context: document,
-      event: 'touchmove.scrollable'
-    });
-  }
-
-  const assign = Ember.assign || Ember.merge;
-
-  function initialize() {
-    const application = arguments[1] || arguments[0];
-    var _config$viewportConfi = _environment.default.viewportConfig;
-    const viewportConfig = _config$viewportConfi === undefined ? {} : _config$viewportConfi;
-
-    const mergedConfig = assign({}, defaultConfig, viewportConfig);
-
-    application.register('config:in-viewport', mergedConfig, { instantiate: false });
-  }
-
-  exports.default = {
-    name: 'viewport-config',
-    initialize: initialize
-  };
+  });
+  Object.defineProperty(exports, 'initialize', {
+    enumerable: true,
+    get: function () {
+      return _viewportConfig.initialize;
+    }
+  });
 });
-define("mdeditor/instance-initializers/ember-data", ["exports", "ember-data/instance-initializers/initialize-store-service"], function (exports, _initializeStoreService) {
+define("mdeditor/instance-initializers/ember-data", ["exports", "ember-data/initialize-store-service"], function (exports, _initializeStoreService) {
   "use strict";
 
   Object.defineProperty(exports, "__esModule", {
@@ -5867,6 +5787,26 @@ define("mdeditor/instance-initializers/ember-data", ["exports", "ember-data/inst
   exports.default = {
     name: "ember-data",
     initialize: _initializeStoreService.default
+  };
+});
+define('mdeditor/instance-initializers/ember-gestures', ['exports'], function (exports) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = {
+    name: 'ember-gestures',
+
+    initialize: function initialize(instance) {
+      if (typeof instance.lookup === "function") {
+        instance.lookup('service:-gestures');
+      } else {
+        // This can be removed when we no-longer support ember 1.12 and 1.13
+        Ember.getOwner(instance).lookup('service:-gestures');
+      }
+    }
+
   };
 });
 define('mdeditor/instance-initializers/ember-intl', ['exports', 'ember-intl/initializer'], function (exports, _initializer) {
@@ -5878,6 +5818,25 @@ define('mdeditor/instance-initializers/ember-intl', ['exports', 'ember-intl/init
   exports.instanceInitializer = undefined;
   exports.instanceInitializer = _initializer.instanceInitializer;
   exports.default = _initializer.default;
+});
+define('mdeditor/instance-initializers/emt-inject', ['exports', 'ember-models-table/instance-initializers/emt-inject'], function (exports, _emtInject) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _emtInject.default;
+    }
+  });
+  Object.defineProperty(exports, 'initialize', {
+    enumerable: true,
+    get: function () {
+      return _emtInject.initialize;
+    }
+  });
 });
 define('mdeditor/instance-initializers/head-browser', ['exports'], function (exports) {
   'use strict';
@@ -5906,19 +5865,19 @@ define('mdeditor/instance-initializers/hide-loading-screen', ['exports', 'mdedit
   const userConfig = _environment.default['ember-load'] || {};
 
   function initialize() {
-    const instance = arguments[1] || arguments[0];
-    const container = !!arguments[1] ? arguments[0] : instance.container;
+    let instance = arguments[1] || arguments[0];
+    let container = arguments[1] ? arguments[0] : instance.container;
 
     if (Ember.View) {
       let ApplicationView = container.lookupFactory ? container.lookupFactory('view:application') : instance.resolveRegistration('view:application');
 
-      ApplicationView = ApplicationView.reopen({
+      ApplicationView.reopen({
         didInsertElement() {
           this._super(...arguments);
 
-          var loadingIndicatorClass = userConfig.loadingIndicatorClass || 'ember-load-indicator';
+          let loadingIndicatorClass = userConfig.loadingIndicatorClass || 'ember-load-indicator';
 
-          Ember.$(`.${loadingIndicatorClass}`).remove();
+          document.querySelectorAll(`.${loadingIndicatorClass}`).forEach(e => e.remove());
         }
       });
     }
@@ -6012,44 +5971,44 @@ define('mdeditor/mdeditor-sciencebase/tests/addon.lint-test', [], function () {
 
   QUnit.module('ESLint | addon');
 
-  QUnit.test('mdeditor-sciencebase/components/sb-publisher.js', function (assert) {
+  QUnit.test('addon/components/sb-publisher.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'mdeditor-sciencebase/components/sb-publisher.js should pass ESLint\n\n');
+    assert.ok(true, 'addon/components/sb-publisher.js should pass ESLint\n\n');
   });
 
-  QUnit.test('mdeditor-sciencebase/components/sb-settings.js', function (assert) {
+  QUnit.test('addon/components/sb-settings.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'mdeditor-sciencebase/components/sb-settings.js should pass ESLint\n\n');
+    assert.ok(true, 'addon/components/sb-settings.js should pass ESLint\n\n');
   });
 
-  QUnit.test('mdeditor-sciencebase/components/sb-tree-label.js', function (assert) {
+  QUnit.test('addon/components/sb-tree-label.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'mdeditor-sciencebase/components/sb-tree-label.js should pass ESLint\n\n');
+    assert.ok(true, 'addon/components/sb-tree-label.js should pass ESLint\n\n');
   });
 
-  QUnit.test('mdeditor-sciencebase/components/sb-tree.js', function (assert) {
+  QUnit.test('addon/components/sb-tree.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'mdeditor-sciencebase/components/sb-tree.js should pass ESLint\n\n');
+    assert.ok(true, 'addon/components/sb-tree.js should pass ESLint\n\n');
   });
 
-  QUnit.test('mdeditor-sciencebase/instance-initializers/settings-sciencebase.js', function (assert) {
+  QUnit.test('addon/instance-initializers/settings-sciencebase.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'mdeditor-sciencebase/instance-initializers/settings-sciencebase.js should pass ESLint\n\n');
+    assert.ok(true, 'addon/instance-initializers/settings-sciencebase.js should pass ESLint\n\n');
   });
 
-  QUnit.test('mdeditor-sciencebase/routes/publish/sciencebase.js', function (assert) {
+  QUnit.test('addon/routes/publish/sciencebase.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'mdeditor-sciencebase/routes/publish/sciencebase.js should pass ESLint\n\n');
+    assert.ok(true, 'addon/routes/publish/sciencebase.js should pass ESLint\n\n');
   });
 
-  QUnit.test('mdeditor-sciencebase/utils/config.js', function (assert) {
+  QUnit.test('addon/utils/config.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'mdeditor-sciencebase/utils/config.js should pass ESLint\n\n');
+    assert.ok(true, 'addon/utils/config.js should pass ESLint\n\n');
   });
 
-  QUnit.test('mdeditor-sciencebase/utils/sb-tree-node.js', function (assert) {
+  QUnit.test('addon/utils/sb-tree-node.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'mdeditor-sciencebase/utils/sb-tree-node.js should pass ESLint\n\n');
+    assert.ok(true, 'addon/utils/sb-tree-node.js should pass ESLint\n\n');
   });
 });
 define('mdeditor/mdeditor-sciencebase/tests/app.lint-test', [], function () {
@@ -6057,49 +6016,49 @@ define('mdeditor/mdeditor-sciencebase/tests/app.lint-test', [], function () {
 
   QUnit.module('ESLint | app');
 
-  QUnit.test('mdeditor-sciencebase/components/sb-publisher.js', function (assert) {
+  QUnit.test('app/components/sb-publisher.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'mdeditor-sciencebase/components/sb-publisher.js should pass ESLint\n\n');
+    assert.ok(true, 'app/components/sb-publisher.js should pass ESLint\n\n');
   });
 
-  QUnit.test('mdeditor-sciencebase/components/sb-settings.js', function (assert) {
+  QUnit.test('app/components/sb-settings.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'mdeditor-sciencebase/components/sb-settings.js should pass ESLint\n\n');
+    assert.ok(true, 'app/components/sb-settings.js should pass ESLint\n\n');
   });
 
-  QUnit.test('mdeditor-sciencebase/components/sb-tree-label.js', function (assert) {
+  QUnit.test('app/components/sb-tree-label.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'mdeditor-sciencebase/components/sb-tree-label.js should pass ESLint\n\n');
+    assert.ok(true, 'app/components/sb-tree-label.js should pass ESLint\n\n');
   });
 
-  QUnit.test('mdeditor-sciencebase/components/sb-tree.js', function (assert) {
+  QUnit.test('app/components/sb-tree.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'mdeditor-sciencebase/components/sb-tree.js should pass ESLint\n\n');
+    assert.ok(true, 'app/components/sb-tree.js should pass ESLint\n\n');
   });
 
-  QUnit.test('mdeditor-sciencebase/instance-initializers/settings-sciencebase.js', function (assert) {
+  QUnit.test('app/instance-initializers/settings-sciencebase.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'mdeditor-sciencebase/instance-initializers/settings-sciencebase.js should pass ESLint\n\n');
+    assert.ok(true, 'app/instance-initializers/settings-sciencebase.js should pass ESLint\n\n');
   });
 
-  QUnit.test('mdeditor-sciencebase/routes/publish/sciencebase.js', function (assert) {
+  QUnit.test('app/routes/publish/sciencebase.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'mdeditor-sciencebase/routes/publish/sciencebase.js should pass ESLint\n\n');
+    assert.ok(true, 'app/routes/publish/sciencebase.js should pass ESLint\n\n');
   });
 
-  QUnit.test('mdeditor-sciencebase/templates/publish/sciencebase.js', function (assert) {
+  QUnit.test('app/templates/publish/sciencebase.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'mdeditor-sciencebase/templates/publish/sciencebase.js should pass ESLint\n\n');
+    assert.ok(true, 'app/templates/publish/sciencebase.js should pass ESLint\n\n');
   });
 
-  QUnit.test('mdeditor-sciencebase/utils/config.js', function (assert) {
+  QUnit.test('app/utils/config.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'mdeditor-sciencebase/utils/config.js should pass ESLint\n\n');
+    assert.ok(true, 'app/utils/config.js should pass ESLint\n\n');
   });
 
-  QUnit.test('mdeditor-sciencebase/utils/sb-tree-node.js', function (assert) {
+  QUnit.test('app/utils/sb-tree-node.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'mdeditor-sciencebase/utils/sb-tree-node.js should pass ESLint\n\n');
+    assert.ok(true, 'app/utils/sb-tree-node.js should pass ESLint\n\n');
   });
 });
 define('mdeditor/mixins/hash-poll', ['exports'], function (exports) {
@@ -6108,18 +6067,15 @@ define('mdeditor/mixins/hash-poll', ['exports'], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const pollInterval = exports.pollInterval = 750; // time in milliseconds
-
   /**
    * @module mdeditor
    * @submodule mixins
    */
 
-  const Mixin = Ember.Mixin,
-        inject = Ember.inject,
-        on = Ember.on;
-  exports.default = Mixin.create({
-    settings: inject.service(),
+  const pollInterval = exports.pollInterval = 750; // time in milliseconds
+
+  exports.default = Ember.Mixin.create({
+    settings: Ember.inject.service(),
 
     // autoSave: computed('settings.data.autoSave', function () {
     //   return this.get('settings')
@@ -6144,7 +6100,7 @@ define('mdeditor/mixins/hash-poll', ['exports'], function (exports) {
       return model;
     },
 
-    deactivatePoll: on('deactivate', function () {
+    deactivatePoll: Ember.on('deactivate', function () {
       // if(this.get('autoSave')) {
       //   return;
       // }
@@ -6238,13 +6194,7 @@ define('mdeditor/mixins/object-template', ['exports'], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Mixin = Ember.Mixin,
-        isArray = Ember.isArray,
-        getOwner = Ember.getOwner,
-        A = Ember.A,
-        merge = Ember.merge,
-        run = Ember.run;
-  exports.default = Mixin.create({
+  exports.default = Ember.Mixin.create({
     /**
      * Use this mixin to apply 'templates' to an array of objects. Especially useful
      * when the object must support setting arrays that are not passed during
@@ -6267,9 +6217,9 @@ define('mdeditor/mixins/object-template', ['exports'], function (exports) {
       let Template = this.get('templateClass');
 
       if (Template) {
-        let owner = getOwner(this);
+        let owner = Ember.getOwner(this);
 
-        return merge(Template.create(owner.ownerInjection(), defaults || {}), value);
+        return Ember.merge(Template.create(owner.ownerInjection(), defaults || {}), value);
       }
 
       return object;
@@ -6285,16 +6235,16 @@ define('mdeditor/mixins/object-template', ['exports'], function (exports) {
     applyTemplateArray(propertyName, defaults) {
       let property = this.get(propertyName);
 
-      if (isArray(property)) {
+      if (Ember.isArray(property)) {
         let Template = this.get('templateClass');
         if (Template) {
-          let owner = getOwner(this);
+          let owner = Ember.getOwner(this);
 
-          run.once(this, () => {
+          Ember.run.once(this, () => {
             property.forEach((item, idx, items) => {
               //items.removeAt(idx);
 
-              let newItem = merge(Template.create(owner.ownerInjection(), defaults || {}), item);
+              let newItem = Ember.merge(Template.create(owner.ownerInjection(), defaults || {}), item);
 
               //items.insertAt(idx, newItem);
               items.set(`${idx}`, newItem);
@@ -6303,8 +6253,8 @@ define('mdeditor/mixins/object-template', ['exports'], function (exports) {
           });
         }
       } else {
-        run.once(this, () => {
-          this.set(propertyName, A());
+        Ember.run.once(this, () => {
+          this.set(propertyName, Ember.A());
         });
       }
 
@@ -6358,6 +6308,7 @@ define('mdeditor/models/base', ['exports', 'ember-data', 'npm:object-hash'], fun
       this.on('didUpdate', this, this.wasUpdated);
       this.on('didCreate', this, this.wasUpdated);
       this.on('didLoad', this, this.applyPatch);
+      this.on('ready', this, this.isReady);
       this.get('hasDirtyAttributes');
       //this.on('didLoad', this, this.wasLoaded);
     },
@@ -6408,6 +6359,16 @@ define('mdeditor/models/base', ['exports', 'ember-data', 'npm:object-hash'], fun
 
         patch.applyModelPatch(this);
       });
+    },
+
+    isReady() {
+      let newHash = this.hashObject(JSON.parse(this.serialize().data.attributes.json), true);
+
+      // if the currentHash is undefined, the record is either new or hasn't had the
+      // hash calculated yet
+      if (this.get('currentHash') === undefined) {
+        this.set('currentHash', newHash);
+      }
     },
 
     wasUpdated() {
@@ -6472,9 +6433,9 @@ define('mdeditor/models/base', ['exports', 'ember-data', 'npm:object-hash'], fun
 
       //if the currentHash is undefined, the record is either new or hasn't had the
       //hash calculated yet
-      if (this.get('currentHash') === undefined) {
-        this.set('currentHash', newHash);
-      }
+      // if(this.get('currentHash') === undefined) {
+      //   this.set('currentHash', newHash);
+      // }
 
       if (this.get('currentHash') !== newHash || this.get('hasDirtyAttributes')) {
         return true;
@@ -6522,17 +6483,13 @@ define('mdeditor/models/base', ['exports', 'ember-data', 'npm:object-hash'], fun
     })
   });
 });
-define('mdeditor/models/contact', ['exports', 'ember-data', 'npm:uuid/v4', 'npm:validator', 'mdeditor/models/base', 'ember-cp-validations'], function (exports, _emberData, _v, _npmValidator, _base, _emberCpValidations) {
+define('mdeditor/models/contact', ['exports', 'ember-copy', 'ember-data', 'npm:uuid/v4', 'npm:validator', 'mdeditor/models/base', 'ember-cp-validations'], function (exports, _emberCopy, _emberData, _v, _npmValidator, _base, _emberCpValidations) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
   exports.JsonDefault = exports.default = undefined;
-  const Copyable = Ember.Copyable,
-        computed = Ember.computed,
-        isEmpty = Ember.isEmpty,
-        get = Ember.get;
 
 
   const Validations = (0, _emberCpValidations.buildValidations)({
@@ -6546,7 +6503,7 @@ define('mdeditor/models/contact', ['exports', 'ember-data', 'npm:uuid/v4', 'npm:
       isWarning: true,
       message: "Name should not be only white-space."
     }), (0, _emberCpValidations.validator)('presence', {
-      disabled: computed.notEmpty('model.json.positionName'),
+      disabled: Ember.computed.notEmpty('model.json.positionName'),
       presence: true
     })],
     'json.positionName': [(0, _emberCpValidations.validator)('format', {
@@ -6555,7 +6512,7 @@ define('mdeditor/models/contact', ['exports', 'ember-data', 'npm:uuid/v4', 'npm:
       isWarning: true,
       message: "Position Name should not be only white-space."
     }), (0, _emberCpValidations.validator)('presence', {
-      disabled: computed.notEmpty('model.json.name'),
+      disabled: Ember.computed.notEmpty('model.json.name'),
       presence: true
     })],
     'json.isOrganization': (0, _emberCpValidations.validator)('presence', {
@@ -6585,7 +6542,7 @@ define('mdeditor/models/contact', ['exports', 'ember-data', 'npm:uuid/v4', 'npm:
     }
   });
 
-  const Contact = _base.default.extend(Validations, Copyable, {
+  const Contact = _base.default.extend(Validations, _emberCopy.Copyable, {
     /**
      * Contact model
      *
@@ -6633,7 +6590,7 @@ define('mdeditor/models/contact', ['exports', 'ember-data', 'npm:uuid/v4', 'npm:
       }
     }),
 
-    name: computed.alias('json.name'),
+    name: Ember.computed.alias('json.name'),
     contactId: Ember.computed.alias('json.contactId'),
 
     /**
@@ -6645,7 +6602,7 @@ define('mdeditor/models/contact', ['exports', 'ember-data', 'npm:uuid/v4', 'npm:
      * @category computed
      * @requires json.name, json.positionName
      */
-    title: computed('json.name', 'json.positionName', function () {
+    title: Ember.computed('json.{name,positionName,isOrganization}', function () {
       const json = this.get('json');
 
       return json.name || (json.isOrganization ? null : json.positionName);
@@ -6691,7 +6648,7 @@ define('mdeditor/models/contact', ['exports', 'ember-data', 'npm:uuid/v4', 'npm:
      * @category computed
      * @requires json.isOrganization
      */
-    type: computed('json.isOrganization', function () {
+    type: Ember.computed('json.isOrganization', function () {
       return this.get('json.isOrganization') ? 'Organization' : 'Individual';
     }),
 
@@ -6704,7 +6661,7 @@ define('mdeditor/models/contact', ['exports', 'ember-data', 'npm:uuid/v4', 'npm:
      * @category computed
      * @requires json.isOrganization
      */
-    icon: computed('json.isOrganization', function () {
+    icon: Ember.computed('json.isOrganization', function () {
       const name = this.get('json.isOrganization');
 
       return name ? 'users' : 'user';
@@ -6719,20 +6676,20 @@ define('mdeditor/models/contact', ['exports', 'ember-data', 'npm:uuid/v4', 'npm:
      * @category computed
      * @requires json.logoGraphic.firstObject.fileUri.firstObject.uri
      */
-    defaultLogo: computed('json.logoGraphic.firstObject.fileUri.firstObject.uri', 'defaultOrganization', function () {
+    defaultLogo: Ember.computed('json.logoGraphic.firstObject.fileUri.firstObject.uri', 'defaultOrganization', function () {
       let uri = this.get('json.logoGraphic.firstObject.fileUri.firstObject.uri');
 
       if (uri) {
         return uri;
       }
-      let orgId = get(this, 'defaultOrganization');
+      let orgId = Ember.get(this, 'defaultOrganization');
 
       if (orgId && orgId !== this.get('json.contactId')) {
         let contacts = this.get('contactsService.organizations');
         let org = contacts.findBy('json.contactId', orgId);
 
         if (org) {
-          return get(org, 'defaultLogo');
+          return Ember.get(org, 'defaultLogo');
         }
       }
 
@@ -6748,21 +6705,21 @@ define('mdeditor/models/contact', ['exports', 'ember-data', 'npm:uuid/v4', 'npm:
      * @category computed
      * @requires json.memberOfOrganization.[]
      */
-    defaultOrganization: computed('json.memberOfOrganization.[]', function () {
+    defaultOrganization: Ember.computed('json.memberOfOrganization.[]', function () {
       const json = this.get('json');
 
       let memberOfOrganization = json.memberOfOrganization;
 
 
-      return !isEmpty(memberOfOrganization) ? get(memberOfOrganization, '0') : null;
+      return !Ember.isEmpty(memberOfOrganization) ? Ember.get(memberOfOrganization, '0') : null;
     }),
 
-    defaultOrganizationName: computed('defaultOrganization', function () {
+    defaultOrganizationName: Ember.computed('defaultOrganization', function () {
       let contacts = this.get('contactsService.organizations');
 
-      let org = contacts.findBy('json.contactId', get(this, 'defaultOrganization'));
+      let org = contacts.findBy('json.contactId', Ember.get(this, 'defaultOrganization'));
 
-      return org ? get(org, 'name') : null;
+      return org ? Ember.get(org, 'name') : null;
     }),
 
     /**
@@ -6774,7 +6731,7 @@ define('mdeditor/models/contact', ['exports', 'ember-data', 'npm:uuid/v4', 'npm:
      * @category computed
      * @requires json.name, json.isOrganization
      */
-    combinedName: computed('name', 'json.isOrganization', 'json.positionName', 'json.memberOfOrganization[]', function () {
+    combinedName: Ember.computed('name', 'json{isOrganization,positionName,memberOfOrganization[]}', function () {
       const json = this.get('json');
 
       let name = json.name,
@@ -6783,7 +6740,7 @@ define('mdeditor/models/contact', ['exports', 'ember-data', 'npm:uuid/v4', 'npm:
           memberOfOrganization = json.memberOfOrganization;
 
 
-      let orgId = !isEmpty(memberOfOrganization) ? get(memberOfOrganization, '0') : null;
+      let orgId = !Ember.isEmpty(memberOfOrganization) ? Ember.get(memberOfOrganization, '0') : null;
       let combinedName = name || positionName;
       let orgName;
 
@@ -6792,7 +6749,7 @@ define('mdeditor/models/contact', ['exports', 'ember-data', 'npm:uuid/v4', 'npm:
         let org = contacts.findBy('json.contactId', orgId);
 
         if (org) {
-          orgName = get(org, 'name');
+          orgName = Ember.get(org, 'name');
         }
       }
 
@@ -6823,7 +6780,7 @@ define('mdeditor/models/contact', ['exports', 'ember-data', 'npm:uuid/v4', 'npm:
       return contactId;
     }),
 
-    status: computed('hasDirtyHash', function () {
+    status: Ember.computed('hasDirtyHash', function () {
       let dirty = this.get('hasDirtyHash');
       let errors = this.get('hasSchemaErrors');
 
@@ -6843,7 +6800,7 @@ define('mdeditor/models/contact', ['exports', 'ember-data', 'npm:uuid/v4', 'npm:
      * @category computed
      * @requires status
      */
-    hasSchemaErrors: computed('status', function () {
+    hasSchemaErrors: Ember.computed('status', function () {
       let mdjson = this.get('mdjson');
       let errors = mdjson.validateContact(this).errors;
 
@@ -6917,15 +6874,12 @@ define('mdeditor/models/coordinator', ['exports', 'mdeditor/models/obj-hash'], f
     }
   });
 });
-define('mdeditor/models/dictionary', ['exports', 'ember-data', 'npm:uuid/v4', 'mdeditor/models/base', 'ember-cp-validations'], function (exports, _emberData, _v, _base, _emberCpValidations) {
+define('mdeditor/models/dictionary', ['exports', 'ember-copy', 'ember-data', 'npm:uuid/v4', 'mdeditor/models/base', 'ember-cp-validations'], function (exports, _emberCopy, _emberData, _v, _base, _emberCpValidations) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Copyable = Ember.Copyable,
-        computed = Ember.computed,
-        EmObject = Ember.Object;
 
 
   const Validations = (0, _emberCpValidations.buildValidations)({
@@ -6964,7 +6918,7 @@ define('mdeditor/models/dictionary', ['exports', 'ember-data', 'npm:uuid/v4', 'm
     }
   });
 
-  exports.default = _base.default.extend(Validations, Copyable, {
+  exports.default = _base.default.extend(Validations, _emberCopy.Copyable, {
     json: _emberData.default.attr('json', {
       defaultValue() {
         return JsonDefault.create();
@@ -6981,7 +6935,7 @@ define('mdeditor/models/dictionary', ['exports', 'ember-data', 'npm:uuid/v4', 'm
 
     icon: 'book',
 
-    status: computed('hasDirtyHash', function () {
+    status: Ember.computed('hasDirtyHash', function () {
       let dirty = this.get('hasDirtyHash');
       let errors = this.get('hasSchemaErrors');
 
@@ -7001,7 +6955,7 @@ define('mdeditor/models/dictionary', ['exports', 'ember-data', 'npm:uuid/v4', 'm
      * @category computed
      * @requires status
      */
-    hasSchemaErrors: computed('status', function () {
+    hasSchemaErrors: Ember.computed('status', function () {
       let mdjson = this.get('mdjson');
       let errors = mdjson.validateDictionary(this).errors;
 
@@ -7012,7 +6966,7 @@ define('mdeditor/models/dictionary', ['exports', 'ember-data', 'npm:uuid/v4', 'm
 
     copy() {
       let current = this.get('cleanJson');
-      let json = EmObject.create(current);
+      let json = Ember.Object.create(current);
       let name = current.dataDictionary.citation.title;
 
       json.set('dataDictionary.citation.title', `Copy of ${name}`);
@@ -7067,17 +7021,14 @@ define('mdeditor/models/obj-hash', ['exports'], function (exports) {
       }
       return Ember.A(res);
     }
-
   });
 });
-define('mdeditor/models/record', ['exports', 'ember-data', 'npm:uuid/v4', 'mdeditor/models/base', 'ember-cp-validations'], function (exports, _emberData, _v, _base, _emberCpValidations) {
+define('mdeditor/models/record', ['exports', 'ember-copy', 'ember-data', 'npm:uuid/v4', 'mdeditor/models/base', 'ember-cp-validations'], function (exports, _emberCopy, _emberData, _v, _base, _emberCpValidations) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Copyable = Ember.Copyable,
-        computed = Ember.computed;
 
 
   const Validations = (0, _emberCpValidations.buildValidations)({
@@ -7109,7 +7060,7 @@ define('mdeditor/models/record', ['exports', 'ember-data', 'npm:uuid/v4', 'mdedi
     //   min: 1
     // })
   });
-  exports.default = _base.default.extend(Validations, Copyable, {
+  exports.default = _base.default.extend(Validations, _emberCopy.Copyable, {
     init() {
       this._super(...arguments);
 
@@ -7170,21 +7121,21 @@ define('mdeditor/models/record', ['exports', 'ember-data', 'npm:uuid/v4', 'mdedi
       }
     }),
 
-    title: computed.alias('json.metadata.resourceInfo.citation.title'),
+    title: Ember.computed.alias('json.metadata.resourceInfo.citation.title'),
 
-    icon: computed('json.metadata.resourceInfo.resourceType.firstObject.type', function () {
-      const type = this.get('json.metadata.resourceInfo.resourceType.firstObject.type') || '';
+    icon: Ember.computed('json.metadata.resourceInfo.resourceType.0.type', function () {
+      const type = this.get('json.metadata.resourceInfo.resourceType.0.type') || '';
       const list = Ember.getOwner(this).lookup('service:icon');
 
       return type ? list.get(type) || list.get('default') : list.get('defaultFile');
     }),
 
-    recordId: computed.alias('json.metadata.metadataInfo.metadataIdentifier.identifier'),
-    recordIdNamespace: computed.alias('json.metadata.metadataInfo.metadataIdentifier.namespace'),
+    recordId: Ember.computed.alias('json.metadata.metadataInfo.metadataIdentifier.identifier'),
+    recordIdNamespace: Ember.computed.alias('json.metadata.metadataInfo.metadataIdentifier.namespace'),
 
-    parentIds: computed.alias('json.metadata.metadataInfo.parentMetadata.identifier'),
+    parentIds: Ember.computed.alias('json.metadata.metadataInfo.parentMetadata.identifier'),
 
-    hasParent: computed('parentIds.[]', function () {
+    hasParent: Ember.computed('parentIds.[]', function () {
       let ids = this.get('parentIds');
       let records = this.get('allRecords').rejectBy('hasSchemaErrors');
 
@@ -7197,7 +7148,7 @@ define('mdeditor/models/record', ['exports', 'ember-data', 'npm:uuid/v4', 'mdedi
       });
     }),
 
-    defaultParent: computed('hasParent', function () {
+    defaultParent: Ember.computed('hasParent', function () {
       let id = this.get('hasParent.identifier');
 
       if (!id) {
@@ -7207,7 +7158,7 @@ define('mdeditor/models/record', ['exports', 'ember-data', 'npm:uuid/v4', 'mdedi
       return this.get('allRecords').findBy('recordId', id);
     }),
 
-    defaultType: computed.alias('json.metadata.resourceInfo.resourceType.firstObject.type'),
+    defaultType: Ember.computed.alias('json.metadata.resourceInfo.resourceType.firstObject.type'),
 
     /**
      * The trimmed varsion of the recordId.
@@ -7238,7 +7189,7 @@ define('mdeditor/models/record', ['exports', 'ember-data', 'npm:uuid/v4', 'mdedi
      * @category computed
      * @requires status
      */
-    hasSchemaErrors: computed('status', function () {
+    hasSchemaErrors: Ember.computed('status', function () {
       let mdjson = this.get('mdjson');
       let errors = mdjson.validateRecord(this).errors;
 
@@ -7247,13 +7198,13 @@ define('mdeditor/models/record', ['exports', 'ember-data', 'npm:uuid/v4', 'mdedi
       return errors;
     }),
 
-    formatted: computed(function () {
+    formatted: Ember.computed(function () {
       let mdjson = this.get('mdjson');
 
       return mdjson.formatRecord(this);
     }).volatile(),
 
-    status: computed('hasDirtyHash', function () {
+    status: Ember.computed('hasDirtyHash', function () {
       let dirty = this.get('hasDirtyHash');
       let errors = this.get('hasSchemaErrors');
 
@@ -7288,10 +7239,6 @@ define('mdeditor/models/setting', ['exports', 'ember-data'], function (exports, 
     value: true
   });
   exports.default = exports.defaultValues = undefined;
-  const run = Ember.run,
-        computed = Ember.computed,
-        observer = Ember.observer,
-        service = Ember.inject.service;
 
 
   const defaultValues = {
@@ -7300,7 +7247,7 @@ define('mdeditor/models/setting', ['exports', 'ember-data'], function (exports, 
   };
 
   const theModel = _emberData.default.Model.extend({
-    settings: service(),
+    settings: Ember.inject.service(),
 
     init() {
       this._super(...arguments);
@@ -7352,14 +7299,14 @@ define('mdeditor/models/setting', ['exports', 'ember-data'], function (exports, 
         return Ember.Object.create();
       }
     }),
-    locale: computed.alias('defaultLocale'),
+    locale: Ember.computed.alias('defaultLocale'),
 
     wasLoaded() {
       this.get('settings').setup();
     },
-    updateSettings: observer('hasDirtyAttributes', function () {
+    updateSettings: Ember.observer('hasDirtyAttributes', function () {
       if (this.get('hasDirtyAttributes')) {
-        run.once(this, function () {
+        Ember.run.once(this, function () {
           this.save();
         });
       }
@@ -7368,23 +7315,6 @@ define('mdeditor/models/setting', ['exports', 'ember-data'], function (exports, 
 
   exports.defaultValues = defaultValues;
   exports.default = theModel;
-});
-define('mdeditor/pods/components/bs-datetimepicker/component', ['exports', 'ember-bootstrap-datetimepicker/components/bs-datetimepicker'], function (exports, _bsDatetimepicker) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  const once = Ember.run.once;
-  exports.default = _bsDatetimepicker.default.extend({
-    didReceiveAttrs() {
-      // let arg=arguments;
-      // once(this, () => {
-      //   this._super(...arg);
-      // });
-      once(this, this._updateDateTimePicker);
-    }
-  });
 });
 define('mdeditor/pods/components/control/md-button-confirm/component', ['exports'], function (exports) {
   'use strict';
@@ -7531,12 +7461,7 @@ define('mdeditor/pods/components/control/md-contact-link/component', ['exports']
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const computed = Ember.computed,
-        inject = Ember.inject,
-        LinkComponent = Ember.LinkComponent,
-        get = Ember.get,
-        set = Ember.set;
-  exports.default = LinkComponent.extend({
+  exports.default = Ember.LinkComponent.extend({
     /**
      * mdEditor Component that accepts a contact identifier and returns the
      * formatted link element.
@@ -7550,14 +7475,14 @@ define('mdeditor/pods/components/control/md-contact-link/component', ['exports']
     didReceiveAttrs() {
       //Inline link title comes first, if present.
       let block = !this.get('block') ? [this.get('contact.title')] : [];
-      let params = get(this, 'params');
+      let params = Ember.get(this, 'params');
       let add = block.concat(['contact.show', this.get('contact.id')]);
 
-      set(this, 'params', params ? add.concat(params) : add);
+      Ember.set(this, 'params', params ? add.concat(params) : add);
       this._super(...arguments);
     },
 
-    store: inject.service(),
+    store: Ember.inject.service(),
 
     /**
      * The contacts service
@@ -7566,7 +7491,7 @@ define('mdeditor/pods/components/control/md-contact-link/component', ['exports']
      * @type {Ember.Service}
      * @readOnly
      */
-    contacts: inject.service(),
+    contacts: Ember.inject.service(),
 
     /**
      * The contact identifier
@@ -7593,7 +7518,7 @@ define('mdeditor/pods/components/control/md-contact-link/component', ['exports']
      * @category computed
      * @requires contactId
      */
-    contact: computed('contactId', function () {
+    contact: Ember.computed('contactId', function () {
       let rec = this.get('store').peekAll('contact').findBy('json.contactId', this.get('contactId'));
 
       return rec;
@@ -7606,13 +7531,10 @@ define('mdeditor/pods/components/control/md-contact-title/component', ['exports'
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component,
-        computed = Ember.computed,
-        inject = Ember.inject;
-  exports.default = Component.extend({
+  exports.default = Ember.Component.extend({
     tagName: '',
 
-    store: inject.service(),
+    store: Ember.inject.service(),
 
     /**
      * mdEditor Component that accepts a contact identifier and returns the
@@ -7640,7 +7562,7 @@ define('mdeditor/pods/components/control/md-contact-title/component', ['exports'
      * @category computed
      * @requires contactId
      */
-    contact: computed('contactId', function () {
+    contact: Ember.computed('contactId', function () {
       let rec = this.get('store').peekAll('contact').findBy('json.contactId', this.get('contactId'));
 
       return rec;
@@ -7666,19 +7588,19 @@ define('mdeditor/pods/components/control/md-crud-buttons/component', ['exports']
 
     actions: {
       save: function save() {
-        this.sendAction('doSave');
+        this.get('doSave')();
       },
 
       cancel: function cancel() {
-        this.sendAction('doCancel');
+        this.get('doCancel')();
       },
 
       delete: function _delete() {
-        this.sendAction('doDelete');
+        this.get('doDelete')();
       },
 
       copy: function copy() {
-        this.sendAction('doCopy');
+        this.get('doCopy')();
       }
     }
   });
@@ -7689,7 +7611,7 @@ define("mdeditor/pods/components/control/md-crud-buttons/template", ["exports"],
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "NhZ+iVIF", "block": "{\"symbols\":[\"&default\"],\"statements\":[[6,\"div\"],[9,\"class\",\"btn-group-vertical center-block\"],[9,\"role\",\"group\"],[9,\"aria-label\",\"CRUD Button Controls\"],[7],[0,\"\\n\"],[4,\"if\",[[20,[\"doSave\"]]],null,{\"statements\":[[0,\"      \"],[6,\"button\"],[9,\"type\",\"submit\"],[9,\"class\",\"btn btn-lg btn-success\"],[10,\"disabled\",[25,\"if\",[[20,[\"model\",\"hasDirtyHash\"]],false,true],null],null],[3,\"action\",[[19,0,[]],\"save\"]],[7],[0,\"\\n        \"],[6,\"i\"],[9,\"class\",\"fa fa-floppy-o\"],[7],[8],[0,\" Save\\n      \"],[8],[0,\"\\n      \"],[6,\"button\"],[9,\"type\",\"button\"],[9,\"class\",\"btn btn-lg btn-warning\"],[10,\"disabled\",[25,\"if\",[[20,[\"model\",\"canRevert\"]],false,true],null],null],[3,\"action\",[[19,0,[]],\"cancel\"]],[7],[0,\"\\n        \"],[6,\"i\"],[9,\"class\",\"fa fa-undo\"],[7],[8],[0,\" Cancel\\n      \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"  \"],[6,\"button\"],[9,\"type\",\"button\"],[9,\"class\",\"btn btn-lg btn-info\"],[3,\"action\",[[19,0,[]],\"copy\"]],[7],[0,\"\\n    \"],[6,\"i\"],[9,\"class\",\"fa fa-clone\"],[7],[8],[0,\" Copy\\n  \"],[8],[0,\"\\n\"],[4,\"control/md-button-confirm\",null,[[\"class\",\"onConfirm\"],[\"btn btn-lg btn-danger\",[25,\"action\",[[19,0,[]],\"delete\"],null]]],{\"statements\":[[0,\"    \"],[6,\"span\"],[9,\"class\",\"fa fa-times\"],[7],[8],[0,\" Delete\\n\"]],\"parameters\":[]},null],[0,\"  \"],[11,1],[0,\"\\n  \"],[1,[25,\"tooltip-on-element\",null,[[\"class\",\"enableLazyRendering\",\"text\",\"side\"],[\"md-tooltip primary\",false,\"Manage the record\",\"top\"]]],false],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/control/md-crud-buttons/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "3kC4epRz", "block": "{\"symbols\":[\"&default\"],\"statements\":[[6,\"div\"],[9,\"class\",\"btn-group-vertical center-block\"],[9,\"role\",\"group\"],[9,\"aria-label\",\"CRUD Button Controls\"],[7],[0,\"\\n\"],[4,\"if\",[[20,[\"doSave\"]]],null,{\"statements\":[[0,\"      \"],[6,\"button\"],[9,\"type\",\"submit\"],[9,\"class\",\"btn btn-lg btn-success\"],[10,\"disabled\",[25,\"if\",[[20,[\"model\",\"hasDirtyHash\"]],false,true],null],null],[3,\"action\",[[19,0,[]],\"save\"]],[7],[0,\"\\n        \"],[6,\"i\"],[9,\"class\",\"fa fa-floppy-o\"],[7],[8],[0,\" Save\\n      \"],[8],[0,\"\\n      \"],[6,\"button\"],[9,\"type\",\"button\"],[9,\"class\",\"btn btn-lg btn-warning\"],[10,\"disabled\",[25,\"if\",[[20,[\"model\",\"canRevert\"]],false,true],null],null],[3,\"action\",[[19,0,[]],\"cancel\"]],[7],[0,\"\\n        \"],[6,\"i\"],[9,\"class\",\"fa fa-undo\"],[7],[8],[0,\" Cancel\\n      \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"  \"],[6,\"button\"],[9,\"type\",\"button\"],[9,\"class\",\"btn btn-lg btn-info\"],[3,\"action\",[[19,0,[]],\"copy\"]],[7],[0,\"\\n    \"],[6,\"i\"],[9,\"class\",\"fa fa-clone\"],[7],[8],[0,\" Copy\\n  \"],[8],[0,\"\\n\"],[4,\"control/md-button-confirm\",null,[[\"class\",\"onConfirm\"],[\"btn btn-lg btn-danger\",[25,\"action\",[[19,0,[]],\"delete\"],null]]],{\"statements\":[[0,\"    \"],[6,\"span\"],[9,\"class\",\"fa fa-times\"],[7],[8],[0,\" Delete\\n\"]],\"parameters\":[]},null],[0,\"  \"],[11,1],[0,\"\\n  \"],[1,[25,\"ember-tooltip\",null,[[\"tooltipClassName\",\"text\",\"side\"],[\"ember-tooltip md-tooltip primary\",\"Manage the record\",\"top\"]]],false],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/control/md-crud-buttons/template.hbs" } });
 });
 define('mdeditor/pods/components/control/md-definition/component', ['exports'], function (exports) {
   'use strict';
@@ -7755,8 +7677,7 @@ define('mdeditor/pods/components/control/md-errors/component', ['exports'], func
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component;
-  exports.default = Component.extend({
+  exports.default = Ember.Component.extend({
     classNames: ['md-error-list']
   });
 });
@@ -7774,12 +7695,11 @@ define('mdeditor/pods/components/control/md-fiscalyear/component', ['exports', '
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const computed = Ember.computed;
   exports.default = _component.default.extend({
     layout: _template.default,
     settings: Ember.inject.service('settings'),
     classNames: ['md-fiscalyear'],
-    objectArray: computed(function () {
+    objectArray: Ember.computed(function () {
       return Array.apply(0, Array(12)).map(function (element, index) {
         return {
           year: index + ((0, _moment.default)().year() - 10)
@@ -7793,6 +7713,9 @@ define('mdeditor/pods/components/control/md-fiscalyear/component', ['exports', '
     searchEnabled: true,
     placeholder: 'Pick a Fiscal Year',
     create: true,
+    disabled: Ember.computed('settings.data.fiscalStartMonth', function () {
+      return !this.get('settings.data.fiscalStartMonth');
+    }),
     change() {
       let val = this.get('value');
       let month = parseInt(this.get('settings.data.fiscalStartMonth'), 10) - 1;
@@ -7842,6 +7765,7 @@ define('mdeditor/pods/components/control/md-import-csv/component', ['exports', '
      */
 
     router: Ember.inject.service(),
+    ajax: Ember.inject.service(),
 
     /**
      * True if processing CSV file
@@ -7966,7 +7890,7 @@ define('mdeditor/pods/components/control/md-import-csv/component', ['exports', '
 
         Ember.set(comp, 'isLoading', true);
 
-        Ember.$.ajax(this.get('importUri'), {
+        this.get('ajax').request(this.get('importUri'), {
           type: 'GET',
           context: this,
           dataType: 'text',
@@ -8141,7 +8065,7 @@ define("mdeditor/pods/components/control/md-itis/template", ["exports"], functio
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "dcRTylM4", "block": "{\"symbols\":[\"result\",\"name\",\"result\",\"name\"],\"statements\":[[4,\"layout/md-card\",null,[[\"spotlightEnabled\",\"block\"],[false,false]],{\"statements\":[[0,\"  \"],[6,\"div\"],[9,\"class\",\"card-block row\"],[7],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"form-group col-lg-9\"],[7],[0,\"\\n      \"],[6,\"label\"],[9,\"class\",\"control-label\"],[7],[0,\"Search Value\"],[8],[0,\"\\n        \"],[1,[25,\"input/md-input\",null,[[\"value\",\"placeholder\"],[[19,0,[\"searchString\"]],\"Search ITIS using common name, scientific name, or TSN\"]]],false],[0,\"\\n    \"],[8],[0,\"\\n\\n    \"],[6,\"div\"],[9,\"class\",\"form-group col-lg-3\"],[7],[0,\"\\n      \"],[6,\"label\"],[9,\"class\",\"control-label\"],[7],[0,\"Kingdom \"],[6,\"em\"],[7],[0,\"(optional)\"],[8],[8],[0,\"\\n      \"],[1,[25,\"input/md-select\",null,[[\"value\",\"valuePath\",\"namePath\",\"objectArray\",\"searchEnabled\",\"tooltip\",\"allowClear\",\"tooltipPath\",\"disabled\",\"placeholder\"],[[19,0,[\"kingdom\"]],\"kingdomName\",\"title\",[25,\"sort-by\",[\"title\",[20,[\"itis\",\"kingdoms\",\"kingdomNames\"]]],null],false,true,true,\"kingdomName\",[25,\"if\",[[20,[\"searchString\"]],false,true],null],\"Select a kingdom.\"]]],false],[0,\"\\n    \"],[8],[0,\"\\n  \"],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"card-footer\"],[7],[0,\"\\n    \"],[6,\"button\"],[9,\"class\",\"btn btn-primary pull-right\"],[9,\"type\",\"submit\"],[10,\"disabled\",[25,\"if\",[[20,[\"searchString\"]],false,true],null],null],[3,\"action\",[[19,0,[]],\"search\"]],[7],[0,\"\\n\"],[4,\"if\",[[20,[\"isLoading\"]]],null,{\"statements\":[[0,\"      \"],[1,[25,\"fa-icon\",[\"spinner\"],[[\"spin\"],[true]]],false],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"      \"],[1,[25,\"fa-icon\",[\"search\"],null],false],[0,\"\\n      \"],[1,[25,\"tooltip-on-element\",null,[[\"text\",\"class\",\"side\"],[\"Click to send search request\",\"md-tooltip info\",\"left\"]]],false],[0,\"\\n\"]],\"parameters\":[]}],[0,\"      Search\\n    \"],[8],[0,\"\\n  \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[20,[\"notFound\"]]],null,{\"statements\":[[0,\"  \"],[6,\"div\"],[9,\"class\",\"alert alert-warning\"],[7],[0,\"\\n    \"],[6,\"h5\"],[7],[1,[25,\"fa-icon\",[\"exclamation-triangle\"],null],false],[0,\" No taxa matched the search. Please try again.\"],[8],[0,\"\\n  \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"liquid-if\",[[20,[\"found\"]]],[[\"use\",\"enableGrowth\"],[\"fade\",false]],{\"statements\":[[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"col-md-6\"],[7],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"card md-card\"],[7],[0,\"\\n      \"],[6,\"div\"],[9,\"class\",\"card-header\"],[7],[0,\"\\n        \"],[6,\"h4\"],[9,\"class\",\"card-title\"],[7],[0,\"\\n          Select Taxa \"],[6,\"small\"],[7],[0,\"Showing \"],[1,[18,\"resultTitle\"],false],[0,\" found\"],[8],[0,\"\\n        \"],[8],[0,\"\\n      \"],[8],[0,\"\\n      \"],[6,\"div\"],[9,\"class\",\"card-block no-padding\"],[7],[0,\"\\n        \"],[6,\"div\"],[9,\"class\",\"list-group no-margin\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"searchResult\"]]],null,{\"statements\":[[4,\"liquid-unless\",[[19,3,[\"selected\"]]],[[\"class\",\"enableGrowth\",\"shrinkDelay\"],[[25,\"concat\",[\"list-group-item \",[25,\"if\",[[19,3,[\"animate\"]],\"md-itis-unselected\"],null]],null],true,500]],{\"statements\":[[0,\"              \"],[6,\"div\"],[9,\"class\",\"media\"],[7],[0,\"\\n                \"],[6,\"div\"],[9,\"class\",\"media-body\"],[7],[0,\"\\n                  \"],[6,\"h4\"],[9,\"class\",\"media-heading\"],[7],[0,\"\\n                    \"],[1,[19,3,[\"name\"]],false],[0,\"\\n                    \"],[6,\"small\"],[9,\"class\",\"text-success\"],[7],[1,[19,3,[\"rank\"]],false],[8],[0,\"\\n                  \"],[8],[0,\"\\n                  \"],[6,\"p\"],[7],[0,\"\\n                    \"],[6,\"div\"],[7],[6,\"strong\"],[7],[0,\"Kingdom:\"],[8],[0,\" \"],[1,[19,3,[\"kingdom\"]],false],[8],[0,\"\\n                    \"],[6,\"div\"],[7],[6,\"strong\"],[7],[0,\"TSN:\"],[8],[0,\"\\n                      \"],[6,\"a\"],[10,\"href\",[26,[\"https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=\",[19,3,[\"tsn\"]]]]],[9,\"target\",\"_blank\"],[7],[1,[19,3,[\"tsn\"]],false],[8],[0,\"\\n                       (\"],[6,\"span\"],[10,\"class\",[26,[\"text-\",[19,3,[\"style\"]]]]],[7],[1,[19,3,[\"status\"]],false],[8],[0,\")\\n                    \"],[8],[0,\"\\n                    \"],[6,\"dl\"],[9,\"class\",\"no-margin\"],[7],[0,\"\\n\"],[4,\"control/md-definition\",null,[[\"title\"],[\"Common Name:\"]],{\"statements\":[[4,\"each\",[[19,3,[\"common\"]]],null,{\"statements\":[[0,\"                                \"],[1,[19,4,[\"name\"]],false],[0,\" (\"],[1,[19,4,[\"language\"]],false],[0,\")\\n                                \"],[6,\"br\"],[7],[8],[0,\"\\n\"]],\"parameters\":[4]},{\"statements\":[[0,\"                                \"],[6,\"em\"],[9,\"class\",\"text-muted\"],[7],[0,\"No names assigned.\"],[8],[0,\"\\n\"]],\"parameters\":[]}]],\"parameters\":[]},null],[0,\"                    \"],[8],[0,\"\\n                  \"],[8],[0,\"\\n                \"],[8],[0,\"\\n                \"],[6,\"div\"],[9,\"class\",\"media-right media-middle\"],[7],[0,\"\\n                  \"],[6,\"button\"],[9,\"type\",\"button\"],[9,\"class\",\"btn btn-success btn-lg btn-block\"],[3,\"action\",[[19,0,[]],\"selectItem\",[19,3,[]]]],[7],[0,\"Add\"],[8],[0,\"\\n                \"],[8],[0,\"\\n              \"],[8],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[3]},{\"statements\":[[0,\"              \"],[6,\"div\"],[9,\"class\",\"list-group-item\"],[7],[0,\"\\n                \"],[6,\"p\"],[9,\"class\",\"list-group-item-text\"],[7],[0,\"\\n                  Perform a search to select additional taxa.\\n                \"],[8],[0,\"\\n              \"],[8],[0,\"\\n\"]],\"parameters\":[]}],[0,\"        \"],[8],[0,\"\\n      \"],[8],[0,\"\\n    \"],[8],[0,\"\\n  \"],[8],[0,\"\\n\"],[0,\"  \"],[6,\"div\"],[9,\"class\",\"col-md-6\"],[7],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"card md-card hd-success card-inverse card-outline-success\"],[7],[0,\"\\n      \"],[6,\"div\"],[9,\"class\",\"card-header\"],[7],[0,\"\\n        \"],[6,\"h4\"],[9,\"class\",\"card-title\"],[7],[0,\"\\n          Taxa Selected\\n\"],[0,\"        \"],[8],[0,\"\\n      \"],[8],[0,\"\\n      \"],[6,\"div\"],[9,\"class\",\"card-block no-padding\"],[7],[0,\"\\n        \"],[6,\"div\"],[9,\"class\",\"list-group no-margin\"],[7],[0,\"\\n\"],[4,\"liquid-if\",[[20,[\"selected\",\"length\"]]],[[\"use\"],[\"fade\"]],{\"statements\":[[0,\"          \"],[6,\"div\"],[9,\"class\",\"list-group-item\"],[7],[0,\"\\n            \"],[6,\"p\"],[9,\"class\",\"list-group-item-text\"],[7],[0,\"\\n              \"],[6,\"button\"],[9,\"type\",\"button\"],[9,\"class\",\"btn btn-primary btn-lg btn-block\"],[3,\"action\",[[19,0,[]],\"importTaxa\",[20,[\"selected\"]]]],[7],[0,\"Import Taxa\"],[8],[0,\"\\n            \"],[8],[0,\"\\n          \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[4,\"each\",[[20,[\"selected\"]]],null,{\"statements\":[[4,\"liquid-if\",[[19,1,[\"selected\"]]],[[\"class\",\"enableGrowth\",\"shrinkDelay\"],[\"list-group-item md-itis-selected\",true,500]],{\"statements\":[[0,\"              \"],[6,\"div\"],[9,\"class\",\"media\"],[7],[0,\"\\n                \"],[6,\"div\"],[9,\"class\",\"media-body\"],[7],[0,\"\\n                  \"],[6,\"h4\"],[9,\"class\",\"media-heading\"],[7],[0,\"\\n                    \"],[1,[19,1,[\"name\"]],false],[0,\"\\n                    \"],[6,\"small\"],[9,\"class\",\"text-success\"],[7],[1,[19,1,[\"rank\"]],false],[8],[0,\"\\n                  \"],[8],[0,\"\\n                  \"],[6,\"p\"],[7],[0,\"\\n                    \"],[6,\"div\"],[7],[6,\"strong\"],[7],[0,\"Kingdom:\"],[8],[0,\" \"],[1,[19,1,[\"kingdom\"]],false],[8],[0,\"\\n                    \"],[6,\"div\"],[7],[6,\"strong\"],[7],[0,\"TSN:\"],[8],[0,\"\\n                      \"],[6,\"a\"],[10,\"href\",[26,[\"https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=\",[19,1,[\"tsn\"]]]]],[9,\"target\",\"_blank\"],[7],[1,[19,1,[\"tsn\"]],false],[8],[0,\"\\n                       (\"],[6,\"span\"],[10,\"class\",[26,[\"text-\",[19,1,[\"style\"]]]]],[7],[1,[19,1,[\"status\"]],false],[8],[0,\")\\n                    \"],[8],[0,\"\\n                    \"],[6,\"dl\"],[9,\"class\",\"no-margin\"],[7],[0,\"\\n\"],[4,\"control/md-definition\",null,[[\"title\"],[\"Common Name:\"]],{\"statements\":[[4,\"each\",[[19,1,[\"common\"]]],null,{\"statements\":[[0,\"                                \"],[1,[19,2,[\"name\"]],false],[0,\" (\"],[1,[19,2,[\"language\"]],false],[0,\")\\n                                \"],[6,\"br\"],[7],[8],[0,\"\\n\"]],\"parameters\":[2]},{\"statements\":[[0,\"                                \"],[6,\"em\"],[9,\"class\",\"text-muted\"],[7],[0,\"No names assigned.\"],[8],[0,\"\\n\"]],\"parameters\":[]}]],\"parameters\":[]},null],[0,\"                    \"],[8],[0,\"\\n                  \"],[8],[0,\"\\n                \"],[8],[0,\"\\n                \"],[6,\"div\"],[9,\"class\",\"media-left media-middle\"],[7],[0,\"\\n                  \"],[6,\"button\"],[9,\"type\",\"button\"],[9,\"class\",\"btn btn-danger btn-lg btn-block\"],[3,\"action\",[[19,0,[]],\"deselectItem\",[19,1,[]]]],[7],[0,\"Remove\"],[8],[0,\"\\n                \"],[8],[0,\"\\n              \"],[8],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[],\"parameters\":[]}]],\"parameters\":[1]},{\"statements\":[[0,\"            \"],[6,\"div\"],[9,\"class\",\"list-group-item\"],[7],[0,\"\\n              \"],[6,\"p\"],[9,\"class\",\"list-group-item-text\"],[7],[0,\"\\n                Select taxa from the list.\\n              \"],[8],[0,\"\\n            \"],[8],[0,\"\\n\"]],\"parameters\":[]}],[0,\"        \"],[8],[0,\"\\n\"],[0,\"      \"],[8],[0,\"\\n    \"],[8],[0,\"\\n  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"parameters\":[]},null]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/control/md-itis/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "82ikogi1", "block": "{\"symbols\":[\"result\",\"name\",\"result\",\"name\"],\"statements\":[[4,\"layout/md-card\",null,[[\"spotlightEnabled\",\"block\"],[false,false]],{\"statements\":[[0,\"  \"],[6,\"div\"],[9,\"class\",\"card-block row\"],[7],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"form-group col-lg-9\"],[7],[0,\"\\n      \"],[6,\"label\"],[9,\"class\",\"control-label\"],[7],[0,\"Search Value\"],[8],[0,\"\\n        \"],[1,[25,\"input/md-input\",null,[[\"value\",\"placeholder\"],[[19,0,[\"searchString\"]],\"Search ITIS using common name, scientific name, or TSN\"]]],false],[0,\"\\n    \"],[8],[0,\"\\n\\n    \"],[6,\"div\"],[9,\"class\",\"form-group col-lg-3\"],[7],[0,\"\\n      \"],[6,\"label\"],[9,\"class\",\"control-label\"],[7],[0,\"Kingdom \"],[6,\"em\"],[7],[0,\"(optional)\"],[8],[8],[0,\"\\n      \"],[1,[25,\"input/md-select\",null,[[\"value\",\"valuePath\",\"namePath\",\"objectArray\",\"searchEnabled\",\"tooltip\",\"allowClear\",\"tooltipPath\",\"disabled\",\"placeholder\"],[[19,0,[\"kingdom\"]],\"kingdomName\",\"title\",[25,\"sort-by\",[\"title\",[20,[\"itis\",\"kingdoms\",\"kingdomNames\"]]],null],false,true,true,\"kingdomName\",[25,\"if\",[[20,[\"searchString\"]],false,true],null],\"Select a kingdom.\"]]],false],[0,\"\\n    \"],[8],[0,\"\\n  \"],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"card-footer\"],[7],[0,\"\\n    \"],[6,\"button\"],[9,\"class\",\"btn btn-primary pull-right\"],[9,\"type\",\"submit\"],[10,\"disabled\",[25,\"if\",[[20,[\"searchString\"]],false,true],null],null],[3,\"action\",[[19,0,[]],\"search\"]],[7],[0,\"\\n\"],[4,\"if\",[[20,[\"isLoading\"]]],null,{\"statements\":[[0,\"      \"],[1,[25,\"fa-icon\",[\"spinner\"],[[\"spin\"],[true]]],false],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"      \"],[1,[25,\"fa-icon\",[\"search\"],null],false],[0,\"\\n      \"],[1,[25,\"ember-tooltip\",null,[[\"text\",\"tooltipClassName\",\"side\"],[\"Click to send search request\",\"ember-tooltip md-tooltip info\",\"left\"]]],false],[0,\"\\n\"]],\"parameters\":[]}],[0,\"      Search\\n    \"],[8],[0,\"\\n  \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[20,[\"notFound\"]]],null,{\"statements\":[[0,\"  \"],[6,\"div\"],[9,\"class\",\"alert alert-warning\"],[7],[0,\"\\n    \"],[6,\"h5\"],[7],[1,[25,\"fa-icon\",[\"exclamation-triangle\"],null],false],[0,\" No taxa matched the search. Please try again.\"],[8],[0,\"\\n  \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"liquid-if\",[[20,[\"found\"]]],[[\"use\",\"enableGrowth\"],[\"fade\",false]],{\"statements\":[[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"col-md-6\"],[7],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"card md-card\"],[7],[0,\"\\n      \"],[6,\"div\"],[9,\"class\",\"card-header\"],[7],[0,\"\\n        \"],[6,\"h4\"],[9,\"class\",\"card-title\"],[7],[0,\"\\n          Select Taxa \"],[6,\"small\"],[7],[0,\"Showing \"],[1,[18,\"resultTitle\"],false],[0,\" found\"],[8],[0,\"\\n        \"],[8],[0,\"\\n      \"],[8],[0,\"\\n      \"],[6,\"div\"],[9,\"class\",\"card-block no-padding\"],[7],[0,\"\\n        \"],[6,\"div\"],[9,\"class\",\"list-group no-margin\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"searchResult\"]]],null,{\"statements\":[[4,\"liquid-unless\",[[19,3,[\"selected\"]]],[[\"class\",\"enableGrowth\",\"shrinkDelay\"],[[25,\"concat\",[\"list-group-item \",[25,\"if\",[[19,3,[\"animate\"]],\"md-itis-unselected\"],null]],null],true,500]],{\"statements\":[[0,\"              \"],[6,\"div\"],[9,\"class\",\"media\"],[7],[0,\"\\n                \"],[6,\"div\"],[9,\"class\",\"media-body\"],[7],[0,\"\\n                  \"],[6,\"h4\"],[9,\"class\",\"media-heading\"],[7],[0,\"\\n                    \"],[1,[19,3,[\"name\"]],false],[0,\"\\n                    \"],[6,\"small\"],[9,\"class\",\"text-success\"],[7],[1,[19,3,[\"rank\"]],false],[8],[0,\"\\n                  \"],[8],[0,\"\\n                  \"],[6,\"p\"],[7],[0,\"\\n                    \"],[6,\"div\"],[7],[6,\"strong\"],[7],[0,\"Kingdom:\"],[8],[0,\" \"],[1,[19,3,[\"kingdom\"]],false],[8],[0,\"\\n                    \"],[6,\"div\"],[7],[6,\"strong\"],[7],[0,\"TSN:\"],[8],[0,\"\\n                      \"],[6,\"a\"],[10,\"href\",[26,[\"https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=\",[19,3,[\"tsn\"]]]]],[9,\"target\",\"_blank\"],[7],[1,[19,3,[\"tsn\"]],false],[8],[0,\"\\n                       (\"],[6,\"span\"],[10,\"class\",[26,[\"text-\",[19,3,[\"style\"]]]]],[7],[1,[19,3,[\"status\"]],false],[8],[0,\")\\n                    \"],[8],[0,\"\\n                    \"],[6,\"dl\"],[9,\"class\",\"no-margin\"],[7],[0,\"\\n\"],[4,\"control/md-definition\",null,[[\"title\"],[\"Common Name:\"]],{\"statements\":[[4,\"each\",[[19,3,[\"common\"]]],null,{\"statements\":[[0,\"                                \"],[1,[19,4,[\"name\"]],false],[0,\" (\"],[1,[19,4,[\"language\"]],false],[0,\")\\n                                \"],[6,\"br\"],[7],[8],[0,\"\\n\"]],\"parameters\":[4]},{\"statements\":[[0,\"                                \"],[6,\"em\"],[9,\"class\",\"text-muted\"],[7],[0,\"No names assigned.\"],[8],[0,\"\\n\"]],\"parameters\":[]}]],\"parameters\":[]},null],[0,\"                    \"],[8],[0,\"\\n                  \"],[8],[0,\"\\n                \"],[8],[0,\"\\n                \"],[6,\"div\"],[9,\"class\",\"media-right media-middle\"],[7],[0,\"\\n                  \"],[6,\"button\"],[9,\"type\",\"button\"],[9,\"class\",\"btn btn-success btn-lg btn-block\"],[3,\"action\",[[19,0,[]],\"selectItem\",[19,3,[]]]],[7],[0,\"Add\"],[8],[0,\"\\n                \"],[8],[0,\"\\n              \"],[8],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[3]},{\"statements\":[[0,\"              \"],[6,\"div\"],[9,\"class\",\"list-group-item\"],[7],[0,\"\\n                \"],[6,\"p\"],[9,\"class\",\"list-group-item-text\"],[7],[0,\"\\n                  Perform a search to select additional taxa.\\n                \"],[8],[0,\"\\n              \"],[8],[0,\"\\n\"]],\"parameters\":[]}],[0,\"        \"],[8],[0,\"\\n      \"],[8],[0,\"\\n    \"],[8],[0,\"\\n  \"],[8],[0,\"\\n\"],[0,\"  \"],[6,\"div\"],[9,\"class\",\"col-md-6\"],[7],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"card md-card hd-success card-inverse card-outline-success\"],[7],[0,\"\\n      \"],[6,\"div\"],[9,\"class\",\"card-header\"],[7],[0,\"\\n        \"],[6,\"h4\"],[9,\"class\",\"card-title\"],[7],[0,\"\\n          Taxa Selected\\n\"],[0,\"        \"],[8],[0,\"\\n      \"],[8],[0,\"\\n      \"],[6,\"div\"],[9,\"class\",\"card-block no-padding\"],[7],[0,\"\\n        \"],[6,\"div\"],[9,\"class\",\"list-group no-margin\"],[7],[0,\"\\n\"],[4,\"liquid-if\",[[20,[\"selected\",\"length\"]]],[[\"use\"],[\"fade\"]],{\"statements\":[[0,\"          \"],[6,\"div\"],[9,\"class\",\"list-group-item\"],[7],[0,\"\\n            \"],[6,\"p\"],[9,\"class\",\"list-group-item-text\"],[7],[0,\"\\n              \"],[6,\"button\"],[9,\"type\",\"button\"],[9,\"class\",\"btn btn-primary btn-lg btn-block\"],[3,\"action\",[[19,0,[]],\"importTaxa\",[20,[\"selected\"]]]],[7],[0,\"Import Taxa\"],[8],[0,\"\\n            \"],[8],[0,\"\\n          \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[4,\"each\",[[20,[\"selected\"]]],null,{\"statements\":[[4,\"liquid-if\",[[19,1,[\"selected\"]]],[[\"class\",\"enableGrowth\",\"shrinkDelay\"],[\"list-group-item md-itis-selected\",true,500]],{\"statements\":[[0,\"              \"],[6,\"div\"],[9,\"class\",\"media\"],[7],[0,\"\\n                \"],[6,\"div\"],[9,\"class\",\"media-body\"],[7],[0,\"\\n                  \"],[6,\"h4\"],[9,\"class\",\"media-heading\"],[7],[0,\"\\n                    \"],[1,[19,1,[\"name\"]],false],[0,\"\\n                    \"],[6,\"small\"],[9,\"class\",\"text-success\"],[7],[1,[19,1,[\"rank\"]],false],[8],[0,\"\\n                  \"],[8],[0,\"\\n                  \"],[6,\"p\"],[7],[0,\"\\n                    \"],[6,\"div\"],[7],[6,\"strong\"],[7],[0,\"Kingdom:\"],[8],[0,\" \"],[1,[19,1,[\"kingdom\"]],false],[8],[0,\"\\n                    \"],[6,\"div\"],[7],[6,\"strong\"],[7],[0,\"TSN:\"],[8],[0,\"\\n                      \"],[6,\"a\"],[10,\"href\",[26,[\"https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=\",[19,1,[\"tsn\"]]]]],[9,\"target\",\"_blank\"],[7],[1,[19,1,[\"tsn\"]],false],[8],[0,\"\\n                       (\"],[6,\"span\"],[10,\"class\",[26,[\"text-\",[19,1,[\"style\"]]]]],[7],[1,[19,1,[\"status\"]],false],[8],[0,\")\\n                    \"],[8],[0,\"\\n                    \"],[6,\"dl\"],[9,\"class\",\"no-margin\"],[7],[0,\"\\n\"],[4,\"control/md-definition\",null,[[\"title\"],[\"Common Name:\"]],{\"statements\":[[4,\"each\",[[19,1,[\"common\"]]],null,{\"statements\":[[0,\"                                \"],[1,[19,2,[\"name\"]],false],[0,\" (\"],[1,[19,2,[\"language\"]],false],[0,\")\\n                                \"],[6,\"br\"],[7],[8],[0,\"\\n\"]],\"parameters\":[2]},{\"statements\":[[0,\"                                \"],[6,\"em\"],[9,\"class\",\"text-muted\"],[7],[0,\"No names assigned.\"],[8],[0,\"\\n\"]],\"parameters\":[]}]],\"parameters\":[]},null],[0,\"                    \"],[8],[0,\"\\n                  \"],[8],[0,\"\\n                \"],[8],[0,\"\\n                \"],[6,\"div\"],[9,\"class\",\"media-left media-middle\"],[7],[0,\"\\n                  \"],[6,\"button\"],[9,\"type\",\"button\"],[9,\"class\",\"btn btn-danger btn-lg btn-block\"],[3,\"action\",[[19,0,[]],\"deselectItem\",[19,1,[]]]],[7],[0,\"Remove\"],[8],[0,\"\\n                \"],[8],[0,\"\\n              \"],[8],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[],\"parameters\":[]}]],\"parameters\":[1]},{\"statements\":[[0,\"            \"],[6,\"div\"],[9,\"class\",\"list-group-item\"],[7],[0,\"\\n              \"],[6,\"p\"],[9,\"class\",\"list-group-item-text\"],[7],[0,\"\\n                Select taxa from the list.\\n              \"],[8],[0,\"\\n            \"],[8],[0,\"\\n\"]],\"parameters\":[]}],[0,\"        \"],[8],[0,\"\\n\"],[0,\"      \"],[8],[0,\"\\n    \"],[8],[0,\"\\n  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"parameters\":[]},null]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/control/md-itis/template.hbs" } });
 });
 define('mdeditor/pods/components/control/md-json-button/component', ['exports'], function (exports) {
   'use strict';
@@ -8159,7 +8083,9 @@ define('mdeditor/pods/components/control/md-json-button/component', ['exports'],
 
     text: 'Preview JSON',
     icon: 'binoculars',
-    json: {},
+    json: Ember.computed(function () {
+      return {};
+    }),
     hideSlider: true,
     propagateClick: false,
 
@@ -8210,9 +8136,7 @@ define('mdeditor/pods/components/control/md-json-viewer/component', ['exports'],
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component,
-        typeOf = Ember.typeOf;
-  exports.default = Component.extend({
+  exports.default = Ember.Component.extend({
     classNames: 'md-json-viewer',
     /**
      * True to render in modal dialog
@@ -8234,7 +8158,7 @@ define('mdeditor/pods/components/control/md-json-viewer/component', ['exports'],
      *
      * @type {ObjectString}
      */
-    json: {},
+    json: 'No json supplied',
 
     close() {
       this.set('modal', false);
@@ -8252,7 +8176,7 @@ define('mdeditor/pods/components/control/md-json-viewer/component', ['exports'],
 
     didInsertElement() {
       let json = this.get('json');
-      let out = typeOf(json) === 'string' ? json : JSON.stringify(json);
+      let out = Ember.typeOf(json) === 'string' ? json : JSON.stringify(json);
 
       Ember.$('.md-viewer-body').JSONView(out);
     },
@@ -8399,9 +8323,8 @@ define('mdeditor/pods/components/control/md-record-table/buttons/component', ['e
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const service = Ember.inject.service;
   exports.default = Ember.Component.extend({
-    router: service(),
+    router: Ember.inject.service(),
     classNames: ['md-dashboard-buttons'],
 
     actions: {
@@ -8450,13 +8373,9 @@ define('mdeditor/pods/components/control/md-record-table/buttons/filter/componen
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component,
-        computed = Ember.computed,
-        inject = Ember.inject,
-        once = Ember.run.once;
-  exports.default = Component.extend({
-    flashMessages: inject.service(),
-    showButton: computed('selectedItems.[]', function () {
+  exports.default = Ember.Component.extend({
+    flashMessages: Ember.inject.service(),
+    showButton: Ember.computed('selectedItems.[]', function () {
       return this.get('selectedItems.length') > 1;
     }),
     actions: {
@@ -8464,7 +8383,7 @@ define('mdeditor/pods/components/control/md-record-table/buttons/filter/componen
         records.forEach(rec => {
           rec.destroyRecord().then(rec => {
             rec.unloadRecord();
-            once(() => {
+            Ember.run.once(() => {
               records.removeObject(rec);
               this.get('flashMessages').danger(`Deleted ${rec.constructor.modelName} "${rec.get('title')}".`);
             });
@@ -8514,9 +8433,6 @@ define('mdeditor/pods/components/control/md-record-table/component', ['exports',
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const get = Ember.get,
-        computed = Ember.computed,
-        A = Ember.A;
   exports.default = _component.default.extend({
     /**
      * @module mdeditor
@@ -8582,7 +8498,7 @@ define('mdeditor/pods/components/control/md-record-table/component', ['exports',
      * @required
      * @default []
      */
-    dataColumns: A(),
+    dataColumns: Ember.A(),
 
     /**
      * Column configs for the checkbox column.
@@ -8593,13 +8509,16 @@ define('mdeditor/pods/components/control/md-record-table/component', ['exports',
      * @type {Object}
      * @required
      */
-    checkColumn: {
-      component: 'components/md-models-table/components/check',
-      disableFiltering: true,
-      mayBeHidden: false,
-      componentForSortCell: 'components/md-models-table/components/check-all',
-      className: 'text-center'
-    },
+    checkColumn: Ember.computed(function () {
+
+      return {
+        component: 'components/md-models-table/components/check',
+        disableFiltering: true,
+        mayBeHidden: false,
+        componentForSortCell: 'components/md-models-table/components/check-all',
+        className: 'text-center'
+      };
+    }),
 
     /**
      * Column configs for the action column.
@@ -8610,7 +8529,7 @@ define('mdeditor/pods/components/control/md-record-table/component', ['exports',
      * @type {Object}
      * @required
      */
-    actionsColumn: computed('allActions', function () {
+    actionsColumn: Ember.computed('allActions', function () {
       let all = this.get('allActions');
 
       return {
@@ -8621,10 +8540,10 @@ define('mdeditor/pods/components/control/md-record-table/component', ['exports',
       };
     }),
 
-    columns: computed('dataColumns', 'checkColumn', function () {
-      let chk = get(this, 'checkColumn');
-      let action = get(this, 'actionsColumn');
-      let cols = get(this, 'dataColumns');
+    columns: Ember.computed('dataColumns', 'checkColumn', function () {
+      let chk = Ember.get(this, 'checkColumn');
+      let action = Ember.get(this, 'actionsColumn');
+      let cols = Ember.get(this, 'dataColumns');
 
       if (chk) {
         cols = [chk].concat(cols);
@@ -8641,7 +8560,7 @@ define('mdeditor/pods/components/control/md-record-table/component', ['exports',
     //rowTemplate: 'components/control/md-select-table/row',
 
     multipleSelect: true,
-    selectedItems: computed({
+    selectedItems: Ember.computed({
       get() {
         let prop = this.get('selectProperty');
 
@@ -8653,7 +8572,7 @@ define('mdeditor/pods/components/control/md-record-table/component', ['exports',
             id: '#emt-selectedItems-array'
           }));
         }
-        return A(v);
+        return Ember.A(v);
       }
     }),
 
@@ -8675,7 +8594,7 @@ define('mdeditor/pods/components/control/md-record-table/component', ['exports',
         this._super(...arguments);
 
         let prop = this.get('selectProperty');
-        let sel = get(this, 'selectedItems');
+        let sel = Ember.get(this, 'selectedItems');
 
         rec.toggleProperty(prop);
         this.get('select')(rec, idx, sel);
@@ -8683,21 +8602,21 @@ define('mdeditor/pods/components/control/md-record-table/component', ['exports',
 
       toggleAllSelection() {
         //this._super(...arguments);
-        let selectedItems = get(this, 'selectedItems');
-        let data = get(this, 'data');
-        const allSelectedBefore = get(selectedItems, 'length') === get(data, 'length');
-        get(this, 'selectedItems').clear();
+        let selectedItems = Ember.get(this, 'selectedItems');
+        let data = Ember.get(this, 'data');
+        const allSelectedBefore = Ember.get(selectedItems, 'length') === Ember.get(data, 'length');
+        Ember.get(this, 'selectedItems').clear();
 
         if (!allSelectedBefore) {
-          get(this, 'selectedItems').pushObjects(data.toArray());
+          Ember.get(this, 'selectedItems').pushObjects(data.toArray());
         }
         this.userInteractionObserver();
 
-        let selected = get(this, 'selectedItems');
+        let selected = Ember.get(this, 'selectedItems');
         let prop = this.get('selectProperty');
         //let data = get(this, 'data');
 
-        if (get(selected, 'length')) {
+        if (Ember.get(selected, 'length')) {
           selected.setEach(prop, true);
         } else {
           data.setEach(prop, false);
@@ -8978,7 +8897,6 @@ define('mdeditor/pods/components/control/md-select-table/component', ['exports',
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const get = Ember.get;
   exports.default = _component.default.extend({
     /**
      * @module mdeditor
@@ -9049,7 +8967,7 @@ define('mdeditor/pods/components/control/md-select-table/component', ['exports',
       clickOnRow() {
         this._super(...arguments);
 
-        let sel = get(this, 'selectedItems');
+        let sel = Ember.get(this, 'selectedItems');
 
         this.get('select')(sel);
       }
@@ -9097,7 +9015,11 @@ define('mdeditor/pods/components/control/md-spotlight/component', ['exports', 'e
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const service = Ember.inject.service;
+
+
+  const containerClassNames = ['md-spotlight-modal'];
+  const overlayClassNames = ['md-modal-overlay'];
+
   exports.default = _modalDialog.default.extend({
     /**
      * Component that highlights a DOM element
@@ -9116,10 +9038,10 @@ define('mdeditor/pods/components/control/md-spotlight/component', ['exports', 'e
      * @property spotlight
      * @type {Service}
      */
-    spotlight: service(),
+    spotlight: Ember.inject.service(),
 
-    containerClassNames: ['md-spotlight-modal'],
-    overlayClassNames: ['md-modal-overlay'],
+    containerClassNames: containerClassNames,
+    overlayClassNames: overlayClassNames,
     targetAttachment: 'none',
     translucentOverlay: true,
     clickOutsideToClose: false,
@@ -9172,11 +9094,8 @@ define('mdeditor/pods/components/control/md-status/component', ['exports'], func
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component,
-        get = Ember.get,
-        inject = Ember.inject;
-  exports.default = Component.extend({
-    slider: inject.service(),
+  exports.default = Ember.Component.extend({
+    slider: Ember.inject.service(),
     tagName: 'span',
     classNames: ['md-status'],
 
@@ -9209,7 +9128,7 @@ define('mdeditor/pods/components/control/md-status/component', ['exports'], func
 
         evt.stopPropagation();
         model.save().then(() => {
-          get(this, 'flashMessages').success(`Saved Record: ${model.get('title')}`);
+          Ember.get(this, 'flashMessages').success(`Saved Record: ${model.get('title')}`);
         });
       }
     }
@@ -9221,7 +9140,7 @@ define("mdeditor/pods/components/control/md-status/template", ["exports"], funct
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "kAxaLghR", "block": "{\"symbols\":[],\"statements\":[[4,\"if\",[[20,[\"model\",\"hasDirtyHash\"]]],null,{\"statements\":[[6,\"span\"],[9,\"class\",\"md-status-icon\"],[10,\"onclick\",[25,\"action\",[[19,0,[]],\"saveRecord\"],null],null],[7],[0,\"\\n  \"],[1,[25,\"fa-icon\",[\"exclamation-circle\"],[[\"class\"],[[25,\"if\",[[20,[\"isBtn\"]],[25,\"concat\",[\"btn btn-danger btn-\",[20,[\"btnSize\"]]],null],\"md-error\"],null]]]],false],[0,\"\\n  \"],[1,[25,\"tooltip-on-element\",null,[[\"text\",\"side\",\"class\"],[\"This record has been modified! Cick to save.\",\"top\",\"md-tooltip danger\"]]],false],[0,\"\\n\"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[20,[\"model\",\"hasSchemaErrors\"]]],null,{\"statements\":[[6,\"span\"],[9,\"class\",\"md-status-icon\"],[10,\"onclick\",[25,\"action\",[[19,0,[]],\"showSlider\"],null],null],[7],[0,\"\\n  \"],[1,[25,\"fa-icon\",[\"exclamation-triangle\"],[[\"class\"],[[25,\"if\",[[20,[\"isBtn\"]],[25,\"concat\",[\"btn btn-warning btn-\",[20,[\"btnSize\"]]],null],\"md-warning\"],null]]]],false],[0,\"\\n  \"],[1,[25,\"tooltip-on-element\",null,[[\"text\",\"side\",\"class\"],[\"This record has errors! Click to view.\",\"right\",\"md-tooltip warning\"]]],false],[0,\"\\n\"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"unless\",[[20,[\"hideSlider\"]]],null,{\"statements\":[[0,\"  \"],[1,[25,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-slider-error\",[25,\"hash\",null,[[\"title\",\"body\"],[[25,\"concat\",[\"Viewing errors for: \",[20,[\"model\",\"title\"]]],null],[25,\"component\",[\"control/md-errors\"],[[\"errors\"],[[20,[\"model\",\"hasSchemaErrors\"]]]]]]]]]]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/control/md-status/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "u9C6YAXR", "block": "{\"symbols\":[],\"statements\":[[4,\"if\",[[20,[\"model\",\"hasDirtyHash\"]]],null,{\"statements\":[[6,\"span\"],[9,\"class\",\"md-status-icon\"],[10,\"onclick\",[25,\"action\",[[19,0,[]],\"saveRecord\"],null],null],[7],[0,\"\\n  \"],[1,[25,\"fa-icon\",[\"exclamation-circle\"],[[\"class\"],[[25,\"if\",[[20,[\"isBtn\"]],[25,\"concat\",[\"btn btn-danger btn-\",[20,[\"btnSize\"]]],null],\"md-error\"],null]]]],false],[0,\"\\n  \"],[1,[25,\"ember-tooltip\",null,[[\"text\",\"side\",\"tooltipClassName\"],[\"This record has been modified! Cick to save.\",\"top\",\"ember-tooltip md-tooltip danger\"]]],false],[0,\"\\n\"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[20,[\"model\",\"hasSchemaErrors\"]]],null,{\"statements\":[[6,\"span\"],[9,\"class\",\"md-status-icon\"],[10,\"onclick\",[25,\"action\",[[19,0,[]],\"showSlider\"],null],null],[7],[0,\"\\n  \"],[1,[25,\"fa-icon\",[\"exclamation-triangle\"],[[\"class\"],[[25,\"if\",[[20,[\"isBtn\"]],[25,\"concat\",[\"btn btn-warning btn-\",[20,[\"btnSize\"]]],null],\"md-warning\"],null]]]],false],[0,\"\\n  \"],[1,[25,\"ember-tooltip\",null,[[\"text\",\"side\",\"tooltipClassName\"],[\"This record has errors! Click to view.\",\"right\",\"ember-tooltip md-tooltip warning\"]]],false],[0,\"\\n\"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"unless\",[[20,[\"hideSlider\"]]],null,{\"statements\":[[0,\"  \"],[1,[25,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-slider-error\",[25,\"hash\",null,[[\"title\",\"body\"],[[25,\"concat\",[\"Viewing errors for: \",[20,[\"model\",\"title\"]]],null],[25,\"component\",[\"control/md-errors\"],[[\"errors\"],[[20,[\"model\",\"hasSchemaErrors\"]]]]]]]]]]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/control/md-status/template.hbs" } });
 });
 define('mdeditor/pods/components/control/subbar-citation/component', ['exports'], function (exports) {
   'use strict';
@@ -9241,7 +9160,7 @@ define("mdeditor/pods/components/control/subbar-citation/template", ["exports"],
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "7gNZth3g", "block": "{\"symbols\":[\"&default\"],\"statements\":[[6,\"div\"],[9,\"class\",\"btn-group-vertical center-block\"],[9,\"role\",\"group\"],[9,\"aria-label\",\"Citation Button Controls\"],[7],[0,\"\\n  \"],[6,\"button\"],[9,\"type\",\"button\"],[9,\"class\",\"btn btn-lg btn-info btn-block md-btn-responsive\"],[3,\"action\",[[19,0,[]],[20,[\"selectResource\"]]]],[7],[0,\"\\n    \"],[1,[25,\"fa-icon\",[\"check\"],null],false],[0,\" Select a Record\\n    \"],[1,[25,\"tooltip-on-element\",null,[[\"text\",\"class\",\"side\"],[\"Select a record to copy into the association.\\n        Note: This will only copy information.\",\"md-tooltip primary\",\"left\"]]],false],[0,\"\\n  \"],[8],[0,\"\\n  \"],[4,\"link-to\",[[20,[\"route\"]]],[[\"class\"],[\"btn btn-lg btn-primary btn-block md-btn-responsive\"]],{\"statements\":[[0,\" \"],[1,[25,\"fa-icon\",[[20,[\"icon\"]]],null],false],[0,\" \"],[1,[18,\"text\"],false]],\"parameters\":[]},null],[0,\"\\n  \"],[11,1],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/control/subbar-citation/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "ft+X13oq", "block": "{\"symbols\":[\"&default\"],\"statements\":[[6,\"div\"],[9,\"class\",\"btn-group-vertical center-block\"],[9,\"role\",\"group\"],[9,\"aria-label\",\"Citation Button Controls\"],[7],[0,\"\\n  \"],[6,\"button\"],[9,\"type\",\"button\"],[9,\"class\",\"btn btn-lg btn-info btn-block md-btn-responsive\"],[3,\"action\",[[19,0,[]],[20,[\"selectResource\"]]]],[7],[0,\"\\n    \"],[1,[25,\"fa-icon\",[\"check\"],null],false],[0,\" Select a Record\\n    \"],[1,[25,\"ember-tooltip\",null,[[\"text\",\"tooltipClassName\",\"side\"],[\"Select a record to copy into the association.\\n        Note: This will only copy information.\",\"ember-tooltip md-tooltip primary\",\"left\"]]],false],[0,\"\\n  \"],[8],[0,\"\\n  \"],[4,\"link-to\",[[20,[\"route\"]]],[[\"class\"],[\"btn btn-lg btn-primary btn-block md-btn-responsive\"]],{\"statements\":[[0,\" \"],[1,[25,\"fa-icon\",[[20,[\"icon\"]]],null],false],[0,\" \"],[1,[18,\"text\"],false]],\"parameters\":[]},null],[0,\"\\n  \"],[11,1],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/control/subbar-citation/template.hbs" } });
 });
 define('mdeditor/pods/components/control/subbar-extent/component', ['exports'], function (exports) {
   'use strict';
@@ -9305,9 +9224,7 @@ define('mdeditor/pods/components/control/subbar-link/component', ['exports'], fu
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component,
-        or = Ember.computed.or;
-  exports.default = Component.extend({
+  exports.default = Ember.Component.extend({
     /**
      * mdEditor Component that renders a button used to navigate to a parent route
      * or perform an action on click.
@@ -9381,9 +9298,9 @@ define('mdeditor/pods/components/control/subbar-link/component', ['exports'], fu
      * @type {String}
      */
 
-    clickTxt: or('clickText', 'text'),
-    clickButtonType: or('clickType', 'btnType'),
-    clickButtonIcon: or('clickIcon', 'icon')
+    clickTxt: Ember.computed.or('clickText', 'text'),
+    clickButtonType: Ember.computed.or('clickType', 'btnType'),
+    clickButtonIcon: Ember.computed.or('clickIcon', 'icon')
   });
 });
 define("mdeditor/pods/components/control/subbar-link/template", ["exports"], function (exports) {
@@ -9433,6 +9350,16 @@ define("mdeditor/pods/components/control/subbar-thesaurus/template", ["exports"]
     value: true
   });
   exports.default = Ember.HTMLBars.template({ "id": "ABgZ4WT+", "block": "{\"symbols\":[\"&default\"],\"statements\":[[6,\"hr\"],[7],[8],[0,\"\\n\"],[6,\"button\"],[9,\"type\",\"button\"],[9,\"class\",\"btn btn-lg btn-primary btn-block md-btn-responsive\"],[3,\"action\",[[19,0,[]],\"toList\"],[[\"target\"],[[20,[\"actionContext\"]]]]],[7],[0,\"\\n  \"],[1,[25,\"fa-icon\",[\"list\"],null],false],[0,\" Back to List\"],[8],[0,\"\\n\"],[11,1],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/control/subbar-thesaurus/template.hbs" } });
+});
+define('mdeditor/pods/components/ember-tooltip/component', ['exports', 'ember-tooltips/components/ember-tooltip'], function (exports, _emberTooltip) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = _emberTooltip.default.extend({
+    popperContainer: 'body'
+  });
 });
 define('mdeditor/pods/components/input/md-boolean/component', ['exports'], function (exports) {
   'use strict';
@@ -9884,30 +9811,31 @@ define('mdeditor/pods/components/input/md-date-range/component', ['exports', 'em
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component,
-        computed = Ember.computed,
-        get = Ember.get,
-        set = Ember.set,
-        once = Ember.run.once;
 
 
   const Validations = (0, _emberCpValidations.buildValidations)({
     'start': [(0, _emberCpValidations.validator)('presence', {
       presence: true,
-      disabled: computed.notEmpty('model.end'),
+      disabled: Ember.computed.notEmpty('model.end'),
       ignoreBlank: true
     })],
     'end': [(0, _emberCpValidations.validator)('date', {
-      onOrAfter: computed.alias('model.start'),
+      onOrAfter: Ember.computed.alias('model.start'),
       isWarning: true
     }), (0, _emberCpValidations.validator)('presence', {
       presence: true,
-      disabled: computed.notEmpty('model.start'),
+      disabled: Ember.computed.notEmpty('model.start'),
       ignoreBlank: true
     })]
   });
+  //import moment from 'moment';
 
-  exports.default = Component.extend(Validations, {
+  /**
+   * @module mdeditor
+   * @submodule components-input
+   */
+
+  exports.default = Ember.Component.extend(Validations, {
     /**
      * Date range with start date and end date fields.
      *
@@ -9953,26 +9881,26 @@ define('mdeditor/pods/components/input/md-date-range/component', ['exports', 'em
      * @required
      */
     //  endDateTime: moment().hour(0).second(0).minute(0)
-    start: computed('startDateTime', {
+    start: Ember.computed('startDateTime', {
       get() {
-        let dt = get(this, 'startDateTime');
+        let dt = Ember.get(this, 'startDateTime');
         return dt === undefined ? null : dt;
       },
       set(key, value) {
-        once(this, function () {
-          set(this, 'startDateTime', value);
+        Ember.run.once(this, function () {
+          Ember.set(this, 'startDateTime', value);
           return value;
         });
       }
     }),
-    end: computed('endDateTime', {
+    end: Ember.computed('endDateTime', {
       get() {
-        let dt = get(this, 'endDateTime');
+        let dt = Ember.get(this, 'endDateTime');
         return dt === undefined ? null : dt;
       },
       set(key, value) {
-        once(this, function () {
-          set(this, 'endDateTime', value);
+        Ember.run.once(this, function () {
+          Ember.set(this, 'endDateTime', value);
           return value;
         });
       }
@@ -9993,15 +9921,7 @@ define('mdeditor/pods/components/input/md-datetime/component', ['exports', 'mome
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component,
-        defineProperty = Ember.defineProperty,
-        computed = Ember.computed,
-        isBlank = Ember.isBlank,
-        set = Ember.set,
-        get = Ember.get,
-        once = Ember.run.once,
-        assert = Ember.assert;
-  exports.default = Component.extend({
+  exports.default = Ember.Component.extend({
 
     /**
      * Datetime control with dropdown calendar.
@@ -10017,48 +9937,62 @@ define('mdeditor/pods/components/input/md-datetime/component', ['exports', 'mome
       let model = this.get('model');
       let valuePath = this.get('valuePath');
 
-      if (isBlank(model) !== isBlank(valuePath)) {
-        assert(`You must supply both model and valuePath to ${this.toString()} or neither.`);
+      if (Ember.isBlank(model) !== Ember.isBlank(valuePath)) {
+        (true && !(false) && Ember.assert(`You must supply both model and valuePath to ${this.toString()} or neither.`));
       }
 
-      if (!isBlank(model)) {
+      if (!Ember.isBlank(model)) {
         if (this.get(`model.${valuePath}`) === undefined) {
           Ember.debug(`model.${valuePath} is undefined in ${this.toString()}.`);
         }
 
-        defineProperty(this, 'date', computed(`model.${valuePath}`, {
+        Ember.defineProperty(this, '_date', Ember.computed(`model.${valuePath}`, {
           get() {
-            return (0, _moment.default)(get(this, `model.${valuePath}`));
+            let val = Ember.get(this, `model.${valuePath}`);
+
+            return val ? (0, _moment.default)(val, this.get('altFormat' || null)) : null;
           },
           set(key, value) {
-            once(this, () => {
-              this.set(`model.${valuePath}`, value);
-            });
-            return value;
+            let formatted = this.formatValue(value, `model.${valuePath}`);
+
+            return formatted;
           }
         }));
 
-        defineProperty(this, 'validation', computed.alias(`model.validations.attrs.${valuePath}`).readOnly());
+        Ember.defineProperty(this, 'validation', Ember.computed.alias(`model.validations.attrs.${valuePath}`).readOnly());
 
-        defineProperty(this, 'required', computed('validation.options.presence.presence', 'validation.options.presence.disabled', function () {
+        Ember.defineProperty(this, 'required', Ember.computed('validation.options.presence.{presence,disabled}', function () {
           return this.get('validation.options.presence.presence') && !this.get('validation.options.presence.disabled');
         }).readOnly());
 
-        defineProperty(this, 'notValidating', computed.not('validation.isValidating').readOnly());
+        Ember.defineProperty(this, 'notValidating', Ember.computed.not('validation.isValidating').readOnly());
 
-        defineProperty(this, 'hasContent', computed.notEmpty('date').readOnly());
+        Ember.defineProperty(this, 'hasContent', Ember.computed.notEmpty('date').readOnly());
 
-        defineProperty(this, 'hasWarnings', computed.notEmpty('validation.warnings').readOnly());
+        Ember.defineProperty(this, 'hasWarnings', Ember.computed.notEmpty('validation.warnings').readOnly());
 
-        defineProperty(this, 'isValid', computed.and('hasContent', 'validation.isTruelyValid').readOnly());
+        Ember.defineProperty(this, 'isValid', Ember.computed.and('hasContent', 'validation.isTruelyValid').readOnly());
 
-        defineProperty(this, 'shouldDisplayValidations', computed.or('showValidations', 'didValidate', 'hasContent').readOnly());
+        Ember.defineProperty(this, 'shouldDisplayValidations', Ember.computed.or('showValidations', 'didValidate', 'hasContent').readOnly());
 
-        defineProperty(this, 'showErrorClass', computed.and('notValidating', 'showErrorMessage', 'hasContent', 'validation').readOnly());
+        Ember.defineProperty(this, 'showErrorClass', Ember.computed.and('notValidating', 'showErrorMessage', 'hasContent', 'validation').readOnly());
 
-        defineProperty(this, 'showErrorMessage', computed.and('shouldDisplayValidations', 'validation.isInvalid').readOnly());
+        Ember.defineProperty(this, 'showErrorMessage', Ember.computed.and('shouldDisplayValidations', 'validation.isInvalid').readOnly());
 
-        defineProperty(this, 'showWarningMessage', computed.and('shouldDisplayValidations', 'hasWarnings', 'isValid').readOnly());
+        Ember.defineProperty(this, 'showWarningMessage', Ember.computed.and('shouldDisplayValidations', 'hasWarnings', 'isValid').readOnly());
+      } else {
+        Ember.defineProperty(this, '_date', Ember.computed('date', {
+          get() {
+            let val = Ember.get(this, 'date');
+
+            return val ? (0, _moment.default)(val, this.get('altFormat' || null)) : null;
+          },
+          set(key, value) {
+            let formatted = this.formatValue(value, 'date');
+
+            return formatted;
+          }
+        }));
       }
     },
     classNames: ['md-datetime', 'md-input-input'],
@@ -10106,9 +10040,58 @@ define('mdeditor/pods/components/input/md-datetime/component', ['exports', 'mome
      *
      * @property useCurrent
      * @type Boolean
-     * @default false
+     * @default 'day'
      */
-    useCurrent: false,
+    useCurrent: 'day',
+
+    /**
+     * Show the Today button in the icon toolbar.
+     *
+     * @property showTodayButton
+     * @type Boolean
+     * @default true
+     */
+    showTodayButton: true,
+
+    /**
+     * Show the clear button in the icon toolbar.
+     *
+     * @property showClear
+     * @type Boolean
+     * @default true
+     */
+    showClear: true,
+
+    formatValue(value, target) {
+      if (Ember.isBlank(value)) {
+        Ember.run.once(this, function () {
+          Ember.set(this, target, null);
+        });
+
+        return value;
+      }
+
+      let mom = (0, _moment.default)(value);
+
+      if (this.get('altFormat')) {
+        let alt = mom.format(this.get('altFormat'));
+
+        Ember.run.once(this, function () {
+          Ember.set(this, target, alt);
+        });
+        return alt;
+      }
+      //utc.add(utc.utcOffset(), 'minutes');
+
+      if (mom && mom.toISOString() !== this.get(target)) {
+
+        Ember.run.once(this, function () {
+          Ember.set(this, target, mom.toISOString());
+        });
+      }
+
+      return mom;
+    },
 
     /**
      * Icons to be used by the datetime picker and calendar.
@@ -10120,37 +10103,18 @@ define('mdeditor/pods/components/input/md-datetime/component', ['exports', 'mome
      * @type Object
      * @default 'calendarIcons'
      */
-    calendarIcons: {
-      time: "fa fa-clock-o",
-      date: "fa fa-calendar",
-      up: "fa fa-chevron-up",
-      down: "fa fa-chevron-down",
-      previous: "fa fa-angle-double-left",
-      next: "fa fa-angle-double-right",
-      close: "fa fa-times",
-      clear: "fa fa-trash"
-    },
-
-    actions: {
-      updateDate(date) {
-        if (isBlank(date)) {
-          set(this, 'date', null);
-
-          return;
-        }
-
-        let utc = (0, _moment.default)(date);
-
-        //utc.add(utc.utcOffset(), 'minutes');
-
-        if (utc && utc.toISOString() !== this.get('date')) {
-
-          //once(this, function() {
-          set(this, 'date', utc.toISOString());
-          //});
-        }
-      }
-    }
+    calendarIcons: Ember.computed(function () {
+      return {
+        time: "fa fa-clock-o",
+        date: "fa fa-calendar",
+        up: "fa fa-chevron-up",
+        down: "fa fa-chevron-down",
+        previous: "fa fa-angle-double-left",
+        next: "fa fa-angle-double-right",
+        close: "fa fa-times",
+        clear: "fa fa-trash"
+      };
+    })
   });
 });
 define("mdeditor/pods/components/input/md-datetime/template", ["exports"], function (exports) {
@@ -10159,7 +10123,7 @@ define("mdeditor/pods/components/input/md-datetime/template", ["exports"], funct
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "lNXw4rff", "block": "{\"symbols\":[],\"statements\":[[4,\"if\",[[20,[\"label\"]]],null,{\"statements\":[[0,\"  \"],[6,\"label\"],[7],[1,[18,\"label\"],false],[8],[0,\"\\n\"]],\"parameters\":[]},null],[6,\"div\"],[9,\"class\",\"md-input-input\"],[7],[0,\"\\n  \"],[1,[25,\"bs-datetimepicker\",null,[[\"date\",\"format\",\"extraFormats\",\"dateIcon\",\"icons\",\"forceDateOutput\",\"placeholder\",\"showClear\",\"useCurrent\",\"textFieldRequired\",\"updateDate\"],[[20,[\"date\"]],[20,[\"format\"]],[20,[\"extraFormats\"]],\"fa fa-calendar\",[20,[\"calendarIcons\"]],[20,[\"forceDateOutput\"]],[20,[\"placeholder\"]],[20,[\"showClear\"]],[20,[\"useCurrent\"]],[20,[\"required\"]],[25,\"action\",[[19,0,[]],\"updateDate\"],null]]]],false],[0,\"\\n  \"],[6,\"span\"],[9,\"class\",\"md-inputgroup-error\"],[7],[0,\"\\n\"],[4,\"if\",[[20,[\"showErrorMessage\"]]],null,{\"statements\":[[0,\"      \"],[6,\"span\"],[9,\"class\",\"md-error\"],[7],[0,\"\\n        \"],[1,[25,\"fa-icon\",[\"exclamation-circle\"],null],false],[0,\"\\n\"],[4,\"tooltip-on-element\",null,[[\"side\",\"class\"],[\"right\",\"md-tooltip danger\"]],{\"statements\":[[0,\"            \"],[1,[25,\"get\",[[25,\"get\",[[20,[\"model\",\"validations\",\"attrs\"]],[20,[\"valuePath\"]]],null],\"message\"],null],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"      \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[20,[\"showWarningMessage\"]]],null,{\"statements\":[[0,\"      \"],[6,\"span\"],[9,\"class\",\"md-warning\"],[7],[0,\"\\n        \"],[1,[25,\"fa-icon\",[\"exclamation-triangle\"],null],false],[0,\"\\n\"],[4,\"tooltip-on-element\",null,[[\"side\",\"class\"],[\"right\",\"md-tooltip warning\"]],{\"statements\":[[0,\"        \"],[1,[25,\"get\",[[25,\"get\",[[20,[\"model\",\"validations\",\"attrs\"]],[20,[\"valuePath\"]]],null],\"warningMessage\"],null],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"      \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/input/md-datetime/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "wjkRyB6u", "block": "{\"symbols\":[],\"statements\":[[4,\"if\",[[20,[\"label\"]]],null,{\"statements\":[[0,\"  \"],[6,\"label\"],[7],[1,[18,\"label\"],false],[8],[0,\"\\n\"]],\"parameters\":[]},null],[6,\"div\"],[9,\"class\",\"md-input-input\"],[7],[0,\"\\n  \"],[1,[25,\"bs-datetimepicker\",null,[[\"date\",\"format\",\"extraFormats\",\"dateIcon\",\"icons\",\"placeholder\",\"showClear\",\"useCurrent\",\"textFieldRequired\",\"showTodayButton\",\"change\"],[[20,[\"_date\"]],[20,[\"format\"]],[20,[\"extraFormats\"]],\"fa fa-calendar\",[20,[\"calendarIcons\"]],[20,[\"placeholder\"]],[20,[\"showClear\"]],[20,[\"useCurrent\"]],[20,[\"required\"]],[20,[\"showTodayButton\"]],[20,[\"change\"]]]]],false],[0,\"\\n  \"],[6,\"span\"],[9,\"class\",\"md-inputgroup-error\"],[7],[0,\"\\n\"],[4,\"if\",[[20,[\"showErrorMessage\"]]],null,{\"statements\":[[0,\"      \"],[6,\"span\"],[9,\"class\",\"md-error\"],[7],[0,\"\\n        \"],[1,[25,\"fa-icon\",[\"exclamation-circle\"],null],false],[0,\"\\n\"],[4,\"ember-tooltip\",null,[[\"side\",\"tooltipClassName\"],[\"right\",\"ember-tooltip md-tooltip danger\"]],{\"statements\":[[0,\"            \"],[1,[25,\"get\",[[25,\"get\",[[20,[\"model\",\"validations\",\"attrs\"]],[20,[\"valuePath\"]]],null],\"message\"],null],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"      \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[20,[\"showWarningMessage\"]]],null,{\"statements\":[[0,\"      \"],[6,\"span\"],[9,\"class\",\"md-warning\"],[7],[0,\"\\n        \"],[1,[25,\"fa-icon\",[\"exclamation-triangle\"],null],false],[0,\"\\n\"],[4,\"ember-tooltip\",null,[[\"side\",\"tooltipClassName\"],[\"right\",\"ember-tooltip md-tooltip warning\"]],{\"statements\":[[0,\"        \"],[1,[25,\"get\",[[25,\"get\",[[20,[\"model\",\"validations\",\"attrs\"]],[20,[\"valuePath\"]]],null],\"warningMessage\"],null],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"      \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/input/md-datetime/template.hbs" } });
 });
 define('mdeditor/pods/components/input/md-input-confirm/component', ['exports', 'mdeditor/pods/components/input/md-input/component'], function (exports, _component) {
   'use strict';
@@ -10207,7 +10171,7 @@ define("mdeditor/pods/components/input/md-input-confirm/template", ["exports"], 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "uPNb6raa", "block": "{\"symbols\":[\"&default\"],\"statements\":[[4,\"if\",[[20,[\"label\"]]],null,{\"statements\":[[6,\"label\"],[7],[1,[18,\"label\"],false],[8]],\"parameters\":[]},null],[0,\"\\n\"],[6,\"div\"],[10,\"class\",[26,[[25,\"if\",[[20,[\"disabled\"]],\"input-group\"],null]]]],[7],[0,\"\\n\\n\"],[1,[25,\"input\",[[25,\"-input-type\",[[20,[\"type\"]]],null]],[[\"value\",\"placeholder\",\"required\",\"type\",\"maxlength\",\"class\",\"disabled\"],[[20,[\"value\"]],[20,[\"placeholder\"]],[20,[\"required\"]],[20,[\"type\"]],[20,[\"maxlength\"]],[20,[\"inputClass\"]],[20,[\"isDisabled\"]]]]],false],[0,\"\\n\"],[4,\"if\",[[20,[\"disabled\"]]],null,{\"statements\":[[0,\"    \"],[6,\"span\"],[9,\"class\",\"input-group-btn\"],[7],[0,\"\\n\"],[4,\"control/md-button-confirm\",null,[[\"class\",\"onConfirm\"],[\"btn btn-warning\",[25,\"action\",[[19,0,[]],\"allowEdit\"],null]]],{\"statements\":[[0,\"            \"],[1,[25,\"fa-icon\",[\"pencil\"],null],false],[0,\" Edit\\n\"],[4,\"if\",[[20,[\"confirmTip\"]]],null,{\"statements\":[[4,\"tooltip-on-component\",null,[[\"enableLazyRendering\"],[true]],{\"statements\":[[0,\"                \"],[1,[18,\"confirmTip\"],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null]],\"parameters\":[]},null],[0,\"    \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[8],[0,\"\\n\"],[11,1],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/input/md-input-confirm/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "ESQYVCE1", "block": "{\"symbols\":[\"&default\"],\"statements\":[[4,\"if\",[[20,[\"label\"]]],null,{\"statements\":[[6,\"label\"],[7],[1,[18,\"label\"],false],[8]],\"parameters\":[]},null],[0,\"\\n\"],[6,\"div\"],[10,\"class\",[26,[[25,\"if\",[[20,[\"disabled\"]],\"input-group\"],null]]]],[7],[0,\"\\n\\n\"],[1,[25,\"input\",[[25,\"-input-type\",[[20,[\"type\"]]],null]],[[\"value\",\"placeholder\",\"required\",\"type\",\"maxlength\",\"class\",\"disabled\"],[[20,[\"value\"]],[20,[\"placeholder\"]],[20,[\"required\"]],[20,[\"type\"]],[20,[\"maxlength\"]],[20,[\"inputClass\"]],[20,[\"isDisabled\"]]]]],false],[0,\"\\n\"],[4,\"if\",[[20,[\"disabled\"]]],null,{\"statements\":[[0,\"    \"],[6,\"span\"],[9,\"class\",\"input-group-btn\"],[7],[0,\"\\n\"],[4,\"control/md-button-confirm\",null,[[\"class\",\"onConfirm\"],[\"btn btn-warning\",[25,\"action\",[[19,0,[]],\"allowEdit\"],null]]],{\"statements\":[[0,\"            \"],[1,[25,\"fa-icon\",[\"pencil\"],null],false],[0,\" Edit\\n\"],[4,\"if\",[[20,[\"confirmTip\"]]],null,{\"statements\":[[4,\"ember-tooltip\",null,null,{\"statements\":[[0,\"                \"],[1,[18,\"confirmTip\"],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null]],\"parameters\":[]},null],[0,\"    \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[8],[0,\"\\n\"],[11,1],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/input/md-input-confirm/template.hbs" } });
 });
 define('mdeditor/pods/components/input/md-input/component', ['exports'], function (exports) {
   'use strict';
@@ -10215,12 +10179,7 @@ define('mdeditor/pods/components/input/md-input/component', ['exports'], functio
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component,
-        defineProperty = Ember.defineProperty,
-        computed = Ember.computed,
-        isBlank = Ember.isBlank,
-        assert = Ember.assert;
-  exports.default = Component.extend({
+  exports.default = Ember.Component.extend({
     /**
      * Input, edit, display a single item
      *
@@ -10245,11 +10204,11 @@ define('mdeditor/pods/components/input/md-input/component', ['exports'], functio
       let model = this.get('model');
       let valuePath = this.get('valuePath');
 
-      if (isBlank(model) !== isBlank(valuePath)) {
-        assert(`You must supply both model and valuePath to ${this.toString()} or neither.`);
+      if (Ember.isBlank(model) !== Ember.isBlank(valuePath)) {
+        (true && !(false) && Ember.assert(`You must supply both model and valuePath to ${this.toString()} or neither.`));
       }
 
-      if (!isBlank(model)) {
+      if (!Ember.isBlank(model)) {
         if (this.get(`model.${valuePath}`) === undefined) {
           Ember.debug(`model.${valuePath} is undefined in ${this.toString()}.`);
 
@@ -10259,7 +10218,7 @@ define('mdeditor/pods/components/input/md-input/component', ['exports'], functio
         if (this.get('type') === 'number') {
           let attribute = `model.${valuePath}`;
 
-          defineProperty(this, 'value', computed(attribute, {
+          Ember.defineProperty(this, 'value', Ember.computed(attribute, {
             get() {
               let val = this.get(attribute);
 
@@ -10275,30 +10234,30 @@ define('mdeditor/pods/components/input/md-input/component', ['exports'], functio
             }
           }));
         } else {
-          defineProperty(this, 'value', computed.alias(`model.${valuePath}`));
+          Ember.defineProperty(this, 'value', Ember.computed.alias(`model.${valuePath}`));
         }
 
-        defineProperty(this, 'validation', computed.alias(`model.validations.attrs.${valuePath}`).readOnly());
+        Ember.defineProperty(this, 'validation', Ember.computed.alias(`model.validations.attrs.${valuePath}`).readOnly());
 
-        defineProperty(this, 'required', computed('validation.options.presence.presence', 'validation.options.presence.disabled', 'disabled', function () {
+        Ember.defineProperty(this, 'required', Ember.computed('validation.options.presence{presence,disabled}', 'disabled', function () {
           return !this.get('disabled') && this.get('validation.options.presence.presence') && !this.get('validation.options.presence.disabled');
         }).readOnly());
 
-        defineProperty(this, 'notValidating', computed.not('validation.isValidating').readOnly());
+        Ember.defineProperty(this, 'notValidating', Ember.computed.not('validation.isValidating').readOnly());
 
-        defineProperty(this, 'hasContent', computed.notEmpty('value').readOnly());
+        Ember.defineProperty(this, 'hasContent', Ember.computed.notEmpty('value').readOnly());
 
-        defineProperty(this, 'hasWarnings', computed.notEmpty('validation.warnings').readOnly());
+        Ember.defineProperty(this, 'hasWarnings', Ember.computed.notEmpty('validation.warnings').readOnly());
 
-        defineProperty(this, 'isValid', computed.and('hasContent', 'validation.isTruelyValid').readOnly());
+        Ember.defineProperty(this, 'isValid', Ember.computed.and('hasContent', 'validation.isTruelyValid').readOnly());
 
-        defineProperty(this, 'shouldDisplayValidations', computed.or('showValidations', 'didValidate', 'hasContent').readOnly());
+        Ember.defineProperty(this, 'shouldDisplayValidations', Ember.computed.or('showValidations', 'didValidate', 'hasContent').readOnly());
 
-        defineProperty(this, 'showErrorClass', computed.and('notValidating', 'showErrorMessage', 'hasContent', 'validation').readOnly());
+        Ember.defineProperty(this, 'showErrorClass', Ember.computed.and('notValidating', 'showErrorMessage', 'hasContent', 'validation').readOnly());
 
-        defineProperty(this, 'showErrorMessage', computed.and('shouldDisplayValidations', 'validation.isInvalid').readOnly());
+        Ember.defineProperty(this, 'showErrorMessage', Ember.computed.and('shouldDisplayValidations', 'validation.isInvalid').readOnly());
 
-        defineProperty(this, 'showWarningMessage', computed.and('shouldDisplayValidations', 'hasWarnings', 'isValid').readOnly());
+        Ember.defineProperty(this, 'showWarningMessage', Ember.computed.and('shouldDisplayValidations', 'hasWarnings', 'isValid').readOnly());
       }
     },
 
@@ -10408,155 +10367,7 @@ define("mdeditor/pods/components/input/md-input/template", ["exports"], function
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "F0Dp0IVd", "block": "{\"symbols\":[\"&default\"],\"statements\":[[4,\"if\",[[20,[\"label\"]]],null,{\"statements\":[[6,\"label\"],[7],[1,[18,\"label\"],false],[8]],\"parameters\":[]},null],[0,\"\\n\"],[6,\"div\"],[9,\"class\",\"md-input-input\"],[7],[0,\"\\n  \"],[1,[25,\"input\",[[25,\"-input-type\",[[20,[\"type\"]]],null]],[[\"value\",\"placeholder\",\"required\",\"type\",\"step\",\"maxlength\",\"class\",\"disabled\",\"change\"],[[20,[\"value\"]],[20,[\"placeholder\"]],[20,[\"required\"]],[20,[\"type\"]],[20,[\"step\"]],[20,[\"maxlength\"]],[20,[\"inputClass\"]],[20,[\"disabled\"]],[20,[\"change\"]]]]],false],[0,\"\\n\\n  \"],[6,\"span\"],[9,\"class\",\"md-input-error\"],[7],[0,\"\\n\"],[4,\"if\",[[20,[\"showErrorMessage\"]]],null,{\"statements\":[[0,\"      \"],[6,\"span\"],[9,\"class\",\"md-error\"],[7],[0,\"\\n        \"],[1,[25,\"fa-icon\",[\"exclamation-circle\"],null],false],[0,\"\\n\"],[4,\"tooltip-on-element\",null,[[\"side\",\"class\"],[\"right\",\"md-tooltip danger\"]],{\"statements\":[[0,\"            \"],[1,[25,\"get\",[[25,\"get\",[[20,[\"model\",\"validations\",\"attrs\"]],[20,[\"valuePath\"]]],null],\"message\"],null],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"      \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[20,[\"showWarningMessage\"]]],null,{\"statements\":[[0,\"      \"],[6,\"span\"],[9,\"class\",\"md-warning\"],[7],[0,\"\\n        \"],[1,[25,\"fa-icon\",[\"exclamation-triangle\"],null],false],[0,\"\\n\"],[4,\"tooltip-on-element\",null,[[\"side\",\"class\"],[\"right\",\"md-tooltip warning\"]],{\"statements\":[[0,\"        \"],[1,[25,\"get\",[[25,\"get\",[[20,[\"model\",\"validations\",\"attrs\"]],[20,[\"valuePath\"]]],null],\"warningMessage\"],null],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"      \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"],[11,1],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/input/md-input/template.hbs" } });
-});
-define('mdeditor/pods/components/input/md-inputs/component', ['exports'], function (exports) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = Ember.Component.extend({
-
-    /**
-     * Input, edit, display an array of strings
-     *
-     * @class md-inputs
-     * @constructor
-     */
-
-    /**
-     * An array of strings to be edited.
-     * The edited array is returned
-     *
-     * @property model
-     * @type Array
-     * @default []
-     */
-    model: [],
-
-    /**
-     * Type of data represented by string in the array.
-     * HTML5 types may be specified ('text', 'number', etc.)
-     *
-     * @property type
-     * @type String
-     * @default 'text'
-     */
-    type: 'text',
-
-    /**
-     * Maximum number of characters for each input string.
-     * If no maxlength is specified the length will not be restricted
-     *
-     * @property maxlength
-     * @type Number
-     * @default null
-     */
-    maxlength: null,
-
-    /**
-     * Label for the table of input rows
-     *
-     * @property label
-     * @type String
-     * @default null
-     */
-    label: null,
-
-    /**
-     * Determines add button text
-     *
-     * @property buttonText
-     * @type String
-     * @default Add
-     */
-    buttonText: "Add",
-
-    /**
-     * Determines add button placement
-     *
-     * @property buttonTop
-     * @type Boolean
-     * @default false
-     */
-    buttonTop: false,
-
-    /**
-     * Column header for the input column
-     *
-     * @property header
-     * @type String
-     * @default null
-     */
-    header: null,
-
-    /**
-     * Text displayed in empty inputs
-     *
-     * @property placeholder
-     * @type String
-     * @default null
-     */
-    placeholder: null,
-
-    // convert the input 'primitive' array to an 'ember' array
-    items: Ember.computed('model.[]', {
-      get() {
-        let items = this.get('model');
-
-        if (items === undefined) {
-          items = [];
-          items[0] = '';
-        }
-
-        return items.reduce(function (acc, val) {
-          acc.pushObject({
-            val: val
-          });
-          return acc;
-        }, []);
-      },
-
-      set(key, value) {
-        this.set('model', value.filterBy('val').mapBy('val'));
-        return value;
-      }
-    }),
-
-    itemsObserver: Ember.observer('items.@each.val', function () {
-      this.set('items', this.get('items'));
-    }),
-
-    actions: {
-      addItem() {
-        this.addItem();
-      },
-      deleteItem(idx) {
-        this.deleteItem(idx);
-      }
-    },
-
-    // functions for actions are isolated from actions to facilitate testing
-    addItem() {
-      this.get('items').pushObject({
-        val: ''
-      });
-    },
-
-    deleteItem(idx) {
-      this.get('items').removeAt(idx);
-    }
-
-  });
-});
-define("mdeditor/pods/components/input/md-inputs/template", ["exports"], function (exports) {
-  "use strict";
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = Ember.HTMLBars.template({ "id": "kD+LIEoT", "block": "{\"symbols\":[\"inputItem\",\"index\",\"&default\"],\"statements\":[[6,\"div\"],[9,\"class\",\"form-group border\"],[7],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"form-group\"],[7],[0,\"\\n\"],[4,\"if\",[[20,[\"label\"]]],null,{\"statements\":[[0,\"            \"],[6,\"label\"],[7],[1,[18,\"label\"],false],[8],[0,\"\\n\"]],\"parameters\":[]},null],[4,\"if\",[[20,[\"buttonTop\"]]],null,{\"statements\":[[0,\"            \"],[6,\"button\"],[9,\"class\",\"btn btn-info btn-xs pull-right\"],[3,\"action\",[[19,0,[]],\"addItem\"]],[7],[0,\"\\n                \"],[1,[25,\"fa-icon\",[\"plus\"],null],false],[0,\" \"],[1,[18,\"buttonText\"],false],[0,\"\\n            \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"        \"],[6,\"table\"],[9,\"class\",\"table table-striped table-hover\"],[7],[0,\"\\n\"],[4,\"if\",[[20,[\"header\"]]],null,{\"statements\":[[0,\"                \"],[6,\"thead\"],[7],[0,\"\\n                \"],[6,\"th\"],[7],[0,\"#\"],[8],[0,\"\\n                \"],[6,\"th\"],[9,\"class\",\"col-sm-9\"],[7],[1,[18,\"header\"],false],[8],[0,\"\\n                \"],[6,\"th\"],[7],[8],[0,\"\\n                \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"            \"],[6,\"tbody\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"items\"]]],null,{\"statements\":[[0,\"                \"],[6,\"tr\"],[7],[0,\"\\n                    \"],[6,\"td\"],[7],[1,[19,2,[]],false],[8],[0,\"\\n                    \"],[6,\"td\"],[7],[0,\"\\n                        \"],[1,[25,\"input/md-input\",null,[[\"type\",\"value\",\"maxlength\",\"placeholder\"],[[20,[\"type\"]],[19,1,[\"val\"]],[20,[\"maxlength\"]],[20,[\"placeholder\"]]]]],false],[0,\"\\n                    \"],[8],[0,\"\\n                    \"],[6,\"td\"],[7],[0,\"\\n                        \"],[6,\"button\"],[9,\"class\",\"btn btn-warning btn-xs pull-right\"],[3,\"action\",[[19,0,[]],\"deleteItem\",[19,2,[]]]],[7],[0,\"Delete!\"],[8],[0,\"\\n                    \"],[8],[0,\"\\n                \"],[8],[0,\"\\n\"]],\"parameters\":[1,2]},null],[0,\"            \"],[8],[0,\"\\n\"],[4,\"unless\",[[20,[\"buttonTop\"]]],null,{\"statements\":[[0,\"            \"],[6,\"tfoot\"],[7],[0,\"\\n                \"],[6,\"tr\"],[7],[0,\"\\n                    \"],[6,\"td\"],[9,\"colspan\",\"3\"],[7],[0,\"\\n                        \"],[6,\"button\"],[9,\"class\",\"btn btn-info btn-xs\"],[3,\"action\",[[19,0,[]],\"addItem\"]],[7],[0,\"\\n                            \"],[1,[25,\"fa-icon\",[\"plus\"],null],false],[0,\" \"],[1,[18,\"buttonText\"],false],[0,\"\\n                        \"],[8],[0,\"\\n\\n                    \"],[8],[0,\"\\n                \"],[8],[0,\"\\n            \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"        \"],[8],[0,\"\\n    \"],[8],[0,\"\\n    \"],[11,3],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/input/md-inputs/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "mfQcLQci", "block": "{\"symbols\":[\"&default\"],\"statements\":[[4,\"if\",[[20,[\"label\"]]],null,{\"statements\":[[6,\"label\"],[7],[1,[18,\"label\"],false],[8]],\"parameters\":[]},null],[0,\"\\n\"],[6,\"div\"],[9,\"class\",\"md-input-input\"],[7],[0,\"\\n  \"],[1,[25,\"input\",[[25,\"-input-type\",[[20,[\"type\"]]],null]],[[\"value\",\"placeholder\",\"required\",\"type\",\"step\",\"maxlength\",\"class\",\"disabled\",\"change\"],[[20,[\"value\"]],[20,[\"placeholder\"]],[20,[\"required\"]],[20,[\"type\"]],[20,[\"step\"]],[20,[\"maxlength\"]],[20,[\"inputClass\"]],[20,[\"disabled\"]],[20,[\"change\"]]]]],false],[0,\"\\n\\n  \"],[6,\"span\"],[9,\"class\",\"md-input-error\"],[7],[0,\"\\n\"],[4,\"if\",[[20,[\"showErrorMessage\"]]],null,{\"statements\":[[0,\"      \"],[6,\"span\"],[9,\"class\",\"md-error\"],[7],[0,\"\\n        \"],[1,[25,\"fa-icon\",[\"exclamation-circle\"],null],false],[0,\"\\n\"],[4,\"ember-tooltip\",null,[[\"side\",\"tooltipClassName\"],[\"right\",\"ember-tooltip md-tooltip danger\"]],{\"statements\":[[0,\"            \"],[1,[25,\"get\",[[25,\"get\",[[20,[\"model\",\"validations\",\"attrs\"]],[20,[\"valuePath\"]]],null],\"message\"],null],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"      \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[20,[\"showWarningMessage\"]]],null,{\"statements\":[[0,\"      \"],[6,\"span\"],[9,\"class\",\"md-warning\"],[7],[0,\"\\n        \"],[1,[25,\"fa-icon\",[\"exclamation-triangle\"],null],false],[0,\"\\n\"],[4,\"ember-tooltip\",null,[[\"side\",\"tooltipClassName\"],[\"right\",\"ember-tooltip md-tooltip warning\"]],{\"statements\":[[0,\"        \"],[1,[25,\"get\",[[25,\"get\",[[20,[\"model\",\"validations\",\"attrs\"]],[20,[\"valuePath\"]]],null],\"warningMessage\"],null],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"      \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"],[11,1],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/input/md-input/template.hbs" } });
 });
 define('mdeditor/pods/components/input/md-markdown-area/component', ['exports'], function (exports) {
   'use strict';
@@ -10564,13 +10375,7 @@ define('mdeditor/pods/components/input/md-markdown-area/component', ['exports'],
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component,
-        computed = Ember.computed,
-        get = Ember.get,
-        set = Ember.set,
-        isNone = Ember.isNone,
-        run = Ember.run;
-  exports.default = Component.extend({
+  exports.default = Ember.Component.extend({
     /**
      * Component for markdown enabled text-area.
      *
@@ -10612,9 +10417,9 @@ define('mdeditor/pods/components/input/md-markdown-area/component', ['exports'],
     didReceiveAttrs() {
       this._super(...arguments);
 
-      run.once(this, () => {
-        if (isNone(get(this, 'value'))) {
-          set(this, 'value', '');
+      Ember.run.once(this, () => {
+        if (Ember.isNone(Ember.get(this, 'value'))) {
+          Ember.set(this, 'value', '');
         }
       });
     },
@@ -10672,16 +10477,16 @@ define('mdeditor/pods/components/input/md-markdown-area/component', ['exports'],
      * @category computed
      * @requires placeholder
      */
-    options: computed('placeholder', function () {
+    options: Ember.computed('placeholder', function () {
       return {
-        placeholder: get(this, 'placeholder'),
+        placeholder: Ember.get(this, 'placeholder'),
         status: [{
           className: 'length',
           defaultValue: el => {
-            el.innerHTML = `<span class="length md-${get(this, 'errorClass')}">length: ${get(this, 'length')}</span>`;
+            el.innerHTML = `<span class="length md-${Ember.get(this, 'errorClass')}">length: ${Ember.get(this, 'length')}</span>`;
           },
           onUpdate: el => {
-            el.innerHTML = `<span class="length md-${get(this, 'errorClass')}">length: ${get(this, 'length')}</span>`;
+            el.innerHTML = `<span class="length md-${Ember.get(this, 'errorClass')}">length: ${Ember.get(this, 'length')}</span>`;
           }
         }, 'lines', 'words', 'cursor']
       };
@@ -10699,8 +10504,8 @@ define('mdeditor/pods/components/input/md-markdown-area/component', ['exports'],
      * @category computed
      * @requires value
      */
-    length: computed('value', function () {
-      return get(this, 'value') ? get(this, 'value').length : 0;
+    length: Ember.computed('value', function () {
+      return Ember.get(this, 'value') ? Ember.get(this, 'value').length : 0;
     }).readOnly(),
 
     /**
@@ -10711,11 +10516,11 @@ define('mdeditor/pods/components/input/md-markdown-area/component', ['exports'],
      * @category computed
      * @requires value|maxlength
      */
-    errorClass: computed('value', 'maxlength', function () {
-      let length = get(this, 'length');
-      let max = get(this, 'maxlength');
+    errorClass: Ember.computed('value', 'maxlength', function () {
+      let length = Ember.get(this, 'length');
+      let max = Ember.get(this, 'maxlength');
 
-      if (get(this, 'required') && length < 1) {
+      if (Ember.get(this, 'required') && length < 1) {
         return 'error';
       }
 
@@ -10739,7 +10544,7 @@ define("mdeditor/pods/components/input/md-markdown-area/template", ["exports"], 
   });
   exports.default = Ember.HTMLBars.template({ "id": "BTDxtoyw", "block": "{\"symbols\":[\"&default\"],\"statements\":[[4,\"if\",[[20,[\"label\"]]],null,{\"statements\":[[0,\"    \"],[6,\"label\"],[9,\"class\",\"md-card-chevron\"],[7],[0,\"\\n\"],[4,\"if\",[[20,[\"collapsible\"]]],null,{\"statements\":[[0,\"        \"],[6,\"a\"],[9,\"role\",\"button\"],[9,\"data-toggle\",\"collapse\"],[10,\"href\",[26,[\"#\",[25,\"concat\",[\"md-\",[20,[\"elementId\"]]],null]]]],[10,\"aria-expanded\",[26,[[25,\"if\",[[20,[\"collapsed\"]],\"false\",\"true\"],null]]]],[10,\"class\",[26,[[25,\"if\",[[20,[\"collapsed\"]],\"collapsed\"],null]]]],[10,\"aria-controls\",[26,[[25,\"concat\",[\"md-\",[20,[\"elementId\"]]],null]]]],[7],[0,\"\\n        \"],[6,\"span\"],[9,\"class\",\"fa\"],[7],[8],[0,\"\\n        \"],[1,[18,\"label\"],false],[0,\"\\n        \"],[8],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"        \"],[1,[18,\"label\"],false],[0,\"\\n\"]],\"parameters\":[]}],[0,\"    \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[6,\"div\"],[10,\"id\",[25,\"concat\",[\"md-\",[20,[\"elementId\"]]],null],null],[10,\"class\",[26,[[25,\"if\",[[20,[\"collapsed\"]],\"collapse\",\"in\"],null]]]],[7],[0,\"\\n  \"],[1,[25,\"simple-mde\",null,[[\"value\",\"options\",\"maxlength\",\"spellcheck\",\"disabled\",\"change\",\"currentEditor\"],[[20,[\"value\"]],[20,[\"options\"]],[20,[\"maxlength\"]],true,[20,[\"disabled\"]],[25,\"if\",[[20,[\"change\"]],[20,[\"change\"]],[25,\"action\",[[19,0,[]],[25,\"mut\",[[20,[\"value\"]]],null]],null]],null],[20,[\"editor\"]]]]],false],[0,\"\\n\"],[8],[0,\"\\n\"],[11,1],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/input/md-markdown-area/template.hbs" } });
 });
-define('mdeditor/pods/components/input/md-month/component', ['exports', 'mdeditor/pods/components/input/md-datetime/component', 'moment'], function (exports, _component, _moment) {
+define('mdeditor/pods/components/input/md-month/component', ['exports', 'mdeditor/pods/components/input/md-datetime/component'], function (exports, _component) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -10747,18 +10552,13 @@ define('mdeditor/pods/components/input/md-month/component', ['exports', 'mdedito
   });
   exports.default = _component.default.extend({
     layoutName: 'components/input/md-datetime',
-    extraFormats: ['MM', 'M', 'MMM'],
-    actions: {
-      updateDate(date) {
-        if (Ember.isBlank(date)) {
-          Ember.set(this, 'date', null);
-
-          return;
-        }
-
-        Ember.set(this, 'date', (0, _moment.default)(date).format(this.get('altFormat') || this.get('format')));
-      }
-    }
+    format: 'MMMM',
+    extraFormats: Ember.computed(function () {
+      return ['MM', 'M', 'MMM'];
+    }),
+    showClear: false,
+    useCurrent: false,
+    showTodayButton: false
   });
 });
 define('mdeditor/pods/components/input/md-select-contact/component', ['exports', 'mdeditor/pods/components/input/md-codelist/component'], function (exports, _component) {
@@ -10767,8 +10567,6 @@ define('mdeditor/pods/components/input/md-select-contact/component', ['exports',
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const inject = Ember.inject,
-        computed = Ember.computed;
   exports.default = _component.default.extend({
     /**
      * Specialized select list control for displaying and selecting
@@ -10786,7 +10584,7 @@ define('mdeditor/pods/components/input/md-select-contact/component', ['exports',
      * @type {Ember.Service}
      * @readOnly
      */
-    contacts: inject.service(),
+    contacts: Ember.inject.service(),
 
     /**
      * The default CSS classnames
@@ -10851,7 +10649,7 @@ define('mdeditor/pods/components/input/md-select-contact/component', ['exports',
      * @category computed
      * @requires contacts.[]
      */
-    mapped: computed('contacts.mapped.[]', 'contactType', function () {
+    mapped: Ember.computed('contacts.mapped.[]', 'contactType', function () {
       let type = this.get('contactType');
 
       if (!['individuals', 'organizations'].includes(type)) {
@@ -10868,8 +10666,6 @@ define('mdeditor/pods/components/input/md-select-contacts/component', ['exports'
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const inject = Ember.inject,
-        computed = Ember.computed;
   exports.default = _component.default.extend({
     /**
      * Specialized select list control for displaying and selecting
@@ -10887,7 +10683,7 @@ define('mdeditor/pods/components/input/md-select-contacts/component', ['exports'
      * @type {Ember.Service}
      * @readOnly
      */
-    contacts: inject.service(),
+    contacts: Ember.inject.service(),
 
     /**
      * The default CSS classnames
@@ -10952,7 +10748,7 @@ define('mdeditor/pods/components/input/md-select-contacts/component', ['exports'
      * @category computed
      * @requires contacts.[]
      */
-    mapped: computed('contacts.mapped.[]', 'contactType', function () {
+    mapped: Ember.computed('contacts.mapped.[]', 'contactType', function () {
       let type = this.get('contactType');
 
       if (!['individuals', 'organizations'].includes(type)) {
@@ -10969,13 +10765,7 @@ define('mdeditor/pods/components/input/md-select-profile/component', ['exports']
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.Component.extend({
-    actions: {
-      update(value) {
-        this.sendAction('updateProfile', value);
-      }
-    }
-  });
+  exports.default = Ember.Component.extend({});
 });
 define("mdeditor/pods/components/input/md-select-profile/template", ["exports"], function (exports) {
   "use strict";
@@ -10983,7 +10773,7 @@ define("mdeditor/pods/components/input/md-select-profile/template", ["exports"],
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "JbF12IkN", "block": "{\"symbols\":[],\"statements\":[[6,\"form\"],[9,\"class\",\"navbar-form form-inline\"],[7],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"form-group-sm\"],[7],[0,\"\\n    \"],[6,\"label\"],[9,\"class\",\"navbar-text control-label\"],[7],[0,\"Profile\"],[8],[0,\"\\n    \"],[1,[25,\"input/md-codelist\",null,[[\"change\",\"class\",\"create\",\"tooltip\",\"icon\",\"allowClear\",\"mdCodeName\",\"valuePath\",\"value\",\"placeholder\",\"searchEnabled\",\"label\"],[[25,\"action\",[[19,0,[]],\"update\",[20,[\"value\"]]],null],\"select-profile\",false,true,true,false,\"profile\",\"code\",[20,[\"value\"]],\"Choose profile\",false,false]]],false],[0,\"\\n  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/input/md-select-profile/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "N79dM9d2", "block": "{\"symbols\":[],\"statements\":[[6,\"form\"],[9,\"class\",\"navbar-form form-inline\"],[7],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"form-group-sm\"],[7],[0,\"\\n    \"],[6,\"label\"],[9,\"class\",\"navbar-text control-label\"],[7],[0,\"Profile\"],[8],[0,\"\\n    \"],[1,[25,\"input/md-codelist\",null,[[\"change\",\"class\",\"create\",\"tooltip\",\"icon\",\"allowClear\",\"mdCodeName\",\"valuePath\",\"value\",\"placeholder\",\"searchEnabled\",\"label\"],[[25,\"action\",[[19,0,[]],[20,[\"updateProfile\"]],[20,[\"value\"]]],null],\"select-profile\",false,true,true,false,\"profile\",\"code\",[20,[\"value\"]],\"Choose profile\",false,false]]],false],[0,\"\\n  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/input/md-select-profile/template.hbs" } });
 });
 define('mdeditor/pods/components/input/md-select-thesaurus/component', ['exports'], function (exports) {
   'use strict';
@@ -11050,14 +10840,7 @@ define('mdeditor/pods/components/input/md-select/component', ['exports', 'ember-
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component,
-        defineProperty = Ember.defineProperty,
-        get = Ember.get,
-        computed = Ember.computed,
-        isNone = Ember.isNone,
-        isBlank = Ember.isBlank,
-        assert = Ember.assert;
-  exports.default = Component.extend({
+  exports.default = Ember.Component.extend({
     /**
      * A select list control for displaying and selecting options
      * provided in an array or promise array.
@@ -11090,40 +10873,39 @@ define('mdeditor/pods/components/input/md-select/component', ['exports', 'ember-
       let model = this.get('model');
       let path = this.get('path');
 
-      if (isNone(model) !== isNone(path)) {
-        assert(`You must supply both model and path to ${this.toString()} or neither.`);
+      if (Ember.isNone(model) !== Ember.isNone(path)) {
+        (true && !(false) && Ember.assert(`You must supply both model and path to ${this.toString()} or neither.`));
       }
 
-      if (!isBlank(model)) {
+      if (!Ember.isBlank(model)) {
         if (this.get(`model.${path}`) === undefined) {
           Ember.debug(`model.${path} is undefined in ${this.toString()}.`);
-
           //Ember.run.once(()=>model.set(path, ""));
         }
 
-        defineProperty(this, 'value', computed.alias(`model.${path}`));
+        Ember.defineProperty(this, 'value', Ember.computed.alias(`model.${path}`));
 
-        defineProperty(this, 'validation', computed.alias(`model.validations.attrs.${path}`).readOnly());
+        Ember.defineProperty(this, 'validation', Ember.computed.alias(`model.validations.attrs.${path}`).readOnly());
 
-        defineProperty(this, 'required', computed('validation.options.presence.presence', 'validation.options.presence.disabled', 'disabled', function () {
+        Ember.defineProperty(this, 'required', Ember.computed('validation.options.presence.{presence,disabled}', 'disabled', function () {
           return !this.get('disabled') && this.get('validation.options.presence.presence') && !this.get('validation.options.presence.disabled');
         }).readOnly());
 
-        defineProperty(this, 'notValidating', computed.not('validation.isValidating').readOnly());
+        Ember.defineProperty(this, 'notValidating', Ember.computed.not('validation.isValidating').readOnly());
 
-        defineProperty(this, 'hasContent', computed.notEmpty('value').readOnly());
+        Ember.defineProperty(this, 'hasContent', Ember.computed.notEmpty('value').readOnly());
 
-        defineProperty(this, 'hasWarnings', computed.notEmpty('validation.warnings').readOnly());
+        Ember.defineProperty(this, 'hasWarnings', Ember.computed.notEmpty('validation.warnings').readOnly());
 
-        defineProperty(this, 'isValid', computed.and('hasContent', 'validation.isTruelyValid').readOnly());
+        Ember.defineProperty(this, 'isValid', Ember.computed.and('hasContent', 'validation.isTruelyValid').readOnly());
 
-        defineProperty(this, 'shouldDisplayValidations', computed.or('showValidations', 'didValidate', 'hasContent').readOnly());
+        Ember.defineProperty(this, 'shouldDisplayValidations', Ember.computed.or('showValidations', 'didValidate', 'hasContent').readOnly());
 
-        defineProperty(this, 'showErrorClass', computed.and('notValidating', 'showErrorMessage', 'hasContent', 'validation').readOnly());
+        Ember.defineProperty(this, 'showErrorClass', Ember.computed.and('notValidating', 'showErrorMessage', 'hasContent', 'validation').readOnly());
 
-        defineProperty(this, 'showErrorMessage', computed.and('shouldDisplayValidations', 'validation.isInvalid').readOnly());
+        Ember.defineProperty(this, 'showErrorMessage', Ember.computed.and('shouldDisplayValidations', 'validation.isInvalid').readOnly());
 
-        defineProperty(this, 'showWarningMessage', computed.and('shouldDisplayValidations', 'hasWarnings', 'isValid').readOnly());
+        Ember.defineProperty(this, 'showWarningMessage', Ember.computed.and('shouldDisplayValidations', 'hasWarnings', 'isValid').readOnly());
       }
     },
 
@@ -11391,13 +11173,13 @@ define('mdeditor/pods/components/input/md-select/component', ['exports', 'ember-
         promise: inList.then(function (arr) {
           arr.forEach(function (item) {
             let newObject = {
-              codeId: get(item, codeId),
-              codeName: get(item, codeName),
+              codeId: Ember.get(item, codeId),
+              codeName: Ember.get(item, codeName),
               tooltip: false,
               icon: icons.get(item[codeName].toString()) || icons.get(defaultIcon)
             };
             if (tooltip) {
-              newObject.tooltip = get(item, tooltip);
+              newObject.tooltip = Ember.get(item, tooltip);
             }
             outList.pushObject(newObject);
           });
@@ -11455,7 +11237,7 @@ define("mdeditor/pods/components/input/md-select/template", ["exports"], functio
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "LEerjN0W", "block": "{\"symbols\":[\"code\"],\"statements\":[[4,\"if\",[[20,[\"label\"]]],null,{\"statements\":[[0,\"      \"],[6,\"label\"],[7],[1,[18,\"label\"],false],[8],[0,\"\\n\"]],\"parameters\":[]},null],[6,\"div\"],[9,\"class\",\"md-input-input\"],[7],[0,\"\\n\"],[4,\"component\",[[20,[\"theComponent\"]]],[[\"selected\",\"multiple\",\"options\",\"disabled\",\"placeholder\",\"searchField\",\"searchEnabled\",\"allowClear\",\"closeOnSelect\",\"onchange\",\"oncreate\",\"ariaLabel\"],[[20,[\"selectedItem\"]],[20,[\"multiple\"]],[20,[\"codelist\"]],[20,[\"disabled\"]],[20,[\"placeholder\"]],\"codeName\",[20,[\"searchEnabled\"]],[20,[\"allowClear\"]],[20,[\"closeOnSelect\"]],[25,\"action\",[[19,0,[]],\"setValue\"],null],[25,\"action\",[[19,0,[]],\"create\"],null],[20,[\"ariaLabel\"]]]],{\"statements\":[[4,\"unless\",[[20,[\"filter\"]]],null,{\"statements\":[[0,\"        \"],[6,\"span\"],[10,\"class\",[26,[\"md-select-option \",[25,\"if\",[[19,1,[\"tooltip\"]],\"with-tip\"],null]]]],[7],[0,\"\\n\"],[4,\"if\",[[20,[\"icon\"]]],null,{\"statements\":[[4,\"if\",[[19,1,[\"icon\"]]],null,{\"statements\":[[0,\"              \"],[6,\"span\"],[10,\"class\",[26,[\"fa fa-\",[19,1,[\"icon\"]]]]],[7],[0,\" \"],[8],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null],[0,\"          \"],[6,\"span\"],[9,\"class\",\"select-value\"],[7],[1,[19,1,[\"codeName\"]],false],[8],[0,\"\\n\"],[4,\"if\",[[20,[\"tooltip\"]]],null,{\"statements\":[[4,\"if\",[[19,1,[\"tooltip\"]]],null,{\"statements\":[[0,\"            \"],[6,\"span\"],[9,\"class\",\"select-tip\"],[7],[0,\"\\n              \"],[6,\"span\"],[9,\"class\",\"badge tooltip\"],[7],[0,\"?\\n                \"],[1,[25,\"tooltip-on-element\",null,[[\"text\",\"side\",\"enableLazyRendering\"],[[19,1,[\"tooltip\"]],\"right\",true]]],false],[0,\"\\n              \"],[8],[0,\"\\n            \"],[8],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null],[0,\"        \"],[8],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[1]},null],[0,\"      \"],[6,\"span\"],[9,\"class\",\"md-input-error\"],[7],[0,\"\\n\"],[4,\"if\",[[20,[\"showErrorMessage\"]]],null,{\"statements\":[[0,\"          \"],[6,\"span\"],[9,\"class\",\"md-error\"],[7],[0,\"\\n            \"],[1,[25,\"fa-icon\",[\"exclamation-circle\"],null],false],[0,\"\\n\"],[4,\"tooltip-on-element\",null,[[\"side\",\"class\"],[\"right\",\"md-tooltip danger\"]],{\"statements\":[[0,\"                \"],[1,[25,\"get\",[[25,\"get\",[[20,[\"model\",\"validations\",\"attrs\"]],[20,[\"path\"]]],null],\"message\"],null],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"          \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[20,[\"showWarningMessage\"]]],null,{\"statements\":[[0,\"          \"],[6,\"span\"],[9,\"class\",\"md-warning\"],[7],[0,\"\\n            \"],[1,[25,\"fa-icon\",[\"exclamation-triangle\"],null],false],[0,\"\\n\"],[4,\"tooltip-on-element\",null,[[\"side\",\"class\"],[\"right\",\"md-tooltip warning\"]],{\"statements\":[[0,\"            \"],[1,[25,\"get\",[[25,\"get\",[[20,[\"model\",\"validations\",\"attrs\"]],[20,[\"path\"]]],null],\"warningMessage\"],null],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"          \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"      \"],[8],[0,\"\\n    \"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/input/md-select/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "gLDHkTpR", "block": "{\"symbols\":[\"code\"],\"statements\":[[4,\"if\",[[20,[\"label\"]]],null,{\"statements\":[[0,\"      \"],[6,\"label\"],[7],[1,[18,\"label\"],false],[8],[0,\"\\n\"]],\"parameters\":[]},null],[6,\"div\"],[9,\"class\",\"md-input-input\"],[7],[0,\"\\n\"],[4,\"component\",[[20,[\"theComponent\"]]],[[\"selected\",\"multiple\",\"options\",\"disabled\",\"placeholder\",\"searchField\",\"searchEnabled\",\"allowClear\",\"closeOnSelect\",\"onchange\",\"oncreate\",\"ariaLabel\"],[[20,[\"selectedItem\"]],[20,[\"multiple\"]],[20,[\"codelist\"]],[20,[\"disabled\"]],[20,[\"placeholder\"]],\"codeName\",[20,[\"searchEnabled\"]],[20,[\"allowClear\"]],[20,[\"closeOnSelect\"]],[25,\"action\",[[19,0,[]],\"setValue\"],null],[25,\"action\",[[19,0,[]],\"create\"],null],[20,[\"ariaLabel\"]]]],{\"statements\":[[4,\"unless\",[[20,[\"filter\"]]],null,{\"statements\":[[0,\"        \"],[6,\"span\"],[10,\"class\",[26,[\"md-select-option \",[25,\"if\",[[19,1,[\"tooltip\"]],\"with-tip\"],null]]]],[7],[0,\"\\n\"],[4,\"if\",[[20,[\"icon\"]]],null,{\"statements\":[[4,\"if\",[[19,1,[\"icon\"]]],null,{\"statements\":[[0,\"              \"],[6,\"span\"],[10,\"class\",[26,[\"fa fa-\",[19,1,[\"icon\"]]]]],[7],[0,\" \"],[8],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null],[0,\"          \"],[6,\"span\"],[9,\"class\",\"select-value\"],[7],[1,[19,1,[\"codeName\"]],false],[8],[0,\"\\n\"],[4,\"if\",[[20,[\"tooltip\"]]],null,{\"statements\":[[4,\"if\",[[19,1,[\"tooltip\"]]],null,{\"statements\":[[0,\"            \"],[6,\"span\"],[9,\"class\",\"select-tip\"],[7],[0,\"\\n              \"],[6,\"span\"],[9,\"class\",\"badge tooltip\"],[7],[0,\"?\\n                \"],[1,[25,\"ember-tooltip\",null,[[\"text\",\"side\"],[[19,1,[\"tooltip\"]],\"right\"]]],false],[0,\"\\n              \"],[8],[0,\"\\n            \"],[8],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null],[0,\"        \"],[8],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[1]},null],[0,\"      \"],[6,\"span\"],[9,\"class\",\"md-input-error\"],[7],[0,\"\\n\"],[4,\"if\",[[20,[\"showErrorMessage\"]]],null,{\"statements\":[[0,\"          \"],[6,\"span\"],[9,\"class\",\"md-error\"],[7],[0,\"\\n            \"],[1,[25,\"fa-icon\",[\"exclamation-circle\"],null],false],[0,\"\\n\"],[4,\"ember-tooltip\",null,[[\"side\",\"tooltipClassName\"],[\"right\",\"ember-tooltip md-tooltip danger\"]],{\"statements\":[[0,\"                \"],[1,[25,\"get\",[[25,\"get\",[[20,[\"model\",\"validations\",\"attrs\"]],[20,[\"path\"]]],null],\"message\"],null],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"          \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[20,[\"showWarningMessage\"]]],null,{\"statements\":[[0,\"          \"],[6,\"span\"],[9,\"class\",\"md-warning\"],[7],[0,\"\\n            \"],[1,[25,\"fa-icon\",[\"exclamation-triangle\"],null],false],[0,\"\\n\"],[4,\"ember-tooltip\",null,[[\"side\",\"tooltipClassName\"],[\"right\",\"ember-tooltip md-tooltip warning\"]],{\"statements\":[[0,\"            \"],[1,[25,\"get\",[[25,\"get\",[[20,[\"model\",\"validations\",\"attrs\"]],[20,[\"path\"]]],null],\"warningMessage\"],null],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"          \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"      \"],[8],[0,\"\\n    \"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/input/md-select/template.hbs" } });
 });
 define('mdeditor/pods/components/input/md-textarea/component', ['exports'], function (exports) {
   'use strict';
@@ -11916,13 +11698,11 @@ define('mdeditor/pods/components/layout/md-footer/component', ['exports'], funct
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component,
-        inject = Ember.inject;
-  exports.default = Component.extend({
+  exports.default = Ember.Component.extend({
     tagName: 'footer',
     classNames: ['md-footer'],
 
-    settings: inject.service()
+    settings: Ember.inject.service()
   });
 });
 define("mdeditor/pods/components/layout/md-footer/template", ["exports"], function (exports) {
@@ -11931,7 +11711,7 @@ define("mdeditor/pods/components/layout/md-footer/template", ["exports"], functi
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "maosVC68", "block": "{\"symbols\":[\"&default\"],\"statements\":[[6,\"div\"],[9,\"class\",\"footer-container\"],[7],[0,\"\\n  \"],[6,\"span\"],[7],[6,\"a\"],[9,\"class\",\"btn btn-xs btn-warning\"],[9,\"href\",\"https://github.com/adiwg/mdEditor/issues/new\"],[9,\"target\",\"_blank\"],[7],[1,[25,\"fa-icon\",[\"github\"],null],false],[0,\" Report Issue\\n\\n    \"],[1,[25,\"tooltip-on-element\",null,[[\"text\",\"side\"],[\"Report bugs, Request features - GitHub account required.\",\"top\"]]],false],[0,\"\\n  \"],[8],[8],[0,\"\\n  \"],[6,\"span\"],[7],[0,\"AutoSave:\\n      \"],[6,\"span\"],[10,\"class\",[26,[[25,\"if\",[[20,[\"settings\",\"data\",\"autoSave\"]],\"text-success\",\"text-warning\"],null]]]],[7],[0,\"\\n        \"],[1,[25,\"if\",[[20,[\"settings\",\"data\",\"autoSave\"]],\"On\",\"Off\"],null],false],[8],[0,\"\\n  \"],[8],[0,\"\\n  \"],[11,1],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/layout/md-footer/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "qo57dttq", "block": "{\"symbols\":[\"&default\"],\"statements\":[[6,\"div\"],[9,\"class\",\"footer-container\"],[7],[0,\"\\n  \"],[6,\"span\"],[7],[6,\"a\"],[9,\"class\",\"btn btn-xs btn-warning\"],[9,\"href\",\"https://github.com/adiwg/mdEditor/issues/new\"],[9,\"target\",\"_blank\"],[7],[1,[25,\"fa-icon\",[\"github\"],null],false],[0,\" Report Issue\\n\\n    \"],[1,[25,\"ember-tooltip\",null,[[\"text\",\"side\"],[\"Report bugs, Request features - GitHub account required.\",\"top\"]]],false],[0,\"\\n  \"],[8],[8],[0,\"\\n  \"],[6,\"span\"],[7],[0,\"AutoSave:\\n      \"],[6,\"span\"],[10,\"class\",[26,[[25,\"if\",[[20,[\"settings\",\"data\",\"autoSave\"]],\"text-success\",\"text-warning\"],null]]]],[7],[0,\"\\n        \"],[1,[25,\"if\",[[20,[\"settings\",\"data\",\"autoSave\"]],\"On\",\"Off\"],null],false],[8],[0,\"\\n  \"],[8],[0,\"\\n  \"],[11,1],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/layout/md-footer/template.hbs" } });
 });
 define('mdeditor/pods/components/layout/md-nav-main/component', ['exports'], function (exports) {
   'use strict';
@@ -11959,7 +11739,7 @@ define("mdeditor/pods/components/layout/md-nav-main/template", ["exports"], func
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "uWsnq2l6", "block": "{\"symbols\":[\"&default\"],\"statements\":[[6,\"nav\"],[9,\"id\",\"md-navbar-main\"],[9,\"class\",\"navbar navbar-inverse navbar-top\"],[7],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"container-fluid\"],[7],[0,\"\\n    \"],[2,\" Brand and toggle get grouped for better mobile display \"],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"navbar-header\"],[7],[0,\"\\n      \"],[6,\"button\"],[9,\"type\",\"button\"],[9,\"class\",\"navbar-toggle collapsed\"],[9,\"data-toggle\",\"collapse\"],[9,\"data-target\",\"#md-navbar-main-collapse\"],[9,\"aria-expanded\",\"false\"],[7],[0,\"\\n        \"],[6,\"span\"],[9,\"class\",\"sr-only\"],[7],[0,\"Toggle navigation\"],[8],[0,\"\\n        \"],[6,\"span\"],[9,\"class\",\"icon-bar\"],[7],[8],[0,\"\\n        \"],[6,\"span\"],[9,\"class\",\"icon-bar\"],[7],[8],[0,\"\\n        \"],[6,\"span\"],[9,\"class\",\"icon-bar\"],[7],[8],[0,\"\\n      \"],[8],[0,\"\\n      \"],[6,\"a\"],[9,\"class\",\"navbar-brand\"],[9,\"href\",\"#\"],[3,\"action\",[[19,0,[]],\"toggleSidebar\"]],[7],[0,\"\\n        \"],[6,\"span\"],[9,\"class\",\"md-icon-mdeditor\"],[7],[8],[0,\"\\n      \"],[8],[0,\"\\n    \"],[8],[0,\"\\n\\n    \"],[6,\"div\"],[9,\"class\",\"collapse navbar-collapse\"],[9,\"id\",\"md-navbar-main-collapse\"],[7],[0,\"\\n      \"],[6,\"ul\"],[9,\"class\",\"nav navbar-nav\"],[7],[0,\"\\n        \"],[6,\"li\"],[7],[0,\"\\n\"],[4,\"link-to\",[\"dashboard\"],null,{\"statements\":[[0,\"            \"],[6,\"span\"],[9,\"class\",\"fa fa-dashboard\"],[7],[8],[0,\"\\n            \"],[6,\"span\"],[9,\"class\",\"md-nav-text\"],[7],[0,\"Dashboard\"],[8],[0,\"\\n            \"],[1,[25,\"tooltip-on-element\",null,[[\"text\",\"side\",\"class\"],[\"Dashboard\",\"bottom\",\"md-nav-tip\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"        \"],[8],[0,\"\\n        \"],[6,\"li\"],[7],[0,\"\\n\"],[4,\"link-to\",[\"export\"],null,{\"statements\":[[0,\"            \"],[6,\"span\"],[9,\"class\",\"fa fa-sign-out\"],[7],[8],[0,\"\\n            \"],[6,\"span\"],[9,\"class\",\"md-nav-text\"],[7],[0,\"Export\"],[8],[0,\"\\n            \"],[1,[25,\"tooltip-on-element\",null,[[\"text\",\"side\",\"class\"],[\"Export\",\"bottom\",\"md-nav-tip\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"        \"],[8],[0,\"\\n        \"],[6,\"li\"],[7],[0,\"\\n\"],[4,\"link-to\",[\"import\"],null,{\"statements\":[[0,\"            \"],[6,\"span\"],[9,\"class\",\"fa fa-sign-in\"],[7],[8],[0,\"\\n            \"],[6,\"span\"],[9,\"class\",\"md-nav-text\"],[7],[0,\"Import\"],[8],[0,\"\\n            \"],[1,[25,\"tooltip-on-element\",null,[[\"text\",\"side\",\"class\"],[\"Import\",\"bottom\",\"md-nav-tip\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"        \"],[8],[0,\"\\n        \"],[6,\"li\"],[7],[0,\"\\n\"],[4,\"link-to\",[\"publish\"],null,{\"statements\":[[0,\"            \"],[6,\"span\"],[9,\"class\",\"fa fa-share-square-o\"],[7],[8],[0,\"\\n            \"],[6,\"span\"],[9,\"class\",\"md-nav-text\"],[7],[0,\"Publish\"],[8],[0,\"\\n            \"],[1,[25,\"tooltip-on-element\",null,[[\"text\",\"side\",\"class\"],[\"Publish\",\"bottom\",\"md-nav-tip\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"        \"],[8],[0,\"\\n        \"],[11,1],[0,\"\\n      \"],[8],[0,\"\\n      \"],[6,\"ul\"],[9,\"class\",\"nav navbar-nav navbar-right\"],[7],[0,\"\\n        \"],[6,\"li\"],[7],[0,\"\\n\"],[4,\"link-to\",[\"settings\"],null,{\"statements\":[[0,\"            \"],[6,\"span\"],[9,\"class\",\"fa fa-gear\"],[7],[8],[0,\"\\n            \"],[6,\"span\"],[9,\"class\",\"md-nav-text nav-settings\"],[7],[0,\"Settings\"],[8],[0,\"\\n            \"],[1,[25,\"tooltip-on-element\",null,[[\"text\",\"side\",\"class\"],[\"Settings\",\"bottom\",\"md-nav-tip\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"        \"],[8],[0,\"\\n      \"],[8],[0,\"\\n    \"],[8],[0,\"\\n  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/layout/md-nav-main/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "QZn2zUaY", "block": "{\"symbols\":[\"&default\"],\"statements\":[[6,\"nav\"],[9,\"id\",\"md-navbar-main\"],[9,\"class\",\"navbar navbar-inverse navbar-top\"],[7],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"container-fluid\"],[7],[0,\"\\n    \"],[2,\" Brand and toggle get grouped for better mobile display \"],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"navbar-header\"],[7],[0,\"\\n      \"],[6,\"button\"],[9,\"type\",\"button\"],[9,\"class\",\"navbar-toggle collapsed\"],[9,\"data-toggle\",\"collapse\"],[9,\"data-target\",\"#md-navbar-main-collapse\"],[9,\"aria-expanded\",\"false\"],[7],[0,\"\\n        \"],[6,\"span\"],[9,\"class\",\"sr-only\"],[7],[0,\"Toggle navigation\"],[8],[0,\"\\n        \"],[6,\"span\"],[9,\"class\",\"icon-bar\"],[7],[8],[0,\"\\n        \"],[6,\"span\"],[9,\"class\",\"icon-bar\"],[7],[8],[0,\"\\n        \"],[6,\"span\"],[9,\"class\",\"icon-bar\"],[7],[8],[0,\"\\n      \"],[8],[0,\"\\n      \"],[6,\"a\"],[9,\"class\",\"navbar-brand\"],[9,\"href\",\"#\"],[3,\"action\",[[19,0,[]],\"toggleSidebar\"]],[7],[0,\"\\n        \"],[6,\"span\"],[9,\"class\",\"md-icon-mdeditor\"],[7],[8],[0,\"\\n      \"],[8],[0,\"\\n    \"],[8],[0,\"\\n\\n    \"],[6,\"div\"],[9,\"class\",\"collapse navbar-collapse\"],[9,\"id\",\"md-navbar-main-collapse\"],[7],[0,\"\\n      \"],[6,\"ul\"],[9,\"class\",\"nav navbar-nav\"],[7],[0,\"\\n        \"],[6,\"li\"],[7],[0,\"\\n\"],[4,\"link-to\",[\"dashboard\"],null,{\"statements\":[[0,\"            \"],[6,\"span\"],[9,\"class\",\"fa fa-dashboard\"],[7],[8],[0,\"\\n            \"],[6,\"span\"],[9,\"class\",\"md-nav-text\"],[7],[0,\"Dashboard\"],[8],[0,\"\\n            \"],[1,[25,\"ember-tooltip\",null,[[\"text\",\"side\",\"tooltipClassName\"],[\"Dashboard\",\"bottom\",\"ember-tooltip md-nav-tip\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"        \"],[8],[0,\"\\n        \"],[6,\"li\"],[7],[0,\"\\n\"],[4,\"link-to\",[\"export\"],null,{\"statements\":[[0,\"            \"],[6,\"span\"],[9,\"class\",\"fa fa-sign-out\"],[7],[8],[0,\"\\n            \"],[6,\"span\"],[9,\"class\",\"md-nav-text\"],[7],[0,\"Export\"],[8],[0,\"\\n            \"],[1,[25,\"ember-tooltip\",null,[[\"text\",\"side\",\"tooltipClassName\"],[\"Export\",\"bottom\",\"ember-tooltip md-nav-tip\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"        \"],[8],[0,\"\\n        \"],[6,\"li\"],[7],[0,\"\\n\"],[4,\"link-to\",[\"import\"],null,{\"statements\":[[0,\"            \"],[6,\"span\"],[9,\"class\",\"fa fa-sign-in\"],[7],[8],[0,\"\\n            \"],[6,\"span\"],[9,\"class\",\"md-nav-text\"],[7],[0,\"Import\"],[8],[0,\"\\n            \"],[1,[25,\"ember-tooltip\",null,[[\"text\",\"side\",\"tooltipClassName\"],[\"Import\",\"bottom\",\"ember-tooltip md-nav-tip\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"        \"],[8],[0,\"\\n        \"],[6,\"li\"],[7],[0,\"\\n\"],[4,\"link-to\",[\"publish\"],null,{\"statements\":[[0,\"            \"],[6,\"span\"],[9,\"class\",\"fa fa-share-square-o\"],[7],[8],[0,\"\\n            \"],[6,\"span\"],[9,\"class\",\"md-nav-text\"],[7],[0,\"Publish\"],[8],[0,\"\\n            \"],[1,[25,\"ember-tooltip\",null,[[\"text\",\"side\",\"tooltipClassName\"],[\"Publish\",\"bottom\",\"ember-tooltip md-nav-tip\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"        \"],[8],[0,\"\\n        \"],[11,1],[0,\"\\n      \"],[8],[0,\"\\n      \"],[6,\"ul\"],[9,\"class\",\"nav navbar-nav navbar-right\"],[7],[0,\"\\n        \"],[6,\"li\"],[7],[0,\"\\n\"],[4,\"link-to\",[\"settings\"],null,{\"statements\":[[0,\"            \"],[6,\"span\"],[9,\"class\",\"fa fa-gear\"],[7],[8],[0,\"\\n            \"],[6,\"span\"],[9,\"class\",\"md-nav-text nav-settings\"],[7],[0,\"Settings\"],[8],[0,\"\\n            \"],[1,[25,\"ember-tooltip\",null,[[\"text\",\"side\",\"tooltipClassName\"],[\"Settings\",\"bottom\",\"ember-tooltip md-nav-tip\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"        \"],[8],[0,\"\\n      \"],[8],[0,\"\\n    \"],[8],[0,\"\\n  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/layout/md-nav-main/template.hbs" } });
 });
 define('mdeditor/pods/components/layout/md-nav-secondary/component', ['exports', 'ember-resize/mixins/resize-aware'], function (exports, _resizeAware) {
   'use strict';
@@ -12108,7 +11888,7 @@ define("mdeditor/pods/components/layout/md-nav-secondary/template", ["exports"],
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "Jzsb4TgN", "block": "{\"symbols\":[\"link\",\"&default\"],\"statements\":[[6,\"ul\"],[9,\"id\",\"md-navbar-secondary\"],[9,\"class\",\"nav nav-pills\"],[9,\"role\",\"navigation\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"links\"]]],null,{\"statements\":[[0,\"    \"],[6,\"li\"],[7],[0,\"\\n      \"],[4,\"link-to\",[[19,1,[\"target\"]]],[[\"class\"],[\"link.class\"]],{\"statements\":[[1,[19,1,[\"title\"]],false],[0,\"\\n\"],[4,\"if\",[[19,1,[\"tip\"]]],null,{\"statements\":[[4,\"tooltip-on-component\",null,[[\"effect\",\"side\",\"delay\",\"class\"],[\"slide\",\"bottom\",500,\"md-tooltip info\"]],{\"statements\":[[0,\"            \"],[1,[19,1,[\"tip\"]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null]],\"parameters\":[]},null],[0,\"    \"],[8],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"\\n  \"],[11,2],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/layout/md-nav-secondary/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "9tPd2wmm", "block": "{\"symbols\":[\"link\",\"&default\"],\"statements\":[[6,\"ul\"],[9,\"id\",\"md-navbar-secondary\"],[9,\"class\",\"nav nav-pills\"],[9,\"role\",\"navigation\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"links\"]]],null,{\"statements\":[[0,\"    \"],[6,\"li\"],[7],[0,\"\\n      \"],[4,\"link-to\",[[19,1,[\"target\"]]],[[\"class\"],[\"link.class\"]],{\"statements\":[[1,[19,1,[\"title\"]],false],[0,\"\\n\"],[4,\"if\",[[19,1,[\"tip\"]]],null,{\"statements\":[[4,\"ember-tooltip\",null,[[\"effect\",\"side\",\"delay\",\"tooltipClassName\"],[\"slide\",\"bottom\",500,\"ember-tooltip md-tooltip info\"]],{\"statements\":[[0,\"            \"],[1,[19,1,[\"tip\"]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null]],\"parameters\":[]},null],[0,\"    \"],[8],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"\\n  \"],[11,2],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/layout/md-nav-secondary/template.hbs" } });
 });
 define('mdeditor/pods/components/layout/md-nav-sidebar/component', ['exports', 'mdeditor/config/environment'], function (exports, _environment) {
   'use strict';
@@ -12211,8 +11991,7 @@ define('mdeditor/pods/components/layout/md-wrap/component', ['exports'], functio
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component;
-  exports.default = Component.extend({
+  exports.default = Ember.Component.extend({
     /**
      * Component used as a wrapper, data-spy enabled.
      *
@@ -12268,7 +12047,9 @@ define('mdeditor/pods/components/md-models-table/component', ['exports', 'ember-
   exports.default = _modelsTable.default.extend({
     themeInstance: _bootstrap.default.create(),
     filteringIgnoreCase: true,
-    pageSizeValues: [10, 25, 50, 500]
+    pageSizeValues: Ember.computed(function () {
+      return [10, 25, 50, 500];
+    })
   });
 });
 define('mdeditor/pods/components/md-models-table/components/check-all/component', ['exports'], function (exports) {
@@ -12413,6 +12194,7 @@ define('mdeditor/pods/components/md-translate/component', ['exports', 'moment', 
     flashMessages: Ember.inject.service(),
     mdjson: Ember.inject.service(),
     settings: Ember.inject.service(),
+    ajax: Ember.inject.service(),
 
     /**
      * Indicates whether empty tags should be written to the translated output
@@ -12434,32 +12216,34 @@ define('mdeditor/pods/components/md-translate/component', ['exports', 'moment', 
 
     writer: null,
 
-    writerOptions: [{
-      name: 'FGDC CSDGM',
-      value: 'fgdc',
-      type: 'application/xml',
-      tip: 'Federal Geographic Data Committee Content Standard for Digital Geospatial Metadata'
-    }, {
-      name: 'HTML',
-      value: 'html',
-      type: 'text/html',
-      tip: 'HTML "human-readable" and printable report of the metadata content'
-    }, {
-      name: 'ISO 19115-2',
-      value: 'iso19115_2',
-      type: 'application/xml',
-      tip: 'International Standards Organization Geographic Information - Metadata 19115-2:2009'
-    }, {
-      name: 'ISO 19110',
-      value: 'iso19110',
-      type: 'application/xml',
-      tip: 'International Standards Organization Geographic Information - Feature Catalogue 19110:2005'
-    }, {
-      name: 'sbJSON',
-      value: 'sbJson',
-      type: 'application/json',
-      tip: 'USGS ScienceBase metadata format'
-    }],
+    writerOptions: Ember.computed(function () {
+      return [{
+        name: 'FGDC CSDGM',
+        value: 'fgdc',
+        type: 'application/xml',
+        tip: 'Federal Geographic Data Committee Content Standard for Digital Geospatial Metadata'
+      }, {
+        name: 'HTML',
+        value: 'html',
+        type: 'text/html',
+        tip: 'HTML "human-readable" and printable report of the metadata content'
+      }, {
+        name: 'ISO 19115-2',
+        value: 'iso19115_2',
+        type: 'application/xml',
+        tip: 'International Standards Organization Geographic Information - Metadata 19115-2:2009'
+      }, {
+        name: 'ISO 19110',
+        value: 'iso19110',
+        type: 'application/xml',
+        tip: 'International Standards Organization Geographic Information - Feature Catalogue 19110:2005'
+      }, {
+        name: 'sbJSON',
+        value: 'sbJson',
+        type: 'application/json',
+        tip: 'USGS ScienceBase metadata format'
+      }];
+    }),
 
     result: null,
     errorLevel: null,
@@ -12478,6 +12262,15 @@ define('mdeditor/pods/components/md-translate/component', ['exports', 'moment', 
       return type[Ember.get(this, 'errorLevel')];
     }),
 
+    errorSubTitle: Ember.computed('subTitle', function () {
+      let err = Ember.get(this, 'errors');
+
+      if (err.length) {
+        return Ember.get(this, 'errorTitle') + ' ocurred during translation.';
+      }
+
+      return null;
+    }),
     writeObj: Ember.computed('writer', function () {
       return Ember.get(this, 'writerOptions').findBy('value', Ember.get(this, 'writer'));
     }),
@@ -12496,31 +12289,7 @@ define('mdeditor/pods/components/md-translate/component', ['exports', 'moment', 
       return Ember.get(this, 'writerType') === 'html' && 'srcdoc' in document.createElement('iframe');
     }),
 
-    messages: Ember.computed('errors', function () {
-      let err = Ember.get(this, 'errors');
-
-      if (!err) {
-        return null;
-      }
-
-      if (err.length) {
-        Ember.set(this, 'subtitle', Ember.get(this, 'errorTitle') + ' ocurred during translation.');
-        return err;
-      }
-
-      // if(!err.readerValidationPass) {
-      //   set(this, 'subtitle', 'mdJSON Schema validation failed');
-      //   return JSON.parse(err.readerValidationMessages[1]);
-      // }
-      //
-      // if(!err.readerExecutionPass) {
-      //   return err.readerExecutionMessages;
-      // }
-      //
-      // if(!err.writerPass) {
-      //   return err.writerMessages;
-      // }
-    }),
+    messages: Ember.computed.alias('errors'),
 
     _clearResult() {
       Ember.set(this, 'result', null);
@@ -12529,31 +12298,16 @@ define('mdeditor/pods/components/md-translate/component', ['exports', 'moment', 
       Ember.set(this, 'xhrError', null);
     },
 
-    // _replacer(key, value) {
-    //   //console.log(arguments);
-    //   if(key==='contactId' && !_contacts.includes(value)){
-    //     _contacts.push(value);
-    //   }
-    //   return value;
-    // },
-
     actions: {
       translate() {
         let mdjson = this.get('mdjson');
         let url = this.get('apiURL');
-        // let clean = cleaner.clean(get(this,'model.json'));
-        // let json = JSON.parse(JSON.stringify(clean, get(this, '_replacer')));
-        // let contacts = this.store.peekAll('contact').mapBy('json');
-        //
-        // json.contact = contacts.filter((item)=>{
-        //   return _contacts.includes(get(item, 'contactId'));
-        // });
-        //console.info(JSON.stringify(json));
+        let cmp = this;
 
         this._clearResult();
         Ember.set(this, 'isLoading', true);
 
-        Ember.$.ajax(url, {
+        this.get('ajax').request(url, {
           type: 'POST',
           data: {
             //file: JSON.stringify(cleaner.clean(json)),
@@ -12567,31 +12321,24 @@ define('mdeditor/pods/components/md-translate/component', ['exports', 'moment', 
           },
           context: this
         }).then(function (response) {
-          //this.sendAction("select", response);
-          //console.info(response);
+          Ember.set(cmp, 'isLoading', false);
 
-          Ember.set(this, 'isLoading', false);
-
-          // if(response.success) {
-          //   set(this, 'result', response.writerOutput);
-          //   //Ember.$('.md-translator-preview textarea').val(response.data);
-          // } else {
           let level = Math.max(...[response.readerExecutionStatus, response.readerStructureStatus, response.readerValidationStatus, response.writerStatus].map(itm => errorLevels[itm]));
 
-          Ember.set(this, 'errorLevel', level);
-          Ember.set(this, 'errors', response.readerExecutionMessages.concat(response.readerStructureMessages, response.readerValidationMessages.length ? response.readerValidationMessages[0] : response.readerValidationMessages, response.writerMessages).map(itm => itm.split(':')));
-          Ember.set(this, 'result', response.writerOutput);
+          Ember.set(cmp, 'errorLevel', level);
+          Ember.set(cmp, 'errors', response.readerExecutionMessages.concat(response.readerStructureMessages, response.readerValidationMessages.length ? response.readerValidationMessages[0] : response.readerValidationMessages, response.writerMessages).map(itm => itm.split(':')));
+          Ember.set(cmp, 'result', response.writerOutput);
           if (!response.success) {
-            Ember.get(this, 'flashMessages').danger('Translation error!');
+            Ember.get(cmp, 'flashMessages').danger('Translation error!');
           }
         }, response => {
           let error = `mdTranslator Server error:
           ${response.status}: ${response.statusText}`;
 
-          Ember.set(this, 'errorLevel', 3);
-          Ember.set(this, 'isLoading', false);
-          Ember.set(this, 'xhrError', error);
-          Ember.get(this, 'flashMessages').danger(error);
+          Ember.set(cmp, 'errorLevel', 3);
+          Ember.set(cmp, 'isLoading', false);
+          Ember.set(cmp, 'xhrError', error);
+          Ember.get(cmp, 'flashMessages').danger(error);
         });
       },
       saveResult() {
@@ -12639,7 +12386,7 @@ define("mdeditor/pods/components/md-translate/template", ["exports"], function (
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "cfFmaPpi", "block": "{\"symbols\":[\"message\",\"errorClass\",\"&default\"],\"statements\":[[6,\"div\"],[9,\"class\",\"col-md-4\"],[7],[0,\"\\n\\n\"],[4,\"layout/md-card\",null,[[\"title\",\"class\",\"spotlightEnabled\",\"block\"],[\"Options\",\"md-translator-options\",false,false]],{\"statements\":[[0,\"        \"],[6,\"form\"],[3,\"action\",[[19,0,[]],\"translate\"],[[\"on\"],[\"submit\"]]],[7],[0,\"\\n            \"],[6,\"div\"],[9,\"class\",\"card-block\"],[7],[0,\"\\n                \"],[1,[25,\"input/md-select\",null,[[\"label\",\"value\",\"valuePath\",\"namePath\",\"objectArray\",\"tooltip\",\"tooltipPath\",\"searchEnabled\",\"change\"],[\"Choose Format\",[20,[\"writer\"]],\"value\",\"name\",[20,[\"writerOptions\"]],true,\"tip\",false,[25,\"action\",[[19,0,[]],\"clearResult\"],null]]]],false],[0,\"\\n                \"],[6,\"div\"],[9,\"class\",\"form-group\"],[7],[0,\"\\n                    \"],[6,\"label\"],[7],[0,\"Force Valid Ouput?\"],[8],[0,\"\\n                    \"],[6,\"div\"],[9,\"class\",\"form-control\"],[7],[0,\"\\n                        \"],[6,\"div\"],[9,\"class\",\"inline-block\"],[7],[0,\"\\n                            \"],[1,[25,\"input/md-toggle\",null,[[\"value\",\"onToggle\",\"showLabels\",\"onLabel\",\"offLabel\",\"size\",\"theme\"],[[20,[\"forceValid\"]],[25,\"mut\",[[20,[\"forceValid\"]]],null],true,\"Yes::true\",\"No::false\",\"medium\",\"form\"]]],false],[0,\"\\n                        \"],[8],[0,\"\\n                    \"],[8],[0,\"\\n                \"],[8],[0,\"\\n                \"],[6,\"div\"],[9,\"class\",\"form-group\"],[7],[0,\"\\n                    \"],[6,\"label\"],[7],[0,\"Show Empty Tags?\"],[8],[0,\"\\n                    \"],[6,\"div\"],[9,\"class\",\"form-control\"],[7],[0,\"\\n                        \"],[6,\"div\"],[9,\"class\",\"inline-block\"],[7],[0,\"\\n                            \"],[1,[25,\"input/md-toggle\",null,[[\"value\",\"onToggle\",\"showLabels\",\"onLabel\",\"offLabel\",\"size\",\"theme\"],[[20,[\"showAllTags\"]],[25,\"mut\",[[20,[\"showAllTags\"]]],null],true,\"Yes::true\",\"No::false\",\"medium\",\"form\"]]],false],[0,\"\\n                        \"],[8],[0,\"\\n                    \"],[8],[0,\"\\n                \"],[8],[0,\"\\n            \"],[8],[0,\"\\n            \"],[6,\"div\"],[9,\"class\",\"card-footer\"],[7],[0,\"\\n                \"],[1,[25,\"control/md-status\",null,[[\"model\",\"isBtn\",\"bntSize\"],[[20,[\"model\"]],true,\"lg\"]]],false],[0,\"\\n                \"],[6,\"button\"],[9,\"type\",\"submit\"],[9,\"class\",\"btn btn-lg btn-primary pull-right\"],[10,\"disabled\",[25,\"if\",[[20,[\"writer\"]],false,true],null],null],[7],[0,\"\\n                    \"],[1,[25,\"fa-icon\",[\"retweet\"],null],false],[0,\" Translate \"],[8],[0,\"\\n            \"],[8],[0,\"\\n        \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[8],[0,\"\\n\"],[6,\"div\"],[9,\"class\",\"col-md-7\"],[7],[0,\"\\n\"],[4,\"if\",[[20,[\"isLoading\"]]],null,{\"statements\":[[0,\"      \"],[1,[25,\"control/md-spinner\",null,[[\"size\",\"text\"],[5,\"Translating...\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[20,[\"messages\"]]],null,{\"statements\":[[4,\"layout/md-card\",null,[[\"title\",\"class\",\"spotlightEnabled\",\"scroll\",\"maximizable\",\"titleIcon\",\"spotlightEnabled\",\"collapsible\"],[[25,\"concat\",[\"Translation \",[20,[\"errorTitle\"]]],null],[25,\"concat\",[\"card-inverse card-outline-\",[20,[\"errorClass\"]],\" md-translator-error \",[20,[\"errorClass\"]]],null],false,false,true,\"exclamation\",false,true]],{\"statements\":[[0,\"        \"],[6,\"h4\"],[10,\"class\",[26,[\"text-\",[18,\"errorClass\"]]]],[7],[1,[18,\"subtitle\"],false],[8],[0,\"\\n        \"],[6,\"ul\"],[9,\"class\",\"list-group\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"messages\"]]],null,{\"statements\":[[4,\"with\",[[25,\"compute\",[[25,\"action\",[[19,0,[]],\"errorClass\"],null],[19,1,[\"0\"]]],null]],null,{\"statements\":[[0,\"              \"],[6,\"li\"],[9,\"class\",\"list-group-item\"],[7],[0,\"\\n                \"],[6,\"div\"],[9,\"class\",\"\"],[7],[0,\"\\n                  \"],[6,\"h4\"],[9,\"class\",\"list-group-item-heading\"],[7],[0,\"\\n                    \"],[6,\"span\"],[10,\"class\",[26,[\"label label-\",[19,2,[]]]]],[7],[1,[19,1,[\"0\"]],false],[8],[0,\"\\n                    \"],[1,[19,1,[\"2\"]],false],[0,\"\\n                  \"],[8],[0,\"\\n                \"],[8],[0,\"\\n                \"],[6,\"div\"],[9,\"class\",\"\"],[7],[0,\"\\n                  \"],[6,\"span\"],[10,\"class\",[26,[\"label label-pill \",[25,\"if\",[[19,1,[\"3\"]],\"label-primary\",\"label-default\"],null]]]],[7],[1,[19,1,[\"1\"]],false],[8],[0,\"\\n                  \"],[1,[25,\"compute\",[[25,\"action\",[[19,0,[]],\"formatMessage\",[19,1,[\"3\"]]],null]],null],false],[0,\"\\n                \"],[8],[0,\"\\n              \"],[8],[0,\"\\n\"]],\"parameters\":[2]},null]],\"parameters\":[1]},null],[0,\"        \"],[8],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[20,[\"xhrError\"]]],null,{\"statements\":[[4,\"layout/md-card\",null,[[\"title\",\"spotlightEnabled\",\"class\",\"scroll\",\"maximizable\",\"titleIcon\"],[\"mdTranslator Error\",false,\"card-inverse card-outline-danger md-translator-error danger\",false,true,\"exclamation\"]],{\"statements\":[[0,\"        \"],[6,\"p\"],[7],[1,[18,\"xhrError\"],false],[8],[0,\"\\n        \"],[6,\"p\"],[7],[0,\"An error occurred during the translation. The incident has been\\n        logged. If the problem persists, please contact techincal support.\"],[8],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[20,[\"result\"]]],null,{\"statements\":[[4,\"layout/md-card\",null,[[\"title\",\"class\",\"scroll\",\"maximizable\",\"titleIcon\",\"spotlightEnabled\"],[\"Result\",[25,\"if\",[[20,[\"messages\"]],[25,\"concat\",[\"card-inverse card-outline-\",[20,[\"errorClass\"]],\" md-translator-error \",[20,[\"errorClass\"]],\" md-translator-preview\"],null],\"md-translator-preview\"],null],false,true,\"check\",false]],{\"statements\":[[4,\"if\",[[20,[\"isHtml\"]]],null,{\"statements\":[[0,\"          \"],[6,\"iframe\"],[10,\"srcdoc\",[26,[[18,\"result\"]]]],[9,\"sandbox\",\"allow-scripts\"],[9,\"width\",\"100%\"],[9,\"height\",\"100%\"],[7],[0,\"\\n          \"],[8],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"          \"],[1,[25,\"input/md-textarea\",null,[[\"rows\",\"class\",\"placeholder\",\"value\"],[20,\"md-translator-area\",\"\",[20,[\"result\"]]]]],false],[0,\"\\n\"]],\"parameters\":[]}],[0,\"\\n          \"],[6,\"div\"],[9,\"class\",\"card-footer text-right\"],[7],[0,\"\\n\"],[4,\"if\",[[20,[\"isJson\"]]],null,{\"statements\":[[0,\"              \"],[1,[25,\"control/md-json-button\",null,[[\"class\",\"json\",\"disabled\"],[\"btn-lg btn-primary\",[20,[\"result\"]],[25,\"if\",[[20,[\"result\"]],false,true],null]]]],false],[0,\"\\n\\n              \"],[6,\"button\"],[9,\"type\",\"button\"],[9,\"class\",\"btn btn-lg btn-primary\"],[10,\"disabled\",[25,\"if\",[[20,[\"result\"]],false,true],null],null],[3,\"action\",[[19,0,[]],\"prettifyJson\"]],[7],[0,\"\\n              \"],[1,[25,\"fa-icon\",[\"align-left\"],null],false],[0,\" Format \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n              \"],[6,\"button\"],[9,\"type\",\"button\"],[9,\"class\",\"btn btn-lg btn-success\"],[10,\"disabled\",[25,\"if\",[[20,[\"result\"]],false,true],null],null],[3,\"action\",[[19,0,[]],\"saveResult\"]],[7],[0,\"\\n              \"],[1,[25,\"fa-icon\",[\"floppy-o\"],null],false],[0,\" Save Result \"],[8],[0,\"\\n          \"],[8],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null],[8],[0,\"\\n\"],[11,3],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/md-translate/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "CVbhAae7", "block": "{\"symbols\":[\"message\",\"errorClass\",\"&default\"],\"statements\":[[6,\"div\"],[9,\"class\",\"col-md-4\"],[7],[0,\"\\n\\n\"],[4,\"layout/md-card\",null,[[\"title\",\"class\",\"spotlightEnabled\",\"block\"],[\"Options\",\"md-translator-options\",false,false]],{\"statements\":[[0,\"        \"],[6,\"form\"],[3,\"action\",[[19,0,[]],\"translate\"],[[\"on\"],[\"submit\"]]],[7],[0,\"\\n            \"],[6,\"div\"],[9,\"class\",\"card-block\"],[7],[0,\"\\n                \"],[1,[25,\"input/md-select\",null,[[\"label\",\"value\",\"valuePath\",\"namePath\",\"objectArray\",\"tooltip\",\"tooltipPath\",\"searchEnabled\",\"change\"],[\"Choose Format\",[20,[\"writer\"]],\"value\",\"name\",[20,[\"writerOptions\"]],true,\"tip\",false,[25,\"action\",[[19,0,[]],\"clearResult\"],null]]]],false],[0,\"\\n                \"],[6,\"div\"],[9,\"class\",\"form-group\"],[7],[0,\"\\n                    \"],[6,\"label\"],[7],[0,\"Force Valid Ouput?\"],[8],[0,\"\\n                    \"],[6,\"div\"],[9,\"class\",\"form-control\"],[7],[0,\"\\n                        \"],[6,\"div\"],[9,\"class\",\"inline-block\"],[7],[0,\"\\n                            \"],[1,[25,\"input/md-toggle\",null,[[\"value\",\"onToggle\",\"showLabels\",\"onLabel\",\"offLabel\",\"size\",\"theme\"],[[20,[\"forceValid\"]],[25,\"mut\",[[20,[\"forceValid\"]]],null],true,\"Yes::true\",\"No::false\",\"medium\",\"form\"]]],false],[0,\"\\n                        \"],[8],[0,\"\\n                    \"],[8],[0,\"\\n                \"],[8],[0,\"\\n                \"],[6,\"div\"],[9,\"class\",\"form-group\"],[7],[0,\"\\n                    \"],[6,\"label\"],[7],[0,\"Show Empty Tags?\"],[8],[0,\"\\n                    \"],[6,\"div\"],[9,\"class\",\"form-control\"],[7],[0,\"\\n                        \"],[6,\"div\"],[9,\"class\",\"inline-block\"],[7],[0,\"\\n                            \"],[1,[25,\"input/md-toggle\",null,[[\"value\",\"onToggle\",\"showLabels\",\"onLabel\",\"offLabel\",\"size\",\"theme\"],[[20,[\"showAllTags\"]],[25,\"mut\",[[20,[\"showAllTags\"]]],null],true,\"Yes::true\",\"No::false\",\"medium\",\"form\"]]],false],[0,\"\\n                        \"],[8],[0,\"\\n                    \"],[8],[0,\"\\n                \"],[8],[0,\"\\n            \"],[8],[0,\"\\n            \"],[6,\"div\"],[9,\"class\",\"card-footer\"],[7],[0,\"\\n                \"],[1,[25,\"control/md-status\",null,[[\"model\",\"isBtn\",\"bntSize\"],[[20,[\"model\"]],true,\"lg\"]]],false],[0,\"\\n                \"],[6,\"button\"],[9,\"type\",\"submit\"],[9,\"class\",\"btn btn-lg btn-primary pull-right\"],[10,\"disabled\",[25,\"if\",[[20,[\"writer\"]],false,true],null],null],[7],[0,\"\\n                    \"],[1,[25,\"fa-icon\",[\"retweet\"],null],false],[0,\" Translate \"],[8],[0,\"\\n            \"],[8],[0,\"\\n        \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[8],[0,\"\\n\"],[6,\"div\"],[9,\"class\",\"col-md-7\"],[7],[0,\"\\n\"],[4,\"if\",[[20,[\"isLoading\"]]],null,{\"statements\":[[0,\"      \"],[1,[25,\"control/md-spinner\",null,[[\"size\",\"text\"],[5,\"Translating...\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[20,[\"messages\"]]],null,{\"statements\":[[4,\"layout/md-card\",null,[[\"title\",\"class\",\"spotlightEnabled\",\"scroll\",\"maximizable\",\"titleIcon\",\"spotlightEnabled\",\"collapsible\"],[[25,\"concat\",[\"Translation \",[20,[\"errorTitle\"]]],null],[25,\"concat\",[\"card-inverse card-outline-\",[20,[\"errorClass\"]],\" md-translator-error \",[20,[\"errorClass\"]]],null],false,false,true,\"exclamation\",false,true]],{\"statements\":[[0,\"        \"],[6,\"h4\"],[10,\"class\",[26,[\"text-\",[18,\"errorClass\"]]]],[7],[1,[18,\"errorSubTitle\"],false],[8],[0,\"\\n        \"],[6,\"ul\"],[9,\"class\",\"list-group\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"messages\"]]],null,{\"statements\":[[4,\"with\",[[25,\"compute\",[[25,\"action\",[[19,0,[]],\"errorClass\"],null],[19,1,[\"0\"]]],null]],null,{\"statements\":[[0,\"              \"],[6,\"li\"],[9,\"class\",\"list-group-item\"],[7],[0,\"\\n                \"],[6,\"div\"],[9,\"class\",\"\"],[7],[0,\"\\n                  \"],[6,\"h4\"],[9,\"class\",\"list-group-item-heading\"],[7],[0,\"\\n                    \"],[6,\"span\"],[10,\"class\",[26,[\"label label-\",[19,2,[]]]]],[7],[1,[19,1,[\"0\"]],false],[8],[0,\"\\n                    \"],[1,[19,1,[\"2\"]],false],[0,\"\\n                  \"],[8],[0,\"\\n                \"],[8],[0,\"\\n                \"],[6,\"div\"],[9,\"class\",\"\"],[7],[0,\"\\n                  \"],[6,\"span\"],[10,\"class\",[26,[\"label label-pill \",[25,\"if\",[[19,1,[\"3\"]],\"label-primary\",\"label-default\"],null]]]],[7],[1,[19,1,[\"1\"]],false],[8],[0,\"\\n                  \"],[1,[25,\"compute\",[[25,\"action\",[[19,0,[]],\"formatMessage\",[19,1,[\"3\"]]],null]],null],false],[0,\"\\n                \"],[8],[0,\"\\n              \"],[8],[0,\"\\n\"]],\"parameters\":[2]},null]],\"parameters\":[1]},null],[0,\"        \"],[8],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[20,[\"xhrError\"]]],null,{\"statements\":[[4,\"layout/md-card\",null,[[\"title\",\"spotlightEnabled\",\"class\",\"scroll\",\"maximizable\",\"titleIcon\"],[\"mdTranslator Error\",false,\"card-inverse card-outline-danger md-translator-error danger\",false,true,\"exclamation\"]],{\"statements\":[[0,\"        \"],[6,\"p\"],[7],[1,[18,\"xhrError\"],false],[8],[0,\"\\n        \"],[6,\"p\"],[7],[0,\"An error occurred during the translation. The incident has been\\n        logged. If the problem persists, please contact techincal support.\"],[8],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[20,[\"result\"]]],null,{\"statements\":[[4,\"layout/md-card\",null,[[\"title\",\"class\",\"scroll\",\"maximizable\",\"titleIcon\",\"spotlightEnabled\"],[\"Result\",[25,\"if\",[[20,[\"messages\"]],[25,\"concat\",[\"card-inverse card-outline-\",[20,[\"errorClass\"]],\" md-translator-error \",[20,[\"errorClass\"]],\" md-translator-preview\"],null],\"md-translator-preview\"],null],false,true,\"check\",false]],{\"statements\":[[4,\"if\",[[20,[\"isHtml\"]]],null,{\"statements\":[[0,\"          \"],[6,\"iframe\"],[10,\"srcdoc\",[26,[[18,\"result\"]]]],[9,\"sandbox\",\"allow-scripts\"],[9,\"width\",\"100%\"],[9,\"height\",\"100%\"],[7],[0,\"\\n          \"],[8],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"          \"],[1,[25,\"input/md-textarea\",null,[[\"rows\",\"class\",\"placeholder\",\"value\"],[20,\"md-translator-area\",\"\",[20,[\"result\"]]]]],false],[0,\"\\n\"]],\"parameters\":[]}],[0,\"\\n          \"],[6,\"div\"],[9,\"class\",\"card-footer text-right\"],[7],[0,\"\\n\"],[4,\"if\",[[20,[\"isJson\"]]],null,{\"statements\":[[0,\"              \"],[1,[25,\"control/md-json-button\",null,[[\"class\",\"json\",\"disabled\"],[\"btn-lg btn-primary\",[20,[\"result\"]],[25,\"if\",[[20,[\"result\"]],false,true],null]]]],false],[0,\"\\n\\n              \"],[6,\"button\"],[9,\"type\",\"button\"],[9,\"class\",\"btn btn-lg btn-primary\"],[10,\"disabled\",[25,\"if\",[[20,[\"result\"]],false,true],null],null],[3,\"action\",[[19,0,[]],\"prettifyJson\"]],[7],[0,\"\\n              \"],[1,[25,\"fa-icon\",[\"align-left\"],null],false],[0,\" Format \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n              \"],[6,\"button\"],[9,\"type\",\"button\"],[9,\"class\",\"btn btn-lg btn-success\"],[10,\"disabled\",[25,\"if\",[[20,[\"result\"]],false,true],null],null],[3,\"action\",[[19,0,[]],\"saveResult\"]],[7],[0,\"\\n              \"],[1,[25,\"fa-icon\",[\"floppy-o\"],null],false],[0,\" Save Result \"],[8],[0,\"\\n          \"],[8],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null],[8],[0,\"\\n\"],[11,3],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/md-translate/template.hbs" } });
 });
 define('mdeditor/pods/components/object/md-address/component', ['exports'], function (exports) {
   'use strict';
@@ -12647,9 +12394,7 @@ define('mdeditor/pods/components/object/md-address/component', ['exports'], func
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component,
-        A = Ember.A;
-  exports.default = Component.extend({
+  exports.default = Ember.Component.extend({
     /**
      * mdEditor class for input and edit of mdJSON 'address' object
      * arrays. The class manages the maintenance of an array of address
@@ -12697,8 +12442,8 @@ define('mdeditor/pods/components/object/md-address/component', ['exports'], func
       init() {
         this._super(...arguments);
 
-        this.set('addressType', A());
-        this.set('deliveryPoint', A());
+        this.set('addressType', Ember.A());
+        this.set('deliveryPoint', Ember.A());
       }
     })
   });
@@ -12733,12 +12478,6 @@ define('mdeditor/pods/components/object/md-allocation/component', ['exports', 'e
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component,
-        alias = Ember.computed.alias,
-        get = Ember.get,
-        once = Ember.run.once,
-        getWithDefault = Ember.getWithDefault,
-        set = Ember.set;
 
 
   const Validations = (0, _emberCpValidations.buildValidations)({
@@ -12752,16 +12491,16 @@ define('mdeditor/pods/components/object/md-allocation/component', ['exports', 'e
     })]
   });
 
-  exports.default = Component.extend(Validations, {
+  exports.default = Ember.Component.extend(Validations, {
     didReceiveAttrs() {
       this._super(...arguments);
 
-      let model = get(this, 'model');
+      let model = Ember.get(this, 'model');
 
-      once(this, function () {
-        set(model, 'currency', getWithDefault(model, 'currency', 'USD'));
-        set(model, 'onlineResource', getWithDefault(model, 'onlineResource', []));
-        set(model, 'responsibleParty', getWithDefault(model, 'responsibleParty', []));
+      Ember.run.once(this, function () {
+        Ember.set(model, 'currency', Ember.getWithDefault(model, 'currency', 'USD'));
+        Ember.set(model, 'onlineResource', Ember.getWithDefault(model, 'onlineResource', []));
+        Ember.set(model, 'responsibleParty', Ember.getWithDefault(model, 'responsibleParty', []));
       });
     },
     /**
@@ -12784,8 +12523,8 @@ define('mdeditor/pods/components/object/md-allocation/component', ['exports', 'e
     attributeBindings: ['data-spy'],
     'data-spy': 'Allocation',
     tagName: 'form',
-    amount: alias('model.amount'),
-    currency: alias('model.currency')
+    amount: Ember.computed.alias('model.amount'),
+    currency: Ember.computed.alias('model.currency')
   });
 });
 define("mdeditor/pods/components/object/md-allocation/template", ["exports"], function (exports) {
@@ -12802,15 +12541,7 @@ define('mdeditor/pods/components/object/md-array-table/component', ['exports', '
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const computed = Ember.computed,
-        Component = Ember.Component,
-        A = Ember.A,
-        getOwner = Ember.getOwner,
-        isArray = Ember.isArray,
-        run = Ember.run,
-        typeOf = Ember.typeOf,
-        get = Ember.get;
-  exports.default = Component.extend(_objectTemplate.default, {
+  exports.default = Ember.Component.extend(_objectTemplate.default, {
     /**
      * mdEditor class for input and edit of arrays of objects. The
      * component is rendered as an editable table.
@@ -12838,7 +12569,7 @@ define('mdeditor/pods/components/object/md-array-table/component', ['exports', '
      * @default Ember.A()
      * @required
      */
-    value: A(),
+    value: Ember.A(),
 
     /**
      * The template class to use for new items. This should be a constructor.
@@ -12918,7 +12649,7 @@ define('mdeditor/pods/components/object/md-array-table/component', ['exports', '
      * @default "this.title"
      * @category computed
      */
-    'data-spy': computed.oneWay('title'),
+    'data-spy': Ember.computed.oneWay('title'),
 
     /**
      * Array of column headers
@@ -12929,7 +12660,7 @@ define('mdeditor/pods/components/object/md-array-table/component', ['exports', '
      * @category computed
      * @requires columns
      */
-    columnArray: computed('columns', function () {
+    columnArray: Ember.computed('columns', function () {
       let columns = this.get('columns');
 
       return typeof columns === 'string' ? columns.split(',') : null;
@@ -12944,13 +12675,13 @@ define('mdeditor/pods/components/object/md-array-table/component', ['exports', '
      * @category computed
      * @requires isCollapsed
      */
-    collapsed: computed('isCollapsed', 'value.[]', function () {
+    collapsed: Ember.computed('isCollapsed', 'value.[]', function () {
       let isCollapsed = this.get('isCollapsed');
       let value = this.get('value');
 
       if (isCollapsed !== undefined) {
         return isCollapsed;
-      } else if (isArray(value) && get(value, 'length') > 0) {
+      } else if (Ember.isArray(value) && Ember.get(value, 'length') > 0) {
         return false;
       } else {
         return true;
@@ -12966,7 +12697,7 @@ define('mdeditor/pods/components/object/md-array-table/component', ['exports', '
      * @category computed
      * @requires value
      */
-    arrayValues: computed.alias('value'),
+    arrayValues: Ember.computed.alias('value'),
 
     /**
      * The panel id selector
@@ -12978,7 +12709,7 @@ define('mdeditor/pods/components/object/md-array-table/component', ['exports', '
      * @category computed
      * @requires elementId
      */
-    panelId: computed('elementId', function () {
+    panelId: Ember.computed('elementId', function () {
       return 'panel-' + this.get('elementId');
     }),
 
@@ -12991,7 +12722,7 @@ define('mdeditor/pods/components/object/md-array-table/component', ['exports', '
      * @category computed
      * @requires value.[]
      */
-    pillColor: computed('value.[]', 'required', function () {
+    pillColor: Ember.computed('value.[]', 'required', function () {
       let count = this.get('value.length') || 0;
       let required = this.get('required');
       return count === 0 ? required ? 'label-danger' : 'label-warning' : 'label-info';
@@ -13005,7 +12736,7 @@ define('mdeditor/pods/components/object/md-array-table/component', ['exports', '
      * @return none
      */
     valueChanged() {
-      run.schedule('afterRender', this, function () {
+      Ember.run.schedule('afterRender', this, function () {
         let panel = this.$('.panel-collapse');
         let input = this.$('.panel-collapse tbody tr:last-of-type input').first();
 
@@ -13026,9 +12757,9 @@ define('mdeditor/pods/components/object/md-array-table/component', ['exports', '
     actions: {
       addItem: function addItem(value) {
         const Template = this.get('templateClass');
-        const owner = getOwner(this);
+        const owner = Ember.getOwner(this);
 
-        value.pushObject(typeOf(Template) === 'class' ? Template.create(owner.ownerInjection()) : get(this, 'templateAsObject') ? {} : null);
+        value.pushObject(Ember.typeOf(Template) === 'class' ? Template.create(owner.ownerInjection()) : Ember.get(this, 'templateAsObject') ? {} : null);
         this.valueChanged();
       },
 
@@ -13055,13 +12786,6 @@ define('mdeditor/pods/components/object/md-associated/component', ['exports', 'e
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component,
-        computed = Ember.computed,
-        set = Ember.set,
-        get = Ember.get,
-        getWithDefault = Ember.getWithDefault,
-        once = Ember.run.once,
-        service = Ember.inject.service;
 
 
   const Validations = (0, _emberCpValidations.buildValidations)({
@@ -13071,19 +12795,19 @@ define('mdeditor/pods/components/object/md-associated/component', ['exports', 'e
     })]
   });
 
-  exports.default = Component.extend(Validations, {
-    store: service(),
+  exports.default = Ember.Component.extend(Validations, {
+    store: Ember.inject.service(),
 
     didReceiveAttrs() {
       this._super(...arguments);
 
-      let model = get(this, 'model');
+      let model = Ember.get(this, 'model');
 
-      once(this, function () {
-        set(model, 'scope', getWithDefault(model, 'scope', {}));
-        set(model, 'resourceType', getWithDefault(model, 'resourceType', []));
-        set(model, 'resourceCitation', getWithDefault(model, 'resourceCitation', {}));
-        set(model, 'metadataCitation', getWithDefault(model, 'metadataCitation', {}));
+      Ember.run.once(this, function () {
+        Ember.set(model, 'scope', Ember.getWithDefault(model, 'scope', {}));
+        Ember.set(model, 'resourceType', Ember.getWithDefault(model, 'resourceType', []));
+        Ember.set(model, 'resourceCitation', Ember.getWithDefault(model, 'resourceCitation', {}));
+        Ember.set(model, 'metadataCitation', Ember.getWithDefault(model, 'metadataCitation', {}));
       });
     },
 
@@ -13106,15 +12830,15 @@ define('mdeditor/pods/components/object/md-associated/component', ['exports', 'e
      * @required
      */
 
-    associationType: computed.alias('model.associationType'),
+    associationType: Ember.computed.alias('model.associationType'),
 
-    linkedRecord: computed('model.mdRecordId', function () {
+    linkedRecord: Ember.computed('model.mdRecordId', function () {
       let store = this.get('store');
 
-      return store.peekAll('record').filterBy('recordId', get(this, 'model.mdRecordId')).get('firstObject');
+      return store.peekAll('record').filterBy('recordId', Ember.get(this, 'model.mdRecordId')).get('firstObject');
     }),
 
-    linkedAssociation: computed('linkedRecord.json.metadata.associatedResource.[]', function () {
+    linkedAssociation: Ember.computed('linkedRecord.json.metadata.associatedResource.[]', function () {
       let ar = this.get('linkedRecord.json.metadata.associatedResource');
 
       if (!ar) {
@@ -13124,7 +12848,7 @@ define('mdeditor/pods/components/object/md-associated/component', ['exports', 'e
       return ar.findBy('mdRecordId', this.get('recordId'));
     }),
 
-    linkedAssociationType: computed('linkedAssociation.associationType', {
+    linkedAssociationType: Ember.computed('linkedAssociation.associationType', {
       get() {
         return this.get('linkedAssociation.associationType');
       },
@@ -13133,10 +12857,10 @@ define('mdeditor/pods/components/object/md-associated/component', ['exports', 'e
         let model = this.get('linkedRecord');
 
         if (!assoc) {
-          set(model, 'json.metadata.associatedResource', getWithDefault(model, 'json.metadata.associatedResource', []));
+          Ember.set(model, 'json.metadata.associatedResource', Ember.getWithDefault(model, 'json.metadata.associatedResource', []));
 
           model.get('json.metadata.associatedResource').pushObject({
-            mdRecordId: get(this, 'recordId'),
+            mdRecordId: Ember.get(this, 'recordId'),
             associationType: value
           });
 
@@ -13145,7 +12869,7 @@ define('mdeditor/pods/components/object/md-associated/component', ['exports', 'e
           return value;
         }
 
-        set(assoc, 'associationType', value);
+        Ember.set(assoc, 'associationType', value);
         model.notifyPropertyChange('hasDirtyHash');
 
         return value;
@@ -13293,7 +13017,7 @@ define('mdeditor/pods/components/object/md-attribute/component', ['exports', 'em
     allowNull: Ember.computed.alias('model.allowNull'),
     domains: Ember.computed.alias('dictionary.domain'),
 
-    domainList: Ember.computed('domains.@each.domainId', 'domains.@each.codeName', function () {
+    domainList: Ember.computed('domains.{@each.domainId,@each.codeName}', function () {
       let domains = Ember.get(this, 'domains') || [];
 
       return domains.map(domain => {
@@ -13364,10 +13088,6 @@ define('mdeditor/pods/components/object/md-bbox/component', ['exports', 'ember-c
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component;
-  var _Ember$computed = Ember.computed;
-  const alias = _Ember$computed.alias,
-        readOnly = _Ember$computed.readOnly;
 
 
   const Validations = (0, _emberCpValidations.buildValidations)({
@@ -13381,7 +13101,7 @@ define('mdeditor/pods/components/object/md-bbox/component', ['exports', 'ember-c
       gte: -90,
       lte: 90
     }), (0, _emberCpValidations.validator)('number', {
-      lte: readOnly('model.north')
+      lte: Ember.computed.readOnly('model.north')
     })],
     'east': [(0, _emberCpValidations.validator)('number', {
       allowNone: false,
@@ -13393,17 +13113,17 @@ define('mdeditor/pods/components/object/md-bbox/component', ['exports', 'ember-c
       gte: -180,
       lte: 180
     }), (0, _emberCpValidations.validator)('number', {
-      lte: readOnly('model.east')
+      lte: Ember.computed.readOnly('model.east')
     })]
   });
 
-  exports.default = Component.extend(Validations, {
+  exports.default = Ember.Component.extend(Validations, {
     classNames: ['form'],
 
-    north: alias('model.northLatitude'),
-    south: alias('model.southLatitude'),
-    east: alias('model.eastLongitude'),
-    west: alias('model.westLongitude')
+    north: Ember.computed.alias('model.northLatitude'),
+    south: Ember.computed.alias('model.southLatitude'),
+    east: Ember.computed.alias('model.eastLongitude'),
+    west: Ember.computed.alias('model.westLongitude')
 
     // btnText: computed('isTruelyValid', function() {
     //   let text = this.get('validations.isTruelyValid') ? ''
@@ -13425,15 +13145,13 @@ define('mdeditor/pods/components/object/md-citation-array/component', ['exports'
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const A = Ember.A,
-        Component = Ember.Component;
-  exports.default = Component.extend({
+  exports.default = Ember.Component.extend({
 
     init() {
       this._super(...arguments);
 
       if (!this.get('model')) {
-        this.set('model', A());
+        this.set('model', Ember.A());
       }
     },
 
@@ -13510,27 +13228,23 @@ define('mdeditor/pods/components/object/md-citation/component', ['exports'], fun
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component,
-        set = Ember.set,
-        getWithDefault = Ember.getWithDefault,
-        once = Ember.run.once;
 
 
   const formatCitation = function formatCitation(model) {
-    set(model, 'responsibleParty', getWithDefault(model, 'responsibleParty', []));
-    set(model, 'date', getWithDefault(model, 'date', []));
-    set(model, 'alternateTitle', getWithDefault(model, 'alternateTitle', []));
-    set(model, 'presentationForm', getWithDefault(model, 'presentationForm', []));
-    set(model, 'onlineResource', getWithDefault(model, 'onlineResource', []));
-    set(model, 'identifier', getWithDefault(model, 'identifier', []));
-    set(model, 'otherCitationDetails', getWithDefault(model, 'otherCitationDetails', []));
-    set(model, 'graphic', getWithDefault(model, 'graphic', []));
-    set(model, 'series', getWithDefault(model, 'series', {}));
+    Ember.set(model, 'responsibleParty', Ember.getWithDefault(model, 'responsibleParty', []));
+    Ember.set(model, 'date', Ember.getWithDefault(model, 'date', []));
+    Ember.set(model, 'alternateTitle', Ember.getWithDefault(model, 'alternateTitle', []));
+    Ember.set(model, 'presentationForm', Ember.getWithDefault(model, 'presentationForm', []));
+    Ember.set(model, 'onlineResource', Ember.getWithDefault(model, 'onlineResource', []));
+    Ember.set(model, 'identifier', Ember.getWithDefault(model, 'identifier', []));
+    Ember.set(model, 'otherCitationDetails', Ember.getWithDefault(model, 'otherCitationDetails', []));
+    Ember.set(model, 'graphic', Ember.getWithDefault(model, 'graphic', []));
+    Ember.set(model, 'series', Ember.getWithDefault(model, 'series', {}));
 
     return model;
   };
 
-  const theComp = Component.extend({
+  const theComp = Ember.Component.extend({
     /**
      * mdEditor class for input and edit of mdJSON 'citation' objects.
      *
@@ -13553,8 +13267,8 @@ define('mdeditor/pods/components/object/md-citation/component', ['exports'], fun
 
       //let model = getWithDefault(this, 'model', {}) || {};
 
-      once(this, function () {
-        this.set('model', getWithDefault(this, 'model', {}));
+      Ember.run.once(this, function () {
+        this.set('model', Ember.getWithDefault(this, 'model', {}));
         formatCitation(this.get('model'));
       });
     },
@@ -13623,7 +13337,7 @@ define("mdeditor/pods/components/object/md-citation/preview/body/template", ["ex
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "R6u37gIG", "block": "{\"symbols\":[\"party\",\"contact\",\"index\",\"id\",\"date\",\"title\",\"&default\"],\"statements\":[[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n  \"],[6,\"dl\"],[9,\"class\",\"dl-horizontal col-lg-12\"],[7],[0,\"\\n      \"],[1,[25,\"control/md-definition\",null,[[\"title\",\"text\"],[\"Title\",[20,[\"citation\",\"title\"]]]]],false],[0,\"\\n  \"],[8],[0,\"\\n  \"],[6,\"dl\"],[9,\"class\",\"dl-horizontal col-lg-12\"],[7],[0,\"\\n\"],[4,\"control/md-definition\",null,[[\"title\"],[\"Alternate Titles\"]],{\"statements\":[[4,\"each\",[[20,[\"citation\",\"alternateTitle\"]]],null,{\"statements\":[[0,\"              \"],[1,[19,6,[]],false],[0,\"\\n              \"],[6,\"br\"],[7],[8],[0,\"\\n\"]],\"parameters\":[6]},{\"statements\":[[0,\"              \"],[6,\"em\"],[9,\"class\",\"text-muted\"],[7],[0,\"No alternate titles assigned.\"],[8],[0,\"\\n\"]],\"parameters\":[]}]],\"parameters\":[]},null],[0,\"  \"],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"clearfix\"],[7],[8],[0,\"\\n  \"],[6,\"dl\"],[9,\"class\",\"dl-horizontal col-lg-12\"],[7],[0,\"\\n\"],[4,\"control/md-definition\",null,[[\"title\"],[\"Dates\"]],{\"statements\":[[4,\"each\",[[20,[\"citation\",\"date\"]]],null,{\"statements\":[[0,\"              \"],[1,[25,\"format-date\",[[19,5,[\"date\"]]],[[\"format\"],[\"MMMM Do YYYY\"]]],false],[0,\"\\n              (\"],[1,[19,5,[\"dateType\"]],false],[0,\")\\n              \"],[6,\"br\"],[7],[8],[0,\"\\n\"]],\"parameters\":[5]},{\"statements\":[[0,\"              \"],[6,\"em\"],[9,\"class\",\"text-muted\"],[7],[0,\"No dates assigned.\"],[8],[0,\"\\n\"]],\"parameters\":[]}]],\"parameters\":[]},null],[0,\"  \"],[8],[0,\"\\n  \"],[6,\"dl\"],[9,\"class\",\"dl-horizontal col-lg-12\"],[7],[0,\"\\n\"],[4,\"control/md-definition\",null,[[\"title\"],[\"Identifier\"]],{\"statements\":[[4,\"each\",[[20,[\"citation\",\"identifier\"]]],null,{\"statements\":[[0,\"              \"],[1,[19,4,[\"identifier\"]],false],[0,\" \"],[1,[25,\"if\",[[19,4,[\"namespace\"]],[25,\"concat\",[\"(\",[19,4,[\"namespace\"]],\")\"],null]],null],false],[0,\"\\n              \"],[6,\"br\"],[7],[8],[0,\"\\n\"]],\"parameters\":[4]},{\"statements\":[[0,\"              \"],[6,\"em\"],[9,\"class\",\"text-muted\"],[7],[0,\"No identifiers assigned.\"],[8],[0,\"\\n\"]],\"parameters\":[]}]],\"parameters\":[]},null],[0,\"  \"],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"clearfix\"],[7],[8],[0,\"\\n  \"],[6,\"dl\"],[9,\"class\",\"dl-horizontal col-lg-12\"],[7],[0,\"\\n\"],[4,\"control/md-definition\",null,[[\"title\"],[\"Responsible Party\"]],{\"statements\":[[4,\"each\",[[20,[\"citation\",\"responsibleParty\"]]],null,{\"statements\":[[0,\"              \"],[1,[25,\"if\",[[19,1,[\"role\"]],[19,1,[\"role\"]],\"<em>No Roles assigned.</em>\"],null],true],[0,\"\\n              (\\n\"],[4,\"each\",[[19,1,[\"party\"]]],null,{\"statements\":[[0,\"                  \"],[1,[25,\"if\",[[19,3,[]],\", \"],null],false],[0,\" \"],[1,[25,\"control/md-contact-link\",null,[[\"contactId\"],[[19,2,[\"contactId\"]]]]],false],[0,\"\\n\"]],\"parameters\":[2,3]},{\"statements\":[[0,\"                  \"],[6,\"em\"],[9,\"class\",\"text-muted\"],[7],[0,\"No Contacts assigned.\"],[8],[0,\"\\n\"]],\"parameters\":[]}],[0,\"              )\\n              \"],[6,\"br\"],[7],[8],[0,\"\\n\"]],\"parameters\":[1]},{\"statements\":[[0,\"              \"],[6,\"em\"],[9,\"class\",\"text-muted\"],[7],[0,\"No responsibility assigned.\"],[8],[0,\"\\n\"]],\"parameters\":[]}]],\"parameters\":[]},null],[0,\"  \"],[8],[0,\"\\n  \"],[11,7],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/object/md-citation/preview/body/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "DTB978EJ", "block": "{\"symbols\":[\"party\",\"contact\",\"index\",\"id\",\"date\",\"title\",\"&default\"],\"statements\":[[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n  \"],[6,\"dl\"],[9,\"class\",\"dl-horizontal col-lg-12\"],[7],[0,\"\\n      \"],[1,[25,\"control/md-definition\",null,[[\"title\",\"text\"],[\"Title\",[20,[\"citation\",\"title\"]]]]],false],[0,\"\\n  \"],[8],[0,\"\\n  \"],[6,\"dl\"],[9,\"class\",\"dl-horizontal col-lg-12\"],[7],[0,\"\\n\"],[4,\"control/md-definition\",null,[[\"title\"],[\"Alternate Titles\"]],{\"statements\":[[4,\"each\",[[20,[\"citation\",\"alternateTitle\"]]],null,{\"statements\":[[0,\"              \"],[1,[19,6,[]],false],[0,\"\\n              \"],[6,\"br\"],[7],[8],[0,\"\\n\"]],\"parameters\":[6]},{\"statements\":[[0,\"              \"],[6,\"em\"],[9,\"class\",\"text-muted\"],[7],[0,\"No alternate titles assigned.\"],[8],[0,\"\\n\"]],\"parameters\":[]}]],\"parameters\":[]},null],[0,\"  \"],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"clearfix\"],[7],[8],[0,\"\\n  \"],[6,\"dl\"],[9,\"class\",\"dl-horizontal col-lg-12\"],[7],[0,\"\\n\"],[4,\"control/md-definition\",null,[[\"title\"],[\"Dates\"]],{\"statements\":[[4,\"each\",[[20,[\"citation\",\"date\"]]],null,{\"statements\":[[0,\"              \"],[1,[25,\"moment-format\",[[19,5,[\"date\"]],\"MMMM Do YYYY\"],null],false],[0,\"\\n              (\"],[1,[19,5,[\"dateType\"]],false],[0,\")\\n              \"],[6,\"br\"],[7],[8],[0,\"\\n\"]],\"parameters\":[5]},{\"statements\":[[0,\"              \"],[6,\"em\"],[9,\"class\",\"text-muted\"],[7],[0,\"No dates assigned.\"],[8],[0,\"\\n\"]],\"parameters\":[]}]],\"parameters\":[]},null],[0,\"  \"],[8],[0,\"\\n  \"],[6,\"dl\"],[9,\"class\",\"dl-horizontal col-lg-12\"],[7],[0,\"\\n\"],[4,\"control/md-definition\",null,[[\"title\"],[\"Identifier\"]],{\"statements\":[[4,\"each\",[[20,[\"citation\",\"identifier\"]]],null,{\"statements\":[[0,\"              \"],[1,[19,4,[\"identifier\"]],false],[0,\" \"],[1,[25,\"if\",[[19,4,[\"namespace\"]],[25,\"concat\",[\"(\",[19,4,[\"namespace\"]],\")\"],null]],null],false],[0,\"\\n              \"],[6,\"br\"],[7],[8],[0,\"\\n\"]],\"parameters\":[4]},{\"statements\":[[0,\"              \"],[6,\"em\"],[9,\"class\",\"text-muted\"],[7],[0,\"No identifiers assigned.\"],[8],[0,\"\\n\"]],\"parameters\":[]}]],\"parameters\":[]},null],[0,\"  \"],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"clearfix\"],[7],[8],[0,\"\\n  \"],[6,\"dl\"],[9,\"class\",\"dl-horizontal col-lg-12\"],[7],[0,\"\\n\"],[4,\"control/md-definition\",null,[[\"title\"],[\"Responsible Party\"]],{\"statements\":[[4,\"each\",[[20,[\"citation\",\"responsibleParty\"]]],null,{\"statements\":[[0,\"              \"],[1,[25,\"if\",[[19,1,[\"role\"]],[19,1,[\"role\"]],\"<em>No Roles assigned.</em>\"],null],true],[0,\"\\n              (\\n\"],[4,\"each\",[[19,1,[\"party\"]]],null,{\"statements\":[[0,\"                  \"],[1,[25,\"if\",[[19,3,[]],\", \"],null],false],[0,\" \"],[1,[25,\"control/md-contact-link\",null,[[\"contactId\"],[[19,2,[\"contactId\"]]]]],false],[0,\"\\n\"]],\"parameters\":[2,3]},{\"statements\":[[0,\"                  \"],[6,\"em\"],[9,\"class\",\"text-muted\"],[7],[0,\"No Contacts assigned.\"],[8],[0,\"\\n\"]],\"parameters\":[]}],[0,\"              )\\n              \"],[6,\"br\"],[7],[8],[0,\"\\n\"]],\"parameters\":[1]},{\"statements\":[[0,\"              \"],[6,\"em\"],[9,\"class\",\"text-muted\"],[7],[0,\"No responsibility assigned.\"],[8],[0,\"\\n\"]],\"parameters\":[]}]],\"parameters\":[]},null],[0,\"  \"],[8],[0,\"\\n  \"],[11,7],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/object/md-citation/preview/body/template.hbs" } });
 });
 define("mdeditor/pods/components/object/md-citation/preview/component", ["exports"], function (exports) {
   "use strict";
@@ -13683,14 +13397,6 @@ define('mdeditor/pods/components/object/md-constraint/component', ['exports', 'e
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component;
-  var _Ember$computed = Ember.computed;
-  const alias = _Ember$computed.alias,
-        equal = _Ember$computed.equal,
-        get = Ember.get,
-        once = Ember.run.once,
-        getWithDefault = Ember.getWithDefault,
-        set = Ember.set;
 
 
   const Validations = (0, _emberCpValidations.buildValidations)({
@@ -13704,22 +13410,22 @@ define('mdeditor/pods/components/object/md-constraint/component', ['exports', 'e
     })]
   });
 
-  exports.default = Component.extend(Validations, {
+  exports.default = Ember.Component.extend(Validations, {
     didReceiveAttrs() {
       this._super(...arguments);
 
-      let model = get(this, 'model');
+      let model = Ember.get(this, 'model');
 
-      once(this, function () {
-        set(model, 'useLimitation', getWithDefault(model, 'useLimitation', []));
-        set(model, 'graphic', getWithDefault(model, 'graphic', []));
-        set(model, 'responsibleParty', getWithDefault(model, 'responsibleParty', []));
-        set(model, 'legal', getWithDefault(model, 'legal', {
+      Ember.run.once(this, function () {
+        Ember.set(model, 'useLimitation', Ember.getWithDefault(model, 'useLimitation', []));
+        Ember.set(model, 'graphic', Ember.getWithDefault(model, 'graphic', []));
+        Ember.set(model, 'responsibleParty', Ember.getWithDefault(model, 'responsibleParty', []));
+        Ember.set(model, 'legal', Ember.getWithDefault(model, 'legal', {
           accessConstraint: [],
           useConstraint: [],
           otherConstraint: []
         }));
-        set(model, 'security', getWithDefault(model, 'security', {}));
+        Ember.set(model, 'security', Ember.getWithDefault(model, 'security', {}));
       });
     },
     /**
@@ -13741,24 +13447,26 @@ define('mdeditor/pods/components/object/md-constraint/component', ['exports', 'e
 
     tagName: 'form',
 
-    type: alias('model.type'),
-    useRequired: equal('type', 'use'),
-    securityRequired: equal('type', 'security'),
-    legalRequired: equal('type', 'legal'),
-    classification: alias('model.security.classification'),
+    type: Ember.computed.alias('model.type'),
+    useRequired: Ember.computed.equal('type', 'use'),
+    securityRequired: Ember.computed.equal('type', 'security'),
+    legalRequired: Ember.computed.equal('type', 'legal'),
+    classification: Ember.computed.alias('model.security.classification'),
     // measureUnit: alias('model.measure.unitOfMeasure'),
     // measurePresent: or('measureType','measureUnit','measureValue'),
 
-    typeOptions: [{
-      name: 'use',
-      value: 'use'
-    }, {
-      name: 'legal',
-      value: 'legal'
-    }, {
-      name: 'security',
-      value: 'security'
-    }]
+    typeOptions: Ember.computed(function () {
+      return [{
+        name: 'use',
+        value: 'use'
+      }, {
+        name: 'legal',
+        value: 'legal'
+      }, {
+        name: 'security',
+        value: 'security'
+      }];
+    })
   });
 });
 define("mdeditor/pods/components/object/md-constraint/template", ["exports"], function (exports) {
@@ -13775,17 +13483,12 @@ define('mdeditor/pods/components/object/md-date-array/component', ['exports'], f
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component,
-        EmObject = Ember.Object,
-        get = Ember.get,
-        set = Ember.set,
-        isNone = Ember.isNone;
-  exports.default = Component.extend({
+  exports.default = Ember.Component.extend({
     init() {
       this._super(...arguments);
 
-      if (isNone(get(this, 'model'))) {
-        set(this, 'model', []);
+      if (Ember.isNone(Ember.get(this, 'model'))) {
+        Ember.set(this, 'model', []);
       }
     },
 
@@ -13795,7 +13498,7 @@ define('mdeditor/pods/components/object/md-date-array/component', ['exports'], f
      * @property templateClass
      * @type Ember.Object
      */
-    templateClass: EmObject.extend({
+    templateClass: Ember.Object.extend({
       init() {
         this._super(...arguments);
         this.setProperties({
@@ -13820,8 +13523,6 @@ define('mdeditor/pods/components/object/md-date/component', ['exports', 'ember-c
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const computed = Ember.computed,
-        Component = Ember.Component;
 
 
   const Validations = (0, _emberCpValidations.buildValidations)({
@@ -13835,7 +13536,7 @@ define('mdeditor/pods/components/object/md-date/component', ['exports', 'ember-c
     })
   });
 
-  exports.default = Component.extend(Validations, {
+  exports.default = Ember.Component.extend(Validations, {
     init() {
       this._super(...arguments);
 
@@ -13845,8 +13546,8 @@ define('mdeditor/pods/components/object/md-date/component', ['exports', 'ember-c
     },
 
     tagName: '',
-    date: computed.alias('model.date'),
-    dateType: computed.alias('model.dateType')
+    date: Ember.computed.alias('model.date'),
+    dateType: Ember.computed.alias('model.dateType')
 
   });
 });
@@ -13864,20 +13565,14 @@ define('mdeditor/pods/components/object/md-distribution/component', ['exports'],
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component,
-        get = Ember.get,
-        once = Ember.run.once,
-        getWithDefault = Ember.getWithDefault,
-        set = Ember.set,
-        NativeArray = Ember.NativeArray;
-  exports.default = Component.extend({
+  exports.default = Ember.Component.extend({
     didReceiveAttrs() {
       this._super(...arguments);
 
-      let model = get(this, 'model.json.metadata');
+      let model = Ember.get(this, 'model.json.metadata');
 
-      once(this, function () {
-        set(model, 'resourceDistribution', NativeArray.apply(getWithDefault(model, 'resourceDistribution', [])));
+      Ember.run.once(this, function () {
+        Ember.set(model, 'resourceDistribution', Ember.A(Ember.getWithDefault(model, 'resourceDistribution', [])));
       });
     },
     /**
@@ -13915,13 +13610,6 @@ define('mdeditor/pods/components/object/md-distributor/component', ['exports', '
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component,
-        computed = Ember.computed,
-        set = Ember.set,
-        get = Ember.get,
-        getWithDefault = Ember.getWithDefault,
-        once = Ember.run.once,
-        NativeArray = Ember.NativeArray;
 
 
   const Validations = (0, _emberCpValidations.buildValidations)({
@@ -13935,19 +13623,19 @@ define('mdeditor/pods/components/object/md-distributor/component', ['exports', '
     })
   });
 
-  exports.default = Component.extend(Validations, {
+  exports.default = Ember.Component.extend(Validations, {
     didReceiveAttrs() {
       this._super(...arguments);
 
-      let model = get(this, 'model');
+      let model = Ember.get(this, 'model');
 
-      once(this, function () {
-        set(model, 'contact', getWithDefault(model, 'contact', {
+      Ember.run.once(this, function () {
+        Ember.set(model, 'contact', Ember.getWithDefault(model, 'contact', {
           role: null,
           party: []
         }));
-        set(model, 'orderProcess', NativeArray.apply(getWithDefault(model, 'orderProcess', [{}])));
-        set(model, 'transferOption', NativeArray.apply(getWithDefault(model, 'transferOption', [{}])));
+        Ember.set(model, 'orderProcess', Ember.A(Ember.getWithDefault(model, 'orderProcess', [{}])));
+        Ember.set(model, 'transferOption', Ember.A(Ember.getWithDefault(model, 'transferOption', [{}])));
       });
     },
 
@@ -13970,10 +13658,10 @@ define('mdeditor/pods/components/object/md-distributor/component', ['exports', '
      * @required
      */
 
-    role: computed.alias('model.contact.role'),
-    contacts: computed('model.contact.party', {
+    role: Ember.computed.alias('model.contact.role'),
+    contacts: Ember.computed('model.contact.party', {
       get() {
-        let party = get(this, 'model.contact.party');
+        let party = Ember.get(this, 'model.contact.party');
         return party ? party.mapBy('contactId') : null;
       },
       set(key, value) {
@@ -13982,7 +13670,7 @@ define('mdeditor/pods/components/object/md-distributor/component', ['exports', '
             contactId: itm
           };
         });
-        set(this, 'model.contact.party', map);
+        Ember.set(this, 'model.contact.party', map);
         return value;
       }
     })
@@ -14018,13 +13706,6 @@ define('mdeditor/pods/components/object/md-documentation/component', ['exports',
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component,
-        computed = Ember.computed,
-        set = Ember.set,
-        get = Ember.get,
-        getWithDefault = Ember.getWithDefault,
-        once = Ember.run.once,
-        NativeArray = Ember.NativeArray;
 
 
   const Validations = (0, _emberCpValidations.buildValidations)({
@@ -14033,15 +13714,15 @@ define('mdeditor/pods/components/object/md-documentation/component', ['exports',
     })]
   });
 
-  exports.default = Component.extend(Validations, {
+  exports.default = Ember.Component.extend(Validations, {
     didReceiveAttrs() {
       this._super(...arguments);
 
-      let model = get(this, 'model');
+      let model = Ember.get(this, 'model');
 
-      once(this, function () {
-        set(model, 'resourceType', getWithDefault(model, 'resourceType', []));
-        set(model, 'citation', NativeArray.apply(getWithDefault(model, 'citation', [{}])));
+      Ember.run.once(this, function () {
+        Ember.set(model, 'resourceType', Ember.getWithDefault(model, 'resourceType', []));
+        Ember.set(model, 'citation', Ember.A(Ember.getWithDefault(model, 'citation', [{}])));
       });
     },
 
@@ -14064,8 +13745,8 @@ define('mdeditor/pods/components/object/md-documentation/component', ['exports',
      * @required
      */
 
-    citation: computed.alias('model.citation'),
-    resourceType: computed.alias('model.resourceType')
+    citation: Ember.computed.alias('model.citation'),
+    resourceType: Ember.computed.alias('model.resourceType')
   });
 });
 define('mdeditor/pods/components/object/md-documentation/preview/component', ['exports'], function (exports) {
@@ -14074,8 +13755,7 @@ define('mdeditor/pods/components/object/md-documentation/preview/component', ['e
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component;
-  exports.default = Component.extend({
+  exports.default = Ember.Component.extend({
     classNameBindings: ['muted:text-muted'],
 
     /**
@@ -14394,7 +14074,7 @@ define('mdeditor/pods/components/object/md-entity/component', ['exports', 'mdedi
     entities: Ember.computed.alias('dictionary.entity'),
     attributes: Ember.computed.alias('model.attribute'),
 
-    attributeList: Ember.computed('attributes.@each.codeName', 'attributes.[]', function () {
+    attributeList: Ember.computed('attributes.{@each.codeName,[]}', function () {
       let attr = Ember.get(this, 'model.attribute');
       if (attr) {
         return attr.map(attr => {
@@ -14408,7 +14088,7 @@ define('mdeditor/pods/components/object/md-entity/component', ['exports', 'mdedi
       return [];
     }),
 
-    entityList: Ember.computed('entities.@each.entityId', 'entities.@each.codeName', function () {
+    entityList: Ember.computed('entities.{@each.entityId,@each.codeName}', function () {
       return Ember.get(this, 'entities').map(attr => {
         if (Ember.get(attr, 'entityId')) {
           return {
@@ -14422,7 +14102,7 @@ define('mdeditor/pods/components/object/md-entity/component', ['exports', 'mdedi
 
     actions: {
       getEntityAttributes(id) {
-        let entity = Ember.Array.apply(this.get('dictionary.entity')).findBy('entityId', id);
+        let entity = Ember.A(this.get('dictionary.entity')).findBy('entityId', id);
 
         if (entity) {
           let a = Ember.get(entity, 'attribute').map(attr => {
@@ -14455,37 +14135,30 @@ define('mdeditor/pods/components/object/md-funding/component', ['exports', 'embe
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component,
-        computed = Ember.computed,
-        alias = Ember.computed.alias,
-        get = Ember.get,
-        once = Ember.run.once,
-        getWithDefault = Ember.getWithDefault,
-        set = Ember.set;
 
 
   const Validations = (0, _emberCpValidations.buildValidations)({
     'allocation': [(0, _emberCpValidations.validator)('presence', {
       presence: true,
       ignoreBlank: true,
-      disabled: computed.notEmpty('model.timePeriod')
+      disabled: Ember.computed.notEmpty('model.timePeriod')
     })],
     'timePeriod': [(0, _emberCpValidations.validator)('presence', {
       presence: true,
       ignoreBlank: true,
-      disabled: computed.notEmpty('model.allocation')
+      disabled: Ember.computed.notEmpty('model.allocation')
     })]
   });
 
-  exports.default = Component.extend(Validations, {
+  exports.default = Ember.Component.extend(Validations, {
     didReceiveAttrs() {
       this._super(...arguments);
 
-      let model = get(this, 'model');
+      let model = Ember.get(this, 'model');
 
-      once(this, function () {
-        set(model, 'allocation', getWithDefault(model, 'allocation', []));
-        set(model, 'timePeriod', getWithDefault(model, 'timePeriod', {}));
+      Ember.run.once(this, function () {
+        Ember.set(model, 'allocation', Ember.getWithDefault(model, 'allocation', []));
+        Ember.set(model, 'timePeriod', Ember.getWithDefault(model, 'timePeriod', {}));
       });
     },
     /**
@@ -14506,8 +14179,8 @@ define('mdeditor/pods/components/object/md-funding/component', ['exports', 'embe
      */
 
     tagName: 'form',
-    allocation: alias('model.allocation'),
-    timePeriod: alias('model.timePeriod')
+    allocation: Ember.computed.alias('model.allocation'),
+    timePeriod: Ember.computed.alias('model.timePeriod')
   });
 });
 define('mdeditor/pods/components/object/md-funding/preview/component', ['exports'], function (exports) {
@@ -14540,9 +14213,7 @@ define('mdeditor/pods/components/object/md-graphic-array/component', ['exports']
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component,
-        A = Ember.A;
-  exports.default = Component.extend({
+  exports.default = Ember.Component.extend({
     /**
      * mdEditor class for input and edit of mdJSON 'graphic' object arrays. The
      * class manages the maintenance of an array of graphic objects using the
@@ -14610,8 +14281,8 @@ define('mdeditor/pods/components/object/md-graphic-array/component', ['exports']
       init() {
         this._super(...arguments);
 
-        this.set('fileConstraint', A());
-        this.set('fileUri', A());
+        this.set('fileConstraint', Ember.A());
+        this.set('fileUri', Ember.A());
       }
     })
   });
@@ -14638,15 +14309,13 @@ define('mdeditor/pods/components/object/md-identifier-array/component', ['export
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const A = Ember.A,
-        Component = Ember.Component;
-  exports.default = Component.extend({
+  exports.default = Ember.Component.extend({
 
     init() {
       this._super(...arguments);
 
       if (!this.get('model')) {
-        this.set('model', A());
+        this.set('model', Ember.A());
       }
     },
 
@@ -14790,10 +14459,6 @@ define('mdeditor/pods/components/object/md-identifier/component', ['exports', 'e
     value: true
   });
   exports.default = exports.Validations = undefined;
-  const Component = Ember.Component,
-        computed = Ember.computed,
-        set = Ember.set,
-        getWithDefault = Ember.getWithDefault;
 
 
   const Validations = (0, _emberCpValidations.buildValidations)({
@@ -14803,14 +14468,14 @@ define('mdeditor/pods/components/object/md-identifier/component', ['exports', 'e
     })]
   });
 
-  const theComp = Component.extend(Validations, {
+  const theComp = Ember.Component.extend(Validations, {
     didReceiveAttrs() {
       this._super(...arguments);
 
-      let model = getWithDefault(this, 'model', {}) || {};
+      let model = Ember.getWithDefault(this, 'model', {}) || {};
 
       Ember.run.once(this, function () {
-        set(model, 'authority', getWithDefault(model, 'authority', {}));
+        Ember.set(model, 'authority', Ember.getWithDefault(model, 'authority', {}));
       });
     },
 
@@ -14839,7 +14504,7 @@ define('mdeditor/pods/components/object/md-identifier/component', ['exports', 'e
      * @type {Boolean}
      */
 
-    identifier: computed.alias('model.identifier')
+    identifier: Ember.computed.alias('model.identifier')
   });
 
   exports.Validations = Validations;
@@ -14859,11 +14524,10 @@ define('mdeditor/pods/components/object/md-keyword-citation/component', ['export
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const isArray = Ember.isArray,
-        computed = Ember.computed,
-        Component = Ember.Component;
-
-
+  /**
+   * @module mdeditor
+   * @submodule components-object
+   */
   const Validations = (0, _emberCpValidations.buildValidations)({
     'onlineResource': [(0, _emberCpValidations.validator)('format', {
       regex: _component.regex,
@@ -14877,44 +14541,44 @@ define('mdeditor/pods/components/object/md-keyword-citation/component', ['export
     })
   });
 
-  exports.default = Component.extend(Validations, {
-    disabled: computed('model.thesaurus.identifier.0.identifier', function () {
+  exports.default = Ember.Component.extend(Validations, {
+    disabled: Ember.computed('model.thesaurus.identifier.0.identifier', function () {
       return this.get('model.thesaurus.identifier.0.identifier') !== 'custom';
     }),
-    title: computed.alias('model.thesaurus.title'),
-    onlineResource: computed('model.thesaurus.onlineResource.0.uri', {
+    title: Ember.computed.alias('model.thesaurus.title'),
+    onlineResource: Ember.computed('model.thesaurus.onlineResource.0.uri', {
       get() {
         return this.get('model.thesaurus.onlineResource.0.uri');
       },
       set(key, value) {
         let ol = this.get('model.thesaurus.onlineResource');
-        if (!isArray(ol)) {
+        if (!Ember.isArray(ol)) {
           this.set('model.thesaurus.onlineResource', [{}]);
         }
         this.set('model.thesaurus.onlineResource.0.uri', value);
         return value;
       }
     }),
-    date: computed('model.thesaurus.date.0.date', {
+    date: Ember.computed('model.thesaurus.date.0.date', {
       get() {
         return this.get('model.thesaurus.date.0.date');
       },
       set(key, value) {
         let ol = this.get('model.thesaurus.date');
-        if (!isArray(ol)) {
+        if (!Ember.isArray(ol)) {
           this.set('model.thesaurus.date', [{}]);
         }
         this.set('model.thesaurus.date.0.date', value);
         return value;
       }
     }),
-    dateType: computed('model.thesaurus.date.0.dateType', {
+    dateType: Ember.computed('model.thesaurus.date.0.dateType', {
       get() {
         return this.get('model.thesaurus.date.0.dateType');
       },
       set(key, value) {
         let ol = this.get('model.thesaurus.date');
-        if (!isArray(ol)) {
+        if (!Ember.isArray(ol)) {
           this.set('model.thesaurus.date', [{}]);
         }
         this.set('model.thesaurus.date.0.dateType', value);
@@ -14966,22 +14630,17 @@ define('mdeditor/pods/components/object/md-lineage/component', ['exports'], func
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component,
-        set = Ember.set,
-        get = Ember.get,
-        getWithDefault = Ember.getWithDefault,
-        once = Ember.run.once;
-  exports.default = Component.extend({
+  exports.default = Ember.Component.extend({
     didReceiveAttrs() {
       this._super(...arguments);
 
-      let model = get(this, 'model');
+      let model = Ember.get(this, 'model');
 
-      once(function () {
-        set(model, 'scope', getWithDefault(model, 'scope', {}));
-        set(model, 'citation', getWithDefault(model, 'citation', []));
-        set(model, 'processStep', getWithDefault(model, 'processStep', []));
-        set(model, 'source', getWithDefault(model, 'source', []));
+      Ember.run.once(function () {
+        Ember.set(model, 'scope', Ember.getWithDefault(model, 'scope', {}));
+        Ember.set(model, 'citation', Ember.getWithDefault(model, 'citation', []));
+        Ember.set(model, 'processStep', Ember.getWithDefault(model, 'processStep', []));
+        Ember.set(model, 'source', Ember.getWithDefault(model, 'source', []));
       });
     },
 
@@ -15102,7 +14761,7 @@ define('mdeditor/pods/components/object/md-locale/component', ['exports', 'ember
     didReceiveAttrs() {
       this._super(...arguments);
 
-      let model = this.get('model');
+      let model = this.get('model') || {};
       let settings = Ember.get(this, 'settings.data');
 
       (true && !(!Ember.isNone(model)) && Ember.assert('Model passed to md-locale must be an object', !Ember.isNone(model)));
@@ -15140,27 +14799,23 @@ define('mdeditor/pods/components/object/md-maintenance/component', ['exports'], 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component,
-        set = Ember.set,
-        get = Ember.get,
-        getWithDefault = Ember.getWithDefault,
-        setProperties = Ember.setProperties,
-        computed = Ember.computed,
-        once = Ember.run.once;
 
 
   const formatMaint = function formatMaint(model) {
-    setProperties(model, {
-      'date': getWithDefault(model, 'date', []),
-      'scope': getWithDefault(model, 'scope', []),
-      'note': getWithDefault(model, 'note', []),
-      'contact': getWithDefault(model, 'contact', [])
+    Ember.setProperties(model, {
+      'date': Ember.getWithDefault(model, 'date', []),
+      'scope': Ember.getWithDefault(model, 'scope', []),
+      'note': Ember.getWithDefault(model, 'note', []),
+      'contact': Ember.getWithDefault(model, 'contact', [])
     });
 
     return model;
-  };
+  }; /**
+      * @module mdeditor
+      * @submodule components-object
+      */
 
-  const theComp = Component.extend({
+  const theComp = Ember.Component.extend({
     /**
      * mdEditor class for input and edit of mdJSON 'maintenance' objects.
      *
@@ -15196,15 +14851,15 @@ define('mdeditor/pods/components/object/md-maintenance/component', ['exports'], 
     didReceiveAttrs() {
       this._super(...arguments);
 
-      once(this, function () {
-        this.set('model', getWithDefault(this, 'model', {}));
+      Ember.run.once(this, function () {
+        this.set('model', Ember.getWithDefault(this, 'model', {}));
         formatMaint(this.get('model'));
       });
     },
 
-    scopes: computed('scope', {
+    scopes: Ember.computed('scope', {
       get() {
-        let scope = get(this, 'model.scope');
+        let scope = Ember.get(this, 'model.scope');
         return scope ? scope.mapBy('scopeCode') : [];
       },
       set(key, value) {
@@ -15213,7 +14868,7 @@ define('mdeditor/pods/components/object/md-maintenance/component', ['exports'], 
             scopeCode: itm
           };
         });
-        set(this, 'model.scope', map);
+        Ember.set(this, 'model.scope', map);
         return value;
       }
     })
@@ -15236,22 +14891,16 @@ define('mdeditor/pods/components/object/md-medium/component', ['exports'], funct
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component,
-        set = Ember.set,
-        get = Ember.get,
-        getWithDefault = Ember.getWithDefault,
-        once = Ember.run.once,
-        alias = Ember.computed.alias;
-  exports.default = Component.extend({
+  exports.default = Ember.Component.extend({
     didReceiveAttrs() {
       this._super(...arguments);
 
-      let model = get(this, 'model');
+      let model = Ember.get(this, 'model');
 
-      once(function () {
-        set(model, 'mediumSpecification', getWithDefault(model, 'mediumSpecification', {}));
-        set(model, 'identifier', getWithDefault(model, 'identifier', {}));
-        set(model, 'mediumFormat', getWithDefault(model, 'mediumFormat', []));
+      Ember.run.once(function () {
+        Ember.set(model, 'mediumSpecification', Ember.getWithDefault(model, 'mediumSpecification', {}));
+        Ember.set(model, 'identifier', Ember.getWithDefault(model, 'identifier', {}));
+        Ember.set(model, 'mediumFormat', Ember.getWithDefault(model, 'mediumFormat', []));
       });
     },
     tagName: 'form',
@@ -15263,7 +14912,7 @@ define('mdeditor/pods/components/object/md-medium/component', ['exports'], funct
      * @type {String}
      */
 
-    title: alias('model.mediumSpecification.title')
+    title: Ember.computed.alias('model.mediumSpecification.title')
   });
 });
 define("mdeditor/pods/components/object/md-medium/template", ["exports"], function (exports) {
@@ -15280,17 +14929,7 @@ define('mdeditor/pods/components/object/md-object-table/component', ['exports', 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const computed = Ember.computed,
-        Component = Ember.Component,
-        observer = Ember.observer,
-        get = Ember.get,
-        isEmpty = Ember.isEmpty,
-        typeOf = Ember.typeOf,
-        getOwner = Ember.getOwner,
-        A = Ember.A,
-        $ = Ember.$,
-        service = Ember.inject.service;
-  exports.default = Component.extend(_emberInViewport.default, _objectTemplate.default, {
+  exports.default = Ember.Component.extend(_emberInViewport.default, _objectTemplate.default, {
 
     /**
      * mdEditor class for managing a table of similar mdJSON objects
@@ -15318,7 +14957,7 @@ define('mdeditor/pods/components/object/md-object-table/component', ['exports', 
      * @uses object-template
      */
 
-    spotlight: service(),
+    spotlight: Ember.inject.service(),
 
     didReceiveAttrs() {
       this._super(...arguments);
@@ -15345,7 +14984,7 @@ define('mdeditor/pods/components/object/md-object-table/component', ['exports', 
      * @default Ember.A()
      * @required
      */
-    items: A(),
+    items: Ember.A(),
 
     /**
      * List of items object attributes to display in
@@ -15507,7 +15146,7 @@ define('mdeditor/pods/components/object/md-object-table/component', ['exports', 
      * @category computed
      * @requires isCollapsed
      */
-    collapsed: computed('isCollapsed', 'items.[]', function () {
+    collapsed: Ember.computed('isCollapsed', 'items.[]', function () {
       let isCollapsed = this.get('isCollapsed');
       let value = this.get('items');
 
@@ -15530,15 +15169,15 @@ define('mdeditor/pods/components/object/md-object-table/component', ['exports', 
      * @category computed
      * @requires items.length,alertIfEmpty
      */
-    showAlert: computed('items.length', 'alertIfEmpty', function () {
-      return get(this, 'items.length') === 0 && get(this, 'alertIfEmpty');
+    showAlert: Ember.computed('items.length', 'alertIfEmpty', function () {
+      return Ember.get(this, 'items.length') === 0 && Ember.get(this, 'alertIfEmpty');
     }),
 
-    panelId: computed('items.@each.val', 'editing', function () {
+    panelId: Ember.computed('items.@each.val', 'editing', function () {
       return 'panel-' + this.get('elementId');
     }),
 
-    btnSize: computed('verticalButtons', function () {
+    btnSize: Ember.computed('verticalButtons', function () {
       return this.get('verticalButtons') ? 'md' : 'xs';
     }),
 
@@ -15551,7 +15190,7 @@ define('mdeditor/pods/components/object/md-object-table/component', ['exports', 
      * @category computed
      * @requires items.length
      */
-    showFooter: computed.gt('items.length', 5),
+    showFooter: Ember.computed.gt('items.length', 5),
 
     /*citems: computed('items.@each.val', function () {
       let i = this.get('items')
@@ -15561,13 +15200,13 @@ define('mdeditor/pods/components/object/md-object-table/component', ['exports', 
       return i;
     }),*/
 
-    attrArray: computed('attributes', function () {
+    attrArray: Ember.computed('attributes', function () {
       let attr = this.get('attributes');
 
       return attr ? attr.split(',') : null;
     }),
 
-    attrTitleArray: computed('attrArray', function () {
+    attrTitleArray: Ember.computed('attrArray', function () {
       return this.get('attrArray').map(function (item) {
         return item.trim().split('.').get('lastObject').dasherize().replace(/-/g, ' ');
       });
@@ -15584,13 +15223,13 @@ define('mdeditor/pods/components/object/md-object-table/component', ['exports', 
         //   behavior: "smooth"
         // });
 
-        $('html,body').animate({
-          scrollTop: $(el).offset().top - offset
+        Ember.$('html,body').animate({
+          scrollTop: Ember.$(el).offset().top - offset
         }, 'slow');
       }
     },
 
-    editingChanged: observer('editing', function () {
+    editingChanged: Ember.observer('editing', function () {
       // deal with the change
       //Ember.run.schedule('afterRender', this, function () {
       let panel = this.$('> .md-object-table > .panel-collapse');
@@ -15607,7 +15246,7 @@ define('mdeditor/pods/components/object/md-object-table/component', ['exports', 
       if (editing === false && items.length) {
         let last = Object.keys(items.get('lastObject'));
 
-        if (isEmpty(last)) {
+        if (Ember.isEmpty(last)) {
           items.popObject();
         }
       }
@@ -15616,8 +15255,8 @@ define('mdeditor/pods/components/object/md-object-table/component', ['exports', 
         let out = editing ? table[0] : table[1];
         let inn = editing ? table[1] : table[0];
 
-        $(out).fadeOut(100, function () {
-          $(inn).fadeIn(100, function () {
+        Ember.$(out).fadeOut(100, function () {
+          Ember.$(inn).fadeIn(100, function () {
             comp.scrollTo(el);
           });
         });
@@ -15634,7 +15273,7 @@ define('mdeditor/pods/components/object/md-object-table/component', ['exports', 
       //});
     }),
 
-    pillColor: computed('items.[]', function () {
+    pillColor: Ember.computed('items.[]', function () {
       let count = this.get('items.length') || 0;
 
       return count > 0 ? 'label-info' : 'label-warning';
@@ -15647,10 +15286,10 @@ define('mdeditor/pods/components/object/md-object-table/component', ['exports', 
 
       addItem: function addItem() {
         const Template = this.get('templateClass');
-        const owner = getOwner(this);
+        const owner = Ember.getOwner(this);
         const spotlight = this.get('spotlight');
 
-        let itm = typeOf(Template) === 'class' ? Template.create(owner.ownerInjection()) : Ember.Object.create({});
+        let itm = Ember.typeOf(Template) === 'class' ? Template.create(owner.ownerInjection()) : Ember.Object.create({});
 
         this.set('saveItem', itm);
         this.set('editing', 'adding');
@@ -15681,7 +15320,7 @@ define("mdeditor/pods/components/object/md-object-table/template", ["exports"], 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "Sx+km31O", "block": "{\"symbols\":[\"item\",\"index\",\"prop\",\"prop\",\"&default\"],\"statements\":[[4,\"unless\",[[20,[\"showAlert\"]]],null,{\"statements\":[[0,\"  \"],[6,\"div\"],[10,\"class\",[26,[\"md-object-table panel panel-default \",[25,\"if\",[[20,[\"editing\"]],\"editing\"],null]]]],[7],[0,\"\\n\\n      \"],[6,\"div\"],[9,\"class\",\"panel-heading\"],[7],[0,\"\\n          \"],[6,\"h3\"],[9,\"class\",\"panel-title md-panel-chevron\"],[7],[0,\"\\n\"],[4,\"if\",[[20,[\"collapsible\"]]],null,{\"statements\":[[0,\"              \"],[6,\"a\"],[9,\"role\",\"button\"],[9,\"data-toggle\",\"collapse\"],[10,\"href\",[26,[\"#\",[25,\"unless\",[[20,[\"editing\"]],[20,[\"panelId\"]]],null]]]],[10,\"aria-expanded\",[26,[[25,\"if\",[[20,[\"collapsed\"]],\"false\",\"true\"],null]]]],[10,\"class\",[26,[[25,\"if\",[[20,[\"collapsed\"]],\"collapsed\"],null]]]],[10,\"aria-controls\",[26,[[18,\"panelId\"]]]],[7],[0,\"\\n                  \"],[6,\"span\"],[9,\"class\",\"fa\"],[7],[8],[0,\" \"],[1,[18,\"header\"],false],[0,\"\\n                  \"],[6,\"label\"],[10,\"class\",[26,[\"label label-pill \",[18,\"pillColor\"]]]],[7],[0,\" \"],[1,[20,[\"items\",\"length\"]],false],[0,\" \"],[8],[0,\"\\n              \"],[8],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"              \"],[1,[18,\"header\"],false],[0,\"\\n              \"],[6,\"label\"],[10,\"class\",[26,[\"label label-pill \",[18,\"pillColor\"]]]],[7],[0,\" \"],[1,[20,[\"items\",\"length\"]],false],[0,\" \"],[8],[0,\"\\n\"]],\"parameters\":[]}],[0,\"\\n              \"],[6,\"button\"],[9,\"type\",\"button\"],[10,\"id\",[26,[[18,\"panelId\"],\"-btn\"]]],[10,\"class\",[26,[\"btn btn-xs btn-info pull-right \",[25,\"if\",[[20,[\"editing\"]],\"hidden\"],null]]]],[3,\"action\",[[19,0,[]],\"addItem\",[20,[\"items\"]]]],[7],[0,\"\\n                  \"],[1,[25,\"fa-icon\",[\"plus\"],null],false],[0,\" Add\\n              \"],[8],[0,\"\\n              \"],[6,\"button\"],[9,\"type\",\"button\"],[10,\"class\",[26,[\"btn btn-xs btn-info pull-right \",[25,\"unless\",[[20,[\"editing\"]],\"hidden\"],null]]]],[3,\"action\",[[19,0,[]],\"cancelEdit\"]],[7],[0,\"\\n                  \"],[6,\"span\"],[9,\"class\",\"fa fa-check\"],[7],[8],[0,\" OK\\n              \"],[8],[0,\"\\n          \"],[8],[0,\"\\n      \"],[8],[0,\"\\n\\n      \"],[6,\"div\"],[10,\"id\",[26,[[18,\"panelId\"]]]],[10,\"class\",[26,[\"panel-collapse \",[25,\"if\",[[20,[\"collapsed\"]],\"collapse\",\"in\"],null]]]],[7],[0,\"\\n          \"],[6,\"div\"],[10,\"class\",[26,[\"panel-body \",[25,\"if\",[[20,[\"condensed\"]],\"condensed\"],null],\" \",[25,\"if\",[[20,[\"responsive\"]],\"table-responsive\"],null]]]],[7],[0,\"\\n              \"],[6,\"table\"],[10,\"class\",[26,[\"table table-striped table-hover fadeIn \",[25,\"if\",[[20,[\"ellipsis\"]],\"ellipsis\"],null]]]],[7],[0,\"\\n\"],[4,\"unless\",[[20,[\"previewTemplate\"]]],null,{\"statements\":[[0,\"                  \"],[6,\"thead\"],[7],[0,\"\\n                    \"],[6,\"tr\"],[7],[0,\"\\n\"],[4,\"unless\",[[20,[\"hideIndex\"]]],null,{\"statements\":[[0,\"                      \"],[6,\"th\"],[7],[0,\"#\"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[4,\"each\",[[20,[\"attrTitleArray\"]]],null,{\"statements\":[[0,\"                      \"],[6,\"th\"],[7],[1,[25,\"uc-words\",[[19,4,[]]],null],false],[8],[0,\"\\n\"]],\"parameters\":[4]},null],[0,\"                      \"],[6,\"th\"],[7],[8],[0,\"\\n                    \"],[8],[0,\"\\n                  \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"                \"],[6,\"tbody\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"items\"]]],null,{\"statements\":[[0,\"                      \"],[6,\"tr\"],[10,\"id\",[26,[[25,\"if\",[[20,[\"scrollToId\"]],[25,\"concat\",[[20,[\"scrollToId\"]],\"-\",[19,2,[]]],null],\"\"],null]]]],[7],[0,\"\\n\"],[4,\"unless\",[[20,[\"hideIndex\"]]],null,{\"statements\":[[0,\"                          \"],[6,\"td\"],[9,\"class\",\"md-table-index\"],[7],[0,\"\\n                            \"],[1,[19,2,[]],false],[0,\"\\n                          \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[4,\"if\",[[20,[\"previewTemplateTable\"]]],null,{\"statements\":[[0,\"                              \"],[1,[25,\"component\",[[20,[\"previewTemplateTable\"]]],[[\"item\",\"index\",\"profilePath\"],[[19,1,[]],[19,2,[]],[20,[\"profilePath\"]]]]],false],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[4,\"if\",[[20,[\"previewTemplate\"]]],null,{\"statements\":[[0,\"                              \"],[6,\"td\"],[9,\"class\",\"property\"],[7],[1,[25,\"component\",[[20,[\"previewTemplate\"]]],[[\"item\",\"index\",\"profilePath\"],[[19,1,[]],[19,2,[]],[20,[\"profilePath\"]]]]],false],[8],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[4,\"each\",[[20,[\"attrArray\"]]],null,{\"statements\":[[4,\"if\",[[25,\"get\",[[19,1,[]],[19,3,[]]],null]],null,{\"statements\":[[0,\"                                  \"],[6,\"td\"],[9,\"class\",\"property\"],[7],[6,\"div\"],[9,\"class\",\"wrap\"],[7],[1,[25,\"get\",[[19,1,[]],[19,3,[]]],null],false],[8],[8],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"                                  \"],[6,\"td\"],[7],[6,\"em\"],[7],[0,\"Not Defined\"],[8],[8],[0,\"\\n\"]],\"parameters\":[]}]],\"parameters\":[3]},null],[0,\"                          \"]],\"parameters\":[]}]],\"parameters\":[]}],[0,\"                          \"],[6,\"td\"],[10,\"class\",[26,[\"md-row-actions \",[25,\"if\",[[20,[\"verticalButtons\"]],\"vertical\"],null],\" \",[18,\"alignButtons\"]]]],[7],[0,\"\\n                            \"],[6,\"div\"],[9,\"class\",\"btn-toolbar\"],[9,\"role\",\"toolbar\"],[9,\"aria-label\",\"Row Toolbar\"],[7],[0,\"\\n                              \"],[6,\"div\"],[10,\"class\",[26,[\"btn-group\",[25,\"if\",[[20,[\"verticalButtons\"]],\"-vertical\"],null]]]],[9,\"role\",\"group\"],[9,\"aria-label\",\"Action Buttons\"],[7],[0,\"\\n                                \"],[6,\"button\"],[9,\"type\",\"button\"],[10,\"class\",[26,[\"btn btn-\",[18,\"btnSize\"],\" btn-success\"]]],[3,\"action\",[[19,0,[]],\"editItem\",[20,[\"items\"]],[19,2,[]]]],[7],[0,\"\\n                                  \"],[1,[25,\"fa-icon\",[\"pencil\"],null],false],[0,\" \"],[1,[25,\"if\",[[20,[\"editBtnText\"]],[20,[\"editBtnText\"]],\"Edit\"],null],false],[0,\"\\n                                \"],[8],[0,\"\\n\"],[4,\"control/md-button-confirm\",null,[[\"class\",\"onConfirm\"],[[25,\"concat\",[\"btn btn-\",[20,[\"btnSize\"]],\" btn-danger\"],null],[25,\"action\",[[19,0,[]],\"deleteItem\",[20,[\"items\"]],[19,2,[]]],null]]],{\"statements\":[[0,\"                                  \"],[6,\"span\"],[9,\"class\",\"fa fa-times\"],[7],[8],[0,\" Delete\\n\"]],\"parameters\":[]},null],[0,\"\\n                              \"],[8],[0,\"\\n\\n                              \"],[6,\"div\"],[10,\"class\",[26,[\"btn-group\",[25,\"if\",[[20,[\"verticalButtons\"]],\"-vertical\"],null]]]],[9,\"role\",\"group\"],[9,\"aria-label\",\"Row Error\"],[7],[0,\"\\n\"],[4,\"if\",[[19,1,[\"validations\",\"isInvalid\"]]],null,{\"statements\":[[0,\"                                \"],[6,\"span\"],[9,\"class\",\"md-error\"],[7],[0,\"\\n                                  \"],[1,[25,\"fa-icon\",[\"exclamation-circle\"],[[\"fixedWidth\"],[true]]],false],[0,\"\\n\"],[4,\"tooltip-on-element\",null,[[\"side\",\"class\"],[\"right\",\"md-tooltip danger\"]],{\"statements\":[[0,\"                                  This item has errors.\\n\"]],\"parameters\":[]},null],[0,\"                                \"],[8],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"                                \"],[6,\"span\"],[9,\"class\",\"md-error\"],[7],[0,\"\\n                                  \"],[6,\"span\"],[9,\"class\",\"fa fa-fw\"],[7],[8],[0,\"\\n                                \"],[8],[0,\"\\n\"]],\"parameters\":[]}],[0,\"                              \"],[8],[0,\"\\n                            \"],[8],[0,\"\\n                          \"],[8],[0,\"\\n                      \"],[8],[0,\"\\n\"]],\"parameters\":[1,2]},{\"statements\":[[0,\"                      \"],[6,\"tr\"],[7],[0,\"\\n                          \"],[6,\"td\"],[10,\"colspan\",[26,[[25,\"add-em\",[[20,[\"attrArray\",\"length\"]],[25,\"if\",[[20,[\"hideIndex\"]],1,2],null]],null]]]],[7],[0,\"\\n                            \"],[6,\"button\"],[9,\"type\",\"button\"],[10,\"id\",[26,[[18,\"panelId\"],\"-btn\"]]],[9,\"class\",\"btn btn-xs btn-info\"],[3,\"action\",[[19,0,[]],\"addItem\",[20,[\"items\"]]]],[7],[0,\"\\n                                \"],[1,[25,\"fa-icon\",[\"plus\"],null],false],[0,\" \"],[1,[18,\"buttonText\"],false],[0,\"\\n                            \"],[8],[0,\"\\n                          \"],[8],[0,\"\\n                      \"],[8],[0,\"\\n\"]],\"parameters\":[]}],[0,\"                  \"],[8],[0,\"\\n              \"],[8],[0,\"\\n              \"],[6,\"div\"],[9,\"class\",\"object-editor fadeOut\"],[7],[0,\"\\n\"],[4,\"if\",[[20,[\"editing\"]]],null,{\"statements\":[[0,\"                      \"],[11,5,[[20,[\"saveItem\"]]]],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"                  \"],[6,\"hr\"],[7],[8],[0,\"\\n                  \"],[6,\"button\"],[9,\"type\",\"button\"],[9,\"class\",\"btn btn-xs btn-info\"],[3,\"action\",[[19,0,[]],\"cancelEdit\"]],[7],[0,\"\\n                      \"],[6,\"span\"],[9,\"class\",\"fa fa-check\"],[7],[8],[0,\" OK\\n                  \"],[8],[0,\"\\n              \"],[8],[0,\"\\n          \"],[8],[0,\"\\n\"],[4,\"if\",[[20,[\"showFooter\"]]],null,{\"statements\":[[0,\"            \"],[6,\"div\"],[9,\"class\",\"panel-footer text-right\"],[7],[0,\"\\n              \"],[6,\"button\"],[9,\"type\",\"button\"],[10,\"id\",[26,[[18,\"panelId\"],\"-btn\"]]],[10,\"class\",[26,[\"btn btn-sm btn-info \",[25,\"if\",[[20,[\"editing\"]],\"hidden\"],null]]]],[3,\"action\",[[19,0,[]],\"addItem\",[20,[\"items\"]]]],[7],[0,\"\\n                  \"],[1,[25,\"fa-icon\",[\"plus\"],null],false],[0,\" Add \"],[1,[18,\"header\"],false],[0,\"\\n              \"],[8],[0,\"\\n            \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"      \"],[8],[0,\"\\n  \"],[8],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"  \"],[6,\"div\"],[9,\"class\",\"alert alert-info\"],[7],[0,\"\\n    \"],[6,\"h3\"],[7],[0,\"No \"],[6,\"span\"],[10,\"class\",[26,[[25,\"if\",[[20,[\"required\"]],\"required\"],null]]]],[7],[1,[18,\"header\"],false],[8],[0,\" found.\\n      \"],[6,\"button\"],[9,\"type\",\"button\"],[9,\"class\",\"btn btn-success btn-lg\"],[3,\"action\",[[19,0,[]],\"addItem\",[20,[\"items\"]]]],[7],[0,\"\\n        \"],[1,[25,\"fa-icon\",[\"plus\"],null],false],[0,\" Add \"],[1,[25,\"singularize\",[[20,[\"header\"]]],null],false],[0,\"\\n      \"],[8],[0,\"\\n    \"],[8],[0,\"\\n  \"],[8],[0,\"\\n\"]],\"parameters\":[]}],[0,\"\\n\"],[4,\"if\",[[20,[\"addSubbar\"]]],null,{\"statements\":[[0,\"  \"],[1,[25,\"to-elsewhere\",null,[[\"named\",\"send\"],[[20,[\"addSubbar\"]],[25,\"component\",[\"control/subbar-link\"],[[\"clickText\",\"clickIcon\",\"clickType\",\"click\"],[[20,[\"buttonText\"]],\"plus\",\"success\",[25,\"action\",[[19,0,[]],\"addItem\"],null]]]]]]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/object/md-object-table/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "qLC92QGP", "block": "{\"symbols\":[\"item\",\"index\",\"prop\",\"prop\",\"&default\"],\"statements\":[[4,\"unless\",[[20,[\"showAlert\"]]],null,{\"statements\":[[0,\"  \"],[6,\"div\"],[10,\"class\",[26,[\"md-object-table panel panel-default \",[25,\"if\",[[20,[\"editing\"]],\"editing\"],null]]]],[7],[0,\"\\n\\n      \"],[6,\"div\"],[9,\"class\",\"panel-heading\"],[7],[0,\"\\n          \"],[6,\"h3\"],[9,\"class\",\"panel-title md-panel-chevron\"],[7],[0,\"\\n\"],[4,\"if\",[[20,[\"collapsible\"]]],null,{\"statements\":[[0,\"              \"],[6,\"a\"],[9,\"role\",\"button\"],[9,\"data-toggle\",\"collapse\"],[10,\"href\",[26,[\"#\",[25,\"unless\",[[20,[\"editing\"]],[20,[\"panelId\"]]],null]]]],[10,\"aria-expanded\",[26,[[25,\"if\",[[20,[\"collapsed\"]],\"false\",\"true\"],null]]]],[10,\"class\",[26,[[25,\"if\",[[20,[\"collapsed\"]],\"collapsed\"],null]]]],[10,\"aria-controls\",[26,[[18,\"panelId\"]]]],[7],[0,\"\\n                  \"],[6,\"span\"],[9,\"class\",\"fa\"],[7],[8],[0,\" \"],[1,[18,\"header\"],false],[0,\"\\n                  \"],[6,\"label\"],[10,\"class\",[26,[\"label label-pill \",[18,\"pillColor\"]]]],[7],[0,\" \"],[1,[20,[\"items\",\"length\"]],false],[0,\" \"],[8],[0,\"\\n              \"],[8],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"              \"],[1,[18,\"header\"],false],[0,\"\\n              \"],[6,\"label\"],[10,\"class\",[26,[\"label label-pill \",[18,\"pillColor\"]]]],[7],[0,\" \"],[1,[20,[\"items\",\"length\"]],false],[0,\" \"],[8],[0,\"\\n\"]],\"parameters\":[]}],[0,\"\\n              \"],[6,\"button\"],[9,\"type\",\"button\"],[10,\"id\",[26,[[18,\"panelId\"],\"-btn\"]]],[10,\"class\",[26,[\"btn btn-xs btn-info pull-right \",[25,\"if\",[[20,[\"editing\"]],\"hidden\"],null]]]],[3,\"action\",[[19,0,[]],\"addItem\",[20,[\"items\"]]]],[7],[0,\"\\n                  \"],[1,[25,\"fa-icon\",[\"plus\"],null],false],[0,\" Add\\n              \"],[8],[0,\"\\n              \"],[6,\"button\"],[9,\"type\",\"button\"],[10,\"class\",[26,[\"btn btn-xs btn-info pull-right \",[25,\"unless\",[[20,[\"editing\"]],\"hidden\"],null]]]],[3,\"action\",[[19,0,[]],\"cancelEdit\"]],[7],[0,\"\\n                  \"],[6,\"span\"],[9,\"class\",\"fa fa-check\"],[7],[8],[0,\" OK\\n              \"],[8],[0,\"\\n          \"],[8],[0,\"\\n      \"],[8],[0,\"\\n\\n      \"],[6,\"div\"],[10,\"id\",[26,[[18,\"panelId\"]]]],[10,\"class\",[26,[\"panel-collapse \",[25,\"if\",[[20,[\"collapsed\"]],\"collapse\",\"in\"],null]]]],[7],[0,\"\\n          \"],[6,\"div\"],[10,\"class\",[26,[\"panel-body \",[25,\"if\",[[20,[\"condensed\"]],\"condensed\"],null],\" \",[25,\"if\",[[20,[\"responsive\"]],\"table-responsive\"],null]]]],[7],[0,\"\\n              \"],[6,\"table\"],[10,\"class\",[26,[\"table table-striped table-hover fadeIn \",[25,\"if\",[[20,[\"ellipsis\"]],\"ellipsis\"],null]]]],[7],[0,\"\\n\"],[4,\"unless\",[[20,[\"previewTemplate\"]]],null,{\"statements\":[[0,\"                  \"],[6,\"thead\"],[7],[0,\"\\n                    \"],[6,\"tr\"],[7],[0,\"\\n\"],[4,\"unless\",[[20,[\"hideIndex\"]]],null,{\"statements\":[[0,\"                      \"],[6,\"th\"],[7],[0,\"#\"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[4,\"each\",[[20,[\"attrTitleArray\"]]],null,{\"statements\":[[0,\"                      \"],[6,\"th\"],[7],[1,[25,\"uc-words\",[[19,4,[]]],null],false],[8],[0,\"\\n\"]],\"parameters\":[4]},null],[0,\"                      \"],[6,\"th\"],[7],[8],[0,\"\\n                    \"],[8],[0,\"\\n                  \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"                \"],[6,\"tbody\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"items\"]]],null,{\"statements\":[[0,\"                      \"],[6,\"tr\"],[10,\"id\",[26,[[25,\"if\",[[20,[\"scrollToId\"]],[25,\"concat\",[[20,[\"scrollToId\"]],\"-\",[19,2,[]]],null],\"\"],null]]]],[7],[0,\"\\n\"],[4,\"unless\",[[20,[\"hideIndex\"]]],null,{\"statements\":[[0,\"                          \"],[6,\"td\"],[9,\"class\",\"md-table-index\"],[7],[0,\"\\n                            \"],[1,[19,2,[]],false],[0,\"\\n                          \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[4,\"if\",[[20,[\"previewTemplateTable\"]]],null,{\"statements\":[[0,\"                              \"],[1,[25,\"component\",[[20,[\"previewTemplateTable\"]]],[[\"item\",\"index\",\"profilePath\"],[[19,1,[]],[19,2,[]],[20,[\"profilePath\"]]]]],false],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[4,\"if\",[[20,[\"previewTemplate\"]]],null,{\"statements\":[[0,\"                              \"],[6,\"td\"],[9,\"class\",\"property\"],[7],[1,[25,\"component\",[[20,[\"previewTemplate\"]]],[[\"item\",\"index\",\"profilePath\"],[[19,1,[]],[19,2,[]],[20,[\"profilePath\"]]]]],false],[8],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[4,\"each\",[[20,[\"attrArray\"]]],null,{\"statements\":[[4,\"if\",[[25,\"get\",[[19,1,[]],[19,3,[]]],null]],null,{\"statements\":[[0,\"                                  \"],[6,\"td\"],[9,\"class\",\"property\"],[7],[6,\"div\"],[9,\"class\",\"wrap\"],[7],[1,[25,\"get\",[[19,1,[]],[19,3,[]]],null],false],[8],[8],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"                                  \"],[6,\"td\"],[7],[6,\"em\"],[7],[0,\"Not Defined\"],[8],[8],[0,\"\\n\"]],\"parameters\":[]}]],\"parameters\":[3]},null],[0,\"                          \"]],\"parameters\":[]}]],\"parameters\":[]}],[0,\"                          \"],[6,\"td\"],[10,\"class\",[26,[\"md-row-actions \",[25,\"if\",[[20,[\"verticalButtons\"]],\"vertical\"],null],\" \",[18,\"alignButtons\"]]]],[7],[0,\"\\n                            \"],[6,\"div\"],[9,\"class\",\"btn-toolbar\"],[9,\"role\",\"toolbar\"],[9,\"aria-label\",\"Row Toolbar\"],[7],[0,\"\\n                              \"],[6,\"div\"],[10,\"class\",[26,[\"btn-group\",[25,\"if\",[[20,[\"verticalButtons\"]],\"-vertical\"],null]]]],[9,\"role\",\"group\"],[9,\"aria-label\",\"Action Buttons\"],[7],[0,\"\\n                                \"],[6,\"button\"],[9,\"type\",\"button\"],[10,\"class\",[26,[\"btn btn-\",[18,\"btnSize\"],\" btn-success\"]]],[3,\"action\",[[19,0,[]],\"editItem\",[20,[\"items\"]],[19,2,[]]]],[7],[0,\"\\n                                  \"],[1,[25,\"fa-icon\",[\"pencil\"],null],false],[0,\" \"],[1,[25,\"if\",[[20,[\"editBtnText\"]],[20,[\"editBtnText\"]],\"Edit\"],null],false],[0,\"\\n                                \"],[8],[0,\"\\n\"],[4,\"control/md-button-confirm\",null,[[\"class\",\"onConfirm\"],[[25,\"concat\",[\"btn btn-\",[20,[\"btnSize\"]],\" btn-danger\"],null],[25,\"action\",[[19,0,[]],\"deleteItem\",[20,[\"items\"]],[19,2,[]]],null]]],{\"statements\":[[0,\"                                  \"],[6,\"span\"],[9,\"class\",\"fa fa-times\"],[7],[8],[0,\" Delete\\n\"]],\"parameters\":[]},null],[0,\"\\n                              \"],[8],[0,\"\\n\\n                              \"],[6,\"div\"],[10,\"class\",[26,[\"btn-group\",[25,\"if\",[[20,[\"verticalButtons\"]],\"-vertical\"],null]]]],[9,\"role\",\"group\"],[9,\"aria-label\",\"Row Error\"],[7],[0,\"\\n\"],[4,\"if\",[[19,1,[\"validations\",\"isInvalid\"]]],null,{\"statements\":[[0,\"                                \"],[6,\"span\"],[9,\"class\",\"md-error\"],[7],[0,\"\\n                                  \"],[1,[25,\"fa-icon\",[\"exclamation-circle\"],[[\"fixedWidth\"],[true]]],false],[0,\"\\n\"],[4,\"ember-tooltip\",null,[[\"side\",\"tooltipClassName\"],[\"right\",\"ember-tooltip md-tooltip danger\"]],{\"statements\":[[0,\"                                  This item has errors.\\n\"]],\"parameters\":[]},null],[0,\"                                \"],[8],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"                                \"],[6,\"span\"],[9,\"class\",\"md-error\"],[7],[0,\"\\n                                  \"],[6,\"span\"],[9,\"class\",\"fa fa-fw\"],[7],[8],[0,\"\\n                                \"],[8],[0,\"\\n\"]],\"parameters\":[]}],[0,\"                              \"],[8],[0,\"\\n                            \"],[8],[0,\"\\n                          \"],[8],[0,\"\\n                      \"],[8],[0,\"\\n\"]],\"parameters\":[1,2]},{\"statements\":[[0,\"                      \"],[6,\"tr\"],[7],[0,\"\\n                          \"],[6,\"td\"],[10,\"colspan\",[26,[[25,\"add-em\",[[20,[\"attrArray\",\"length\"]],[25,\"if\",[[20,[\"hideIndex\"]],1,2],null]],null]]]],[7],[0,\"\\n                            \"],[6,\"button\"],[9,\"type\",\"button\"],[10,\"id\",[26,[[18,\"panelId\"],\"-btn\"]]],[9,\"class\",\"btn btn-xs btn-info\"],[3,\"action\",[[19,0,[]],\"addItem\",[20,[\"items\"]]]],[7],[0,\"\\n                                \"],[1,[25,\"fa-icon\",[\"plus\"],null],false],[0,\" \"],[1,[18,\"buttonText\"],false],[0,\"\\n                            \"],[8],[0,\"\\n                          \"],[8],[0,\"\\n                      \"],[8],[0,\"\\n\"]],\"parameters\":[]}],[0,\"                  \"],[8],[0,\"\\n              \"],[8],[0,\"\\n              \"],[6,\"div\"],[9,\"class\",\"object-editor fadeOut\"],[7],[0,\"\\n\"],[4,\"if\",[[20,[\"editing\"]]],null,{\"statements\":[[0,\"                      \"],[11,5,[[20,[\"saveItem\"]]]],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"                  \"],[6,\"hr\"],[7],[8],[0,\"\\n                  \"],[6,\"button\"],[9,\"type\",\"button\"],[9,\"class\",\"btn btn-xs btn-info\"],[3,\"action\",[[19,0,[]],\"cancelEdit\"]],[7],[0,\"\\n                      \"],[6,\"span\"],[9,\"class\",\"fa fa-check\"],[7],[8],[0,\" OK\\n                  \"],[8],[0,\"\\n              \"],[8],[0,\"\\n          \"],[8],[0,\"\\n\"],[4,\"if\",[[20,[\"showFooter\"]]],null,{\"statements\":[[0,\"            \"],[6,\"div\"],[9,\"class\",\"panel-footer text-right\"],[7],[0,\"\\n              \"],[6,\"button\"],[9,\"type\",\"button\"],[10,\"id\",[26,[[18,\"panelId\"],\"-btn\"]]],[10,\"class\",[26,[\"btn btn-sm btn-info \",[25,\"if\",[[20,[\"editing\"]],\"hidden\"],null]]]],[3,\"action\",[[19,0,[]],\"addItem\",[20,[\"items\"]]]],[7],[0,\"\\n                  \"],[1,[25,\"fa-icon\",[\"plus\"],null],false],[0,\" Add \"],[1,[18,\"header\"],false],[0,\"\\n              \"],[8],[0,\"\\n            \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"      \"],[8],[0,\"\\n  \"],[8],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"  \"],[6,\"div\"],[9,\"class\",\"alert alert-info\"],[7],[0,\"\\n    \"],[6,\"h3\"],[7],[0,\"No \"],[6,\"span\"],[10,\"class\",[26,[[25,\"if\",[[20,[\"required\"]],\"required\"],null]]]],[7],[1,[18,\"header\"],false],[8],[0,\" found.\\n      \"],[6,\"button\"],[9,\"type\",\"button\"],[9,\"class\",\"btn btn-success btn-lg\"],[3,\"action\",[[19,0,[]],\"addItem\",[20,[\"items\"]]]],[7],[0,\"\\n        \"],[1,[25,\"fa-icon\",[\"plus\"],null],false],[0,\" Add \"],[1,[25,\"singularize\",[[20,[\"header\"]]],null],false],[0,\"\\n      \"],[8],[0,\"\\n    \"],[8],[0,\"\\n  \"],[8],[0,\"\\n\"]],\"parameters\":[]}],[0,\"\\n\"],[4,\"if\",[[20,[\"addSubbar\"]]],null,{\"statements\":[[0,\"  \"],[1,[25,\"to-elsewhere\",null,[[\"named\",\"send\"],[[20,[\"addSubbar\"]],[25,\"component\",[\"control/subbar-link\"],[[\"clickText\",\"clickIcon\",\"clickType\",\"click\"],[[20,[\"buttonText\"]],\"plus\",\"success\",[25,\"action\",[[19,0,[]],\"addItem\"],null]]]]]]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/object/md-object-table/template.hbs" } });
 });
 define('mdeditor/pods/components/object/md-objectroute-table/component', ['exports', 'mdeditor/pods/components/object/md-object-table/component'], function (exports, _component) {
   'use strict';
@@ -15689,10 +15328,6 @@ define('mdeditor/pods/components/object/md-objectroute-table/component', ['expor
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const typeOf = Ember.typeOf,
-        getOwner = Ember.getOwner,
-        isBlank = Ember.isBlank,
-        assert = Ember.assert;
   exports.default = _component.default.extend({
     /**
      * The route used to edit items
@@ -15728,14 +15363,14 @@ define('mdeditor/pods/components/object/md-objectroute-table/component', ['expor
     actions: {
       addItem: function addItem() {
         const Template = this.get('templateClass');
-        const owner = getOwner(this);
+        const owner = Ember.getOwner(this);
 
         let editItem = this.get('editItem');
         let items = this.get('items');
-        let itm = typeOf(Template) === 'class' ? Template.create(owner.ownerInjection()) : Ember.Object.create({});
+        let itm = Ember.typeOf(Template) === 'class' ? Template.create(owner.ownerInjection()) : Ember.Object.create({});
 
-        if (isBlank(editItem)) {
-          assert(`You must supply an editItem method to ${this.toString()}.`);
+        if (Ember.isBlank(editItem)) {
+          (true && !(false) && Ember.assert(`You must supply an editItem method to ${this.toString()}.`));
         }
 
         items.pushObject(itm);
@@ -15889,12 +15524,6 @@ define('mdeditor/pods/components/object/md-online-resource/component', ['exports
     value: true
   });
   exports.default = exports.regex = exports.Validations = undefined;
-  const Component = Ember.Component,
-        getOwner = Ember.getOwner,
-        EmObject = Ember.Object,
-        set = Ember.set,
-        inject = Ember.inject,
-        get = Ember.get;
 
 
   const regex = new RegExp("([A-Za-z][A-Za-z0-9+\\-.]*):(?:(//)(?:((?:[A-Za-z0-9\\-._~!$&'()*+,;=:]|%[0-9A-Fa-f]{2})*)@)?((?:\\[(?:(?:(?:(?:[0-9A-Fa-f]{1,4}:){6}|::(?:[0-9A-Fa-f]{1,4}:){5}|(?:[0-9A-Fa-f]{1,4})?::(?:[0-9A-Fa-f]{1,4}:){4}|(?:(?:[0-9A-Fa-f]{1,4}:){0,1}[0-9A-Fa-f]{1,4})?::(?:[0-9A-Fa-f]{1,4}:){3}|(?:(?:[0-9A-Fa-f]{1,4}:){0,2}[0-9A-Fa-f]{1,4})?::(?:[0-9A-Fa-f]{1,4}:){2}|(?:(?:[0-9A-Fa-f]{1,4}:){0,3}[0-9A-Fa-f]{1,4})?::[0-9A-Fa-f]{1,4}:|(?:(?:[0-9A-Fa-f]{1,4}:){0,4}[0-9A-Fa-f]{1,4})?::)(?:[0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))|(?:(?:[0-9A-Fa-f]{1,4}:){0,5}[0-9A-Fa-f]{1,4})?::[0-9A-Fa-f]{1,4}|(?:(?:[0-9A-Fa-f]{1,4}:){0,6}[0-9A-Fa-f]{1,4})?::)|[Vv][0-9A-Fa-f]+\\.[A-Za-z0-9\\-._~!$&'()*+,;=:]+)\\]|(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)|(?:[A-Za-z0-9\\-._~!$&'()*+,;=]|%[0-9A-Fa-f]{2})*))(?::([0-9]*))?((?:/(?:[A-Za-z0-9\\-._~!$&'()*+,;=:@]|%[0-9A-Fa-f]{2})*)*)|/((?:(?:[A-Za-z0-9\\-._~!$&'()*+,;=:@]|%[0-9A-Fa-f]{2})+(?:/(?:[A-Za-z0-9\\-._~!$&'()*+,;=:@]|%[0-9A-Fa-f]{2})*)*)?)|((?:[A-Za-z0-9\\-._~!$&'()*+,;=:@]|%[0-9A-Fa-f]{2})+(?:/(?:[A-Za-z0-9\\-._~!$&'()*+,;=:@]|%[0-9A-Fa-f]{2})*)*)|)(?:\\?((?:[A-Za-z0-9\\-._~!$&'()*+,;=:@/?]|%[0-9A-Fa-f]{2})*))?(?:\\#((?:[A-Za-z0-9\\-._~!$&'()*+,;=:@/?]|%[0-9A-Fa-f]{2})*))?");
@@ -15910,16 +15539,16 @@ define('mdeditor/pods/components/object/md-online-resource/component', ['exports
     })]
   });
 
-  const theComp = Component.extend({
+  const theComp = Ember.Component.extend({
     didReceiveAttrs() {
       this._super(...arguments);
 
       Ember.run.once(this, () => {
         let plain = this.get('model');
 
-        if (plain && !get(plain, 'validations')) {
-          const Model = EmObject.extend(Validations, plain);
-          const owner = getOwner(this);
+        if (plain && !Ember.get(plain, 'validations')) {
+          const Model = Ember.Object.extend(Validations, plain);
+          const owner = Ember.getOwner(this);
 
           let model = Model.create(owner.ownerInjection(), plain);
           this.set('model', model);
@@ -15927,7 +15556,7 @@ define('mdeditor/pods/components/object/md-online-resource/component', ['exports
       });
     },
 
-    flashMessages: inject.service(),
+    flashMessages: Ember.inject.service(),
     classNames: ['md-online-resource'],
     attributeBindings: ['data-spy'],
 
@@ -15942,16 +15571,16 @@ define('mdeditor/pods/components/object/md-online-resource/component', ['exports
     actions: {
       handleFile(file) {
         if (file.size > 50000) {
-          get(this, 'flashMessages').danger(`The image exceeded the maximum size of 50KB: ${file.size} bytes.
+          Ember.get(this, 'flashMessages').danger(`The image exceeded the maximum size of 50KB: ${file.size} bytes.
             Please use an online URL to load the image.`);
         } else {
           let model = this.get('model');
 
-          set(model, 'name', file.name);
-          set(model, 'uri', file.data);
+          Ember.set(model, 'name', file.name);
+          Ember.set(model, 'uri', file.data);
 
           if (file.size > 25000) {
-            get(this, 'flashMessages').warning(`The image exceeded the recommended size of 25KB: ${file.size} bytes`);
+            Ember.get(this, 'flashMessages').warning(`The image exceeded the recommended size of 25KB: ${file.size} bytes`);
           }
           //reset the input field
           //this.$('.import-file-picker input:file').val('');
@@ -16092,8 +15721,6 @@ define('mdeditor/pods/components/object/md-phone-array/component', ['exports', '
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const EmObject = Ember.Object,
-        A = Ember.A;
 
 
   const Validations = (0, _emberCpValidations.buildValidations)({
@@ -16127,10 +15754,10 @@ define('mdeditor/pods/components/object/md-phone-array/component', ['exports', '
      * @property templateClass
      * @type Ember.Object
      */
-    templateClass: EmObject.extend(Validations, {
+    templateClass: Ember.Object.extend(Validations, {
       init() {
         this._super(...arguments);
-        this.set('service', A());
+        this.set('service', Ember.A());
       }
     })
 
@@ -16150,35 +15777,30 @@ define('mdeditor/pods/components/object/md-process-step/component', ['exports'],
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component,
-        set = Ember.set,
-        get = Ember.get,
-        getWithDefault = Ember.getWithDefault,
-        once = Ember.run.once;
-  exports.default = Component.extend({
+  exports.default = Ember.Component.extend({
     init() {
       this._super(...arguments);
 
-      let model = get(this, 'model');
+      let model = Ember.get(this, 'model');
 
-      once(this, function () {
-        set(model, 'timePeriod', getWithDefault(model, 'timePeriod', {}));
+      Ember.run.once(this, function () {
+        Ember.set(model, 'timePeriod', Ember.getWithDefault(model, 'timePeriod', {}));
       });
     },
 
     didReceiveAttrs() {
       this._super(...arguments);
 
-      let model = get(this, 'model');
+      let model = Ember.get(this, 'model');
 
-      once(this, function () {
-        set(model, 'stepId', getWithDefault(model, 'stepId', get(this, 'itemId')));
-        set(model, 'timePeriod', getWithDefault(model, 'timePeriod', {}));
-        set(model, 'scope', getWithDefault(model, 'scope', {}));
-        set(model, 'reference', getWithDefault(model, 'reference', []));
-        set(model, 'processor', getWithDefault(model, 'processor', []));
-        set(model, 'stepSource', getWithDefault(model, 'stepSource', []));
-        set(model, 'stepProduct', getWithDefault(model, 'stepProduct', []));
+      Ember.run.once(this, function () {
+        Ember.set(model, 'stepId', Ember.getWithDefault(model, 'stepId', Ember.get(this, 'itemId')));
+        Ember.set(model, 'timePeriod', Ember.getWithDefault(model, 'timePeriod', {}));
+        Ember.set(model, 'scope', Ember.getWithDefault(model, 'scope', {}));
+        Ember.set(model, 'reference', Ember.getWithDefault(model, 'reference', []));
+        Ember.set(model, 'processor', Ember.getWithDefault(model, 'processor', []));
+        Ember.set(model, 'stepSource', Ember.getWithDefault(model, 'stepSource', []));
+        Ember.set(model, 'stepProduct', Ember.getWithDefault(model, 'stepProduct', []));
       });
     },
 
@@ -16218,12 +15840,8 @@ define('mdeditor/pods/components/object/md-repository-array/component', ['export
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component,
-        get = Ember.get,
-        set = Ember.set,
-        inject = Ember.inject;
-  exports.default = Component.extend({
-    settings: inject.service(),
+  exports.default = Ember.Component.extend({
+    settings: Ember.inject.service(),
     repositoryTemplate: Ember.Object.extend({
       init() {
         this._super(...arguments);
@@ -16236,9 +15854,9 @@ define('mdeditor/pods/components/object/md-repository-array/component', ['export
         let defs = this.get('settings.data.repositoryDefaults');
         let titles = defs.filterBy('repository', value.repository);
 
-        if (get(titles, 'length')) {
+        if (Ember.get(titles, 'length')) {
 
-          set(value, 'citation.title', get(titles.objectAt(0), 'title'));
+          Ember.set(value, 'citation.title', Ember.get(titles.objectAt(0), 'title'));
         }
       }
     }
@@ -16258,7 +15876,6 @@ define('mdeditor/pods/components/object/md-resource-type-array/component', ['exp
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const EmObject = Ember.Object;
 
 
   const Validations = (0, _emberCpValidations.buildValidations)({
@@ -16288,7 +15905,7 @@ define('mdeditor/pods/components/object/md-resource-type-array/component', ['exp
      * @property templateClass
      * @type Ember.Object
      */
-    templateClass: EmObject.extend(Validations, {
+    templateClass: Ember.Object.extend(Validations, {
       init() {
         this._super(...arguments);
       }
@@ -16310,8 +15927,6 @@ define('mdeditor/pods/components/object/md-simple-array-table/component', ['expo
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const computed = Ember.computed,
-        observer = Ember.observer;
   exports.default = _component.default.extend({
     /**
      * mdEditor component for input and edit of arrays of scalars. The
@@ -16348,7 +15963,7 @@ define('mdeditor/pods/components/object/md-simple-array-table/component', ['expo
      * @category computed
      * @requires value.[]
      */
-    arrayValues: computed('value.[]', {
+    arrayValues: Ember.computed('value.[]', {
       get() {
         let items = this.get('value');
 
@@ -16379,7 +15994,7 @@ define('mdeditor/pods/components/object/md-simple-array-table/component', ['expo
      * @category computed
      * @requires arrayValues.@each.value
      */
-    valuesObserver: observer('arrayValues.@each.value', function () {
+    valuesObserver: Ember.observer('arrayValues.@each.value', function () {
       this.set('arrayValues', this.get('arrayValues'));
     })
   });
@@ -16474,21 +16089,13 @@ define('mdeditor/pods/components/object/md-spatial-extent/component', ['exports'
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component,
-        computed = Ember.computed,
-        observer = Ember.observer;
-  var _Ember$computed = Ember.computed;
-  const alias = _Ember$computed.alias,
-        or = _Ember$computed.or,
-        setProperties = Ember.setProperties,
-        isNone = Ember.isNone;
   const isNan = Number.isNaN;
-  exports.default = Component.extend({
+  exports.default = Ember.Component.extend({
     isTrulyNone(val) {
-      return isNone(val) || isNan(val);
+      return Ember.isNone(val) || isNan(val);
     },
 
-    bboxPoly: computed('bbox', 'bbox.northLatitude', 'bbox.southLatitude', 'bbox.eastLongitude', 'bbox.westLongitude', function () {
+    bboxPoly: Ember.computed('bbox', 'bbox.{northLatitude,southLatitude,eastLongitude,westLongitude}', function () {
       let bbox = this.get('bbox');
 
       if (this.isTrulyNone(bbox.southLatitude) || this.isTrulyNone(bbox.westLongitude) || this.isTrulyNone(bbox.northLatitude) || this.isTrulyNone(bbox.eastLongitude)) {
@@ -16498,7 +16105,7 @@ define('mdeditor/pods/components/object/md-spatial-extent/component', ['exports'
       return [[bbox.southLatitude, bbox.westLongitude], [bbox.northLatitude, bbox.westLongitude], [bbox.northLatitude, bbox.eastLongitude], [bbox.southLatitude, bbox.eastLongitude]];
     }),
 
-    bboxPolyObserver: observer('bboxPoly', function () {
+    bboxPolyObserver: Ember.observer('bboxPoly', function () {
       let map = this.get('map');
       let bbox = this.get('bboxPoly');
 
@@ -16509,9 +16116,9 @@ define('mdeditor/pods/components/object/md-spatial-extent/component', ['exports'
       }
     }),
 
-    bbox: alias('extent.geographicExtent.0.boundingBox'),
-    geographicElement: alias('extent.geographicExtent.0.geographicElement'),
-    showMap: or('bboxPoly', 'geographicElement'),
+    bbox: Ember.computed.alias('extent.geographicExtent.0.boundingBox'),
+    geographicElement: Ember.computed.alias('extent.geographicExtent.0.geographicElement'),
+    showMap: Ember.computed.or('bboxPoly', 'geographicElement'),
     setupMap(m) {
       let map = m.target;
       let geo = this.get('geographicElement') || [];
@@ -16537,7 +16144,7 @@ define('mdeditor/pods/components/object/md-spatial-extent/component', ['exports'
         let bounds = L.geoJson(geo).getBounds();
         let bbox = this.get('bbox');
 
-        setProperties(bbox, {
+        Ember.setProperties(bbox, {
           northLatitude: bounds.getNorth(),
           southLatitude: bounds.getSouth(),
           eastLongitude: bounds.getEast(),
@@ -16561,21 +16168,16 @@ define('mdeditor/pods/components/object/md-spatial-info/component', ['exports'],
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component,
-        get = Ember.get,
-        once = Ember.run.once,
-        getWithDefault = Ember.getWithDefault,
-        set = Ember.set;
-  exports.default = Component.extend({
+  exports.default = Ember.Component.extend({
     didReceiveAttrs() {
       this._super(...arguments);
 
-      let model = get(this, 'model');
+      let model = Ember.get(this, 'model');
 
-      once(this, function () {
-        set(model, 'spatialReferenceSystem', getWithDefault(model, 'spatialReferenceSystem', []));
-        set(model, 'spatialRepresentationType', getWithDefault(model, 'spatialRepresentationType', []));
-        set(model, 'spatialResolution', getWithDefault(model, 'spatialResolution', []));
+      Ember.run.once(this, function () {
+        Ember.set(model, 'spatialReferenceSystem', Ember.getWithDefault(model, 'spatialReferenceSystem', []));
+        Ember.set(model, 'spatialRepresentationType', Ember.getWithDefault(model, 'spatialRepresentationType', []));
+        Ember.set(model, 'spatialResolution', Ember.getWithDefault(model, 'spatialResolution', []));
       });
     },
     /**
@@ -16612,21 +16214,11 @@ define('mdeditor/pods/components/object/md-spatial-resolution/component', ['expo
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component,
-        computed = Ember.computed,
-        isEmpty = Ember.isEmpty;
-  var _Ember$computed = Ember.computed;
-  const alias = _Ember$computed.alias,
-        or = _Ember$computed.or,
-        get = Ember.get,
-        once = Ember.run.once,
-        getWithDefault = Ember.getWithDefault,
-        set = Ember.set;
 
 
   const Validations = (0, _emberCpValidations.buildValidations)({
     'scaleFactor': {
-      disabled: alias('model.scaleDisabled'),
+      disabled: Ember.computed.alias('model.scaleDisabled'),
       validators: [(0, _emberCpValidations.validator)('presence', {
         presence: true,
         ignoreBlank: true
@@ -16640,7 +16232,7 @@ define('mdeditor/pods/components/object/md-spatial-resolution/component', ['expo
     'levelOfDetail': [(0, _emberCpValidations.validator)('presence', {
       presence: true,
       ignoreBlank: true,
-      disabled: alias('model.levelDisabled')
+      disabled: Ember.computed.alias('model.levelDisabled')
     })],
     'measure': [(0, _emberCpValidations.validator)('dependent', {
       on: ['measureType', 'measureValue', 'measureUnit']
@@ -16659,15 +16251,15 @@ define('mdeditor/pods/components/object/md-spatial-resolution/component', ['expo
     })]
   });
 
-  exports.default = Component.extend(Validations, {
+  exports.default = Ember.Component.extend(Validations, {
     didReceiveAttrs() {
       this._super(...arguments);
 
-      let model = get(this, 'model');
+      let model = Ember.get(this, 'model');
 
       if (model) {
-        once(this, function () {
-          set(model, 'measure', getWithDefault(model, 'measure', {}));
+        Ember.run.once(this, function () {
+          Ember.set(model, 'measure', Ember.getWithDefault(model, 'measure', {}));
         });
       }
     },
@@ -16689,41 +16281,43 @@ define('mdeditor/pods/components/object/md-spatial-resolution/component', ['expo
      */
 
     classNames: ['form'],
-    scaleFactor: alias('model.scaleFactor'),
-    scaleDisabled: computed('model.levelOfDetail', 'measurePresent', function () {
-      return !isEmpty(this.get('model.levelOfDetail')) || this.get('measurePresent');
+    scaleFactor: Ember.computed.alias('model.scaleFactor'),
+    scaleDisabled: Ember.computed('model.levelOfDetail', 'measurePresent', function () {
+      return !Ember.isEmpty(this.get('model.levelOfDetail')) || this.get('measurePresent');
     }),
-    levelOfDetail: alias('model.levelOfDetail'),
-    levelDisabled: computed('model.scaleFactor', 'measurePresent', function () {
+    levelOfDetail: Ember.computed.alias('model.levelOfDetail'),
+    levelDisabled: Ember.computed('model.scaleFactor', 'measurePresent', function () {
       let scaleFactor = this.get('model.scaleFactor');
-      return !isEmpty(scaleFactor) && !Number.isNaN(scaleFactor) || this.get('measurePresent');
+      return !Ember.isEmpty(scaleFactor) && !Number.isNaN(scaleFactor) || this.get('measurePresent');
     }),
-    measure: alias('model.measure'),
-    measureDisabled: computed('model.scaleFactor', 'model.levelOfDetail', function () {
+    measure: Ember.computed.alias('model.measure'),
+    measureDisabled: Ember.computed('model.{scaleFactor,levelOfDetail}', function () {
       let scaleFactor = this.get('model.scaleFactor');
-      return !isEmpty(scaleFactor) && !Number.isNaN(scaleFactor) || !isEmpty(this.get('model.levelOfDetail'));
+      return !Ember.isEmpty(scaleFactor) && !Number.isNaN(scaleFactor) || !Ember.isEmpty(this.get('model.levelOfDetail'));
     }),
-    measureType: alias('model.measure.type'),
-    measureValue: alias('model.measure.value'),
-    measureUnit: alias('model.measure.unitOfMeasure'),
-    measurePresent: or('measureType', 'measureUnit', 'measureValue'),
+    measureType: Ember.computed.alias('model.measure.type'),
+    measureValue: Ember.computed.alias('model.measure.value'),
+    measureUnit: Ember.computed.alias('model.measure.unitOfMeasure'),
+    measurePresent: Ember.computed.or('measureType', 'measureUnit', 'measureValue'),
 
-    typeOptions: [{
-      name: 'distance',
-      value: 'distance'
-    }, {
-      name: 'length',
-      value: 'length'
-    }, {
-      name: 'angle',
-      value: 'angle'
-    }, {
-      name: 'measure',
-      value: 'measure'
-    }, {
-      name: 'scale',
-      value: 'scale'
-    }]
+    typeOptions: Ember.computed(function () {
+      return [{
+        name: 'distance',
+        value: 'distance'
+      }, {
+        name: 'length',
+        value: 'length'
+      }, {
+        name: 'angle',
+        value: 'angle'
+      }, {
+        name: 'measure',
+        value: 'measure'
+      }, {
+        name: 'scale',
+        value: 'scale'
+      }];
+    })
   });
 });
 define("mdeditor/pods/components/object/md-spatial-resolution/template", ["exports"], function (exports) {
@@ -16740,36 +16334,29 @@ define('mdeditor/pods/components/object/md-srs/component', ['exports', 'ember-cp
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component,
-        computed = Ember.computed,
-        alias = Ember.computed.alias,
-        get = Ember.get,
-        once = Ember.run.once,
-        getWithDefault = Ember.getWithDefault,
-        set = Ember.set;
 
 
   const Validations = (0, _emberCpValidations.buildValidations)({
     'refType': [(0, _emberCpValidations.validator)('presence', {
       presence: true,
       ignoreBlank: true,
-      disabled: computed.notEmpty('model.model.referenceSystemIdentifier.identifier').volatile()
+      disabled: Ember.computed.notEmpty('model.model.referenceSystemIdentifier.identifier').volatile()
     })],
     'refSystem': [(0, _emberCpValidations.validator)('presence', {
       presence: true,
       ignoreBlank: true,
-      disabled: computed.notEmpty('model.model.referenceSystemType').volatile()
+      disabled: Ember.computed.notEmpty('model.model.referenceSystemType').volatile()
     })]
   });
 
-  exports.default = Component.extend(Validations, {
+  exports.default = Ember.Component.extend(Validations, {
     didReceiveAttrs() {
       this._super(...arguments);
 
-      let model = get(this, 'model');
+      let model = Ember.get(this, 'model');
       if (model) {
-        once(this, function () {
-          set(model, 'referenceSystemIdentifier', getWithDefault(model, 'referenceSystemIdentifier', {}));
+        Ember.run.once(this, function () {
+          Ember.set(model, 'referenceSystemIdentifier', Ember.getWithDefault(model, 'referenceSystemIdentifier', {}));
         });
       }
     },
@@ -16791,8 +16378,8 @@ define('mdeditor/pods/components/object/md-srs/component', ['exports', 'ember-cp
      */
 
     classNames: ['form'],
-    refSystem: alias('model.referenceSystemIdentifier.identifier'),
-    refType: alias('model.referenceSystemType')
+    refSystem: Ember.computed.alias('model.referenceSystemIdentifier.identifier'),
+    refType: Ember.computed.alias('model.referenceSystemType')
   });
 });
 define("mdeditor/pods/components/object/md-srs/template", ["exports"], function (exports) {
@@ -17205,12 +16792,6 @@ define('mdeditor/pods/components/object/md-time-period/component', ['exports', '
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component,
-        computed = Ember.computed,
-        set = Ember.set,
-        get = Ember.get,
-        getWithDefault = Ember.getWithDefault,
-        once = Ember.run.once;
 
 
   const Validations = (0, _emberCpValidations.buildValidations)({
@@ -17221,29 +16802,29 @@ define('mdeditor/pods/components/object/md-time-period/component', ['exports', '
     })],
     'startDateTime': [(0, _emberCpValidations.validator)('presence', {
       presence: true,
-      disabled: computed.notEmpty('model.endDateTime'),
+      disabled: Ember.computed.notEmpty('model.endDateTime'),
       ignoreBlank: true
     })],
     'endDateTime': [(0, _emberCpValidations.validator)('date', {
-      onOrAfter: computed.alias('model.startDateTime'),
+      onOrAfter: Ember.computed.alias('model.startDateTime'),
       isWarning: true
     }), (0, _emberCpValidations.validator)('presence', {
       presence: true,
-      disabled: computed.notEmpty('model.startDateTime'),
+      disabled: Ember.computed.notEmpty('model.startDateTime'),
       ignoreBlank: true
     })]
   });
 
-  exports.default = Component.extend(Validations, {
+  exports.default = Ember.Component.extend(Validations, {
     didReceiveAttrs() {
       this._super(...arguments);
 
-      let model = get(this, 'model');
+      let model = Ember.get(this, 'model');
 
-      once(function () {
-        set(model, 'periodName', getWithDefault(model, 'periodName', []));
-        set(model, 'timeInterval', getWithDefault(model, 'timeInterval', {}));
-        set(model, 'duration', getWithDefault(model, 'duration', {}));
+      Ember.run.once(function () {
+        Ember.set(model, 'periodName', Ember.getWithDefault(model, 'periodName', []));
+        Ember.set(model, 'timeInterval', Ember.getWithDefault(model, 'timeInterval', {}));
+        Ember.set(model, 'duration', Ember.getWithDefault(model, 'duration', {}));
         // set(model, 'presentationForm', getWithDefault(model,
         //   'presentationForm', []));
         // set(model, 'onlineResource', getWithDefault(model,
@@ -17261,48 +16842,51 @@ define('mdeditor/pods/components/object/md-time-period/component', ['exports', '
      * @type {String}
      */
 
-    startDateTime: computed('model.startDateTime', {
+    startDateTime: Ember.computed('model.startDateTime', {
       get() {
-        return get(this, 'model.startDateTime');
+        return Ember.get(this, 'model.startDateTime');
       },
       set(key, value) {
-        once(this, function () {
-          set(this, 'model.startDateTime', value);
+        Ember.run.once(this, function () {
+          Ember.set(this, 'model.startDateTime', value);
           return value;
         });
       }
     }),
-    endDateTime: computed('model.endDateTime', {
+    endDateTime: Ember.computed('model.endDateTime', {
       get() {
-        return get(this, 'model.endDateTime');
+        return Ember.get(this, 'model.endDateTime');
       },
       set(key, value) {
-        once(this, function () {
-          set(this, 'model.endDateTime', value);
+        Ember.run.once(this, function () {
+          Ember.set(this, 'model.endDateTime', value);
           return value;
         });
       }
     }),
-    intervalAmount: computed.alias('model.timeInterval.interval'),
-    timeUnit: [{
-      name: 'year',
-      value: 'year'
-    }, {
-      name: 'month',
-      value: 'month'
-    }, {
-      name: 'day',
-      value: 'day'
-    }, {
-      name: 'hour',
-      value: 'hour'
-    }, {
-      name: 'minute',
-      value: 'minute'
-    }, {
-      name: 'second',
-      value: 'second'
-    }]
+    intervalAmount: Ember.computed.alias('model.timeInterval.interval'),
+
+    timeUnit: Ember.computed(function () {
+      return [{
+        name: 'year',
+        value: 'year'
+      }, {
+        name: 'month',
+        value: 'month'
+      }, {
+        name: 'day',
+        value: 'day'
+      }, {
+        name: 'hour',
+        value: 'hour'
+      }, {
+        name: 'minute',
+        value: 'minute'
+      }, {
+        name: 'second',
+        value: 'second'
+      }];
+    })
 
   });
 });
@@ -17320,23 +16904,17 @@ define('mdeditor/pods/components/object/md-transfer/component', ['exports'], fun
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Component = Ember.Component,
-        computed = Ember.computed,
-        set = Ember.set,
-        get = Ember.get,
-        getWithDefault = Ember.getWithDefault,
-        once = Ember.run.once;
-  exports.default = Component.extend({
+  exports.default = Ember.Component.extend({
     didReceiveAttrs() {
       this._super(...arguments);
 
-      let model = get(this, 'model');
+      let model = Ember.get(this, 'model');
 
-      once(function () {
-        set(model, 'onlineOption', getWithDefault(model, 'onlineOption', []));
-        set(model, 'offlineOption', getWithDefault(model, 'offlineOption', []));
-        set(model, 'transferFrequency', getWithDefault(model, 'transferFrequency', {}));
-        set(model, 'distributionFormat', getWithDefault(model, 'distributionFormat', []));
+      Ember.run.once(function () {
+        Ember.set(model, 'onlineOption', Ember.getWithDefault(model, 'onlineOption', []));
+        Ember.set(model, 'offlineOption', Ember.getWithDefault(model, 'offlineOption', []));
+        Ember.set(model, 'transferFrequency', Ember.getWithDefault(model, 'transferFrequency', {}));
+        Ember.set(model, 'distributionFormat', Ember.getWithDefault(model, 'distributionFormat', []));
         // set(model, 'presentationForm', getWithDefault(model,
         //   'presentationForm', []));
         // set(model, 'onlineResource', getWithDefault(model,
@@ -17376,26 +16954,28 @@ define('mdeditor/pods/components/object/md-transfer/component', ['exports'], fun
     //     });
     //   }
     // }),
-    formatUri: computed.alias('model.distributionFormat.firstObject.formatSpecification.title'),
-    timeUnit: [{
-      name: 'year',
-      value: 'year'
-    }, {
-      name: 'month',
-      value: 'month'
-    }, {
-      name: 'day',
-      value: 'day'
-    }, {
-      name: 'hour',
-      value: 'hour'
-    }, {
-      name: 'minute',
-      value: 'minute'
-    }, {
-      name: 'second',
-      value: 'second'
-    }],
+    formatUri: Ember.computed.alias('model.distributionFormat.firstObject.formatSpecification.title'),
+    timeUnit: Ember.computed(function () {
+      return [{
+        name: 'year',
+        value: 'year'
+      }, {
+        name: 'month',
+        value: 'month'
+      }, {
+        name: 'day',
+        value: 'day'
+      }, {
+        name: 'hour',
+        value: 'hour'
+      }, {
+        name: 'minute',
+        value: 'minute'
+      }, {
+        name: 'second',
+        value: 'second'
+      }];
+    }),
 
     formatTemplate: Ember.Object.extend( /*Validations, */{
       init() {
@@ -17413,30 +16993,6 @@ define("mdeditor/pods/components/object/md-transfer/template", ["exports"], func
     value: true
   });
   exports.default = Ember.HTMLBars.template({ "id": "V0eeXdOC", "block": "{\"symbols\":[\"unit\",\"format\",\"editing\",\"&default\"],\"statements\":[[0,\"  \"],[1,[25,\"input/md-input\",null,[[\"type\",\"valuePath\",\"model\",\"step\",\"label\",\"placeholder\",\"profilePath\"],[\"number\",\"transferSize\",[20,[\"model\"]],\"0.01\",\"Transfer Size (MB)\",\"Estimated size of a unit in the specified transfer format, expressed in megabytes.\",[25,\"concat\",[[20,[\"profilePath\"]],\".transferSize\"],null]]]],false],[0,\"\\n  \"],[1,[25,\"input/md-input\",null,[[\"value\",\"label\",\"placeholder\",\"profilePath\"],[[20,[\"model\",\"unitsOfDistribution\"]],\"Distribution units\",\"Description of the tiles, layers, geographic areas, etc., in which data are available.\",[25,\"concat\",[[20,[\"profilePath\"]],\".distributionUnit\"],null]]]],false],[0,\"\\n\\n  \"],[1,[25,\"object/md-online-resource-array\",null,[[\"model\",\"label\",\"profilePath\",\"class\",\"shadow\",\"data-spy\"],[[20,[\"model\",\"onlineOption\"]],\"Online Option\",[25,\"concat\",[[20,[\"profilePath\"]],\".onlineOption\"],null],\"md-embedded\",false,[20,[\"fales\"]]]]],false],[0,\"\\n\\n\"],[4,\"object/md-object-table\",null,[[\"items\",\"header\",\"buttonText\",\"templateClass\",\"ellipsis\",\"shadow\",\"attributes\"],[[20,[\"model\",\"offlineOption\"]],\"Offline Option\",\"Add Offline Option\",[20,[\"templateClass\"]],false,false,\"title\"]],{\"statements\":[[0,\"      \"],[1,[25,\"object/md-medium\",null,[[\"model\",\"profilePath\"],[[19,3,[]],[25,\"concat\",[[20,[\"profilePath\"]],\".offlineOption\"],null]]]],false],[0,\"\\n\"]],\"parameters\":[3]},null],[0,\"\\n\"],[4,\"object/md-array-table\",null,[[\"columns\",\"plain\",\"responsive\",\"title\",\"data-spy\",\"value\",\"validation\",\"templateClass\",\"profilePath\"],[\"Format Name,Version,Compression Method,URL\",false,true,\"Distribution Format\",false,[20,[\"model\",\"distributionFormat\"]],[20,[\"formatValidation\"]],[20,[\"formatTemplate\"]],[25,\"concat\",[[20,[\"profilePath\"]],\".distributionFormat\"],null]]],{\"statements\":[[0,\"\\n    \"],[6,\"td\"],[7],[0,\"\\n        \"],[1,[25,\"input/md-input\",null,[[\"value\",\"placeholder\"],[[19,2,[\"item\",\"formatSpecification\",\"title\"]],\"Name of the format\"]]],false],[0,\"\\n    \"],[8],[0,\"\\n    \"],[6,\"td\"],[7],[0,\"\\n        \"],[1,[25,\"input/md-input\",null,[[\"value\",\"placeholder\"],[[19,2,[\"item\",\"amendmentNumber\"]],\"Format version\"]]],false],[0,\"\\n    \"],[8],[0,\"\\n    \"],[6,\"td\"],[7],[0,\"\\n        \"],[1,[25,\"input/md-input\",null,[[\"value\",\"placeholder\"],[[19,2,[\"item\",\"compressionMethod\"]],\"Compression Method\"]]],false],[0,\"\\n    \"],[8],[0,\"\\n    \"],[6,\"td\"],[7],[0,\"\\n      \"],[1,[25,\"input/md-input\",null,[[\"value\",\"placeholder\"],[[19,2,[\"item\",\"formatSpecification\",\"onlineResource\",\"firstObject\",\"uri\"]],\"On-line information about the format\"]]],false],[0,\"\\n    \"],[8],[0,\"\\n\"]],\"parameters\":[2]},null],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"shadow\",\"profilePath\",\"muted\",\"plain\",\"bodyIsRow\"],[false,[25,\"concat\",[[20,[\"profilePath\"]],\".transferFrequency\"],null],false,true,true]],{\"statements\":[[0,\"    \"],[6,\"label\"],[9,\"class\",\"text-info col-sm-2\"],[7],[0,\"Transfer Frequency\"],[8],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"col-sm-10\"],[7],[0,\"\\n      \"],[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n\"],[4,\"each\",[[25,\"array\",[\"years\",\"months\",\"days\",\"hours\",\"minutes\",\"seconds\"],null]],null,{\"statements\":[[0,\"          \"],[1,[25,\"input/md-input\",null,[[\"class\",\"valuePath\",\"model\",\"type\",\"label\",\"placeholder\",\"profilePath\"],[\"col-sm-6 col-md-4 col-lg-2\",[25,\"concat\",[\"transferFrequency.\",[19,1,[]]],null],[20,[\"model\"]],\"number\",[25,\"uc-words\",[[19,1,[]]],null],[25,\"concat\",[\"Enter \",[19,1,[]]],null],[25,\"concat\",[[20,[\"profilePath\"]],\".transferFrequency.\",[19,1,[]]],null]]]],false],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"      \"],[8],[0,\"\\n    \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[11,4],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/object/md-transfer/template.hbs" } });
-});
-define('mdeditor/pods/components/tooltip-on-component/component', ['exports', 'ember-tooltips/components/tooltip-on-component'], function (exports, _tooltipOnComponent) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = _tooltipOnComponent.default.extend({
-    // effect: 'fade',
-    // side: 'bottom',
-    enableLazyRendering: true
-  });
-});
-define('mdeditor/pods/components/tooltip-on-element/component', ['exports', 'ember-tooltips/components/tooltip-on-element'], function (exports, _tooltipOnElement) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = _tooltipOnElement.default.extend({
-    // effect: 'fade',
-    // side: 'bottom',
-    enableLazyRendering: true
-  });
 });
 define('mdeditor/pods/contact/new/id/route', ['exports', 'ember-data'], function (exports, _emberData) {
   'use strict';
@@ -17617,9 +17173,13 @@ define('mdeditor/pods/contact/new/route', ['exports'], function (exports) {
     value: true
   });
   exports.default = Ember.Route.extend({
-    breadCrumb: {
-      title: 'New',
-      linkable: false
+    init() {
+      this._super(...arguments);
+
+      this.breadCrumb = {
+        title: 'New',
+        linkable: false
+      };
     }
   });
 });
@@ -17630,9 +17190,13 @@ define('mdeditor/pods/contact/route', ['exports'], function (exports) {
     value: true
   });
   exports.default = Ember.Route.extend({
-    breadCrumb: {
-      title: 'Contact',
-      linkable: false
+    init() {
+      this._super(...arguments);
+
+      this.breadCrumb = {
+        title: 'Contact',
+        linkable: false
+      };
     }
   });
 });
@@ -17642,8 +17206,7 @@ define('mdeditor/pods/contact/show/edit/route', ['exports', 'mdeditor/mixins/has
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route;
-  exports.default = Route.extend(_hashPoll.default, {
+  exports.default = Ember.Route.extend(_hashPoll.default, {
 
     renderTemplate() {
       this.render('contact.show.edit', {
@@ -17658,7 +17221,7 @@ define("mdeditor/pods/contact/show/edit/template", ["exports"], function (export
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "7yCHBZFX", "block": "{\"symbols\":[\"hour\",\"email\"],\"statements\":[[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"col-sm-9 col-md-offset-1\"],[7],[0,\"\\n        \"],[6,\"h3\"],[7],[0,\"Editing Contact: \"],[1,[20,[\"model\",\"json\",\"name\"]],false],[0,\" \"],[6,\"small\"],[7],[1,[20,[\"model\",\"json\",\"contactId\"]],false],[8],[0,\"\\n          \"],[6,\"span\"],[9,\"class\",\"text-danger\"],[7],[0,\"\\n\"],[0,\"            \"],[1,[25,\"control/md-status\",null,[[\"model\"],[[20,[\"model\"]]]]],false],[0,\"\\n          \"],[8],[0,\"\\n        \"],[8],[0,\"\\n        \"],[6,\"form\"],[7],[0,\"\\n            \"],[1,[25,\"input/md-input-confirm\",null,[[\"valuePath\",\"model\",\"data-spy\",\"confirmTip\",\"placeholder\",\"label\"],[\"json.contactId\",[20,[\"model\"]],\"Contact ID\",\"Note! Editing the Contact ID may break links. Be aware.\",\"User assigned Contact ID\",\"Contact ID\"]]],false],[0,\"\\n\\n            \"],[1,[25,\"input/md-input\",null,[[\"valuePath\",\"model\",\"placeholder\",\"label\"],[\"json.name\",[20,[\"model\"]],[25,\"concat\",[[20,[\"model\",\"type\"]],\" Name\"],null],[25,\"concat\",[[20,[\"model\",\"type\"]],\" Name\"],null]]]],false],[0,\"\\n\\n\"],[4,\"unless\",[[20,[\"model\",\"json\",\"isOrganization\"]]],null,{\"statements\":[[0,\"                \"],[1,[25,\"input/md-input\",null,[[\"valuePath\",\"model\",\"placeholder\",\"label\"],[\"json.positionName\",[20,[\"model\"]],\"Position Name\",\"Position Name\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n            \"],[1,[25,\"input/md-codelist\",null,[[\"value\",\"label\",\"create\",\"tooltip\",\"icon\",\"mdCodeName\",\"placeholder\"],[[20,[\"model\",\"json\",\"contactType\"]],\"Contact Type\",false,true,false,\"entityType\",\"Select a contact type\"]]],false],[0,\"\\n\\n            \"],[1,[25,\"input/md-select-contacts\",null,[[\"label\",\"placeholder\",\"value\",\"contactType\",\"icon\",\"tooltip\",\"defaultIcon\",\"filterId\"],[\"Member Of Organization\",\"Pick organization(s) this contact belongs to\",[20,[\"model\",\"json\",\"memberOfOrganization\"]],\"organizations\",true,false,\"organizations\",[20,[\"model\",\"json\",\"contactId\"]]]]],false],[0,\"\\n\\n\\n            \"],[1,[25,\"object/md-phone-array\",null,[[\"value\",\"data-spy\"],[[20,[\"model\",\"json\",\"phone\"]],\"Phone\"]]],false],[0,\"\\n\\n\"],[4,\"object/md-simple-array-table\",null,[[\"data-spy\",\"title\",\"required\",\"value\"],[\"E-mail\",\"E-mail Address\",false,[20,[\"model\",\"json\",\"electronicMailAddress\"]]]],{\"statements\":[[0,\"              \"],[6,\"td\"],[7],[0,\"\\n                  \"],[1,[25,\"input/md-input\",null,[[\"value\",\"placeholder\"],[[19,2,[\"item\",\"value\"]],\"Enter valid e-mail address\"]]],false],[0,\"\\n              \"],[8],[0,\"\\n\"]],\"parameters\":[2]},null],[0,\"\\n            \"],[1,[25,\"object/md-address\",null,[[\"model\",\"data-spy\"],[[20,[\"model\",\"json\",\"address\"]],\"Address\"]]],false],[0,\"\\n\\n            \"],[1,[25,\"object/md-online-resource-array\",null,[[\"model\",\"profilePath\",\"data-spy\"],[[20,[\"model\",\"json\",\"onlineResource\"]],\"contact\",\"Online Resource\"]]],false],[0,\"\\n\\n            \"],[1,[25,\"object/md-graphic-array\",null,[[\"model\",\"data-spy\",\"button-text\",\"label\",\"profilePath\"],[[20,[\"model\",\"json\",\"logoGraphic\"]],\"Logo\",\"Add Logo\",\"Logo\",\"contact\"]]],false],[0,\"\\n\\n\"],[4,\"object/md-simple-array-table\",null,[[\"data-spy\",\"title\",\"value\"],[\"Availability\",\"Available Time\",[20,[\"model\",\"json\",\"hoursOfService\"]]]],{\"statements\":[[0,\"              \"],[6,\"td\"],[7],[0,\"\\n                  \"],[1,[25,\"input/md-input\",null,[[\"value\",\"placeholder\"],[[19,1,[\"item\",\"value\"]],\"Describe time when contact is avaiable\"]]],false],[0,\"\\n              \"],[8],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"\\n            \"],[1,[25,\"input/md-textarea\",null,[[\"value\",\"data-spy\",\"placeholder\",\"label\"],[[20,[\"model\",\"json\",\"contactInstruction\"]],\"Instructions\",\"Supplemental Contact Instructions\",\"Contact Instructions\"]]],false],[0,\"\\n        \"],[8],[0,\"\\n    \"],[8],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"col-sm-2\"],[7],[0,\"\\n        \"],[6,\"div\"],[9,\"class\",\"md-control-sidebar\"],[7],[0,\"\\n            \"],[1,[25,\"control/md-crud-buttons\",null,[[\"model\",\"doSave\",\"doCancel\",\"doDelete\",\"doCopy\"],[[20,[\"model\"]],\"saveContact\",\"cancelContact\",\"destroyContact\",\"copyContact\"]]],false],[0,\"\\n            \"],[1,[18,\"control/md-scroll-spy\"],false],[0,\"\\n\\n        \"],[8],[0,\"\\n    \"],[8],[0,\"\\n\"],[8],[0,\"\\n\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/contact/show/edit/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "NOC3g+kV", "block": "{\"symbols\":[\"hour\",\"email\"],\"statements\":[[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"col-sm-9 col-md-offset-1\"],[7],[0,\"\\n        \"],[6,\"h3\"],[7],[0,\"Editing Contact: \"],[1,[20,[\"model\",\"json\",\"name\"]],false],[0,\" \"],[6,\"small\"],[7],[1,[20,[\"model\",\"json\",\"contactId\"]],false],[8],[0,\"\\n          \"],[6,\"span\"],[9,\"class\",\"text-danger\"],[7],[0,\"\\n\"],[0,\"            \"],[1,[25,\"control/md-status\",null,[[\"model\"],[[20,[\"model\"]]]]],false],[0,\"\\n          \"],[8],[0,\"\\n        \"],[8],[0,\"\\n        \"],[6,\"form\"],[7],[0,\"\\n            \"],[1,[25,\"input/md-input-confirm\",null,[[\"valuePath\",\"model\",\"data-spy\",\"confirmTip\",\"placeholder\",\"label\"],[\"json.contactId\",[20,[\"model\"]],\"Contact ID\",\"Note! Editing the Contact ID may break links. Be aware.\",\"User assigned Contact ID\",\"Contact ID\"]]],false],[0,\"\\n\\n            \"],[1,[25,\"input/md-input\",null,[[\"valuePath\",\"model\",\"placeholder\",\"label\"],[\"json.name\",[20,[\"model\"]],[25,\"concat\",[[20,[\"model\",\"type\"]],\" Name\"],null],[25,\"concat\",[[20,[\"model\",\"type\"]],\" Name\"],null]]]],false],[0,\"\\n\\n\"],[4,\"unless\",[[20,[\"model\",\"json\",\"isOrganization\"]]],null,{\"statements\":[[0,\"                \"],[1,[25,\"input/md-input\",null,[[\"valuePath\",\"model\",\"placeholder\",\"label\"],[\"json.positionName\",[20,[\"model\"]],\"Position Name\",\"Position Name\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n            \"],[1,[25,\"input/md-codelist\",null,[[\"value\",\"label\",\"create\",\"tooltip\",\"icon\",\"mdCodeName\",\"placeholder\"],[[20,[\"model\",\"json\",\"contactType\"]],\"Contact Type\",false,true,false,\"entityType\",\"Select a contact type\"]]],false],[0,\"\\n\\n            \"],[1,[25,\"input/md-select-contacts\",null,[[\"label\",\"placeholder\",\"value\",\"contactType\",\"icon\",\"tooltip\",\"defaultIcon\",\"filterId\"],[\"Member Of Organization\",\"Pick organization(s) this contact belongs to\",[20,[\"model\",\"json\",\"memberOfOrganization\"]],\"organizations\",true,false,\"organizations\",[20,[\"model\",\"json\",\"contactId\"]]]]],false],[0,\"\\n\\n\\n            \"],[1,[25,\"object/md-phone-array\",null,[[\"value\",\"data-spy\"],[[20,[\"model\",\"json\",\"phone\"]],\"Phone\"]]],false],[0,\"\\n\\n\"],[4,\"object/md-simple-array-table\",null,[[\"data-spy\",\"title\",\"required\",\"value\"],[\"E-mail\",\"E-mail Address\",false,[20,[\"model\",\"json\",\"electronicMailAddress\"]]]],{\"statements\":[[0,\"              \"],[6,\"td\"],[7],[0,\"\\n                  \"],[1,[25,\"input/md-input\",null,[[\"value\",\"placeholder\"],[[19,2,[\"item\",\"value\"]],\"Enter valid e-mail address\"]]],false],[0,\"\\n              \"],[8],[0,\"\\n\"]],\"parameters\":[2]},null],[0,\"\\n            \"],[1,[25,\"object/md-address\",null,[[\"model\",\"data-spy\"],[[20,[\"model\",\"json\",\"address\"]],\"Address\"]]],false],[0,\"\\n\\n            \"],[1,[25,\"object/md-online-resource-array\",null,[[\"model\",\"profilePath\",\"data-spy\"],[[20,[\"model\",\"json\",\"onlineResource\"]],\"contact\",\"Online Resource\"]]],false],[0,\"\\n\\n            \"],[1,[25,\"object/md-graphic-array\",null,[[\"model\",\"data-spy\",\"button-text\",\"label\",\"profilePath\"],[[20,[\"model\",\"json\",\"logoGraphic\"]],\"Logo\",\"Add Logo\",\"Logo\",\"contact\"]]],false],[0,\"\\n\\n\"],[4,\"object/md-simple-array-table\",null,[[\"data-spy\",\"title\",\"value\"],[\"Availability\",\"Available Time\",[20,[\"model\",\"json\",\"hoursOfService\"]]]],{\"statements\":[[0,\"              \"],[6,\"td\"],[7],[0,\"\\n                  \"],[1,[25,\"input/md-input\",null,[[\"value\",\"placeholder\"],[[19,1,[\"item\",\"value\"]],\"Describe time when contact is avaiable\"]]],false],[0,\"\\n              \"],[8],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"\\n            \"],[1,[25,\"input/md-textarea\",null,[[\"value\",\"data-spy\",\"placeholder\",\"label\"],[[20,[\"model\",\"json\",\"contactInstruction\"]],\"Instructions\",\"Supplemental Contact Instructions\",\"Contact Instructions\"]]],false],[0,\"\\n        \"],[8],[0,\"\\n    \"],[8],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"col-sm-2\"],[7],[0,\"\\n        \"],[6,\"div\"],[9,\"class\",\"md-control-sidebar\"],[7],[0,\"\\n            \"],[1,[25,\"control/md-crud-buttons\",null,[[\"model\",\"doSave\",\"doCancel\",\"doDelete\",\"doCopy\"],[[20,[\"model\"]],[25,\"route-action\",[\"saveContact\"],null],[25,\"route-action\",[\"cancelContact\"],null],[25,\"route-action\",[\"destroyContact\"],null],[25,\"route-action\",[\"copyContact\"],null]]]],false],[0,\"\\n            \"],[1,[18,\"control/md-scroll-spy\"],false],[0,\"\\n\\n        \"],[8],[0,\"\\n    \"],[8],[0,\"\\n\"],[8],[0,\"\\n\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/contact/show/edit/template.hbs" } });
 });
 define('mdeditor/pods/contact/show/route', ['exports', 'mdeditor/mixins/scroll-to'], function (exports, _scrollTo) {
   'use strict';
@@ -17729,7 +17292,7 @@ define("mdeditor/pods/contact/show/template", ["exports"], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "QJM7LjBD", "block": "{\"symbols\":[\"ol\",\"address\",\"hours\",\"email\",\"ph\",\"orgId\"],\"statements\":[[6,\"div\"],[9,\"class\",\"row md-no-spotlight\"],[7],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"col-sm-9 col-md-offset-1\"],[7],[0,\"\\n    \"],[6,\"h3\"],[7],[0,\"\\n\"],[4,\"if\",[[20,[\"model\",\"defaultLogo\"]]],null,{\"statements\":[[0,\"        \"],[6,\"img\"],[10,\"src\",[26,[[20,[\"model\",\"defaultLogo\"]]]]],[9,\"class\",\"img-responsive inline-block md-logo-preview\"],[9,\"alt\",\"Responsive image\"],[7],[8],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"        \"],[1,[25,\"fa-icon\",[[20,[\"model\",\"icon\"]]],[[\"class\"],[\"text-muted\"]]],false],[0,\"\\n\"]],\"parameters\":[]}],[0,\"\\n      Viewing \"],[1,[20,[\"model\",\"type\"]],false],[0,\" Contact: \"],[1,[20,[\"model\",\"title\"]],false],[0,\"\\n\"],[0,\"          \"],[1,[25,\"control/md-status\",null,[[\"model\"],[[20,[\"model\"]]]]],false],[0,\"\\n    \"],[8],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"shadow\",\"muted\",\"title\",\"bodyIsRow\"],[false,true,\"Basic Information\",true]],{\"statements\":[[0,\"        \"],[6,\"dl\"],[9,\"class\",\"dl-horizontal col-lg-6\"],[7],[0,\"\\n          \"],[1,[25,\"control/md-definition\",null,[[\"title\",\"text\"],[\"Contact Id\",[20,[\"model\",\"contactId\"]]]]],false],[0,\"\\n          \"],[1,[25,\"control/md-definition\",null,[[\"title\",\"text\"],[\"Contact Name\",[20,[\"model\",\"name\"]]]]],false],[0,\"\\n\\n\"],[4,\"unless\",[[20,[\"model\",\"json\",\"isOrganization\"]]],null,{\"statements\":[[0,\"            \"],[1,[25,\"control/md-definition\",null,[[\"title\",\"text\"],[\"Postion\",[20,[\"model\",\"json\",\"positionName\"]]]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n          \"],[1,[25,\"control/md-definition\",null,[[\"title\",\"text\"],[\"Contact Type\",[20,[\"model\",\"json\",\"contactType\"]]]]],false],[0,\"\\n          \"],[1,[25,\"control/md-definition\",null,[[\"title\",\"text\"],[\"Contact Instructions\",[20,[\"model\",\"json\",\"contactInstructions\"]]]]],false],[0,\"\\n\\n        \"],[8],[0,\"\\n        \"],[6,\"dl\"],[9,\"class\",\"dl-horizontal col-lg-6\"],[7],[0,\"\\n\"],[4,\"control/md-definition\",null,[[\"title\"],[\"Organizations\"]],{\"statements\":[[4,\"each\",[[20,[\"model\",\"json\",\"memberOfOrganization\"]]],null,{\"statements\":[[0,\"              \"],[1,[25,\"control/md-contact-link\",null,[[\"contactId\"],[[19,6,[]]]]],false],[6,\"br\"],[7],[8],[0,\"\\n\"]],\"parameters\":[6]},{\"statements\":[[0,\"                \"],[6,\"em\"],[9,\"class\",\"text-muted\"],[7],[0,\"No organizations assigned.\"],[8],[0,\"\\n\"]],\"parameters\":[]}]],\"parameters\":[]},null],[0,\"        \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"col-md-6 col-xxl-4\"],[7],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"shadow\",\"muted\",\"title\",\"class\"],[false,true,\"Phone\",\"card-table\"]],{\"statements\":[[0,\"      \"],[6,\"div\"],[9,\"class\",\"table-responsive\"],[7],[0,\"\\n        \"],[6,\"table\"],[9,\"class\",\"table\"],[7],[0,\"\\n          \"],[6,\"thead\"],[7],[0,\"\\n            \"],[6,\"tr\"],[7],[0,\"\\n              \"],[6,\"th\"],[7],[0,\"Name\"],[8],[0,\"\\n              \"],[6,\"th\"],[7],[0,\"Number\"],[8],[0,\"\\n              \"],[6,\"th\"],[7],[0,\"Type\"],[8],[0,\"\\n            \"],[8],[0,\"\\n          \"],[8],[0,\"\\n          \"],[6,\"tbody\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"model\",\"json\",\"phone\"]]],null,{\"statements\":[[0,\"              \"],[6,\"tr\"],[7],[0,\"\\n                \"],[6,\"td\"],[7],[1,[25,\"get-dash\",[[19,5,[]],\"phoneName\"],null],false],[8],[0,\"\\n                \"],[6,\"td\"],[7],[0,\"\\n\"],[4,\"if\",[[19,5,[\"phoneNumber\"]]],null,{\"statements\":[[0,\"                    \"],[6,\"a\"],[10,\"href\",[26,[\"tel:\",[19,5,[\"phoneNumber\"]]]]],[7],[1,[19,5,[\"phoneNumber\"]],false],[0,\"\\n                      \"],[1,[25,\"tooltip-on-element\",null,[[\"text\"],[\"Click to call.\"]]],false],[0,\"\\n                    \"],[8],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"                    --\\n\"]],\"parameters\":[]}],[0,\"                \"],[8],[0,\"\\n                \"],[6,\"td\"],[7],[0,\"\\n                  \"],[1,[25,\"if\",[[19,5,[\"service\",\"length\"]],[25,\"join\",[\", \",[19,5,[\"service\"]]],null],\"--\"],null],false],[0,\"\\n                \"],[8],[0,\"\\n              \"],[8],[0,\"\\n\"]],\"parameters\":[5]},{\"statements\":[[0,\"              \"],[6,\"tr\"],[7],[6,\"td\"],[7],[6,\"em\"],[9,\"class\",\"text-muted\"],[7],[0,\"No phones assigned.\"],[8],[8],[8],[0,\"\\n\"]],\"parameters\":[]}],[0,\"          \"],[8],[0,\"\\n        \"],[8],[0,\"\\n      \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"    \"],[8],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"col-md-6 col-xxl-4\"],[7],[0,\"\\n\\n\"],[4,\"layout/md-card\",null,[[\"shadow\",\"muted\",\"title\",\"class\"],[false,true,\"E-mail\",\"\"]],{\"statements\":[[0,\"      \"],[6,\"ul\"],[9,\"class\",\"list-unstyled\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"model\",\"json\",\"electronicMailAddress\"]]],null,{\"statements\":[[0,\"          \"],[6,\"li\"],[7],[6,\"a\"],[10,\"href\",[26,[\"mailto:\",[19,4,[]]]]],[9,\"target\",\"_blank\"],[7],[1,[19,4,[]],false],[0,\"\\n            \"],[1,[25,\"tooltip-on-element\",null,[[\"text\"],[\"Click to send e-mail.\"]]],false],[0,\"\\n          \"],[8],[8],[0,\"\\n\"]],\"parameters\":[4]},{\"statements\":[[0,\"          \"],[6,\"li\"],[7],[6,\"em\"],[9,\"class\",\"text-muted\"],[7],[0,\"No e-mails assigned.\"],[8],[8],[0,\"\\n\"]],\"parameters\":[]}],[0,\"      \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"    \"],[8],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"clearfix hidden-xxl\"],[7],[8],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"col-md-6 col-xxl-4\"],[7],[0,\"\\n\\n\"],[4,\"layout/md-card\",null,[[\"shadow\",\"muted\",\"title\",\"class\"],[false,true,\"Availability\",\"\"]],{\"statements\":[[0,\"      \"],[6,\"ul\"],[9,\"class\",\"list-unstyled\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"model\",\"json\",\"hoursOfService\"]]],null,{\"statements\":[[0,\"          \"],[6,\"li\"],[7],[1,[19,3,[]],false],[8],[0,\"\\n\"]],\"parameters\":[3]},{\"statements\":[[0,\"          \"],[6,\"li\"],[7],[6,\"em\"],[9,\"class\",\"text-muted\"],[7],[0,\"No information provided.\"],[8],[8],[0,\"\\n\"]],\"parameters\":[]}],[0,\"      \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"    \"],[8],[0,\"\\n    \"],[8],[0,\"\\n\\n    \"],[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"col-md-6\"],[7],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"shadow\",\"muted\",\"title\",\"bodyIsRow\"],[false,true,\"Address\",[20,[\"model\",\"json\",\"address\",\"length\"]]]],{\"statements\":[[4,\"each\",[[20,[\"model\",\"json\",\"address\"]]],null,{\"statements\":[[0,\"          \"],[6,\"div\"],[9,\"class\",\"col-lg-6\"],[7],[0,\"\\n            \"],[6,\"div\"],[9,\"class\",\"card\"],[7],[0,\"\\n              \"],[6,\"div\"],[9,\"class\",\"card-block\"],[7],[0,\"\\n                \"],[1,[25,\"object/md-address/md-address-block\",null,[[\"item\"],[[19,2,[]]]]],false],[0,\"\\n              \"],[8],[0,\"\\n            \"],[8],[0,\"\\n          \"],[8],[0,\"\\n\"]],\"parameters\":[2]},{\"statements\":[[0,\"            \"],[6,\"em\"],[7],[0,\"No addresses provided.\"],[8],[0,\"\\n\"]],\"parameters\":[]}]],\"parameters\":[]},null],[0,\"    \"],[8],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"col-md-6\"],[7],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"shadow\",\"muted\",\"title\"],[false,true,\"Online Resource\"]],{\"statements\":[[0,\"        \"],[6,\"div\"],[9,\"class\",\"table-responsive\"],[7],[0,\"\\n          \"],[6,\"table\"],[9,\"class\",\"table\"],[7],[0,\"\\n            \"],[6,\"thead\"],[7],[0,\"\\n              \"],[6,\"tr\"],[7],[0,\"\\n                \"],[6,\"th\"],[7],[0,\"Name\"],[8],[0,\"\\n                \"],[6,\"th\"],[7],[0,\"URI\"],[8],[0,\"\\n              \"],[8],[0,\"\\n            \"],[8],[0,\"\\n            \"],[6,\"tbody\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"model\",\"json\",\"onlineResource\"]]],null,{\"statements\":[[0,\"                \"],[6,\"tr\"],[7],[0,\"\\n                  \"],[6,\"td\"],[7],[1,[25,\"get-dash\",[[19,1,[]],\"name\"],null],false],[8],[0,\"\\n                  \"],[6,\"td\"],[7],[0,\"\\n\"],[4,\"if\",[[19,1,[\"uri\"]]],null,{\"statements\":[[0,\"                      \"],[6,\"a\"],[10,\"href\",[26,[[19,1,[\"uri\"]]]]],[9,\"target\",\"_blank\"],[7],[1,[19,1,[\"uri\"]],false],[0,\"\\n\"],[0,\"                      \"],[8],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"                      --\\n\"]],\"parameters\":[]}],[0,\"                  \"],[8],[0,\"\\n                \"],[8],[0,\"\\n\"]],\"parameters\":[1]},{\"statements\":[[0,\"                \"],[6,\"tr\"],[7],[6,\"td\"],[7],[6,\"em\"],[9,\"class\",\"text-muted\"],[7],[0,\"No online resources assigned.\"],[8],[8],[8],[0,\"\\n\"]],\"parameters\":[]}],[0,\"            \"],[8],[0,\"\\n          \"],[8],[0,\"\\n        \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"    \"],[8],[0,\"\\n    \"],[8],[0,\"\\n\\n  \"],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"col-sm-2\"],[7],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"md-control-sidebar\"],[7],[0,\"\\n\"],[4,\"control/md-crud-buttons\",null,[[\"model\",\"doDelete\",\"doCopy\"],[[20,[\"model\"]],\"destroyContact\",\"copyContact\"]],{\"statements\":[[4,\"link-to\",[\"contact.show.edit\",[20,[\"model\",\"id\"]]],[[\"class\"],[\"btn btn-lg btn-success\"]],{\"statements\":[[0,\"          \"],[1,[25,\"fa-icon\",[\"pencil\"],null],false],[0,\" Edit\"]],\"parameters\":[]},null],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"      \"],[6,\"hr\"],[7],[8],[0,\"\\n\"],[4,\"link-to\",[\"contacts\"],[[\"class\"],[\"btn btn-lg btn-primary btn-block\"]],{\"statements\":[[0,\"      \"],[1,[25,\"fa-icon\",[\"list\"],null],false],[0,\" Show List\"]],\"parameters\":[]},null],[0,\"\\n      \"],[1,[25,\"control/md-scroll-spy\",null,[[\"scrollInit\",\"setScrollTo\"],[[20,[\"scrollTo\"]],[25,\"route-action\",[\"setScrollTo\"],null]]]],false],[0,\"\\n    \"],[8],[0,\"\\n  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/contact/show/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "0yC7XWpb", "block": "{\"symbols\":[\"ol\",\"address\",\"hours\",\"email\",\"ph\",\"orgId\"],\"statements\":[[6,\"div\"],[9,\"class\",\"row md-no-spotlight\"],[7],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"col-sm-9 col-md-offset-1\"],[7],[0,\"\\n    \"],[6,\"h3\"],[7],[0,\"\\n\"],[4,\"if\",[[20,[\"model\",\"defaultLogo\"]]],null,{\"statements\":[[0,\"        \"],[6,\"img\"],[10,\"src\",[26,[[20,[\"model\",\"defaultLogo\"]]]]],[9,\"class\",\"img-responsive inline-block md-logo-preview\"],[9,\"alt\",\"Responsive image\"],[7],[8],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"        \"],[1,[25,\"fa-icon\",[[20,[\"model\",\"icon\"]]],[[\"class\"],[\"text-muted\"]]],false],[0,\"\\n\"]],\"parameters\":[]}],[0,\"\\n      Viewing \"],[1,[20,[\"model\",\"type\"]],false],[0,\" Contact: \"],[1,[20,[\"model\",\"title\"]],false],[0,\"\\n\"],[0,\"          \"],[1,[25,\"control/md-status\",null,[[\"model\"],[[20,[\"model\"]]]]],false],[0,\"\\n    \"],[8],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"shadow\",\"muted\",\"title\",\"bodyIsRow\"],[false,true,\"Basic Information\",true]],{\"statements\":[[0,\"        \"],[6,\"dl\"],[9,\"class\",\"dl-horizontal col-lg-6\"],[7],[0,\"\\n          \"],[1,[25,\"control/md-definition\",null,[[\"title\",\"text\"],[\"Contact Id\",[20,[\"model\",\"contactId\"]]]]],false],[0,\"\\n          \"],[1,[25,\"control/md-definition\",null,[[\"title\",\"text\"],[\"Contact Name\",[20,[\"model\",\"name\"]]]]],false],[0,\"\\n\\n\"],[4,\"unless\",[[20,[\"model\",\"json\",\"isOrganization\"]]],null,{\"statements\":[[0,\"            \"],[1,[25,\"control/md-definition\",null,[[\"title\",\"text\"],[\"Postion\",[20,[\"model\",\"json\",\"positionName\"]]]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n          \"],[1,[25,\"control/md-definition\",null,[[\"title\",\"text\"],[\"Contact Type\",[20,[\"model\",\"json\",\"contactType\"]]]]],false],[0,\"\\n          \"],[1,[25,\"control/md-definition\",null,[[\"title\",\"text\"],[\"Contact Instructions\",[20,[\"model\",\"json\",\"contactInstructions\"]]]]],false],[0,\"\\n\\n        \"],[8],[0,\"\\n        \"],[6,\"dl\"],[9,\"class\",\"dl-horizontal col-lg-6\"],[7],[0,\"\\n\"],[4,\"control/md-definition\",null,[[\"title\"],[\"Organizations\"]],{\"statements\":[[4,\"each\",[[20,[\"model\",\"json\",\"memberOfOrganization\"]]],null,{\"statements\":[[0,\"              \"],[1,[25,\"control/md-contact-link\",null,[[\"contactId\"],[[19,6,[]]]]],false],[6,\"br\"],[7],[8],[0,\"\\n\"]],\"parameters\":[6]},{\"statements\":[[0,\"                \"],[6,\"em\"],[9,\"class\",\"text-muted\"],[7],[0,\"No organizations assigned.\"],[8],[0,\"\\n\"]],\"parameters\":[]}]],\"parameters\":[]},null],[0,\"        \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"col-md-6 col-xxl-4\"],[7],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"shadow\",\"muted\",\"title\",\"class\"],[false,true,\"Phone\",\"card-table\"]],{\"statements\":[[0,\"      \"],[6,\"div\"],[9,\"class\",\"table-responsive\"],[7],[0,\"\\n        \"],[6,\"table\"],[9,\"class\",\"table\"],[7],[0,\"\\n          \"],[6,\"thead\"],[7],[0,\"\\n            \"],[6,\"tr\"],[7],[0,\"\\n              \"],[6,\"th\"],[7],[0,\"Name\"],[8],[0,\"\\n              \"],[6,\"th\"],[7],[0,\"Number\"],[8],[0,\"\\n              \"],[6,\"th\"],[7],[0,\"Type\"],[8],[0,\"\\n            \"],[8],[0,\"\\n          \"],[8],[0,\"\\n          \"],[6,\"tbody\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"model\",\"json\",\"phone\"]]],null,{\"statements\":[[0,\"              \"],[6,\"tr\"],[7],[0,\"\\n                \"],[6,\"td\"],[7],[1,[25,\"get-dash\",[[19,5,[]],\"phoneName\"],null],false],[8],[0,\"\\n                \"],[6,\"td\"],[7],[0,\"\\n\"],[4,\"if\",[[19,5,[\"phoneNumber\"]]],null,{\"statements\":[[0,\"                    \"],[6,\"a\"],[10,\"href\",[26,[\"tel:\",[19,5,[\"phoneNumber\"]]]]],[7],[1,[19,5,[\"phoneNumber\"]],false],[0,\"\\n                      \"],[1,[25,\"ember-tooltip\",null,[[\"text\"],[\"Click to call.\"]]],false],[0,\"\\n                    \"],[8],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"                    --\\n\"]],\"parameters\":[]}],[0,\"                \"],[8],[0,\"\\n                \"],[6,\"td\"],[7],[0,\"\\n                  \"],[1,[25,\"if\",[[19,5,[\"service\",\"length\"]],[25,\"join\",[\", \",[19,5,[\"service\"]]],null],\"--\"],null],false],[0,\"\\n                \"],[8],[0,\"\\n              \"],[8],[0,\"\\n\"]],\"parameters\":[5]},{\"statements\":[[0,\"              \"],[6,\"tr\"],[7],[6,\"td\"],[7],[6,\"em\"],[9,\"class\",\"text-muted\"],[7],[0,\"No phones assigned.\"],[8],[8],[8],[0,\"\\n\"]],\"parameters\":[]}],[0,\"          \"],[8],[0,\"\\n        \"],[8],[0,\"\\n      \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"    \"],[8],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"col-md-6 col-xxl-4\"],[7],[0,\"\\n\\n\"],[4,\"layout/md-card\",null,[[\"shadow\",\"muted\",\"title\",\"class\"],[false,true,\"E-mail\",\"\"]],{\"statements\":[[0,\"      \"],[6,\"ul\"],[9,\"class\",\"list-unstyled\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"model\",\"json\",\"electronicMailAddress\"]]],null,{\"statements\":[[0,\"          \"],[6,\"li\"],[7],[6,\"a\"],[10,\"href\",[26,[\"mailto:\",[19,4,[]]]]],[9,\"target\",\"_blank\"],[7],[1,[19,4,[]],false],[0,\"\\n            \"],[1,[25,\"ember-tooltip\",null,[[\"text\"],[\"Click to send e-mail.\"]]],false],[0,\"\\n          \"],[8],[8],[0,\"\\n\"]],\"parameters\":[4]},{\"statements\":[[0,\"          \"],[6,\"li\"],[7],[6,\"em\"],[9,\"class\",\"text-muted\"],[7],[0,\"No e-mails assigned.\"],[8],[8],[0,\"\\n\"]],\"parameters\":[]}],[0,\"      \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"    \"],[8],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"clearfix hidden-xxl\"],[7],[8],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"col-md-6 col-xxl-4\"],[7],[0,\"\\n\\n\"],[4,\"layout/md-card\",null,[[\"shadow\",\"muted\",\"title\",\"class\"],[false,true,\"Availability\",\"\"]],{\"statements\":[[0,\"      \"],[6,\"ul\"],[9,\"class\",\"list-unstyled\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"model\",\"json\",\"hoursOfService\"]]],null,{\"statements\":[[0,\"          \"],[6,\"li\"],[7],[1,[19,3,[]],false],[8],[0,\"\\n\"]],\"parameters\":[3]},{\"statements\":[[0,\"          \"],[6,\"li\"],[7],[6,\"em\"],[9,\"class\",\"text-muted\"],[7],[0,\"No information provided.\"],[8],[8],[0,\"\\n\"]],\"parameters\":[]}],[0,\"      \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"    \"],[8],[0,\"\\n    \"],[8],[0,\"\\n\\n    \"],[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"col-md-6\"],[7],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"shadow\",\"muted\",\"title\",\"bodyIsRow\"],[false,true,\"Address\",[20,[\"model\",\"json\",\"address\",\"length\"]]]],{\"statements\":[[4,\"each\",[[20,[\"model\",\"json\",\"address\"]]],null,{\"statements\":[[0,\"          \"],[6,\"div\"],[9,\"class\",\"col-lg-6\"],[7],[0,\"\\n            \"],[6,\"div\"],[9,\"class\",\"card\"],[7],[0,\"\\n              \"],[6,\"div\"],[9,\"class\",\"card-block\"],[7],[0,\"\\n                \"],[1,[25,\"object/md-address/md-address-block\",null,[[\"item\"],[[19,2,[]]]]],false],[0,\"\\n              \"],[8],[0,\"\\n            \"],[8],[0,\"\\n          \"],[8],[0,\"\\n\"]],\"parameters\":[2]},{\"statements\":[[0,\"            \"],[6,\"em\"],[7],[0,\"No addresses provided.\"],[8],[0,\"\\n\"]],\"parameters\":[]}]],\"parameters\":[]},null],[0,\"    \"],[8],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"col-md-6\"],[7],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"shadow\",\"muted\",\"title\"],[false,true,\"Online Resource\"]],{\"statements\":[[0,\"        \"],[6,\"div\"],[9,\"class\",\"table-responsive\"],[7],[0,\"\\n          \"],[6,\"table\"],[9,\"class\",\"table\"],[7],[0,\"\\n            \"],[6,\"thead\"],[7],[0,\"\\n              \"],[6,\"tr\"],[7],[0,\"\\n                \"],[6,\"th\"],[7],[0,\"Name\"],[8],[0,\"\\n                \"],[6,\"th\"],[7],[0,\"URI\"],[8],[0,\"\\n              \"],[8],[0,\"\\n            \"],[8],[0,\"\\n            \"],[6,\"tbody\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"model\",\"json\",\"onlineResource\"]]],null,{\"statements\":[[0,\"                \"],[6,\"tr\"],[7],[0,\"\\n                  \"],[6,\"td\"],[7],[1,[25,\"get-dash\",[[19,1,[]],\"name\"],null],false],[8],[0,\"\\n                  \"],[6,\"td\"],[7],[0,\"\\n\"],[4,\"if\",[[19,1,[\"uri\"]]],null,{\"statements\":[[0,\"                      \"],[6,\"a\"],[10,\"href\",[26,[[19,1,[\"uri\"]]]]],[9,\"target\",\"_blank\"],[7],[1,[19,1,[\"uri\"]],false],[0,\"\\n\"],[0,\"                      \"],[8],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"                      --\\n\"]],\"parameters\":[]}],[0,\"                  \"],[8],[0,\"\\n                \"],[8],[0,\"\\n\"]],\"parameters\":[1]},{\"statements\":[[0,\"                \"],[6,\"tr\"],[7],[6,\"td\"],[7],[6,\"em\"],[9,\"class\",\"text-muted\"],[7],[0,\"No online resources assigned.\"],[8],[8],[8],[0,\"\\n\"]],\"parameters\":[]}],[0,\"            \"],[8],[0,\"\\n          \"],[8],[0,\"\\n        \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"    \"],[8],[0,\"\\n    \"],[8],[0,\"\\n\\n  \"],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"col-sm-2\"],[7],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"md-control-sidebar\"],[7],[0,\"\\n\"],[4,\"control/md-crud-buttons\",null,[[\"model\",\"doDelete\",\"doCopy\"],[[20,[\"model\"]],[25,\"route-action\",[\"destroyContact\"],null],[25,\"route-action\",[\"copyContact\"],null]]],{\"statements\":[[4,\"link-to\",[\"contact.show.edit\",[20,[\"model\",\"id\"]]],[[\"class\"],[\"btn btn-lg btn-success\"]],{\"statements\":[[0,\"          \"],[1,[25,\"fa-icon\",[\"pencil\"],null],false],[0,\" Edit\"]],\"parameters\":[]},null],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"      \"],[6,\"hr\"],[7],[8],[0,\"\\n\"],[4,\"link-to\",[\"contacts\"],[[\"class\"],[\"btn btn-lg btn-primary btn-block\"]],{\"statements\":[[0,\"      \"],[1,[25,\"fa-icon\",[\"list\"],null],false],[0,\" Show List\"]],\"parameters\":[]},null],[0,\"\\n      \"],[1,[25,\"control/md-scroll-spy\",null,[[\"scrollInit\",\"setScrollTo\"],[[20,[\"scrollTo\"]],[25,\"route-action\",[\"setScrollTo\"],null]]]],false],[0,\"\\n    \"],[8],[0,\"\\n  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/contact/show/template.hbs" } });
 });
 define("mdeditor/pods/contact/template", ["exports"], function (exports) {
   "use strict";
@@ -17745,33 +17308,35 @@ define('mdeditor/pods/contacts/route', ['exports'], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route,
-        service = Ember.inject.service;
-  exports.default = Route.extend({
-    slider: service(),
+
+
+  const columns = [{
+    propertyName: 'title',
+    title: 'Title'
+  }, {
+    propertyName: 'defaultOrganizationName',
+    title: 'Organization'
+  }, {
+    propertyName: 'json.electronicMailAddress.firstObject',
+    title: 'E-mail'
+  }, {
+    propertyName: 'contactId',
+    title: 'ID',
+    isHidden: true
+  }, {
+    propertyName: 'type',
+    title: 'Contact Type',
+    filterWithSelect: true
+  }];
+
+  exports.default = Ember.Route.extend({
+    slider: Ember.inject.service(),
     model() {
       //return this.store.peekAll('contact');
       return this.modelFor('application').findBy('modelName', 'contact');
     },
 
-    columns: [{
-      propertyName: 'title',
-      title: 'Title'
-    }, {
-      propertyName: 'defaultOrganizationName',
-      title: 'Organization'
-    }, {
-      propertyName: 'json.electronicMailAddress.firstObject',
-      title: 'E-mail'
-    }, {
-      propertyName: 'contactId',
-      title: 'ID',
-      isHidden: true
-    }, {
-      propertyName: 'type',
-      title: 'Contact Type',
-      filterWithSelect: true
-    }],
+    columns: columns,
 
     actions: {
       getColumns() {
@@ -17821,22 +17386,24 @@ define('mdeditor/pods/dictionaries/route', ['exports'], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route,
-        service = Ember.inject.service;
-  exports.default = Route.extend({
-    slider: service(),
+
+
+  const columns = [{
+    propertyName: 'title',
+    title: 'Title'
+  }, {
+    propertyName: 'json.dataDictionary.subject',
+    title: 'Subject'
+  }];
+
+  exports.default = Ember.Route.extend({
+    slider: Ember.inject.service(),
     model() {
       //return this.store.peekAll('contact');
       return this.modelFor('application').findBy('modelName', 'dictionary');
     },
 
-    columns: [{
-      propertyName: 'title',
-      title: 'Title'
-    }, {
-      propertyName: 'json.dataDictionary.subject',
-      title: 'Subject'
-    }],
+    columns: columns,
 
     actions: {
       getColumns() {
@@ -17983,9 +17550,13 @@ define('mdeditor/pods/dictionary/new/route', ['exports'], function (exports) {
     value: true
   });
   exports.default = Ember.Route.extend({
-    breadCrumb: {
-      title: 'New',
-      linkable: false
+    init() {
+      this._super(...arguments);
+
+      this.breadCrumb = {
+        title: 'New',
+        linkable: false
+      };
     }
   });
 });
@@ -17996,9 +17567,13 @@ define('mdeditor/pods/dictionary/route', ['exports'], function (exports) {
     value: true
   });
   exports.default = Ember.Route.extend({
-    breadCrumb: {
-      title: 'Dictionary',
-      linkable: false
+    init() {
+      this._super(...arguments);
+
+      this.breadCrumb = {
+        title: 'Dictionary',
+        linkable: false
+      };
     }
   });
 });
@@ -18154,8 +17729,12 @@ define('mdeditor/pods/dictionary/show/edit/domain/edit/citation/index/route', ['
     value: true
   });
   exports.default = Ember.Route.extend(_scrollTo.default, {
-    breadCrumb: {
-      title: 'Reference'
+    init() {
+      this._super(...arguments);
+
+      this.breadCrumb = {
+        title: 'Reference'
+      };
     },
 
     afterModel(model) {
@@ -18202,8 +17781,12 @@ define('mdeditor/pods/dictionary/show/edit/domain/edit/citation/route', ['export
     value: true
   });
   exports.default = Ember.Route.extend({
-    breadCrumb: {
-      title: 'Reference'
+    init() {
+      this._super(...arguments);
+
+      this.breadCrumb = {
+        title: 'Reference'
+      };
     }
   });
 });
@@ -18432,8 +18015,12 @@ define('mdeditor/pods/dictionary/show/edit/domain/route', ['exports'], function 
     value: true
   });
   exports.default = Ember.Route.extend({
-    breadCrumb: {
-      title: 'Domains'
+    init() {
+      this._super(...arguments);
+
+      this.breadCrumb = {
+        title: 'Domains'
+      };
     }
   });
 });
@@ -18657,8 +18244,12 @@ define('mdeditor/pods/dictionary/show/edit/entity/edit/citation/route', ['export
     value: true
   });
   exports.default = Ember.Route.extend({
-    breadCrumb: {
-      title: 'Reference'
+    init() {
+      this._super(...arguments);
+
+      this.breadCrumb = {
+        title: 'Reference'
+      };
     },
 
     beforeModel(transition) {
@@ -18844,7 +18435,7 @@ define('mdeditor/pods/dictionary/show/edit/entity/import/route', ['exports', 'np
      * @readOnly
      */
     columnObject: Ember.Object.extend({
-      domain: [],
+      domain: null,
       import: true,
       range: false,
       importName: null,
@@ -19013,7 +18604,7 @@ define("mdeditor/pods/dictionary/show/edit/entity/import/template", ["exports"],
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "UmCWLoR7", "block": "{\"symbols\":[\"col\",\"row\",\"ex\"],\"statements\":[[6,\"h3\"],[9,\"class\",\"section-header\"],[7],[0,\"Generate Entity from CSV\"],[8],[0,\"\\n\"],[4,\"unless\",[[20,[\"processed\"]]],null,{\"statements\":[[0,\"  \"],[1,[25,\"control/md-import-csv\",null,[[\"beforeFirstChunk\",\"processChunk\",\"processComplete\"],[[25,\"route-action\",[\"processData\"],null],[25,\"route-action\",[\"reduceData\"],null],[25,\"route-action\",[\"processComplete\"],null]]]],false],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"    \"],[6,\"form\"],[9,\"class\",\"form\"],[7],[0,\"\\n      \"],[1,[25,\"input/md-input\",null,[[\"value\",\"placeholder\",\"label\",\"data-spy\"],[[20,[\"entity\",\"entityId\"]],\"Enter the identifier for the entity.\",\"Entity Identifier\",\"Identifier\"]]],false],[0,\"\\n\\n      \"],[1,[25,\"input/md-input\",null,[[\"value\",\"required\",\"placeholder\",\"label\",\"data-spy\"],[[20,[\"entity\",\"codeName\"]],true,\"Enter the name used to refer to the entity in schema definitions or application software.\",\"Entity Code Name\",\"Code Name\"]]],false],[0,\"\\n\\n      \"],[1,[25,\"input/md-textarea\",null,[[\"value\",\"required\",\"autoresize\",\"placeholder\",\"label\",\"data-spy\"],[[20,[\"entity\",\"definition\"]],true,true,\"A brief description of the entity.\",\"Entity Definition\",\"Definition\"]]],false],[0,\"\\n    \"],[8],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"title\",\"titleIcon\",\"collapsible\",\"collapsed\",\"data-spy\",\"shadow\"],[\"Setup\",\"gear\",false,false,\"Setup\",true]],{\"statements\":[[0,\"      \"],[6,\"div\"],[9,\"class\",\"md-table md-table-checkbox\"],[7],[0,\"\\n        \"],[6,\"div\"],[9,\"class\",\"md-table-title\"],[7],[0,\"Select options for Attributes\"],[8],[0,\"\\n        \"],[6,\"div\"],[9,\"class\",\"table-responsive\"],[7],[0,\"\\n          \"],[6,\"table\"],[9,\"class\",\"table table-striped table-hover form-inline md-table-align-middle\"],[7],[0,\"\\n            \"],[6,\"thead\"],[7],[0,\"\\n              \"],[6,\"tr\"],[7],[0,\"\\n                \"],[6,\"th\"],[7],[0,\"Import\"],[8],[0,\"\\n                \"],[6,\"th\"],[7],[0,\"Name\"],[8],[0,\"\\n                \"],[6,\"th\"],[7],[0,\"Data Type\"],[8],[0,\"\\n                \"],[6,\"th\"],[7],[0,\"Domain\"],[8],[0,\"\\n                \"],[6,\"th\"],[7],[0,\"Allow Null\"],[8],[0,\"\\n                \"],[6,\"th\"],[7],[0,\"Max/Min\"],[8],[0,\"\\n              \"],[8],[0,\"\\n            \"],[8],[0,\"\\n            \"],[6,\"tbody\"],[7],[0,\"\\n\"],[4,\"each\",[[25,\"-each-in\",[[20,[\"columns\"]]],null]],null,{\"statements\":[[0,\"                \"],[6,\"tr\"],[7],[0,\"\\n                  \"],[6,\"td\"],[7],[1,[25,\"input\",null,[[\"type\",\"name\",\"checked\"],[\"checkbox\",\"import\",[19,2,[\"import\"]]]]],false],[8],[0,\"\\n                  \"],[6,\"td\"],[9,\"class\",\"text-nowrap\"],[7],[0,\"\\n                    \"],[1,[25,\"input\",null,[[\"type\",\"value\",\"class\"],[\"text\",[19,2,[\"importName\"]],\"form-control\"]]],false],[0,\"\\n                    (\"],[1,[19,1,[]],false],[0,\")\\n                  \"],[8],[0,\"\\n                  \"],[6,\"td\"],[7],[0,\"\\n                    \"],[1,[25,\"input/md-codelist\",null,[[\"create\",\"required\",\"tooltip\",\"icon\",\"disabled\",\"allowClear\",\"showValidations\",\"mdCodeName\",\"path\",\"model\",\"placeholder\",\"class\"],[true,false,true,false,false,true,false,\"dataType\",\"importType\",[19,2,[]],\"Choose a data type\",\"inline-block\"]]],false],[0,\"\\n                  \"],[8],[0,\"\\n                  \"],[6,\"td\"],[7],[0,\"\\n                    \"],[1,[25,\"input\",null,[[\"type\",\"name\",\"checked\"],[\"checkbox\",\"hasDomain\",[19,2,[\"hasDomain\"]]]]],false],[0,\"\\n                    \"],[6,\"span\"],[10,\"class\",[26,[[25,\"if\",[[19,2,[\"domainWarn\"]],\"text-danger\"],null]]]],[7],[0,\"(\"],[1,[19,2,[\"domain\",\"length\"]],false],[0,\")\"],[8],[0,\"\\n                  \"],[8],[0,\"\\n                  \"],[6,\"td\"],[7],[0,\"\\n                    \"],[1,[25,\"input\",null,[[\"type\",\"name\",\"checked\"],[\"checkbox\",\"allowNull\",[19,2,[\"allowNull\"]]]]],false],[0,\"\\n                  \"],[8],[0,\"\\n                  \"],[6,\"td\"],[9,\"class\",\"text-nowrap\"],[7],[0,\"\\n                    \"],[1,[25,\"input\",null,[[\"type\",\"name\",\"checked\",\"disabled\"],[\"checkbox\",\"range\",[19,2,[\"range\"]],[19,2,[\"disableRange\"]]]]],false],[0,\"\\n\"],[4,\"if\",[[19,2,[\"isNumber\"]]],null,{\"statements\":[[0,\"                      (\"],[1,[25,\"round\",[[19,2,[\"min\"]]],[[\"decimals\"],[2]]],false],[0,\"/\"],[1,[25,\"round\",[[19,2,[\"max\"]]],[[\"decimals\"],[2]]],false],[0,\")\\n\"]],\"parameters\":[]},null],[0,\"                  \"],[8],[0,\"\\n                  \"],[6,\"td\"],[9,\"class\",\"text-nowrap\"],[7],[0,\"\\n                    \"],[6,\"div\"],[9,\"class\",\"pull-right\"],[7],[0,\"\\n                      \"],[6,\"button\"],[9,\"type\",\"button\"],[9,\"class\",\"btn btn-xs btn-info\"],[7],[0,\"\\n                        \"],[6,\"span\"],[9,\"class\",\"fa fa-eye\"],[7],[8],[0,\" Example\\n\\n\"],[4,\"popover-on-element\",null,[[\"showOn\",\"showOn\",\"side\",\"enableLazyRendering\"],[\"mouseenter\",\"mouseleave\",\"left\",true]],{\"statements\":[[4,\"each\",[[19,2,[\"example\"]]],null,{\"statements\":[[4,\"if\",[[25,\"present\",[[19,3,[]]],null]],null,{\"statements\":[[0,\"                              \"],[1,[19,3,[]],false],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"                              \"],[6,\"i\"],[9,\"class\",\"text-warning\"],[7],[0,\"NULL\"],[8],[0,\"\\n\"]],\"parameters\":[]}],[0,\"                            \"],[6,\"hr\"],[7],[8],[0,\"\\n\"]],\"parameters\":[3]},null]],\"parameters\":[]},null],[0,\"                      \"],[8],[0,\"\\n                    \"],[8],[0,\"\\n                  \"],[8],[0,\"\\n                \"],[8],[0,\"\\n\"]],\"parameters\":[1,2]},null],[0,\"            \"],[8],[0,\"\\n          \"],[8],[0,\"\\n        \"],[8],[0,\"\\n      \"],[8],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]}],[0,\"\\n\"],[4,\"if\",[[20,[\"processed\"]]],null,{\"statements\":[[0,\"  \"],[1,[25,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-subbar-extra\",[25,\"component\",[\"control/subbar-importcsv\"],[[\"doImport\",\"cancelImport\",\"actionContext\"],[[25,\"route-action\",[\"doImport\"],null],[25,\"route-action\",[\"cancelImport\"],null],[19,0,[]]]]]]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[1,[18,\"outlet\"],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/dictionary/show/edit/entity/import/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "AIDHrRSa", "block": "{\"symbols\":[\"col\",\"row\",\"ex\"],\"statements\":[[6,\"h3\"],[9,\"class\",\"section-header\"],[7],[0,\"Generate Entity from CSV\"],[8],[0,\"\\n\"],[4,\"unless\",[[20,[\"processed\"]]],null,{\"statements\":[[0,\"  \"],[1,[25,\"control/md-import-csv\",null,[[\"beforeFirstChunk\",\"processChunk\",\"processComplete\"],[[25,\"route-action\",[\"processData\"],null],[25,\"route-action\",[\"reduceData\"],null],[25,\"route-action\",[\"processComplete\"],null]]]],false],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"    \"],[6,\"form\"],[9,\"class\",\"form\"],[7],[0,\"\\n      \"],[1,[25,\"input/md-input\",null,[[\"value\",\"placeholder\",\"label\",\"data-spy\"],[[20,[\"entity\",\"entityId\"]],\"Enter the identifier for the entity.\",\"Entity Identifier\",\"Identifier\"]]],false],[0,\"\\n\\n      \"],[1,[25,\"input/md-input\",null,[[\"value\",\"required\",\"placeholder\",\"label\",\"data-spy\"],[[20,[\"entity\",\"codeName\"]],true,\"Enter the name used to refer to the entity in schema definitions or application software.\",\"Entity Code Name\",\"Code Name\"]]],false],[0,\"\\n\\n      \"],[1,[25,\"input/md-textarea\",null,[[\"value\",\"required\",\"autoresize\",\"placeholder\",\"label\",\"data-spy\"],[[20,[\"entity\",\"definition\"]],true,true,\"A brief description of the entity.\",\"Entity Definition\",\"Definition\"]]],false],[0,\"\\n    \"],[8],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"title\",\"titleIcon\",\"collapsible\",\"collapsed\",\"data-spy\",\"shadow\"],[\"Setup\",\"gear\",false,false,\"Setup\",true]],{\"statements\":[[0,\"      \"],[6,\"div\"],[9,\"class\",\"md-table md-table-checkbox\"],[7],[0,\"\\n        \"],[6,\"div\"],[9,\"class\",\"md-table-title\"],[7],[0,\"Select options for Attributes\"],[8],[0,\"\\n        \"],[6,\"div\"],[9,\"class\",\"table-responsive\"],[7],[0,\"\\n          \"],[6,\"table\"],[9,\"class\",\"table table-striped table-hover form-inline md-table-align-middle\"],[7],[0,\"\\n            \"],[6,\"thead\"],[7],[0,\"\\n              \"],[6,\"tr\"],[7],[0,\"\\n                \"],[6,\"th\"],[7],[0,\"Import\"],[8],[0,\"\\n                \"],[6,\"th\"],[7],[0,\"Name\"],[8],[0,\"\\n                \"],[6,\"th\"],[7],[0,\"Data Type\"],[8],[0,\"\\n                \"],[6,\"th\"],[7],[0,\"Domain\"],[8],[0,\"\\n                \"],[6,\"th\"],[7],[0,\"Allow Null\"],[8],[0,\"\\n                \"],[6,\"th\"],[7],[0,\"Max/Min\"],[8],[0,\"\\n              \"],[8],[0,\"\\n            \"],[8],[0,\"\\n            \"],[6,\"tbody\"],[7],[0,\"\\n\"],[4,\"each\",[[25,\"-each-in\",[[20,[\"columns\"]]],null]],null,{\"statements\":[[0,\"                \"],[6,\"tr\"],[7],[0,\"\\n                  \"],[6,\"td\"],[7],[1,[25,\"input\",null,[[\"type\",\"name\",\"checked\"],[\"checkbox\",\"import\",[19,2,[\"import\"]]]]],false],[8],[0,\"\\n                  \"],[6,\"td\"],[9,\"class\",\"text-nowrap\"],[7],[0,\"\\n                    \"],[1,[25,\"input\",null,[[\"type\",\"value\",\"class\"],[\"text\",[19,2,[\"importName\"]],\"form-control\"]]],false],[0,\"\\n                    (\"],[1,[19,1,[]],false],[0,\")\\n                  \"],[8],[0,\"\\n                  \"],[6,\"td\"],[7],[0,\"\\n                    \"],[1,[25,\"input/md-codelist\",null,[[\"create\",\"required\",\"tooltip\",\"icon\",\"disabled\",\"allowClear\",\"showValidations\",\"mdCodeName\",\"path\",\"model\",\"placeholder\",\"class\"],[true,false,true,false,false,true,false,\"dataType\",\"importType\",[19,2,[]],\"Choose a data type\",\"inline-block\"]]],false],[0,\"\\n                  \"],[8],[0,\"\\n                  \"],[6,\"td\"],[7],[0,\"\\n                    \"],[1,[25,\"input\",null,[[\"type\",\"name\",\"checked\"],[\"checkbox\",\"hasDomain\",[19,2,[\"hasDomain\"]]]]],false],[0,\"\\n                    \"],[6,\"span\"],[10,\"class\",[26,[[25,\"if\",[[19,2,[\"domainWarn\"]],\"text-danger\"],null]]]],[7],[0,\"(\"],[1,[19,2,[\"domain\",\"length\"]],false],[0,\")\"],[8],[0,\"\\n                  \"],[8],[0,\"\\n                  \"],[6,\"td\"],[7],[0,\"\\n                    \"],[1,[25,\"input\",null,[[\"type\",\"name\",\"checked\"],[\"checkbox\",\"allowNull\",[19,2,[\"allowNull\"]]]]],false],[0,\"\\n                  \"],[8],[0,\"\\n                  \"],[6,\"td\"],[9,\"class\",\"text-nowrap\"],[7],[0,\"\\n                    \"],[1,[25,\"input\",null,[[\"type\",\"name\",\"checked\",\"disabled\"],[\"checkbox\",\"range\",[19,2,[\"range\"]],[19,2,[\"disableRange\"]]]]],false],[0,\"\\n\"],[4,\"if\",[[19,2,[\"isNumber\"]]],null,{\"statements\":[[0,\"                      (\"],[1,[25,\"round\",[[19,2,[\"min\"]]],[[\"decimals\"],[2]]],false],[0,\"/\"],[1,[25,\"round\",[[19,2,[\"max\"]]],[[\"decimals\"],[2]]],false],[0,\")\\n\"]],\"parameters\":[]},null],[0,\"                  \"],[8],[0,\"\\n                  \"],[6,\"td\"],[9,\"class\",\"text-nowrap\"],[7],[0,\"\\n                    \"],[6,\"div\"],[9,\"class\",\"pull-right\"],[7],[0,\"\\n                      \"],[6,\"button\"],[9,\"type\",\"button\"],[9,\"class\",\"btn btn-xs btn-info\"],[7],[0,\"\\n                        \"],[6,\"span\"],[9,\"class\",\"fa fa-eye\"],[7],[8],[0,\" Example\\n\\n\"],[4,\"ember-popover\",null,[[\"showOn\",\"showOn\",\"side\"],[\"mouseenter\",\"mouseleave\",\"left\"]],{\"statements\":[[4,\"each\",[[19,2,[\"example\"]]],null,{\"statements\":[[4,\"if\",[[25,\"present\",[[19,3,[]]],null]],null,{\"statements\":[[0,\"                              \"],[1,[19,3,[]],false],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"                              \"],[6,\"i\"],[9,\"class\",\"text-warning\"],[7],[0,\"NULL\"],[8],[0,\"\\n\"]],\"parameters\":[]}],[0,\"                            \"],[6,\"hr\"],[7],[8],[0,\"\\n\"]],\"parameters\":[3]},null]],\"parameters\":[]},null],[0,\"                      \"],[8],[0,\"\\n                    \"],[8],[0,\"\\n                  \"],[8],[0,\"\\n                \"],[8],[0,\"\\n\"]],\"parameters\":[1,2]},null],[0,\"            \"],[8],[0,\"\\n          \"],[8],[0,\"\\n        \"],[8],[0,\"\\n      \"],[8],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]}],[0,\"\\n\"],[4,\"if\",[[20,[\"processed\"]]],null,{\"statements\":[[0,\"  \"],[1,[25,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-subbar-extra\",[25,\"component\",[\"control/subbar-importcsv\"],[[\"doImport\",\"cancelImport\",\"actionContext\"],[[25,\"route-action\",[\"doImport\"],null],[25,\"route-action\",[\"cancelImport\"],null],[19,0,[]]]]]]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[1,[18,\"outlet\"],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/dictionary/show/edit/entity/import/template.hbs" } });
 });
 define('mdeditor/pods/dictionary/show/edit/entity/index/route', ['exports'], function (exports) {
   'use strict';
@@ -19077,22 +18668,18 @@ define('mdeditor/pods/dictionary/show/edit/index/route', ['exports', 'mdeditor/m
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route,
-        get = Ember.get,
-        getWithDefault = Ember.getWithDefault,
-        set = Ember.set;
-  exports.default = Route.extend(_scrollTo.default, {
+  exports.default = Ember.Route.extend(_scrollTo.default, {
     afterModel(m) {
       this._super(...arguments);
 
-      let model = get(m, 'json.dataDictionary');
-      set(model, 'citation', getWithDefault(model, 'citation', {}));
-      set(model, 'responsibleParty', getWithDefault(model, 'responsibleParty', {}));
-      set(model, 'subject', getWithDefault(model, 'subject', []));
-      set(model, 'recommendedUse', getWithDefault(model, 'recommendedUse', []));
-      set(model, 'locale', getWithDefault(model, 'locale', []));
-      set(model, 'domain', getWithDefault(model, 'domain', []));
-      set(model, 'entity', getWithDefault(model, 'entity', []));
+      let model = Ember.get(m, 'json.dataDictionary');
+      Ember.set(model, 'citation', Ember.getWithDefault(model, 'citation', {}));
+      Ember.set(model, 'responsibleParty', Ember.getWithDefault(model, 'responsibleParty', {}));
+      Ember.set(model, 'subject', Ember.getWithDefault(model, 'subject', []));
+      Ember.set(model, 'recommendedUse', Ember.getWithDefault(model, 'recommendedUse', []));
+      Ember.set(model, 'locale', Ember.getWithDefault(model, 'locale', []));
+      Ember.set(model, 'domain', Ember.getWithDefault(model, 'domain', []));
+      Ember.set(model, 'entity', Ember.getWithDefault(model, 'entity', []));
     },
     actions: {
       editCitation(scrollTo) {
@@ -19117,16 +18704,13 @@ define('mdeditor/pods/dictionary/show/edit/route', ['exports', 'mdeditor/mixins/
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const inject = Ember.inject,
-        get = Ember.get,
-        Route = Ember.Route;
-  exports.default = Route.extend(_hashPoll.default, {
+  exports.default = Ember.Route.extend(_hashPoll.default, {
     /**
      * The profile service
      *
      * @return {Ember.Service} profile
      */
-    profile: inject.service(),
+    profile: Ember.inject.service(),
 
     /**
      * The route activate hook, sets the profile to 'dictionary'.
@@ -19151,7 +18735,7 @@ define('mdeditor/pods/dictionary/show/edit/route', ['exports', 'mdeditor/mixins/
         model.save().then(() => {
           //this.refresh();
           //this.setModelHash();
-          get(this, 'flashMessages').success(`Saved Dictionary: ${model.get('title')}`);
+          Ember.get(this, 'flashMessages').success(`Saved Dictionary: ${model.get('title')}`);
 
           //this.transitionTo('contacts');
         });
@@ -19160,7 +18744,7 @@ define('mdeditor/pods/dictionary/show/edit/route', ['exports', 'mdeditor/mixins/
         let model = this.currentRouteModel();
         let message = `Cancelled changes to Dictionary: ${model.get('title')}`;
         let controller = this.controller;
-        let same = !controller.cancelScope || Ember.getOwner(this).lookup('controller:application').currentPath === get(controller, 'cancelScope.routeName');
+        let same = !controller.cancelScope || Ember.getOwner(this).lookup('controller:application').currentPath === Ember.get(controller, 'cancelScope.routeName');
 
         if (this.get('settings.data.autoSave')) {
           let json = model.get('jsonRevert');
@@ -19179,7 +18763,7 @@ define('mdeditor/pods/dictionary/show/edit/route', ['exports', 'mdeditor/mixins/
               });
             }
 
-            get(this, 'flashMessages').warning(message);
+            Ember.get(this, 'flashMessages').warning(message);
           }
 
           return;
@@ -19196,7 +18780,7 @@ define('mdeditor/pods/dictionary/show/edit/route', ['exports', 'mdeditor/mixins/
               controller.set('cancelScope', null);
             });
           }
-          get(this, 'flashMessages').warning(message);
+          Ember.get(this, 'flashMessages').warning(message);
         });
       }
     }
@@ -19208,7 +18792,7 @@ define("mdeditor/pods/dictionary/show/edit/template", ["exports"], function (exp
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "Rb8gYeS5", "block": "{\"symbols\":[\"spy\"],\"statements\":[[6,\"div\"],[9,\"class\",\"row md-section-secondary\"],[7],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"md-record-content col-sm-10\"],[7],[0,\"\\n    \"],[1,[18,\"outlet\"],false],[0,\"\\n\"],[0,\"  \"],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"col-sm-2\"],[7],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"md-control-sidebar hidden-print\"],[7],[0,\"\\n      \"],[1,[25,\"control/md-crud-buttons\",null,[[\"model\",\"doSave\",\"doCancel\",\"doDelete\",\"doCopy\"],[[20,[\"model\"]],\"saveDictionary\",\"cancelDictionary\",\"destroyDictionary\",\"copyDictionary\"]]],false],[0,\"\\n      \"],[1,[25,\"component\",[[20,[\"subbar\"]]],[[\"context\"],[[25,\"route-action\",[\"getContext\"],null]]]],false],[0,\"\\n      \"],[6,\"hr\"],[7],[8],[0,\"\\n      \"],[1,[25,\"from-elsewhere\",null,[[\"name\"],[\"md-subbar-extra\"]]],false],[0,\"\\n      \"],[1,[25,\"from-elsewhere\",null,[[\"name\"],[\"md-subbar-extra1\"]]],false],[0,\"\\n\\n\"],[4,\"from-elsewhere\",null,[[\"name\"],[\"md-scroll-spy-dict-edit\"]],{\"statements\":[[0,\"          \"],[1,[25,\"component\",[[19,1,[]]],[[\"offset\"],[145]]],false],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"    \"],[8],[0,\"\\n  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/dictionary/show/edit/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "hBilxQGx", "block": "{\"symbols\":[\"spy\"],\"statements\":[[6,\"div\"],[9,\"class\",\"row md-section-secondary\"],[7],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"md-record-content col-sm-10\"],[7],[0,\"\\n    \"],[1,[18,\"outlet\"],false],[0,\"\\n\"],[0,\"  \"],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"col-sm-2\"],[7],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"md-control-sidebar hidden-print\"],[7],[0,\"\\n      \"],[1,[25,\"control/md-crud-buttons\",null,[[\"model\",\"doSave\",\"doCancel\",\"doDelete\",\"doCopy\"],[[20,[\"model\"]],[25,\"route-action\",[\"saveDictionary\"],null],[25,\"route-action\",[\"cancelDictionary\"],null],[25,\"route-action\",[\"destroyDictionary\"],null],[25,\"route-action\",[\"copyDictionary\"],null]]]],false],[0,\"\\n      \"],[1,[25,\"component\",[[20,[\"subbar\"]]],[[\"context\"],[[25,\"route-action\",[\"getContext\"],null]]]],false],[0,\"\\n      \"],[6,\"hr\"],[7],[8],[0,\"\\n      \"],[1,[25,\"from-elsewhere\",null,[[\"name\"],[\"md-subbar-extra\"]]],false],[0,\"\\n      \"],[1,[25,\"from-elsewhere\",null,[[\"name\"],[\"md-subbar-extra1\"]]],false],[0,\"\\n\\n\"],[4,\"from-elsewhere\",null,[[\"name\"],[\"md-scroll-spy-dict-edit\"]],{\"statements\":[[0,\"          \"],[1,[25,\"component\",[[19,1,[]]],[[\"offset\"],[145]]],false],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"    \"],[8],[0,\"\\n  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/dictionary/show/edit/template.hbs" } });
 });
 define('mdeditor/pods/dictionary/show/index/route', ['exports', 'mdeditor/mixins/scroll-to'], function (exports, _scrollTo) {
   'use strict';
@@ -19238,7 +18822,7 @@ define("mdeditor/pods/dictionary/show/index/template", ["exports"], function (ex
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "YSjegLgZ", "block": "{\"symbols\":[\"dictionary\",\"entity\",\"index\",\"domain\",\"index\",\"party\",\"contact\",\"index\"],\"statements\":[[6,\"div\"],[9,\"class\",\"row md-no-spotlight\"],[7],[0,\"\\n\"],[4,\"with\",[[20,[\"model\",\"json\",\"dataDictionary\"]]],null,{\"statements\":[[0,\"  \"],[6,\"div\"],[9,\"class\",\"col-sm-9 col-md-offset-1\"],[7],[0,\"\\n    \"],[6,\"h3\"],[7],[0,\"\\n      \"],[1,[25,\"fa-icon\",[\"book\"],[[\"class\"],[\"text-muted\"]]],false],[0,\"\\n\\n      Viewing Dictionary: \"],[1,[20,[\"model\",\"title\"]],false],[0,\"\\n      \"],[1,[25,\"control/md-status\",null,[[\"model\"],[[20,[\"model\"]]]]],false],[0,\"\\n    \"],[8],[0,\"\\n\\n\"],[4,\"layout/md-card\",null,[[\"shadow\",\"muted\",\"title\",\"bodyIsRow\",\"collapsible\",\"btnText\",\"btnClass\",\"btnAction\",\"btnIcon\",\"data-spy\"],[false,true,\"Main\",false,true,\"Edit\",\"success\",[25,\"route-action\",[\"linkTo\",\"dictionary.show.edit\"],null],\"pencil\",\"Main\"]],{\"statements\":[[0,\"      \"],[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n        \"],[6,\"dl\"],[9,\"class\",\"dl-horizontal col-xxl-6\"],[7],[0,\"\\n            \"],[1,[25,\"control/md-definition\",null,[[\"title\",\"text\"],[\"Dictionary Id\",[20,[\"model\",\"json\",\"dictionaryId\"]]]]],false],[0,\"\\n            \"],[1,[25,\"control/md-definition\",null,[[\"title\",\"text\"],[\"Dictionary Title\",[20,[\"model\",\"title\"]]]]],false],[0,\"\\n            \"],[1,[25,\"control/md-definition\",null,[[\"title\",\"text\"],[\"Subject\",[25,\"if\",[[19,1,[\"subject\"]],[25,\"join\",[\", \",[19,1,[\"subject\"]]],null]],null]]]],false],[0,\"\\n        \"],[8],[0,\"\\n        \"],[6,\"dl\"],[9,\"class\",\"dl-horizontal col-xxl-6\"],[7],[0,\"\\n\"],[4,\"control/md-definition\",null,[[\"title\"],[\"Responsible Party\"]],{\"statements\":[[4,\"with\",[[19,1,[\"responsibleParty\"]]],null,{\"statements\":[[0,\"                  \"],[1,[25,\"if\",[[19,6,[\"role\"]],[19,6,[\"role\"]],\"<em>No Roles assigned.</em>\"],null],true],[0,\"\\n                  (\\n\"],[4,\"each\",[[19,6,[\"party\"]]],null,{\"statements\":[[0,\"                      \"],[1,[25,\"if\",[[19,8,[]],\", \"],null],false],[0,\" \"],[1,[25,\"control/md-contact-link\",null,[[\"contactId\"],[[19,7,[\"contactId\"]]]]],false],[0,\"\\n\"]],\"parameters\":[7,8]},{\"statements\":[[0,\"                      \"],[6,\"em\"],[9,\"class\",\"text-muted\"],[7],[0,\"No Contacts assigned.\"],[8],[0,\"\\n\"]],\"parameters\":[]}],[0,\"                  )\\n                  \"],[6,\"br\"],[7],[8],[0,\"\\n\"]],\"parameters\":[6]},{\"statements\":[[0,\"                  \"],[6,\"em\"],[9,\"class\",\"text-muted\"],[7],[0,\"No responsibility assigned.\"],[8],[0,\"\\n\"]],\"parameters\":[]}]],\"parameters\":[]},null],[0,\"        \"],[8],[0,\"\\n        \"],[6,\"div\"],[9,\"class\",\"col-xs-12\"],[7],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"shadow\",\"muted\",\"plain\",\"shadow\"],[false,true,true,false]],{\"statements\":[[0,\"            \"],[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n              \"],[6,\"div\"],[9,\"class\",\"text-info col-xs-6 col-sm-3\"],[7],[0,\"Locale\"],[8],[0,\"\\n              \"],[6,\"div\"],[9,\"class\",\"col-xs-6 col-sm-3\"],[7],[0,\"\\n                \"],[6,\"label\"],[9,\"class\",\"text-nowrap\"],[7],[0,\"Character Set:\"],[8],[0,\"\\n                \"],[6,\"span\"],[9,\"class\",\"text-nowrap\"],[7],[1,[25,\"get-property\",[[19,1,[\"locale\"]],\"characterSet\"],null],false],[8],[0,\"\\n              \"],[8],[0,\"\\n              \"],[6,\"div\"],[9,\"class\",\"col-xs-6 col-sm-3\"],[7],[0,\"\\n                \"],[6,\"label\"],[7],[0,\"Country:\"],[8],[0,\"\\n                \"],[6,\"span\"],[9,\"class\",\"text-nowrap\"],[7],[1,[25,\"get-property\",[[19,1,[\"locale\"]],\"country\"],null],false],[8],[0,\"\\n              \"],[8],[0,\"\\n              \"],[6,\"div\"],[9,\"class\",\"col-xs-6 col-sm-3\"],[7],[0,\"\\n                \"],[6,\"label\"],[7],[0,\"Language:\"],[8],[0,\"\\n                \"],[6,\"span\"],[7],[1,[25,\"get-property\",[[19,1,[\"locale\"]],\"language\"],null],false],[8],[0,\"\\n              \"],[8],[0,\"\\n            \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"        \"],[8],[0,\"\\n      \"],[8],[0,\"\\n\\n\"],[4,\"layout/md-card\",null,[[\"shadow\",\"muted\",\"title\",\"collapsible\",\"scroll\",\"maximizable\",\"class\"],[false,true,\"Description\",true,true,true,\"md-embedded\"]],{\"statements\":[[0,\"          \"],[1,[25,\"md-markdown\",[[19,1,[\"description\"]],\"Description not provided!\"],null],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n    \"],[1,[25,\"object/md-citation/preview\",null,[[\"profilePath\",\"citation\",\"muted\",\"editCitation\",\"data-spy\"],[\"dictionary.main.citation\",[19,1,[\"citation\"]],true,\"editCitation\",\"Citation\"]]],false],[0,\"\\n\\n\"],[4,\"layout/md-card\",null,[[\"shadow\",\"muted\",\"title\",\"bodyIsRow\",\"collapsible\",\"btnText\",\"btnClass\",\"btnAction\",\"btnIcon\",\"data-spy\"],[false,true,\"Domains\",false,true,\"Edit\",\"success\",[25,\"route-action\",[\"linkTo\",\"dictionary.show.edit.domain\"],null],\"pencil\",\"Domains\"]],{\"statements\":[[4,\"if\",[[19,1,[\"domain\"]]],null,{\"statements\":[[0,\"      \"],[6,\"table\"],[9,\"class\",\"table table-striped\"],[7],[0,\"\\n        \"],[6,\"thead\"],[7],[0,\"\\n          \"],[6,\"tr\"],[7],[0,\"\\n            \"],[6,\"th\"],[7],[0,\"#\"],[8],[0,\"\\n\"],[0,\"            \"],[6,\"th\"],[7],[0,\"Name\"],[8],[0,\"\\n            \"],[6,\"th\"],[7],[0,\"Description\"],[8],[0,\"\\n            \"],[6,\"th\"],[7],[8],[0,\"\\n          \"],[8],[0,\"\\n        \"],[8],[0,\"\\n        \"],[6,\"tbody\"],[7],[0,\"\\n\"],[4,\"each\",[[19,1,[\"domain\"]]],null,{\"statements\":[[0,\"            \"],[6,\"tr\"],[7],[0,\"\\n              \"],[6,\"th\"],[9,\"scope\",\"row\"],[7],[1,[19,5,[]],false],[8],[0,\"\\n\"],[0,\"              \"],[6,\"td\"],[7],[1,[25,\"get-property\",[[19,4,[]],\"codeName\"],null],false],[8],[0,\"\\n              \"],[6,\"td\"],[7],[4,\"if\",[[19,4,[\"description\"]]],null,{\"statements\":[[0,\" \"],[1,[25,\"word-limit\",[[19,4,[\"description\"]]],null],false],[0,\" \"]],\"parameters\":[]},{\"statements\":[[0,\" \"],[6,\"em\"],[7],[0,\"Not Described\"],[8]],\"parameters\":[]}],[8],[0,\"\\n              \"],[6,\"td\"],[7],[4,\"link-to\",[\"dictionary.show.edit.domain.edit\",[19,5,[]]],[[\"class\"],[\"btn btn-xs btn-success\"]],{\"statements\":[[0,\"Edit\"]],\"parameters\":[]},null],[8],[0,\"\\n\\n            \"],[8],[0,\"\\n\"]],\"parameters\":[4,5]},null],[0,\"        \"],[8],[0,\"\\n      \"],[8],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"      \"],[6,\"div\"],[9,\"class\",\"alert alert-info\"],[7],[0,\"\\n        \"],[6,\"h3\"],[7],[0,\"No Domains found.\\n        \"],[8],[0,\"\\n      \"],[8],[0,\"\\n\"]],\"parameters\":[]}]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"shadow\",\"muted\",\"title\",\"bodyIsRow\",\"collapsible\",\"btnText\",\"btnClass\",\"btnAction\",\"btnIcon\",\"data-spy\"],[false,true,\"Entities\",false,true,\"Edit\",\"success\",[25,\"route-action\",[\"linkTo\",\"dictionary.show.edit.entity\"],null],\"pencil\",\"Entities\"]],{\"statements\":[[4,\"if\",[[19,1,[\"entity\"]]],null,{\"statements\":[[0,\"      \"],[6,\"table\"],[9,\"class\",\"table table-striped\"],[7],[0,\"\\n        \"],[6,\"thead\"],[7],[0,\"\\n          \"],[6,\"tr\"],[7],[0,\"\\n            \"],[6,\"th\"],[7],[0,\"#\"],[8],[0,\"\\n\"],[0,\"            \"],[6,\"th\"],[7],[0,\"Name\"],[8],[0,\"\\n            \"],[6,\"th\"],[7],[0,\"Description\"],[8],[0,\"\\n            \"],[6,\"th\"],[7],[8],[0,\"\\n          \"],[8],[0,\"\\n        \"],[8],[0,\"\\n        \"],[6,\"tbody\"],[7],[0,\"\\n\"],[4,\"each\",[[19,1,[\"entity\"]]],null,{\"statements\":[[0,\"            \"],[6,\"tr\"],[7],[0,\"\\n              \"],[6,\"th\"],[9,\"scope\",\"row\"],[7],[1,[19,3,[]],false],[8],[0,\"\\n\"],[0,\"              \"],[6,\"td\"],[7],[1,[25,\"get-property\",[[19,2,[]],\"codeName\"],null],false],[8],[0,\"\\n              \"],[6,\"td\"],[7],[4,\"if\",[[19,2,[\"description\"]]],null,{\"statements\":[[0,\" \"],[1,[25,\"word-limit\",[[19,2,[\"description\"]]],null],false],[0,\" \"]],\"parameters\":[]},{\"statements\":[[0,\" \"],[6,\"em\"],[7],[0,\"Not Described\"],[8]],\"parameters\":[]}],[8],[0,\"\\n              \"],[6,\"td\"],[7],[4,\"link-to\",[\"dictionary.show.edit.entity.edit\",[19,3,[]]],[[\"class\"],[\"btn btn-xs btn-success\"]],{\"statements\":[[0,\"Edit\"]],\"parameters\":[]},null],[8],[0,\"\\n\\n            \"],[8],[0,\"\\n\\n\"]],\"parameters\":[2,3]},null],[0,\"        \"],[8],[0,\"\\n      \"],[8],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"      \"],[6,\"div\"],[9,\"class\",\"alert alert-info\"],[7],[0,\"\\n        \"],[6,\"h3\"],[7],[0,\"No Entities found.\\n        \"],[8],[0,\"\\n      \"],[8],[0,\"\\n\"]],\"parameters\":[]}]],\"parameters\":[]},null],[0,\"  \"],[8],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"col-sm-2\"],[7],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"md-control-sidebar\"],[7],[0,\"\\n\"],[4,\"control/md-crud-buttons\",null,[[\"model\",\"doDelete\",\"doCopy\"],[[20,[\"model\"]],\"destroyDictionary\",\"copyDictionary\"]],{\"statements\":[[4,\"link-to\",[\"dictionary.show.edit\",[20,[\"model\",\"id\"]]],[[\"class\"],[\"btn btn-lg btn-success\"]],{\"statements\":[[0,\"          \"],[1,[25,\"fa-icon\",[\"pencil\"],null],false],[0,\" Edit\"]],\"parameters\":[]},null],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"      \"],[6,\"hr\"],[7],[8],[0,\"\\n\"],[4,\"link-to\",[\"dictionaries\"],[[\"class\"],[\"btn btn-lg btn-primary btn-block\"]],{\"statements\":[[0,\"        \"],[1,[25,\"fa-icon\",[\"list\"],null],false],[0,\" Show List\"]],\"parameters\":[]},null],[0,\"\\n      \"],[1,[25,\"control/md-scroll-spy\",null,[[\"scrollInit\",\"setScrollTo\"],[[20,[\"scrollTo\"]],[25,\"route-action\",[\"setScrollTo\"],null]]]],false],[0,\"\\n    \"],[8],[0,\"\\n  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/dictionary/show/index/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "qVh8mCuq", "block": "{\"symbols\":[\"dictionary\",\"entity\",\"index\",\"domain\",\"index\",\"party\",\"contact\",\"index\"],\"statements\":[[6,\"div\"],[9,\"class\",\"row md-no-spotlight\"],[7],[0,\"\\n\"],[4,\"with\",[[20,[\"model\",\"json\",\"dataDictionary\"]]],null,{\"statements\":[[0,\"  \"],[6,\"div\"],[9,\"class\",\"col-sm-9 col-md-offset-1\"],[7],[0,\"\\n    \"],[6,\"h3\"],[7],[0,\"\\n      \"],[1,[25,\"fa-icon\",[\"book\"],[[\"class\"],[\"text-muted\"]]],false],[0,\"\\n\\n      Viewing Dictionary: \"],[1,[20,[\"model\",\"title\"]],false],[0,\"\\n      \"],[1,[25,\"control/md-status\",null,[[\"model\"],[[20,[\"model\"]]]]],false],[0,\"\\n    \"],[8],[0,\"\\n\\n\"],[4,\"layout/md-card\",null,[[\"shadow\",\"muted\",\"title\",\"bodyIsRow\",\"collapsible\",\"btnText\",\"btnClass\",\"btnAction\",\"btnIcon\",\"data-spy\"],[false,true,\"Main\",false,true,\"Edit\",\"success\",[25,\"route-action\",[\"linkTo\",\"dictionary.show.edit\"],null],\"pencil\",\"Main\"]],{\"statements\":[[0,\"      \"],[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n        \"],[6,\"dl\"],[9,\"class\",\"dl-horizontal col-xxl-6\"],[7],[0,\"\\n            \"],[1,[25,\"control/md-definition\",null,[[\"title\",\"text\"],[\"Dictionary Id\",[20,[\"model\",\"json\",\"dictionaryId\"]]]]],false],[0,\"\\n            \"],[1,[25,\"control/md-definition\",null,[[\"title\",\"text\"],[\"Dictionary Title\",[20,[\"model\",\"title\"]]]]],false],[0,\"\\n            \"],[1,[25,\"control/md-definition\",null,[[\"title\",\"text\"],[\"Subject\",[25,\"if\",[[19,1,[\"subject\"]],[25,\"join\",[\", \",[19,1,[\"subject\"]]],null]],null]]]],false],[0,\"\\n        \"],[8],[0,\"\\n        \"],[6,\"dl\"],[9,\"class\",\"dl-horizontal col-xxl-6\"],[7],[0,\"\\n\"],[4,\"control/md-definition\",null,[[\"title\"],[\"Responsible Party\"]],{\"statements\":[[4,\"with\",[[19,1,[\"responsibleParty\"]]],null,{\"statements\":[[0,\"                  \"],[1,[25,\"if\",[[19,6,[\"role\"]],[19,6,[\"role\"]],\"<em>No Roles assigned.</em>\"],null],true],[0,\"\\n                  (\\n\"],[4,\"each\",[[19,6,[\"party\"]]],null,{\"statements\":[[0,\"                      \"],[1,[25,\"if\",[[19,8,[]],\", \"],null],false],[0,\" \"],[1,[25,\"control/md-contact-link\",null,[[\"contactId\"],[[19,7,[\"contactId\"]]]]],false],[0,\"\\n\"]],\"parameters\":[7,8]},{\"statements\":[[0,\"                      \"],[6,\"em\"],[9,\"class\",\"text-muted\"],[7],[0,\"No Contacts assigned.\"],[8],[0,\"\\n\"]],\"parameters\":[]}],[0,\"                  )\\n                  \"],[6,\"br\"],[7],[8],[0,\"\\n\"]],\"parameters\":[6]},{\"statements\":[[0,\"                  \"],[6,\"em\"],[9,\"class\",\"text-muted\"],[7],[0,\"No responsibility assigned.\"],[8],[0,\"\\n\"]],\"parameters\":[]}]],\"parameters\":[]},null],[0,\"        \"],[8],[0,\"\\n        \"],[6,\"div\"],[9,\"class\",\"col-xs-12\"],[7],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"shadow\",\"muted\",\"plain\",\"shadow\"],[false,true,true,false]],{\"statements\":[[0,\"            \"],[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n              \"],[6,\"div\"],[9,\"class\",\"text-info col-xs-6 col-sm-3\"],[7],[0,\"Locale\"],[8],[0,\"\\n              \"],[6,\"div\"],[9,\"class\",\"col-xs-6 col-sm-3\"],[7],[0,\"\\n                \"],[6,\"label\"],[9,\"class\",\"text-nowrap\"],[7],[0,\"Character Set:\"],[8],[0,\"\\n                \"],[6,\"span\"],[9,\"class\",\"text-nowrap\"],[7],[1,[25,\"get-property\",[[19,1,[\"locale\"]],\"characterSet\"],null],false],[8],[0,\"\\n              \"],[8],[0,\"\\n              \"],[6,\"div\"],[9,\"class\",\"col-xs-6 col-sm-3\"],[7],[0,\"\\n                \"],[6,\"label\"],[7],[0,\"Country:\"],[8],[0,\"\\n                \"],[6,\"span\"],[9,\"class\",\"text-nowrap\"],[7],[1,[25,\"get-property\",[[19,1,[\"locale\"]],\"country\"],null],false],[8],[0,\"\\n              \"],[8],[0,\"\\n              \"],[6,\"div\"],[9,\"class\",\"col-xs-6 col-sm-3\"],[7],[0,\"\\n                \"],[6,\"label\"],[7],[0,\"Language:\"],[8],[0,\"\\n                \"],[6,\"span\"],[7],[1,[25,\"get-property\",[[19,1,[\"locale\"]],\"language\"],null],false],[8],[0,\"\\n              \"],[8],[0,\"\\n            \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"        \"],[8],[0,\"\\n      \"],[8],[0,\"\\n\\n\"],[4,\"layout/md-card\",null,[[\"shadow\",\"muted\",\"title\",\"collapsible\",\"scroll\",\"maximizable\",\"class\"],[false,true,\"Description\",true,true,true,\"md-embedded\"]],{\"statements\":[[0,\"          \"],[1,[25,\"md-markdown\",[[19,1,[\"description\"]],\"Description not provided!\"],null],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n    \"],[1,[25,\"object/md-citation/preview\",null,[[\"profilePath\",\"citation\",\"muted\",\"editCitation\",\"data-spy\"],[\"dictionary.main.citation\",[19,1,[\"citation\"]],true,\"editCitation\",\"Citation\"]]],false],[0,\"\\n\\n\"],[4,\"layout/md-card\",null,[[\"shadow\",\"muted\",\"title\",\"bodyIsRow\",\"collapsible\",\"btnText\",\"btnClass\",\"btnAction\",\"btnIcon\",\"data-spy\"],[false,true,\"Domains\",false,true,\"Edit\",\"success\",[25,\"route-action\",[\"linkTo\",\"dictionary.show.edit.domain\"],null],\"pencil\",\"Domains\"]],{\"statements\":[[4,\"if\",[[19,1,[\"domain\"]]],null,{\"statements\":[[0,\"      \"],[6,\"table\"],[9,\"class\",\"table table-striped\"],[7],[0,\"\\n        \"],[6,\"thead\"],[7],[0,\"\\n          \"],[6,\"tr\"],[7],[0,\"\\n            \"],[6,\"th\"],[7],[0,\"#\"],[8],[0,\"\\n\"],[0,\"            \"],[6,\"th\"],[7],[0,\"Name\"],[8],[0,\"\\n            \"],[6,\"th\"],[7],[0,\"Description\"],[8],[0,\"\\n            \"],[6,\"th\"],[7],[8],[0,\"\\n          \"],[8],[0,\"\\n        \"],[8],[0,\"\\n        \"],[6,\"tbody\"],[7],[0,\"\\n\"],[4,\"each\",[[19,1,[\"domain\"]]],null,{\"statements\":[[0,\"            \"],[6,\"tr\"],[7],[0,\"\\n              \"],[6,\"th\"],[9,\"scope\",\"row\"],[7],[1,[19,5,[]],false],[8],[0,\"\\n\"],[0,\"              \"],[6,\"td\"],[7],[1,[25,\"get-property\",[[19,4,[]],\"codeName\"],null],false],[8],[0,\"\\n              \"],[6,\"td\"],[7],[4,\"if\",[[19,4,[\"description\"]]],null,{\"statements\":[[0,\" \"],[1,[25,\"word-limit\",[[19,4,[\"description\"]]],null],false],[0,\" \"]],\"parameters\":[]},{\"statements\":[[0,\" \"],[6,\"em\"],[7],[0,\"Not Described\"],[8]],\"parameters\":[]}],[8],[0,\"\\n              \"],[6,\"td\"],[7],[4,\"link-to\",[\"dictionary.show.edit.domain.edit\",[19,5,[]]],[[\"class\"],[\"btn btn-xs btn-success\"]],{\"statements\":[[0,\"Edit\"]],\"parameters\":[]},null],[8],[0,\"\\n\\n            \"],[8],[0,\"\\n\"]],\"parameters\":[4,5]},null],[0,\"        \"],[8],[0,\"\\n      \"],[8],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"      \"],[6,\"div\"],[9,\"class\",\"alert alert-info\"],[7],[0,\"\\n        \"],[6,\"h3\"],[7],[0,\"No Domains found.\\n        \"],[8],[0,\"\\n      \"],[8],[0,\"\\n\"]],\"parameters\":[]}]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"shadow\",\"muted\",\"title\",\"bodyIsRow\",\"collapsible\",\"btnText\",\"btnClass\",\"btnAction\",\"btnIcon\",\"data-spy\"],[false,true,\"Entities\",false,true,\"Edit\",\"success\",[25,\"route-action\",[\"linkTo\",\"dictionary.show.edit.entity\"],null],\"pencil\",\"Entities\"]],{\"statements\":[[4,\"if\",[[19,1,[\"entity\"]]],null,{\"statements\":[[0,\"      \"],[6,\"table\"],[9,\"class\",\"table table-striped\"],[7],[0,\"\\n        \"],[6,\"thead\"],[7],[0,\"\\n          \"],[6,\"tr\"],[7],[0,\"\\n            \"],[6,\"th\"],[7],[0,\"#\"],[8],[0,\"\\n\"],[0,\"            \"],[6,\"th\"],[7],[0,\"Name\"],[8],[0,\"\\n            \"],[6,\"th\"],[7],[0,\"Description\"],[8],[0,\"\\n            \"],[6,\"th\"],[7],[8],[0,\"\\n          \"],[8],[0,\"\\n        \"],[8],[0,\"\\n        \"],[6,\"tbody\"],[7],[0,\"\\n\"],[4,\"each\",[[19,1,[\"entity\"]]],null,{\"statements\":[[0,\"            \"],[6,\"tr\"],[7],[0,\"\\n              \"],[6,\"th\"],[9,\"scope\",\"row\"],[7],[1,[19,3,[]],false],[8],[0,\"\\n\"],[0,\"              \"],[6,\"td\"],[7],[1,[25,\"get-property\",[[19,2,[]],\"codeName\"],null],false],[8],[0,\"\\n              \"],[6,\"td\"],[7],[4,\"if\",[[19,2,[\"description\"]]],null,{\"statements\":[[0,\" \"],[1,[25,\"word-limit\",[[19,2,[\"description\"]]],null],false],[0,\" \"]],\"parameters\":[]},{\"statements\":[[0,\" \"],[6,\"em\"],[7],[0,\"Not Described\"],[8]],\"parameters\":[]}],[8],[0,\"\\n              \"],[6,\"td\"],[7],[4,\"link-to\",[\"dictionary.show.edit.entity.edit\",[19,3,[]]],[[\"class\"],[\"btn btn-xs btn-success\"]],{\"statements\":[[0,\"Edit\"]],\"parameters\":[]},null],[8],[0,\"\\n\\n            \"],[8],[0,\"\\n\\n\"]],\"parameters\":[2,3]},null],[0,\"        \"],[8],[0,\"\\n      \"],[8],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"      \"],[6,\"div\"],[9,\"class\",\"alert alert-info\"],[7],[0,\"\\n        \"],[6,\"h3\"],[7],[0,\"No Entities found.\\n        \"],[8],[0,\"\\n      \"],[8],[0,\"\\n\"]],\"parameters\":[]}]],\"parameters\":[]},null],[0,\"  \"],[8],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"col-sm-2\"],[7],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"md-control-sidebar\"],[7],[0,\"\\n\"],[4,\"control/md-crud-buttons\",null,[[\"model\",\"doDelete\",\"doCopy\"],[[20,[\"model\"]],[25,\"route-action\",[\"destroyDictionary\"],null],[25,\"route-action\",[\"copyDictionary\"],null]]],{\"statements\":[[4,\"link-to\",[\"dictionary.show.edit\",[20,[\"model\",\"id\"]]],[[\"class\"],[\"btn btn-lg btn-success\"]],{\"statements\":[[0,\"          \"],[1,[25,\"fa-icon\",[\"pencil\"],null],false],[0,\" Edit\"]],\"parameters\":[]},null],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"      \"],[6,\"hr\"],[7],[8],[0,\"\\n\"],[4,\"link-to\",[\"dictionaries\"],[[\"class\"],[\"btn btn-lg btn-primary btn-block\"]],{\"statements\":[[0,\"        \"],[1,[25,\"fa-icon\",[\"list\"],null],false],[0,\" Show List\"]],\"parameters\":[]},null],[0,\"\\n      \"],[1,[25,\"control/md-scroll-spy\",null,[[\"scrollInit\",\"setScrollTo\"],[[20,[\"scrollTo\"]],[25,\"route-action\",[\"setScrollTo\"],null]]]],false],[0,\"\\n    \"],[8],[0,\"\\n  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/dictionary/show/index/template.hbs" } });
 });
 define('mdeditor/pods/dictionary/show/route', ['exports'], function (exports) {
   'use strict';
@@ -19246,12 +18830,8 @@ define('mdeditor/pods/dictionary/show/route', ['exports'], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const inject = Ember.inject,
-        Route = Ember.Route,
-        get = Ember.get,
-        copy = Ember.copy;
-  exports.default = Route.extend({
-    flashMessages: inject.service(),
+  exports.default = Ember.Route.extend({
+    flashMessages: Ember.inject.service(),
 
     model: function model(params) {
       let rec = this.store.peekRecord('dictionary', params.dictionary_id);
@@ -19272,15 +18852,15 @@ define('mdeditor/pods/dictionary/show/route', ['exports'], function (exports) {
       destroyDictionary: function destroyDictionary() {
         let model = this.currentRouteModel();
         model.destroyRecord().then(() => {
-          get(this, 'flashMessages').success(`Deleted Dictionary: ${model.get('title')}`);
+          Ember.get(this, 'flashMessages').success(`Deleted Dictionary: ${model.get('title')}`);
           this.replaceWith('dictionaries');
         });
       },
 
       copyDictionary: function copyDictionary() {
 
-        get(this, 'flashMessages').success(`Copied Dictionary: ${this.currentRouteModel().get('title')}`);
-        this.transitionTo('dictionary.new.id', copy(this.currentRouteModel()));
+        Ember.get(this, 'flashMessages').success(`Copied Dictionary: ${this.currentRouteModel().get('title')}`);
+        this.transitionTo('dictionary.new.id', Ember.copy(this.currentRouteModel()));
       }
     }
   });
@@ -19323,22 +18903,17 @@ define('mdeditor/pods/export/route', ['exports', 'moment', 'mdeditor/mixins/scro
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const get = Ember.get,
-        EmObject = Ember.Object,
-        defineProperty = Ember.defineProperty,
-        computed = Ember.computed,
-        inject = Ember.inject;
 
 
   const modelTypes = ['records', 'contacts', 'dictionaries', 'settings'];
 
   exports.default = Ember.Route.extend(_scrollTo.default, {
-    mdjson: inject.service(),
-    settings: inject.service(),
+    mdjson: Ember.inject.service(),
+    settings: Ember.inject.service(),
     model() {
       //const store = this.get('store');
 
-      return EmObject.create({
+      return Ember.Object.create({
         records: this.modelFor('application'),
         settings: this.get('settings.data')
       });
@@ -19347,15 +18922,15 @@ define('mdeditor/pods/export/route', ['exports', 'moment', 'mdeditor/mixins/scro
       // Call _super for default behavior
       this._super(controller, model);
       // Implement your custom setup after
-      defineProperty(this.controller, 'hasSelected', computed('model.records.0.@each._selected', 'model.records.1.@each._selected', 'model.records.2.@each._selected', 'model.settings._selected', function () {
+      Ember.defineProperty(this.controller, 'hasSelected', Ember.computed('model.{records.0.@each._selected,records.1.@each._selected,records.2.@each._selected,settings._selected}', function () {
         return this.store.peekAll('record').filterBy('_selected').get('length') + this.store.peekAll('contact').filterBy('_selected').get('length') + this.store.peekAll('dictionary').filterBy('_selected').get('length') + this.store.peekAll('setting').filterBy('_selected').get('length') > 0;
       }));
-      defineProperty(this.controller, 'hasSelectedRecords', computed('model.records.0.@each._selected', function () {
+      Ember.defineProperty(this.controller, 'hasSelectedRecords', Ember.computed('model.records.0.@each._selected', function () {
         return this.store.peekAll('record').filterBy('_selected').get('length') > 0;
       }));
     },
 
-    columns: EmObject.create({
+    columns: Ember.Object.create({
       record: [{
         propertyName: 'title',
         title: 'Title'
@@ -19402,7 +18977,7 @@ define('mdeditor/pods/export/route', ['exports', 'moment', 'mdeditor/mixins/scro
 
         if (asMdjson) {
           let records = store.peekAll('record').filterBy('_selected').map(itm => {
-            return get(this, 'mdjson').formatRecord(itm);
+            return Ember.get(this, 'mdjson').formatRecord(itm);
           });
 
           window.saveAs(new Blob([JSON.stringify(records)], {
@@ -19425,10 +19000,10 @@ define('mdeditor/pods/export/route', ['exports', 'moment', 'mdeditor/mixins/scro
         }
       },
       getColumns(type) {
-        return get(this, 'columns').get(type);
+        return Ember.get(this, 'columns').get(type);
       },
       hasSelected() {
-        return get(this, 'hasSelected');
+        return Ember.get(this, 'hasSelected');
       }
     }
   });
@@ -19467,23 +19042,22 @@ define('mdeditor/pods/import/route', ['exports', 'ember-local-storage/adapters/b
 
   const generateIdForRecord = _base.default.create().generateIdForRecord;
 
-  const Route = Ember.Route,
-        get = Ember.get,
-        set = Ember.set,
-        Promise = Ember.RSVP.Promise,
-        inject = Ember.inject,
-        EmObject = Ember.Object,
-        assign = Ember.assign,
-        isArray = Ember.isArray,
-        $ = Ember.$,
-        A = Ember.A,
-        merge = Ember.merge,
-        computed = Ember.computed;
-  exports.default = Route.extend(_scrollTo.default, {
-    flashMessages: inject.service(),
-    jsonvalidator: inject.service(),
-    settings: inject.service(),
+  exports.default = Ember.Route.extend(_scrollTo.default, {
+    flashMessages: Ember.inject.service(),
+    jsonvalidator: Ember.inject.service(),
+    settings: Ember.inject.service(),
+    ajax: Ember.inject.service(),
 
+    init() {
+      this._super(...arguments);
+
+      this.icons = {
+        records: 'file',
+        dictionaries: 'book',
+        contacts: 'users',
+        settings: 'gear'
+      };
+    },
     setupController(controller, model) {
       // Call _super for default behavior
       this._super(controller, model);
@@ -19493,13 +19067,13 @@ define('mdeditor/pods/import/route', ['exports', 'ember-local-storage/adapters/b
     },
 
     model() {
-      return EmObject.create({
+      return Ember.Object.create({
         files: false,
         merge: true
       });
     },
 
-    apiURL: computed.or('settings.data.mdTranslatorAPI', 'defaultAPI'),
+    apiURL: Ember.computed.or('settings.data.mdTranslatorAPI', 'defaultAPI'),
 
     getTitle(record) {
       let raw = record.attributes.json;
@@ -19517,41 +19091,36 @@ define('mdeditor/pods/import/route', ['exports', 'ember-local-storage/adapters/b
       }
     },
 
-    icons: {
-      records: 'file',
-      dictionaries: 'book',
-      contacts: 'users',
-      settings: 'gear'
-    },
-
     formatMdJSON(json) {
       let contact = json.contact,
           dataDictionary = json.dataDictionary;
 
-      let data = A();
-      let template = EmObject.extend({
+      let data = Ember.A();
+      let template = Ember.Object.extend({
         init() {
           this._super(...arguments);
 
-          set(this, 'id', generateIdForRecord());
+          Ember.set(this, 'id', generateIdForRecord());
         },
-        attributes: {
-          json: null
-          //date-updated: '2017-05-18T21:21:34.446Z'
-        },
+        attributes: Ember.computed(function () {
+          return {
+            json: null //,
+            //date-updated: '2017-05-18T21:21:34.446Z'
+          };
+        }),
         type: null
       });
 
       contact.forEach(item => {
         data.pushObject(template.create({
           attributes: {
-            json: JSON.stringify(merge(_contact.JsonDefault.create(), item))
+            json: JSON.stringify(Ember.merge(_contact.JsonDefault.create(), item))
           },
           type: 'contacts'
         }));
       });
 
-      if (get(json, 'metadata.metadataInfo.metadataIdentifier') === undefined) {
+      if (Ember.get(json, 'metadata.metadataInfo.metadataIdentifier') === undefined) {
         json.metadata.metadataInfo.metadataIdentifier = {
           identifier: (0, _v.default)(),
           namespace: 'urn:uuid'
@@ -19588,7 +19157,7 @@ define('mdeditor/pods/import/route', ['exports', 'ember-local-storage/adapters/b
 
       let files;
 
-      if (isArray(data.json.data)) {
+      if (Ember.isArray(data.json.data)) {
         files = this.mapEditorJSON(data);
       } else {
         //assume it's raw mdJSON for now
@@ -19601,9 +19170,9 @@ define('mdeditor/pods/import/route', ['exports', 'ember-local-storage/adapters/b
     },
 
     mapMdJSON(data) {
-      let map = A();
+      let map = Ember.A();
 
-      if (isArray(data.json)) {
+      if (Ember.isArray(data.json)) {
         data.json.forEach(item => {
           map = map.concat(this.formatMdJSON(item));
         });
@@ -19611,7 +19180,7 @@ define('mdeditor/pods/import/route', ['exports', 'ember-local-storage/adapters/b
         map = map.concat(this.formatMdJSON(data.json));
       }
 
-      set(data, 'json.data', map);
+      Ember.set(data, 'json.data', map);
 
       return this.mapRecords(map);
     },
@@ -19628,7 +19197,7 @@ define('mdeditor/pods/import/route', ['exports', 'ember-local-storage/adapters/b
         item.meta.icon = this.icons[item.type];
         item.meta.export = true;
 
-        map[item.type].push(EmObject.create(item));
+        map[item.type].push(Ember.Object.create(item));
         return map;
       }, {});
     },
@@ -19637,7 +19206,7 @@ define('mdeditor/pods/import/route', ['exports', 'ember-local-storage/adapters/b
       let file = data.file,
           json = data.json;
 
-      let jv = get(this, 'jsonvalidator.validator');
+      let jv = Ember.get(this, 'jsonvalidator.validator');
       let valid = jv.validate('jsonapi', json);
 
       if (!valid) {
@@ -19647,7 +19216,7 @@ define('mdeditor/pods/import/route', ['exports', 'ember-local-storage/adapters/b
       return this.mapRecords(json.data);
     },
 
-    columns: computed(function () {
+    columns: Ember.computed(function () {
       let route = this;
 
       return [{
@@ -19675,7 +19244,7 @@ define('mdeditor/pods/import/route', ['exports', 'ember-local-storage/adapters/b
 
     showPreview(model) {
       let json = {};
-      assign(json, model.attributes);
+      Ember.assign(json, model.attributes);
 
       if (model.attributes.json) {
         json.json = JSON.parse(model.attributes.json);
@@ -19689,7 +19258,7 @@ define('mdeditor/pods/import/route', ['exports', 'ember-local-storage/adapters/b
 
     actions: {
       getColumns() {
-        return get(this, 'columns');
+        return Ember.get(this, 'columns');
       },
       getIcon(type) {
         return this.get('icons')[type];
@@ -19698,13 +19267,14 @@ define('mdeditor/pods/import/route', ['exports', 'ember-local-storage/adapters/b
         let json;
         let url = this.get('apiURL');
         let controller = this.controller;
+        let cmp = this;
 
-        new Promise((resolve, reject) => {
+        new Ember.RSVP.Promise((resolve, reject) => {
           if (file.type.match(/.*\/xml$/)) {
-            set(controller, 'isTranslating', true);
-            get(this, 'flashMessages').info(`Translation service provided by ${url}.`);
+            Ember.set(controller, 'isTranslating', true);
+            Ember.get(this, 'flashMessages').info(`Translation service provided by ${url}.`);
 
-            $.ajax(url, {
+            this.get('ajax').request(url, {
               type: 'POST',
               data: {
                 //file: JSON.stringify(cleaner.clean(json)),
@@ -19714,15 +19284,15 @@ define('mdeditor/pods/import/route', ['exports', 'ember-local-storage/adapters/b
                 validate: 'normal',
                 format: 'json'
               },
-              context: this
+              context: cmp
             }).then(function (response) {
-              set(controller, 'isTranslating', false);
+              Ember.set(controller, 'isTranslating', false);
 
               if (response.success) {
                 resolve({
                   json: JSON.parse(response.writerOutput),
                   file: file,
-                  route: this
+                  route: cmp
                 });
 
                 return;
@@ -19730,7 +19300,7 @@ define('mdeditor/pods/import/route', ['exports', 'ember-local-storage/adapters/b
 
               reject(`Failed to translate file: ${file.name}. Is it valid FGDC CSDGM XML?`);
             }, response => {
-              set(controller, 'isTranslating', false);
+              Ember.set(controller, 'isTranslating', false);
 
               reject(`mdTranslator Server error: ${response.status}: ${response.statusText}. Is your file valid FGDC CSDGM XML?`);
             });
@@ -19744,27 +19314,27 @@ define('mdeditor/pods/import/route', ['exports', 'ember-local-storage/adapters/b
             resolve({
               json: json,
               file: file,
-              route: this
+              route: cmp
             });
           }
         }).then(data => {
           //determine file type and map
-          this.mapJSON(data);
+          cmp.mapJSON(data);
         }).catch(reason => {
           //catch any errors
-          get(this, 'flashMessages').danger(reason);
+          Ember.get(cmp, 'flashMessages').danger(reason);
           return false;
         }).finally(() => {
-          $('.import-file-picker input:file').val('');
+          Ember.$('.import-file-picker input:file').val('');
         });
       },
 
       readFromUri() {
         let uri = this.controller.get('importUri');
 
-        set(this.controller, 'isLoading', true);
+        Ember.set(this.controller, 'isLoading', true);
 
-        $.ajax(uri, {
+        this.get('ajax').request(uri, {
           type: 'GET',
           context: this,
           dataType: 'text',
@@ -19774,7 +19344,7 @@ define('mdeditor/pods/import/route', ['exports', 'ember-local-storage/adapters/b
           if (response && textStatus === 'success') {
             let json;
 
-            new Promise((resolve, reject) => {
+            new Ember.RSVP.Promise((resolve, reject) => {
               try {
                 json = JSON.parse(response);
               } catch (e) {
@@ -19791,22 +19361,22 @@ define('mdeditor/pods/import/route', ['exports', 'ember-local-storage/adapters/b
               this.mapJSON(data);
             }).catch(reason => {
               //catch any errors
-              get(this, 'flashMessages').danger(reason);
+              Ember.get(this, 'flashMessages').danger(reason);
               return false;
             }).finally(() => {
-              set(this.controller, 'isLoading', false);
-              $('.md-import-picker input:file').val('');
+              Ember.set(this.controller, 'isLoading', false);
+              Ember.$('.md-import-picker input:file').val('');
             });
           } else {
-            set(this.controller, 'errors', response.messages);
-            get(this, 'flashMessages').danger('Import error!');
+            Ember.set(this.controller, 'errors', response.messages);
+            Ember.get(this, 'flashMessages').danger('Import error!');
           }
         }, response => {
           let error = ` Error retrieving the mdJSON: ${response.status}: ${response.statusText}`;
 
-          set(this.controller, 'xhrError', error);
-          set(this.controller, 'isLoading', false);
-          get(this, 'flashMessages').danger(error);
+          Ember.set(this.controller, 'xhrError', error);
+          Ember.set(this.controller, 'isLoading', false);
+          Ember.get(this, 'flashMessages').danger(error);
         });
       },
       importData() {
@@ -19819,7 +19389,7 @@ define('mdeditor/pods/import/route', ['exports', 'ember-local-storage/adapters/b
           truncate: !this.currentRouteModel().get('merge'),
           json: false
         }).then(() => {
-          get(this, 'flashMessages').success(`Imported data. Records were
+          Ember.get(this, 'flashMessages').success(`Imported data. Records were
               ${this.currentRouteModel().get('merge') ? 'merged' : 'replaced'}.`, {
             extendedTimeout: 1500
           });
@@ -19844,7 +19414,7 @@ define('mdeditor/pods/import/route', ['exports', 'ember-local-storage/adapters/b
               json: false
             }).then(() => {
               settingService.setup();
-              get(this, 'flashMessages').success(`Imported Settings.`, {
+              Ember.get(this, 'flashMessages').success(`Imported Settings.`, {
                 extendedTimeout: 1500
               });
             });
@@ -19866,7 +19436,7 @@ define("mdeditor/pods/import/template", ["exports"], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "g9hKHhaM", "block": "{\"symbols\":[\"key\",\"item\"],\"statements\":[[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n\\n  \"],[6,\"div\"],[10,\"class\",[26,[\"col-sm-\",[25,\"if\",[[20,[\"model\",\"files\"]],\"9\",\"12\"],null],\" col-xxl-\",[25,\"if\",[[20,[\"model\",\"files\"]],\"10\",\"12\"],null]]]],[7],[0,\"\\n\\n    \"],[6,\"h3\"],[9,\"class\",\"text-info\"],[7],[0,\"Import Data\"],[8],[0,\"\\n\"],[4,\"if\",[[20,[\"model\",\"preview\"]]],null,{\"statements\":[[0,\"      \"],[6,\"h3\"],[7],[1,[25,\"capitalize\",[[25,\"singularize\",[[20,[\"model\",\"preview\",\"model\",\"type\"]]],null]],null],false],[0,\": \"],[1,[20,[\"model\",\"preview\",\"model\",\"id\"]],false],[8],[0,\"\\n      \"],[1,[25,\"control/md-json-viewer\",null,[[\"class\",\"json\",\"modal\"],[\"md-import-preview\",[20,[\"model\",\"preview\",\"json\"]],false]]],false],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[4,\"unless\",[[20,[\"model\",\"files\"]]],null,{\"statements\":[[4,\"file-picker\",null,[[\"class\",\"fileLoaded\",\"preview\",\"accept\",\"readAs\"],[\"md-file-picker md-import-picker\",\"readData\",false,\".json,.xml\",\"readAsText\"]],{\"statements\":[[0,\"          \"],[6,\"button\"],[9,\"type\",\"button\"],[9,\"class\",\"btn btn-lg btn-info btn-block\"],[7],[0,\"\\n            \"],[6,\"p\"],[7],[1,[25,\"fa-icon\",[\"bullseye\"],null],false],[0,\" Click or Drop a file here to import data.\"],[8],[0,\"\\n            \"],[6,\"hr\"],[7],[8],[0,\"\\n\"],[4,\"unless\",[[20,[\"isTranslating\"]]],null,{\"statements\":[[0,\"            \"],[6,\"div\"],[9,\"class\",\"inline-block text-left small\"],[7],[0,\"\\n              These file formats are supported: \"],[6,\"br\"],[7],[8],[0,\"\\n              \"],[6,\"ul\"],[7],[0,\"\\n                \"],[6,\"li\"],[7],[0,\"mdEditor (.json)\"],[8],[0,\"\\n                \"],[6,\"li\"],[7],[0,\"mdJSON (.json)\"],[8],[0,\"\\n                \"],[6,\"li\"],[7],[0,\"FGDC CSDGM (.xml)\"],[8],[0,\"\\n              \"],[8],[0,\"\\n            \"],[8],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"              \"],[1,[25,\"fa-icon\",[\"spinner\"],[[\"spin\"],[true]]],false],[0,\" Translating to mdJSON. Please wait... \"],[6,\"br\"],[7],[8],[0,\"\\n\"]],\"parameters\":[]}],[0,\"          \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[6,\"hr\"],[7],[8],[0,\"\\n        \"],[6,\"h3\"],[7],[0,\"Import from Online URL\"],[8],[0,\"\\n        \"],[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n          \"],[6,\"div\"],[9,\"class\",\"col-xxl-6\"],[7],[0,\"\\n            \"],[6,\"div\"],[9,\"class\",\"input-group input-group-lg\"],[7],[0,\"\\n              \"],[1,[25,\"input\",null,[[\"type\",\"value\",\"placeholder\",\"class\"],[\"url\",[20,[\"importUri\"]],\"Enter online link to mdJSON\",\"form-control\"]]],false],[0,\"\\n              \"],[6,\"span\"],[9,\"class\",\"input-group-btn\"],[7],[0,\"\\n                  \"],[6,\"button\"],[9,\"class\",\"btn btn-primary\"],[9,\"type\",\"button\"],[3,\"action\",[[19,0,[]],[25,\"route-action\",[\"readFromUri\"],null]]],[7],[0,\"\\n\"],[4,\"if\",[[20,[\"isLoading\"]]],null,{\"statements\":[[0,\"                      \"],[1,[25,\"fa-icon\",[\"spinner\"],[[\"spin\"],[true]]],false],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"                      \"],[1,[25,\"fa-icon\",[\"cloud-download\"],null],false],[0,\"\\n\"]],\"parameters\":[]}],[0,\"                    Import\"],[8],[0,\"\\n              \"],[8],[0,\"\\n            \"],[8],[0,\"\\n          \"],[8],[0,\"\\n        \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[4,\"each\",[[25,\"-each-in\",[[20,[\"model\",\"files\"]]],null]],null,{\"statements\":[[4,\"layout/md-card\",null,[[\"title\",\"titleIcon\",\"collapsible\",\"collapsed\",\"data-spy\",\"shadow\"],[[25,\"capitalize\",[[19,1,[]]],null],[25,\"compute\",[[25,\"route-action\",[\"getIcon\",[19,1,[]]],null]],null],true,false,[25,\"capitalize\",[[19,1,[]]],null],true]],{\"statements\":[[0,\"        \"],[1,[25,\"control/md-record-table\",null,[[\"data\",\"dataColumns\",\"actionsColumn\",\"selectProperty\",\"showColumnsDropdown\",\"showComponentFooter\",\"showGlobalFilter\",\"showPageSize\",\"useFilteringByColumns\"],[[19,2,[]],[25,\"compute\",[[25,\"route-action\",[\"getColumns\"],null],[19,1,[]]],null],false,\"meta.export\",[25,\"not-eq\",[[19,1,[]],\"settings\"],null],[25,\"not-eq\",[[19,1,[]],\"settings\"],null],[25,\"not-eq\",[[19,1,[]],\"settings\"],null],[25,\"not-eq\",[[19,1,[]],\"settings\"],null],[25,\"not-eq\",[[19,1,[]],\"settings\"],null]]]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[1,2]},null]],\"parameters\":[]}],[0,\"  \"],[8],[0,\"\\n\\n\"],[4,\"if\",[[20,[\"model\",\"files\"]]],null,{\"statements\":[[0,\"    \"],[6,\"div\"],[9,\"class\",\"col-sm-3 col-xxl-2\"],[7],[0,\"\\n      \"],[6,\"div\"],[9,\"class\",\"md-control-sidebar\"],[7],[0,\"\\n\"],[4,\"if\",[[20,[\"model\",\"preview\"]]],null,{\"statements\":[[0,\"          \"],[6,\"button\"],[9,\"type\",\"button\"],[9,\"class\",\"btn btn-lg btn-primary btn-block md-btn-responsive\"],[3,\"action\",[[19,0,[]],\"closePreview\"]],[7],[1,[25,\"fa-icon\",[\"arrow-left\"],null],false],[0,\" Close Preview\"],[8],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[4,\"if\",[[20,[\"model\",\"files\"]]],null,{\"statements\":[[0,\"          \"],[6,\"button\"],[9,\"type\",\"button\"],[9,\"class\",\"btn btn-lg btn-success btn-block md-btn-responsive\"],[3,\"action\",[[19,0,[]],\"importData\"]],[7],[1,[25,\"fa-icon\",[\"sign-in\"],null],false],[0,\" Click to Import Data\"],[8],[0,\"\\n          \"],[6,\"button\"],[9,\"type\",\"button\"],[9,\"class\",\"btn btn-lg btn-danger btn-block md-btn-responsive\"],[3,\"action\",[[19,0,[]],\"cancelImport\"]],[7],[1,[25,\"fa-icon\",[\"times\"],null],false],[0,\" Cancel Import\"],[8],[0,\"\\n          \"],[6,\"div\"],[9,\"class\",\"btn btn-block\"],[7],[0,\"\\n            \"],[1,[25,\"x-toggle\",null,[[\"value\",\"onToggle\",\"showLabels\",\"onLabel\",\"offLabel\",\"size\",\"theme\"],[[20,[\"model\",\"merge\"]],[25,\"mut\",[[20,[\"model\",\"merge\"]]],null],true,\"Merge::true\",\"Replace::false\",\"medium\",\"default\"]]],false],[0,\"\\n          \"],[8],[0,\"\\n          \"],[6,\"hr\"],[7],[8],[0,\"\\n          \"],[1,[25,\"control/md-scroll-spy\",null,[[\"offset\",\"scrollInit\",\"setScrollTo\"],[130,[20,[\"scrollTo\"]],[25,\"route-action\",[\"setScrollTo\"],null]]]],false],[0,\"\\n        \"]],\"parameters\":[]},null]],\"parameters\":[]}],[0,\"      \"],[8],[0,\"\\n    \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[8],[0,\"\\n\"],[1,[18,\"outlet\"],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/import/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "Q7r9yHyJ", "block": "{\"symbols\":[\"key\",\"item\"],\"statements\":[[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n\\n  \"],[6,\"div\"],[10,\"class\",[26,[\"col-sm-\",[25,\"if\",[[20,[\"model\",\"files\"]],\"9\",\"12\"],null],\" col-xxl-\",[25,\"if\",[[20,[\"model\",\"files\"]],\"10\",\"12\"],null]]]],[7],[0,\"\\n\\n    \"],[6,\"h3\"],[9,\"class\",\"text-info\"],[7],[0,\"Import Data\"],[8],[0,\"\\n\"],[4,\"if\",[[20,[\"model\",\"preview\"]]],null,{\"statements\":[[0,\"      \"],[6,\"h3\"],[7],[1,[25,\"capitalize\",[[25,\"singularize\",[[20,[\"model\",\"preview\",\"model\",\"type\"]]],null]],null],false],[0,\": \"],[1,[20,[\"model\",\"preview\",\"model\",\"id\"]],false],[8],[0,\"\\n      \"],[1,[25,\"control/md-json-viewer\",null,[[\"class\",\"json\",\"modal\"],[\"md-import-preview\",[20,[\"model\",\"preview\",\"json\"]],false]]],false],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[4,\"unless\",[[20,[\"model\",\"files\"]]],null,{\"statements\":[[4,\"file-picker\",null,[[\"class\",\"fileLoaded\",\"preview\",\"accept\",\"readAs\"],[\"md-file-picker md-import-picker\",\"readData\",false,\".json,.xml\",\"readAsText\"]],{\"statements\":[[0,\"          \"],[6,\"button\"],[9,\"type\",\"button\"],[9,\"class\",\"btn btn-lg btn-info btn-block\"],[7],[0,\"\\n            \"],[6,\"p\"],[7],[1,[25,\"fa-icon\",[\"bullseye\"],null],false],[0,\" Click or Drop a file here to import data.\"],[8],[0,\"\\n            \"],[6,\"hr\"],[7],[8],[0,\"\\n\"],[4,\"unless\",[[20,[\"isTranslating\"]]],null,{\"statements\":[[0,\"            \"],[6,\"div\"],[9,\"class\",\"inline-block text-left small\"],[7],[0,\"\\n              These file formats are supported: \"],[6,\"br\"],[7],[8],[0,\"\\n              \"],[6,\"ul\"],[7],[0,\"\\n                \"],[6,\"li\"],[7],[0,\"mdEditor (.json)\"],[8],[0,\"\\n                \"],[6,\"li\"],[7],[0,\"mdJSON (.json)\"],[8],[0,\"\\n                \"],[6,\"li\"],[7],[0,\"FGDC CSDGM (.xml)\"],[8],[0,\"\\n              \"],[8],[0,\"\\n            \"],[8],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"              \"],[1,[25,\"fa-icon\",[\"spinner\"],[[\"spin\"],[true]]],false],[0,\" Translating to mdJSON. Please wait... \"],[6,\"br\"],[7],[8],[0,\"\\n\"]],\"parameters\":[]}],[0,\"          \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"        \"],[6,\"hr\"],[7],[8],[0,\"\\n        \"],[6,\"h3\"],[7],[0,\"Import from Online URL\"],[8],[0,\"\\n        \"],[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n          \"],[6,\"div\"],[9,\"class\",\"col-xxl-6\"],[7],[0,\"\\n            \"],[6,\"div\"],[9,\"class\",\"input-group input-group-lg\"],[7],[0,\"\\n              \"],[1,[25,\"input\",null,[[\"type\",\"value\",\"placeholder\",\"class\"],[\"url\",[20,[\"importUri\"]],\"Enter online link to mdJSON\",\"form-control\"]]],false],[0,\"\\n              \"],[6,\"span\"],[9,\"class\",\"input-group-btn\"],[7],[0,\"\\n                  \"],[6,\"button\"],[9,\"class\",\"btn btn-primary\"],[9,\"type\",\"button\"],[3,\"action\",[[19,0,[]],[25,\"route-action\",[\"readFromUri\"],null]]],[7],[0,\"\\n\"],[4,\"if\",[[20,[\"isLoading\"]]],null,{\"statements\":[[0,\"                      \"],[1,[25,\"fa-icon\",[\"spinner\"],[[\"spin\"],[true]]],false],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"                      \"],[1,[25,\"fa-icon\",[\"cloud-download\"],null],false],[0,\"\\n\"]],\"parameters\":[]}],[0,\"                    Import\"],[8],[0,\"\\n              \"],[8],[0,\"\\n            \"],[8],[0,\"\\n          \"],[8],[0,\"\\n        \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[4,\"each\",[[25,\"-each-in\",[[20,[\"model\",\"files\"]]],null]],null,{\"statements\":[[4,\"layout/md-card\",null,[[\"title\",\"titleIcon\",\"collapsible\",\"collapsed\",\"data-spy\",\"shadow\"],[[25,\"capitalize\",[[19,1,[]]],null],[25,\"compute\",[[25,\"route-action\",[\"getIcon\",[19,1,[]]],null]],null],true,false,[25,\"capitalize\",[[19,1,[]]],null],true]],{\"statements\":[[0,\"        \"],[1,[25,\"control/md-record-table\",null,[[\"data\",\"dataColumns\",\"actionsColumn\",\"selectProperty\",\"showColumnsDropdown\",\"showComponentFooter\",\"showGlobalFilter\",\"showPageSize\",\"useFilteringByColumns\"],[[19,2,[]],[25,\"compute\",[[25,\"route-action\",[\"getColumns\"],null],[19,1,[]]],null],false,\"meta.export\",[25,\"not-eq\",[[19,1,[]],\"settings\"],null],[25,\"not-eq\",[[19,1,[]],\"settings\"],null],[25,\"not-eq\",[[19,1,[]],\"settings\"],null],[25,\"not-eq\",[[19,1,[]],\"settings\"],null],[25,\"not-eq\",[[19,1,[]],\"settings\"],null]]]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[1,2]},null]],\"parameters\":[]}],[0,\"  \"],[8],[0,\"\\n\\n\"],[4,\"if\",[[20,[\"model\",\"files\"]]],null,{\"statements\":[[0,\"    \"],[6,\"div\"],[9,\"class\",\"col-sm-3 col-xxl-2\"],[7],[0,\"\\n      \"],[6,\"div\"],[9,\"class\",\"md-control-sidebar\"],[7],[0,\"\\n\"],[4,\"if\",[[20,[\"model\",\"preview\"]]],null,{\"statements\":[[0,\"          \"],[6,\"button\"],[9,\"type\",\"button\"],[9,\"class\",\"btn btn-lg btn-primary btn-block md-btn-responsive\"],[3,\"action\",[[19,0,[]],\"closePreview\"]],[7],[1,[25,\"fa-icon\",[\"arrow-left\"],null],false],[0,\" Close Preview\"],[8],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[4,\"if\",[[20,[\"model\",\"files\"]]],null,{\"statements\":[[0,\"          \"],[6,\"button\"],[9,\"type\",\"button\"],[9,\"class\",\"btn btn-lg btn-success btn-block md-btn-responsive\"],[3,\"action\",[[19,0,[]],\"importData\"]],[7],[1,[25,\"fa-icon\",[\"sign-in\"],null],false],[0,\" Click to Import Data\"],[8],[0,\"\\n          \"],[6,\"button\"],[9,\"type\",\"button\"],[9,\"class\",\"btn btn-lg btn-danger btn-block md-btn-responsive\"],[3,\"action\",[[19,0,[]],\"cancelImport\"]],[7],[1,[25,\"fa-icon\",[\"times\"],null],false],[0,\" Cancel Import\"],[8],[0,\"\\n          \"],[6,\"div\"],[9,\"class\",\"btn btn-block\"],[7],[0,\"\\n            \"],[1,[25,\"x-toggle\",null,[[\"value\",\"onToggle\",\"showLabels\",\"onLabel\",\"offLabel\",\"size\",\"theme\"],[[20,[\"model\",\"merge\"]],[25,\"mut\",[[20,[\"model\",\"merge\"]]],null],true,\"Merge::true\",\"Replace::false\",\"medium\",\"default\"]]],false],[0,\"\\n          \"],[8],[0,\"\\n          \"],[6,\"hr\"],[7],[8],[0,\"\\n          \"],[1,[25,\"control/md-scroll-spy\",null,[[\"offset\",\"scrollInit\",\"setScrollTo\"],[130,[20,[\"scrollTo\"]],[25,\"route-action\",[\"setScrollTo\"],null]]]],false],[0,\"\\n        \"]],\"parameters\":[]},null]],\"parameters\":[]}],[0,\"      \"],[8],[0,\"\\n    \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[8],[0,\"\\n\"],[1,[18,\"outlet\"],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/import/template.hbs" } });
 });
 define('mdeditor/pods/not-found/route', ['exports'], function (exports) {
   'use strict';
@@ -19881,9 +19451,13 @@ define('mdeditor/pods/not-found/route', ['exports'], function (exports) {
       });
     },
 
-    breadCrumb: {
-      title: 'Page Not Found',
-      linkable: false
+    init() {
+      this._super(...arguments);
+
+      this.breadCrumb = {
+        title: 'Page Not Found',
+        linkable: false
+      };
     },
 
     redirect() {
@@ -19909,8 +19483,7 @@ define('mdeditor/pods/publish/index/route', ['exports'], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route;
-  exports.default = Route.extend({});
+  exports.default = Ember.Route.extend({});
 });
 define("mdeditor/pods/publish/index/template", ["exports"], function (exports) {
   "use strict";
@@ -19926,10 +19499,8 @@ define('mdeditor/pods/publish/route', ['exports'], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route,
-        service = Ember.inject.service;
-  exports.default = Route.extend({
-    publish: service('publish'),
+  exports.default = Ember.Route.extend({
+    publish: Ember.inject.service('publish'),
     model: function model() {
       return this.get('publish.catalogs');
     }
@@ -19950,9 +19521,13 @@ define('mdeditor/pods/record/index/route', ['exports'], function (exports) {
     value: true
   });
   exports.default = Ember.Route.extend({
-    breadCrumb: {
-      title: 'Record',
-      linkable: false
+    init() {
+      this._super(...arguments);
+
+      this.breadCrumb = {
+        title: 'Record',
+        linkable: false
+      };
     }
   });
 });
@@ -19970,7 +19545,7 @@ define("mdeditor/pods/record/nav/template", ["exports"], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "NM4IMrKF", "block": "{\"symbols\":[],\"statements\":[[6,\"li\"],[7],[0,\"\\n\"],[4,\"link-to\",[\"record.show.translate\"],null,{\"statements\":[[0,\"    \"],[6,\"span\"],[9,\"class\",\"fa fa-retweet\"],[7],[8],[0,\"\\n    \"],[6,\"span\"],[9,\"class\",\"md-nav-text\"],[7],[0,\"Translate\"],[8],[0,\"\\n    \"],[1,[25,\"tooltip-on-element\",null,[[\"text\",\"side\",\"class\"],[\"Translate\",\"bottom\",\"md-nav-tip\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[8],[0,\"\\n\"],[1,[18,\"outlet\"],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/nav/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "gkdM1ANE", "block": "{\"symbols\":[],\"statements\":[[6,\"li\"],[7],[0,\"\\n\"],[4,\"link-to\",[\"record.show.translate\"],null,{\"statements\":[[0,\"    \"],[6,\"span\"],[9,\"class\",\"fa fa-retweet\"],[7],[8],[0,\"\\n    \"],[6,\"span\"],[9,\"class\",\"md-nav-text\"],[7],[0,\"Translate\"],[8],[0,\"\\n    \"],[1,[25,\"ember-tooltip\",null,[[\"text\",\"side\",\"tooltipClassName\"],[\"Translate\",\"bottom\",\"ember-tooltip md-nav-tip\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[8],[0,\"\\n\"],[1,[18,\"outlet\"],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/nav/template.hbs" } });
 });
 define('mdeditor/pods/record/new/id/route', ['exports', 'ember-data'], function (exports, _emberData) {
   'use strict';
@@ -19978,11 +19553,8 @@ define('mdeditor/pods/record/new/id/route', ['exports', 'ember-data'], function 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const inject = Ember.inject,
-        get = Ember.get,
-        Route = Ember.Route;
   const AdapterError = _emberData.default.AdapterError;
-  exports.default = Route.extend({
+  exports.default = Ember.Route.extend({
     model(params) {
       let record = this.store.peekRecord('record', params.record_id);
 
@@ -20000,7 +19572,7 @@ define('mdeditor/pods/record/new/id/route', ['exports', 'ember-data'], function 
      *
      * @return {Ember.Service} profile
      */
-    profile: inject.service(),
+    profile: Ember.inject.service(),
 
     deactivate() {
       // We grab the model loaded in this route
@@ -20076,7 +19648,7 @@ define('mdeditor/pods/record/new/id/route', ['exports', 'ember-data'], function 
 
       error(error) {
         if (error instanceof AdapterError) {
-          get(this, 'flashMessages').warning('No record found! Re-directing to new record...');
+          Ember.get(this, 'flashMessages').warning('No record found! Re-directing to new record...');
           // redirect to new
           this.replaceWith('record.new');
         } else {
@@ -20134,9 +19706,13 @@ define('mdeditor/pods/record/new/route', ['exports'], function (exports) {
     value: true
   });
   exports.default = Ember.Route.extend({
-    breadCrumb: {
-      title: 'New',
-      linkable: false
+    init() {
+      this._super(...arguments);
+
+      this.breadCrumb = {
+        title: 'New',
+        linkable: false
+      };
     }
   });
 });
@@ -20147,9 +19723,13 @@ define('mdeditor/pods/record/route', ['exports'], function (exports) {
     value: true
   });
   exports.default = Ember.Route.extend({
-    breadCrumb: {
-      title: 'Record',
-      linkable: false
+    init() {
+      this._super(...arguments);
+
+      this.breadCrumb = {
+        title: 'Record',
+        linkable: false
+      };
     }
   });
 });
@@ -20159,16 +19739,12 @@ define('mdeditor/pods/record/show/edit/associated/index/route', ['exports'], fun
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route,
-        set = Ember.set,
-        getWithDefault = Ember.getWithDefault,
-        get = Ember.get;
-  exports.default = Route.extend({
+  exports.default = Ember.Route.extend({
     afterModel(m) {
       this._super(...arguments);
 
-      let model = get(m, 'json.metadata');
-      set(model, 'associatedResource', getWithDefault(model, 'associatedResource', []));
+      let model = Ember.get(m, 'json.metadata');
+      Ember.set(model, 'associatedResource', Ember.getWithDefault(model, 'associatedResource', []));
     },
 
     setupController: function setupController() {
@@ -20207,29 +19783,29 @@ define('mdeditor/pods/record/show/edit/associated/resource/index/route', ['expor
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route,
-        get = Ember.get,
-        set = Ember.set,
-        inject = Ember.inject;
-  exports.default = Route.extend(_scrollTo.default, {
-    slider: inject.service(),
 
-    sliderColumns: [{
-      propertyName: 'recordId',
-      title: 'ID'
-    }, {
-      propertyName: 'title',
-      title: 'Title'
-    }, {
-      propertyName: 'defaultType',
-      title: 'Type'
-    }],
+
+  const sliderColumns = [{
+    propertyName: 'recordId',
+    title: 'ID'
+  }, {
+    propertyName: 'title',
+    title: 'Title'
+  }, {
+    propertyName: 'defaultType',
+    title: 'Type'
+  }];
+
+  exports.default = Ember.Route.extend(_scrollTo.default, {
+    slider: Ember.inject.service(),
+
+    sliderColumns: sliderColumns,
     setupController: function setupController() {
       // Call _super for default behavior
       this._super(...arguments);
 
       this.controller.set('parentModel', this.modelFor('record.show.edit'));
-      this.controller.set('resourceId', get(this.controllerFor('record.show.edit.associated.resource'), 'resourceId'));
+      this.controller.set('resourceId', Ember.get(this.controllerFor('record.show.edit.associated.resource'), 'resourceId'));
     },
     actions: {
       insertResource(selected) {
@@ -20239,7 +19815,7 @@ define('mdeditor/pods/record/show/edit/associated/resource/index/route', ['expor
         if (rec) {
           let resource = this.currentRouteModel();
 
-          set(resource, 'mdRecordId', get(rec, 'recordId'));
+          Ember.set(resource, 'mdRecordId', Ember.get(rec, 'recordId'));
         }
 
         //this.controller.set('slider', false);
@@ -20278,15 +19854,10 @@ define('mdeditor/pods/record/show/edit/associated/resource/route', ['exports'], 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route,
-        get = Ember.get,
-        isEmpty = Ember.isEmpty,
-        isArray = Ember.isArray,
-        computed = Ember.computed;
-  exports.default = Route.extend({
-    breadCrumb: computed('resourceId', function () {
+  exports.default = Ember.Route.extend({
+    breadCrumb: Ember.computed('resourceId', function () {
       return {
-        title: get(this, 'resourceId'),
+        title: Ember.get(this, 'resourceId'),
         linkable: true
       };
     }),
@@ -20302,7 +19873,7 @@ define('mdeditor/pods/record/show/edit/associated/resource/route', ['exports'], 
       this._super(...arguments);
 
       //this.controller.set('parentModel', this.modelFor('record.show.edit.main'));
-      this.controller.set('resourceId', get(this, 'resourceId'));
+      this.controller.set('resourceId', Ember.get(this, 'resourceId'));
       this.controllerFor('record.show.edit').setProperties({
         onCancel: this.setupModel,
         cancelScope: this
@@ -20310,13 +19881,13 @@ define('mdeditor/pods/record/show/edit/associated/resource/route', ['exports'], 
     },
 
     setupModel() {
-      let resourceId = get(this, 'resourceId');
+      let resourceId = Ember.get(this, 'resourceId');
       let model = this.modelFor('record.show.edit');
       let objects = model.get('json.metadata.associatedResource');
-      let resource = resourceId && isArray(objects) ? objects.objectAt(resourceId) : undefined;
+      let resource = resourceId && Ember.isArray(objects) ? objects.objectAt(resourceId) : undefined;
 
       //make sure the identifier exists
-      if (isEmpty(resource)) {
+      if (Ember.isEmpty(resource)) {
         Ember.get(this, 'flashMessages').warning('No Associated Resource object found! Re-directing to list...');
         this.replaceWith('record.show.edit.associated');
 
@@ -20357,16 +19928,12 @@ define('mdeditor/pods/record/show/edit/constraint/index/route', ['exports'], fun
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route,
-        set = Ember.set,
-        getWithDefault = Ember.getWithDefault,
-        get = Ember.get;
-  exports.default = Route.extend({
+  exports.default = Ember.Route.extend({
     afterModel(m) {
       this._super(...arguments);
 
-      let model = get(m, 'json.metadata.resourceInfo');
-      set(model, 'constraint', getWithDefault(model, 'constraint', []));
+      let model = Ember.get(m, 'json.metadata.resourceInfo');
+      Ember.set(model, 'constraint', Ember.getWithDefault(model, 'constraint', []));
     },
 
     setupController: function setupController() {
@@ -20424,8 +19991,20 @@ define('mdeditor/pods/record/show/edit/dictionary/route', ['exports', 'npm:uuid/
     value: true
   });
   exports.default = Ember.Route.extend({
-    breadCrumb: {
-      title: 'Dictionaries'
+    init() {
+      this._super(...arguments);
+
+      this.breadCrumb = {
+        title: 'Dictionaries'
+      };
+
+      this.columns = [{
+        propertyName: 'title',
+        title: 'Title'
+      }, {
+        propertyName: 'subject',
+        title: 'Subject'
+      }];
     },
     model() {
       //return this.store.peekAll('contact');
@@ -20470,14 +20049,6 @@ define('mdeditor/pods/record/show/edit/dictionary/route', ['exports', 'npm:uuid/
         cancelScope: this
       });
     },
-
-    columns: [{
-      propertyName: 'title',
-      title: 'Title'
-    }, {
-      propertyName: 'subject',
-      title: 'Subject'
-    }],
 
     _select(obj) {
       let rec = this.modelFor('record.show.edit');
@@ -20524,33 +20095,29 @@ define('mdeditor/pods/record/show/edit/distribution/distributor/index/route', ['
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route,
-        get = Ember.get,
-        set = Ember.set,
-        $ = Ember.$;
-  exports.default = Route.extend(_scrollTo.default, {
+  exports.default = Ember.Route.extend(_scrollTo.default, {
     setupController: function setupController() {
       // Call _super for default behavior
       this._super(...arguments);
 
       this.controller.set('parentModel', this.modelFor('record.show.edit'));
-      this.controller.set('distributionId', get(this.controllerFor('record.show.edit.distribution.distributor'), 'distributionId'));
+      this.controller.set('distributionId', Ember.get(this.controllerFor('record.show.edit.distribution.distributor'), 'distributionId'));
     },
     actions: {
       addDistributor() {
         let model = this.currentRouteModel();
-        let dists = get(model, 'distributor');
+        let dists = Ember.get(model, 'distributor');
 
         if (dists) {
           dists.pushObject({});
         } else {
-          set(model, 'distributor', [{}]);
+          Ember.set(model, 'distributor', [{}]);
         }
 
-        this.controller.set('refresh', get(model, 'distributor.length'));
+        this.controller.set('refresh', Ember.get(model, 'distributor.length'));
 
-        $("html, body").animate({
-          scrollTop: $(document).height()
+        Ember.$("html, body").animate({
+          scrollTop: Ember.$(document).height()
         }, "slow");
       },
       editDistributor(id) {
@@ -20558,10 +20125,10 @@ define('mdeditor/pods/record/show/edit/distribution/distributor/index/route', ['
       },
       deleteDistributor(id) {
         let model = this.currentRouteModel();
-        let dists = get(model, 'distributor');
+        let dists = Ember.get(model, 'distributor');
 
         dists.removeAt(id);
-        this.controller.set('refresh', get(model, 'distributor.length'));
+        this.controller.set('refresh', Ember.get(model, 'distributor.length'));
       }
     }
   });
@@ -20580,20 +20147,14 @@ define('mdeditor/pods/record/show/edit/distribution/distributor/route', ['export
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route,
-        get = Ember.get,
-        isEmpty = Ember.isEmpty,
-        isArray = Ember.isArray,
-        NativeArray = Ember.NativeArray,
-        computed = Ember.computed;
-  exports.default = Route.extend({
+  exports.default = Ember.Route.extend({
     model(params) {
       this.set('distributionId', params.distribution_id);
 
       return this.setupModel();
     },
 
-    breadCrumb: computed('distributionId', function () {
+    breadCrumb: Ember.computed('distributionId', function () {
       return {
         title: 'Distributors'
         //title: `${get(this, 'distributionId')}: Distributors`
@@ -20605,7 +20166,7 @@ define('mdeditor/pods/record/show/edit/distribution/distributor/route', ['export
       this._super(...arguments);
 
       //this.controller.set('parentModel', this.modelFor('record.show.edit.main'));
-      this.controller.set('distributionId', get(this, 'distributionId'));
+      this.controller.set('distributionId', Ember.get(this, 'distributionId'));
       this.controllerFor('record.show.edit').setProperties({
         onCancel: this.setupModel,
         cancelScope: this
@@ -20613,13 +20174,13 @@ define('mdeditor/pods/record/show/edit/distribution/distributor/route', ['export
     },
 
     setupModel() {
-      let distributionId = get(this, 'distributionId');
+      let distributionId = Ember.get(this, 'distributionId');
       let model = this.modelFor('record.show.edit');
       let objects = model.get('json.metadata.resourceDistribution');
-      let resource = distributionId && isArray(objects) ? NativeArray.apply(objects).objectAt(distributionId) : undefined;
+      let resource = distributionId && Ember.isArray(objects) ? Ember.A(objects).objectAt(distributionId) : undefined;
 
       //make sure the identifier exists
-      if (isEmpty(resource)) {
+      if (Ember.isEmpty(resource)) {
         Ember.get(this, 'flashMessages').warning('No Distribution object found! Re-directing to list...');
         this.replaceWith('record.show.edit.distribution');
 
@@ -20644,9 +20205,7 @@ define('mdeditor/pods/record/show/edit/distribution/index/route', ['exports'], f
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route,
-        $ = Ember.$;
-  exports.default = Route.extend({
+  exports.default = Ember.Route.extend({
     setupController: function setupController() {
       // Call _super for default behavior
       this._super(...arguments);
@@ -20660,8 +20219,8 @@ define('mdeditor/pods/record/show/edit/distribution/index/route', ['exports'], f
 
         dists.pushObject({});
 
-        $("html, body").animate({
-          scrollTop: $(document).height()
+        Ember.$("html, body").animate({
+          scrollTop: Ember.$(document).height()
         }, "slow");
       },
       editDistribution(id) {
@@ -20705,15 +20264,13 @@ define('mdeditor/pods/record/show/edit/documents/citation/index/route', ['export
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route,
-        get = Ember.get;
-  exports.default = Route.extend(_scrollTo.default, {
+  exports.default = Ember.Route.extend(_scrollTo.default, {
     setupController: function setupController() {
       // Call _super for default behavior
       this._super(...arguments);
 
       this.controller.set('parentModel', this.modelFor('record.show.edit'));
-      this.controller.set('citationId', get(this.controllerFor('record.show.edit.documents.citation'), 'citationId'));
+      this.controller.set('citationId', Ember.get(this.controllerFor('record.show.edit.documents.citation'), 'citationId'));
     }
   });
 });
@@ -20731,16 +20288,10 @@ define('mdeditor/pods/record/show/edit/documents/citation/route', ['exports'], f
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route,
-        get = Ember.get,
-        isEmpty = Ember.isEmpty,
-        isArray = Ember.isArray,
-        computed = Ember.computed,
-        NativeArray = Ember.NativeArray;
-  exports.default = Route.extend({
-    breadCrumb: computed('citationId', function () {
+  exports.default = Ember.Route.extend({
+    breadCrumb: Ember.computed('citationId', function () {
       return {
-        title: get(this, 'citationId'),
+        title: Ember.get(this, 'citationId'),
         linkable: true
       };
     }),
@@ -20756,7 +20307,7 @@ define('mdeditor/pods/record/show/edit/documents/citation/route', ['exports'], f
       this._super(...arguments);
 
       //this.controller.set('parentModel', this.modelFor('record.show.edit.main'));
-      this.controller.set('citationId', get(this, 'citationId'));
+      this.controller.set('citationId', Ember.get(this, 'citationId'));
       this.controllerFor('record.show.edit').setProperties({
         onCancel: this.setupModel,
         cancelScope: this
@@ -20764,13 +20315,13 @@ define('mdeditor/pods/record/show/edit/documents/citation/route', ['exports'], f
     },
 
     setupModel() {
-      let citationId = get(this, 'citationId');
+      let citationId = Ember.get(this, 'citationId');
       let model = this.modelFor('record.show.edit');
       let objects = model.get('json.metadata.additionalDocumentation');
-      let resource = citationId && isArray(objects) ? NativeArray.apply(objects).objectAt(citationId) : undefined;
+      let resource = citationId && Ember.isArray(objects) ? Ember.A(objects).objectAt(citationId) : undefined;
 
       //make sure the identifier exists
-      if (isEmpty(resource)) {
+      if (Ember.isEmpty(resource)) {
         Ember.get(this, 'flashMessages').warning('No Document object found! Re-directing to list...');
         this.replaceWith('record.show.edit.documents');
 
@@ -20795,16 +20346,12 @@ define('mdeditor/pods/record/show/edit/documents/index/route', ['exports'], func
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route,
-        set = Ember.set,
-        getWithDefault = Ember.getWithDefault,
-        get = Ember.get;
-  exports.default = Route.extend({
+  exports.default = Ember.Route.extend({
     afterModel(m) {
       this._super(...arguments);
 
-      let model = get(m, 'json.metadata');
-      set(model, 'additionalDocumentation', getWithDefault(model, 'additionalDocumentation', []));
+      let model = Ember.get(m, 'json.metadata');
+      Ember.set(model, 'additionalDocumentation', Ember.getWithDefault(model, 'additionalDocumentation', []));
     },
 
     setupController: function setupController() {
@@ -20851,38 +20398,31 @@ define('mdeditor/pods/record/show/edit/extent/route', ['exports'], function (exp
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const A = Ember.A,
-        Route = Ember.Route,
-        computed = Ember.computed,
-        set = Ember.set,
-        getWithDefault = Ember.getWithDefault,
-        get = Ember.get,
-        $ = Ember.$;
-  exports.default = Route.extend({
+  exports.default = Ember.Route.extend({
     model() {
       let model = this.modelFor('record.show.edit');
       let json = model.get('json');
       let info = json.metadata.resourceInfo;
 
-      set(info, 'extent', getWithDefault(info, 'extent', A()));
+      Ember.set(info, 'extent', Ember.getWithDefault(info, 'extent', Ember.A()));
 
-      get(info, 'extent').forEach(itm => {
-        set(itm, 'geographicExtent', getWithDefault(itm, 'geographicExtent', A()));
-        set(itm, 'geographicExtent.0', getWithDefault(itm, 'geographicExtent.0', {}));
-        set(itm, 'geographicExtent.0.boundingBox', getWithDefault(itm, 'geographicExtent.0.boundingBox', {}));
+      Ember.get(info, 'extent').forEach(itm => {
+        Ember.set(itm, 'geographicExtent', Ember.getWithDefault(itm, 'geographicExtent', Ember.A()));
+        Ember.set(itm, 'geographicExtent.0', Ember.getWithDefault(itm, 'geographicExtent.0', {}));
+        Ember.set(itm, 'geographicExtent.0.boundingBox', Ember.getWithDefault(itm, 'geographicExtent.0.boundingBox', {}));
       });
       return model;
     },
 
     subbar: 'control/subbar-extent',
 
-    extents: computed('model.json.metadata.resourceInfo.extent.[]', function () {
+    extents: Ember.computed('model.json.metadata.resourceInfo.extent.[]', function () {
       return this.currentRouteModel().get('json.metadata.resourceInfo.extent');
     }),
 
-    clearSubbar: function () {
+    clearSubbar: Ember.on('deactivate', function () {
       this.controllerFor('record.show.edit').set('subbar', null);
-    }.on('deactivate'),
+    }),
 
     setupController: function setupController() {
       // Call _super for default behavior
@@ -20902,12 +20442,12 @@ define('mdeditor/pods/record/show/edit/extent/route', ['exports'], function (exp
           description: '',
           geographicExtent: [{
             boundingBox: {},
-            geographicElement: A()
+            geographicElement: Ember.A()
           }]
         });
 
-        $("html, body").animate({
-          scrollTop: $(document).height()
+        Ember.$("html, body").animate({
+          scrollTop: Ember.$(document).height()
         }, "slow");
       },
       deleteExtent(id) {
@@ -20934,12 +20474,6 @@ define('mdeditor/pods/record/show/edit/extent/spatial/route', ['exports'], funct
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const EmberObject = Ember.Object,
-        NativeArray = Ember.NativeArray,
-        set = Ember.set,
-        get = Ember.get,
-        isArray = Ember.isArray,
-        isEmpty = Ember.isEmpty;
   exports.default = Ember.Route.extend({
     model(params) {
       this.set('extentId', params.extent_id);
@@ -20980,24 +20514,24 @@ define('mdeditor/pods/record/show/edit/extent/spatial/route', ['exports'], funct
     setupModel() {
       let model = this.modelFor('record.show.edit.extent');
       let extents = model.get('json.metadata.resourceInfo.extent');
-      let extent = get(extents, this.get('extentId') || this.controller.get('extentId'));
+      let extent = Ember.get(extents, this.get('extentId') || this.controller.get('extentId'));
 
       //make sure the extent still exists
-      if (isEmpty(extent)) {
+      if (Ember.isEmpty(extent)) {
         Ember.get(this, 'flashMessages').warning('No extent found! Re-directing to list...');
         this.replaceWith('record.show.edit.extent');
 
         return;
       }
 
-      if (!isArray(extent.geographicExtent[0].geographicElement)) {
-        set(extent, 'geographicExtent.0.geographicElement', NativeArray.apply([]));
+      if (!Ember.isArray(extent.geographicExtent[0].geographicElement)) {
+        Ember.set(extent, 'geographicExtent.0.geographicElement', Ember.A([]));
       }
 
       let layers = extent.geographicExtent[0].geographicElement;
 
       layers.forEach(function (l, idx, arr) {
-        arr.replace(idx, 1, EmberObject.create(l));
+        arr.replace(idx, 1, Ember.Object.create(l));
       });
 
       this.set('layers', layers);
@@ -21112,16 +20646,10 @@ define('mdeditor/pods/record/show/edit/funding/allocation/route', ['exports', 'm
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route,
-        get = Ember.get,
-        isEmpty = Ember.isEmpty,
-        isArray = Ember.isArray,
-        computed = Ember.computed,
-        NativeArray = Ember.NativeArray;
-  exports.default = Route.extend(_scrollTo.default, {
-    breadCrumb: computed('allocationId', function () {
+  exports.default = Ember.Route.extend(_scrollTo.default, {
+    breadCrumb: Ember.computed('allocationId', function () {
       return {
-        title: get(this, 'allocationId'),
+        title: Ember.get(this, 'allocationId'),
         linkable: true
       };
     }),
@@ -21137,7 +20665,7 @@ define('mdeditor/pods/record/show/edit/funding/allocation/route', ['exports', 'm
       this._super(...arguments);
 
       //this.controller.set('parentModel', this.modelFor('record.show.edit.main'));
-      this.controller.set('allocationId', get(this, 'allocationId'));
+      this.controller.set('allocationId', Ember.get(this, 'allocationId'));
 
       this.controllerFor('record.show.edit').setProperties({
         onCancel: this.setupModel,
@@ -21146,13 +20674,13 @@ define('mdeditor/pods/record/show/edit/funding/allocation/route', ['exports', 'm
     },
 
     setupModel() {
-      let allocationId = get(this, 'allocationId');
+      let allocationId = Ember.get(this, 'allocationId');
       let model = this.modelFor('record.show.edit');
       let objects = model.get('json.metadata.funding');
-      let resource = allocationId && isArray(objects) ? NativeArray.apply(objects).objectAt(allocationId) : undefined;
+      let resource = allocationId && Ember.isArray(objects) ? Ember.A(objects).objectAt(allocationId) : undefined;
 
       //make sure the allocation exists
-      if (isEmpty(resource)) {
+      if (Ember.isEmpty(resource)) {
         Ember.get(this, 'flashMessages').warning('No Funding object found! Re-directing to list...');
         this.replaceWith('record.show.edit.funding');
 
@@ -21177,17 +20705,12 @@ define('mdeditor/pods/record/show/edit/funding/index/route', ['exports'], functi
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route,
-        set = Ember.set,
-        getWithDefault = Ember.getWithDefault,
-        get = Ember.get,
-        NativeArray = Ember.NativeArray;
-  exports.default = Route.extend({
+  exports.default = Ember.Route.extend({
     afterModel(m) {
       this._super(...arguments);
 
-      let model = get(m, 'json.metadata');
-      set(model, 'funding', NativeArray.apply(getWithDefault(model, 'funding', [])));
+      let model = Ember.get(m, 'json.metadata');
+      Ember.set(model, 'funding', Ember.A(Ember.getWithDefault(model, 'funding', [])));
     },
 
     setupController: function setupController() {
@@ -21270,31 +20793,23 @@ define('mdeditor/pods/record/show/edit/keywords/route', ['exports', 'mdeditor/mi
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route,
-        A = Ember.A,
-        set = Ember.set,
-        NativeArray = Ember.NativeArray,
-        getWithDefault = Ember.getWithDefault,
-        copy = Ember.copy,
-        inject = Ember.inject,
-        $ = Ember.$;
-  exports.default = Route.extend(_scrollTo.default, {
-    keyword: inject.service(),
+  exports.default = Ember.Route.extend(_scrollTo.default, {
+    keyword: Ember.inject.service(),
     model() {
       let model = this.modelFor('record.show.edit');
       let json = model.get('json');
       let info = json.metadata.resourceInfo;
 
-      set(info, 'keyword', !info.hasOwnProperty('keyword') ? A() : NativeArray.apply(info.keyword));
+      Ember.set(info, 'keyword', !info.hasOwnProperty('keyword') ? Ember.A() : Ember.A(info.keyword));
 
       //check to see if custom list
       info.keyword.forEach(k => {
-        set(k, 'thesaurus', getWithDefault(k, 'thesaurus', {}));
-        set(k, 'thesaurus.identifier', getWithDefault(k, 'thesaurus.identifier', [{
+        Ember.set(k, 'thesaurus', Ember.getWithDefault(k, 'thesaurus', {}));
+        Ember.set(k, 'thesaurus.identifier', Ember.getWithDefault(k, 'thesaurus.identifier', [{
           identifier: 'custom'
         }]));
-        set(k, 'thesaurus.date', getWithDefault(k, 'thesaurus.date', [{}]));
-        set(k, 'thesaurus.onlineResource', getWithDefault(k, 'thesaurus.onlineResource', [{}]));
+        Ember.set(k, 'thesaurus.date', Ember.getWithDefault(k, 'thesaurus.date', [{}]));
+        Ember.set(k, 'thesaurus.onlineResource', Ember.getWithDefault(k, 'thesaurus.onlineResource', [{}]));
 
         // if(!has(k, 'thesaurus')) {
         //   set(k, 'thesaurus', {});
@@ -21320,9 +20835,9 @@ define('mdeditor/pods/record/show/edit/keywords/route', ['exports', 'mdeditor/mi
 
     subbar: 'control/subbar-keywords',
 
-    clearSubbar: function () {
+    clearSubbar: Ember.on('deactivate', function () {
       this.controllerFor('record.show.edit').set('subbar', null);
-    }.on('deactivate'),
+    }),
 
     setupController: function setupController() {
       // Call _super for default behavior
@@ -21339,7 +20854,7 @@ define('mdeditor/pods/record/show/edit/keywords/route', ['exports', 'mdeditor/mi
       addThesaurus() {
         let the = this.currentRouteModel().get('json.metadata.resourceInfo.keyword');
 
-        $("html, body").animate({ scrollTop: $(document).height() }, "slow");
+        Ember.$("html, body").animate({ scrollTop: Ember.$(document).height() }, "slow");
 
         the.pushObject({
           keyword: [],
@@ -21365,12 +20880,12 @@ define('mdeditor/pods/record/show/edit/keywords/route', ['exports', 'mdeditor/mi
       },
       selectThesaurus(selected, thesaurus) {
         if (selected) {
-          set(thesaurus, 'thesaurus', copy(selected.citation, true));
+          Ember.set(thesaurus, 'thesaurus', Ember.copy(selected.citation, true));
           if (selected.keywordType) {
-            set(thesaurus, 'keywordType', selected.keywordType);
+            Ember.set(thesaurus, 'keywordType', selected.keywordType);
           }
         } else {
-          set(thesaurus, 'thesaurus.identifier.0.identifier', 'custom');
+          Ember.set(thesaurus, 'thesaurus.identifier.0.identifier', 'custom');
         }
       },
       addKeyword(model, obj) {
@@ -21386,7 +20901,7 @@ define('mdeditor/pods/record/show/edit/keywords/route', ['exports', 'mdeditor/mi
         }
       },
       hideThesaurus(el) {
-        $(el).closest('.md-keywords-container').toggleClass('hide-thesaurus');
+        Ember.$(el).closest('.md-keywords-container').toggleClass('hide-thesaurus');
       },
       toList() {
         let me = this;
@@ -21412,11 +20927,6 @@ define('mdeditor/pods/record/show/edit/keywords/thesaurus/route', ['exports'], f
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const isArray = Ember.isArray,
-        A = Ember.A,
-        set = Ember.set,
-        get = Ember.get,
-        isEmpty = Ember.isEmpty;
   exports.default = Ember.Route.extend({
     keyword: Ember.inject.service(),
     model(params) {
@@ -21426,20 +20936,20 @@ define('mdeditor/pods/record/show/edit/keywords/thesaurus/route', ['exports'], f
     },
 
     setupModel() {
-      let thesaurusId = get(this, 'thesaurusId') || this.controller.get('thesaurusId');
+      let thesaurusId = Ember.get(this, 'thesaurusId') || this.controller.get('thesaurusId');
       let model = this.modelFor('record.show.edit.keywords');
       let thesaurus = model.get('json.metadata.resourceInfo.keyword').get(thesaurusId);
 
       //make sure the thesaurus still exists
-      if (isEmpty(thesaurus)) {
+      if (Ember.isEmpty(thesaurus)) {
         Ember.get(this, 'flashMessages').warning('No thesaurus found! Re-directing to list...');
         this.replaceWith('record.show.edit.keywords');
 
         return;
       }
 
-      if (!isArray(thesaurus.keyword)) {
-        set(thesaurus, 'keyword', A());
+      if (!Ember.isArray(thesaurus.keyword)) {
+        Ember.set(thesaurus, 'keyword', Ember.A());
       }
 
       return Ember.Object.create({
@@ -21516,10 +21026,10 @@ define('mdeditor/pods/record/show/edit/keywords/thesaurus/route', ['exports'], f
       changeFullPath(evt) {
         let model = this.currentRouteModel();
         let keywords = model.get('model').get(model.get('path'));
-        let kw = get(keywords, 'keyword');
+        let kw = Ember.get(keywords, 'keyword');
         let val = evt.target.checked;
 
-        set(keywords, 'fullPath', val);
+        Ember.set(keywords, 'fullPath', val);
 
         kw.forEach(function (curr) {
           if (val) {
@@ -21547,16 +21057,12 @@ define('mdeditor/pods/record/show/edit/lineage/index/route', ['exports'], functi
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route,
-        set = Ember.set,
-        getWithDefault = Ember.getWithDefault,
-        get = Ember.get;
-  exports.default = Route.extend({
+  exports.default = Ember.Route.extend({
     afterModel(m) {
       this._super(...arguments);
 
-      let model = get(m, 'json.metadata');
-      set(model, 'resourceLineage', getWithDefault(model, 'resourceLineage', []));
+      let model = Ember.get(m, 'json.metadata');
+      Ember.set(model, 'resourceLineage', Ember.getWithDefault(model, 'resourceLineage', []));
     },
 
     setupController: function setupController() {
@@ -21595,11 +21101,7 @@ define('mdeditor/pods/record/show/edit/lineage/lineageobject/citation/identifier
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route,
-        get = Ember.get,
-        isEmpty = Ember.isEmpty,
-        isArray = Ember.isArray;
-  exports.default = Route.extend(_scrollTo.default, {
+  exports.default = Ember.Route.extend(_scrollTo.default, {
     model(params) {
       this.set('identifierId', params.identifier_id);
 
@@ -21618,13 +21120,13 @@ define('mdeditor/pods/record/show/edit/lineage/lineageobject/citation/identifier
     },
 
     setupModel() {
-      let identifierId = get(this, 'identifierId');
+      let identifierId = Ember.get(this, 'identifierId');
       let model = this.modelFor('record.show.edit.lineage.lineageobject.citation');
-      let identifiers = get(model, 'identifier');
-      let identifier = identifierId && isArray(identifiers) ? identifiers.get(identifierId) : undefined;
+      let identifiers = Ember.get(model, 'identifier');
+      let identifier = identifierId && Ember.isArray(identifiers) ? identifiers.get(identifierId) : undefined;
 
       //make sure the identifier exists
-      if (isEmpty(identifier)) {
+      if (Ember.isEmpty(identifier)) {
         Ember.get(this, 'flashMessages').warning('No identifier found! Re-directing to Citation...');
         this.replaceWith('record.show.edit.lineage.lineageobject.citation');
 
@@ -21654,8 +21156,7 @@ define('mdeditor/pods/record/show/edit/lineage/lineageobject/citation/index/rout
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route;
-  exports.default = Route.extend(_scrollTo.default, {
+  exports.default = Ember.Route.extend(_scrollTo.default, {
     actions: {
       editIdentifier(index) {
         this.transitionTo('record.show.edit.lineage.lineageobject.citation.identifier', index).then(function () {
@@ -21682,11 +21183,7 @@ define('mdeditor/pods/record/show/edit/lineage/lineageobject/citation/route', ['
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route,
-        get = Ember.get,
-        isEmpty = Ember.isEmpty,
-        isArray = Ember.isArray;
-  exports.default = Route.extend({
+  exports.default = Ember.Route.extend({
     model(params, transition) {
       this.set('citationId', params.citation_id);
       this.set('lineageId', transition.params['record.show.edit.lineage.lineageobject'].lineage_id);
@@ -21706,14 +21203,14 @@ define('mdeditor/pods/record/show/edit/lineage/lineageobject/citation/route', ['
     },
 
     setupModel() {
-      let citationId = get(this, 'citationId');
-      let lineageId = get(this, 'lineageId');
+      let citationId = Ember.get(this, 'citationId');
+      let lineageId = Ember.get(this, 'lineageId');
       let model = this.modelFor('record.show.edit');
       let citations = model.get('json.metadata.resourceLineage.' + lineageId + '.citation');
-      let citation = citationId && isArray(citations) ? citations.get(citationId) : undefined;
+      let citation = citationId && Ember.isArray(citations) ? citations.get(citationId) : undefined;
 
       //make sure the identifier exists
-      if (isEmpty(citation)) {
+      if (Ember.isEmpty(citation)) {
         Ember.get(this, 'flashMessages').warning('No citation found! Re-directing...');
         this.replaceWith('record.show.edit.lineage.lineageobject');
 
@@ -21743,15 +21240,13 @@ define('mdeditor/pods/record/show/edit/lineage/lineageobject/index/route', ['exp
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route,
-        get = Ember.get;
-  exports.default = Route.extend(_scrollTo.default, {
+  exports.default = Ember.Route.extend(_scrollTo.default, {
     setupController: function setupController() {
       // Call _super for default behavior
       this._super(...arguments);
 
       this.controller.set('parentModel', this.modelFor('record.show.edit.main'));
-      this.controller.set('lineageId', get(this.controllerFor('record.show.edit.lineage.lineageobject'), 'lineageId'));
+      this.controller.set('lineageId', Ember.get(this.controllerFor('record.show.edit.lineage.lineageobject'), 'lineageId'));
     },
     actions: {
       editCitation(index) {
@@ -21786,15 +21281,10 @@ define('mdeditor/pods/record/show/edit/lineage/lineageobject/route', ['exports']
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route,
-        get = Ember.get,
-        isEmpty = Ember.isEmpty,
-        isArray = Ember.isArray,
-        computed = Ember.computed;
-  exports.default = Route.extend({
-    breadCrumb: computed('lineageId', function () {
+  exports.default = Ember.Route.extend({
+    breadCrumb: Ember.computed('lineageId', function () {
       return {
-        title: get(this, 'lineageId'),
+        title: Ember.get(this, 'lineageId'),
         linkable: true
       };
     }),
@@ -21810,7 +21300,7 @@ define('mdeditor/pods/record/show/edit/lineage/lineageobject/route', ['exports']
       this._super(...arguments);
 
       //this.controller.set('parentModel', this.modelFor('record.show.edit.main'));
-      this.controller.set('lineageId', get(this, 'lineageId'));
+      this.controller.set('lineageId', Ember.get(this, 'lineageId'));
       this.controllerFor('record.show.edit').setProperties({
         onCancel: this.setupModel,
         cancelScope: this
@@ -21818,13 +21308,13 @@ define('mdeditor/pods/record/show/edit/lineage/lineageobject/route', ['exports']
     },
 
     setupModel() {
-      let lineageId = get(this, 'lineageId');
+      let lineageId = Ember.get(this, 'lineageId');
       let model = this.modelFor('record.show.edit');
       let objects = model.get('json.metadata.resourceLineage');
-      let lineage = lineageId && isArray(objects) ? objects.get(lineageId) : undefined;
+      let lineage = lineageId && Ember.isArray(objects) ? objects.get(lineageId) : undefined;
 
       //make sure the identifier exists
-      if (isEmpty(lineage)) {
+      if (Ember.isEmpty(lineage)) {
         Ember.get(this, 'flashMessages').warning('No lineage object found! Re-directing to list...');
         this.replaceWith('record.show.edit.lineage');
 
@@ -21930,11 +21420,7 @@ define('mdeditor/pods/record/show/edit/lineage/lineageobject/step/citation/route
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route,
-        get = Ember.get,
-        isEmpty = Ember.isEmpty,
-        isArray = Ember.isArray;
-  exports.default = Route.extend(_scrollTo.default, {
+  exports.default = Ember.Route.extend(_scrollTo.default, {
     model(params, transition) {
       this.set('citationId', params.citation_id);
       this.set('stepId', transition.params['record.show.edit.lineage.lineageobject.step'].step_id);
@@ -21948,7 +21434,7 @@ define('mdeditor/pods/record/show/edit/lineage/lineageobject/step/citation/route
       this._super(...arguments);
 
       this.controller.set('parentModel', this.modelFor('record.show.edit'));
-      this.controller.set('stepId', get(this, 'stepId'));
+      this.controller.set('stepId', Ember.get(this, 'stepId'));
       this.controllerFor('record.show.edit').setProperties({
         onCancel: this.setupModel,
         cancelScope: this
@@ -21956,15 +21442,15 @@ define('mdeditor/pods/record/show/edit/lineage/lineageobject/step/citation/route
     },
 
     setupModel() {
-      let citationId = get(this, 'citationId');
-      let lineageId = get(this, 'lineageId');
-      let stepId = get(this, 'stepId');
+      let citationId = Ember.get(this, 'citationId');
+      let lineageId = Ember.get(this, 'lineageId');
+      let stepId = Ember.get(this, 'stepId');
       let model = this.modelFor('record.show.edit');
       let citations = model.get(`json.metadata.resourceLineage.${lineageId}.processStep.${stepId}.reference`);
-      let citation = citationId && isArray(citations) ? citations.get(citationId) : undefined;
+      let citation = citationId && Ember.isArray(citations) ? citations.get(citationId) : undefined;
 
       //make sure the identifier exists
-      if (isEmpty(citation)) {
+      if (Ember.isEmpty(citation)) {
         Ember.get(this, 'flashMessages').warning('No citation found! Re-directing...');
         this.replaceWith('record.show.edit.lineage.lineageobject.step');
 
@@ -21997,15 +21483,13 @@ define('mdeditor/pods/record/show/edit/lineage/lineageobject/step/index/route', 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route,
-        get = Ember.get;
-  exports.default = Route.extend(_scrollTo.default, {
+  exports.default = Ember.Route.extend(_scrollTo.default, {
     setupController: function setupController() {
       // Call _super for default behavior
       this._super(...arguments);
 
       this.controller.set('parentModel', this.modelFor('record.show.edit.main'));
-      this.controller.set('stepId', get(this.controllerFor('record.show.edit.lineage.lineageobject.step'), 'stepId'));
+      this.controller.set('stepId', Ember.get(this.controllerFor('record.show.edit.lineage.lineageobject.step'), 'stepId'));
     },
     actions: {
       editCitation(index) {
@@ -22033,12 +21517,7 @@ define('mdeditor/pods/record/show/edit/lineage/lineageobject/step/route', ['expo
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route,
-        get = Ember.get,
-        isEmpty = Ember.isEmpty,
-        isArray = Ember.isArray,
-        computed = Ember.computed;
-  exports.default = Route.extend({
+  exports.default = Ember.Route.extend({
     model(params, transition) {
       this.set('stepId', params.step_id);
       this.set('lineageId', transition.params['record.show.edit.lineage.lineageobject'].lineage_id);
@@ -22046,9 +21525,9 @@ define('mdeditor/pods/record/show/edit/lineage/lineageobject/step/route', ['expo
       return this.setupModel();
     },
 
-    breadCrumb: computed('stepId', function () {
+    breadCrumb: Ember.computed('stepId', function () {
       return {
-        title: 'Step ' + get(this, 'stepId'),
+        title: 'Step ' + Ember.get(this, 'stepId'),
         linkable: true
       };
     }),
@@ -22058,7 +21537,7 @@ define('mdeditor/pods/record/show/edit/lineage/lineageobject/step/route', ['expo
       this._super(...arguments);
 
       this.controller.set('parentModel', this.modelFor('record.show.edit'));
-      this.controller.set('stepId', get(this, 'stepId'));
+      this.controller.set('stepId', Ember.get(this, 'stepId'));
       this.controllerFor('record.show.edit').setProperties({
         onCancel: this.setupModel,
         cancelScope: this
@@ -22066,14 +21545,14 @@ define('mdeditor/pods/record/show/edit/lineage/lineageobject/step/route', ['expo
     },
 
     setupModel() {
-      let stepId = get(this, 'stepId');
-      let lineageId = get(this, 'lineageId');
+      let stepId = Ember.get(this, 'stepId');
+      let lineageId = Ember.get(this, 'lineageId');
       let model = this.modelFor('record.show.edit');
       let steps = model.get('json.metadata.resourceLineage.' + lineageId + '.processStep');
-      let step = stepId && isArray(steps) ? steps.get(stepId) : undefined;
+      let step = stepId && Ember.isArray(steps) ? steps.get(stepId) : undefined;
 
       //make sure the identifier exists
-      if (isEmpty(step)) {
+      if (Ember.isEmpty(step)) {
         Ember.get(this, 'flashMessages').warning('No Process Step found! Re-directing...');
         this.replaceWith('record.show.edit.lineage.lineageobject');
 
@@ -22127,11 +21606,7 @@ define('mdeditor/pods/record/show/edit/main/citation/identifier/route', ['export
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route,
-        get = Ember.get,
-        isEmpty = Ember.isEmpty,
-        isArray = Ember.isArray;
-  exports.default = Route.extend(_scrollTo.default, {
+  exports.default = Ember.Route.extend(_scrollTo.default, {
     model(params) {
       this.set('identifierId', params.identifier_id);
 
@@ -22150,13 +21625,13 @@ define('mdeditor/pods/record/show/edit/main/citation/identifier/route', ['export
     },
 
     setupModel() {
-      let identifierId = get(this, 'identifierId');
+      let identifierId = Ember.get(this, 'identifierId');
       let model = this.modelFor('record.show.edit.main');
       let identifiers = model.get('json.metadata.resourceInfo.citation.identifier');
-      let identifier = identifierId && isArray(identifiers) ? identifiers.get(identifierId) : undefined;
+      let identifier = identifierId && Ember.isArray(identifiers) ? identifiers.get(identifierId) : undefined;
 
       //make sure the identifier exists
-      if (isEmpty(identifier)) {
+      if (Ember.isEmpty(identifier)) {
         Ember.get(this, 'flashMessages').warning('No identifier found! Re-directing to citation...');
         this.replaceWith('record.show.edit.main.citation');
 
@@ -22181,8 +21656,7 @@ define('mdeditor/pods/record/show/edit/main/citation/index/route', ['exports', '
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route;
-  exports.default = Route.extend(_scrollTo.default, {
+  exports.default = Ember.Route.extend(_scrollTo.default, {
     // afterModel() {
     //   this.setupModel();
     // },
@@ -22251,24 +21725,20 @@ define('mdeditor/pods/record/show/edit/main/index/route', ['exports', 'mdeditor/
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route,
-        get = Ember.get,
-        getWithDefault = Ember.getWithDefault,
-        set = Ember.set;
-  exports.default = Route.extend(_scrollTo.default, {
+  exports.default = Ember.Route.extend(_scrollTo.default, {
     afterModel(m) {
       this._super(...arguments);
 
-      let model = get(m, 'json.metadata.resourceInfo');
-      set(model, 'timePeriod', getWithDefault(model, 'timePeriod', {}));
-      set(model, 'defaultResourceLocale', getWithDefault(model, 'defaultResourceLocale', {}));
-      set(model, 'pointOfContact', getWithDefault(model, 'pointOfContact', []));
-      set(model, 'status', getWithDefault(model, 'status', []));
-      set(model, 'citation', getWithDefault(model, 'citation', (0, _component.formatCitation)({})));
-      set(model, 'credit', getWithDefault(model, 'credit', []));
-      set(model, 'resourceType', getWithDefault(model, 'resourceType', []));
-      set(model, 'resourceMaintenance', getWithDefault(model, 'resourceMaintenance', []));
-      set(model, 'graphicOverview', getWithDefault(model, 'graphicOverview', []));
+      let model = Ember.get(m, 'json.metadata.resourceInfo');
+      Ember.set(model, 'timePeriod', Ember.getWithDefault(model, 'timePeriod', {}));
+      Ember.set(model, 'defaultResourceLocale', Ember.getWithDefault(model, 'defaultResourceLocale', {}));
+      Ember.set(model, 'pointOfContact', Ember.getWithDefault(model, 'pointOfContact', []));
+      Ember.set(model, 'status', Ember.getWithDefault(model, 'status', []));
+      Ember.set(model, 'citation', Ember.getWithDefault(model, 'citation', (0, _component.formatCitation)({})));
+      Ember.set(model, 'credit', Ember.getWithDefault(model, 'credit', []));
+      Ember.set(model, 'resourceType', Ember.getWithDefault(model, 'resourceType', []));
+      Ember.set(model, 'resourceMaintenance', Ember.getWithDefault(model, 'resourceMaintenance', []));
+      Ember.set(model, 'graphicOverview', Ember.getWithDefault(model, 'graphicOverview', []));
     },
     actions: {
       editCitation(scrollTo) {
@@ -22292,7 +21762,7 @@ define("mdeditor/pods/record/show/edit/main/index/template", ["exports"], functi
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "j4KwDM2O", "block": "{\"symbols\":[\"resource\",\"credit\",\"editing\"],\"statements\":[[4,\"with\",[[20,[\"model\",\"json\",\"metadata\",\"resourceInfo\"]]],null,{\"statements\":[[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n    \"],[6,\"form\"],[9,\"class\",\"col-xxl-11 col-xxxl-10 col-xxl-offset-1\"],[7],[0,\"\\n      \"],[6,\"h4\"],[9,\"class\",\"section-header\"],[7],[0,\"\\n        Editing \"],[6,\"em\"],[7],[1,[20,[\"model\",\"title\"]],false],[8],[0,\"\\n        \"],[1,[25,\"control/md-status\",null,[[\"model\"],[[20,[\"model\"]]]]],false],[0,\"\\n      \"],[8],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"title\",\"collapsible\",\"collapsed\",\"profilePath\",\"data-spy\",\"required\"],[\"Basic Information\",true,false,\"record.main.basicInformation\",\"Basic Information\",true]],{\"statements\":[[0,\"\\n\"],[4,\"layout/md-wrap\",null,[[\"data-spy\",\"class\",\"profilePath\"],[\"Record ID\",\"md-embedded\",\"record.main.recordId\"]],{\"statements\":[[0,\"        \"],[6,\"div\"],[9,\"class\",\"form-group\"],[7],[0,\"\\n          \"],[6,\"label\"],[9,\"class\",\"required\"],[7],[0,\"Record ID\"],[8],[0,\"\\n          \"],[6,\"div\"],[9,\"class\",\"input-group input-group-md\"],[7],[0,\"\\n            \"],[1,[25,\"input/md-input\",null,[[\"valuePath\",\"model\",\"placeholder\",\"disabled\"],[\"recordId\",[20,[\"model\"]],\"Assigned Record ID\",true]]],false],[0,\"\\n            \"],[6,\"span\"],[9,\"class\",\"input-group-btn\"],[7],[0,\"\\n                \"],[6,\"button\"],[9,\"class\",\"btn btn-warning\"],[9,\"type\",\"button\"],[3,\"action\",[[19,0,[]],[25,\"route-action\",[\"editId\"],null]]],[7],[0,\"\\n                  \"],[1,[25,\"fa-icon\",[\"pencil\"],null],false],[0,\"\\n                  Edit\"],[8],[0,\"\\n                  \"],[1,[25,\"tooltip-on-element\",null,[[\"text\",\"class\"],[\"Edit the metadata id\",\"md-tooltip warning\"]]],false],[0,\"\\n            \"],[8],[0,\"\\n          \"],[8],[0,\"\\n        \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n        \"],[1,[25,\"input/md-input\",null,[[\"value\",\"placeholder\",\"label\",\"required\",\"profilePath\",\"data-spy\",\"class\"],[[20,[\"model\",\"title\"]],\"Enter the title for the resource.\",\"Title\",true,\"record.main.title\",\"Title\",\"md-embedded\"]]],false],[0,\"\\n\\n\"],[4,\"if\",[[25,\"is-array\",[[19,1,[\"status\"]]],null]],null,{\"statements\":[[0,\"        \"],[1,[25,\"input/md-codelist-multi\",null,[[\"value\",\"label\",\"required\",\"create\",\"tooltip\",\"icon\",\"mdCodeName\",\"placeholder\",\"profilePath\",\"data-spy\",\"class\"],[[19,1,[\"status\"]],\"Status\",true,true,true,false,\"progress\",\"Select the current status\",\"record.main.status\",\"Status\",\"md-embedded\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"title\",\"shadow\",\"data-spy\",\"required\",\"profilePath\"],[\"Default Locale\",false,false,true,\"record.main.defaultLocale\"]],{\"statements\":[[0,\"          \"],[1,[25,\"object/md-locale\",null,[[\"model\"],[[19,1,[\"defaultResourceLocale\"]]]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[25,\"is-array\",[[19,1,[\"resourceType\"]]],null]],null,{\"statements\":[[0,\"        \"],[6,\"div\"],[9,\"class\",\"form-group\"],[7],[0,\"\\n            \"],[1,[25,\"object/md-resource-type-array\",null,[[\"plain\",\"value\",\"required\",\"data-spy\",\"profilePath\"],[false,[19,1,[\"resourceType\"]],true,\"Resource Types\",\"record.main.resourceType\"]]],false],[0,\"\\n        \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[25,\"is-array\",[[19,1,[\"pointOfContact\"]]],null]],null,{\"statements\":[[0,\"        \"],[1,[25,\"object/md-party-array\",null,[[\"title\",\"pluralTitle\",\"data-spy\",\"collapsible\",\"collapsed\",\"required\",\"value\",\"profilePath\"],[\"Point Of Contact\",\"Points of Contact\",\"Point Of Contact\",true,false,true,[19,1,[\"pointOfContact\"]],\"record.main.pointOfContact\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n        \"],[1,[25,\"object/md-citation/preview\",null,[[\"profilePath\",\"citation\",\"muted\",\"required\",\"editCitation\"],[\"record.main.citation\",[19,1,[\"citation\"]],true,true,\"editCitation\"]]],false],[0,\"\\n\\n\"],[4,\"layout/md-card\",null,[[\"title\",\"collapsible\",\"collapsed\",\"profilePath\",\"required\"],[\"Description\",true,false,\"record.main.description\",true]],{\"statements\":[[0,\"          \"],[1,[25,\"input/md-markdown-area\",null,[[\"value\",\"profilePath\",\"label\",\"placeholder\",\"required\"],[[19,1,[\"abstract\"]],\"record.main.abstract\",\"Abstract\",\"Enter an Abstract describing the resource.\",true]]],false],[0,\"\\n\\n          \"],[1,[25,\"input/md-markdown-area\",null,[[\"value\",\"profilePath\",\"label\",\"placeholder\",\"maxlength\"],[[19,1,[\"shortAbstract\"]],\"record.main.shortAbstract\",\"Short Abstract\",\"A short description of the resource. Max of 300 characters.\",300]]],false],[0,\"\\n\\n          \"],[1,[25,\"input/md-textarea\",null,[[\"value\",\"profilePath\",\"label\",\"placeholder\"],[[19,1,[\"purpose\"]],\"record.main.purpose\",\"Purpose\",\"Enter text describing the reason for creating the resource.\"]]],false],[0,\"\\n\\n          \"],[1,[25,\"input/md-textarea\",null,[[\"value\",\"profilePath\",\"label\",\"placeholder\"],[[19,1,[\"supplementalInfo\"]],\"record.main.supplementalInfo\",\"Supplemental Information\",\"Enter text describing other descriptive information about the resource.\"]]],false],[0,\"\\n\\n          \"],[1,[25,\"input/md-textarea\",null,[[\"value\",\"profilePath\",\"label\",\"placeholder\"],[[19,1,[\"environmentDescription\"]],\"record.main.environmentDescription\",\"Environment Description\",\"Description of the processing environment, for example the software, hardware, or the computer operating system.\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[19,1,[\"timePeriod\"]]],null,{\"statements\":[[0,\"        \"],[1,[25,\"object/md-time-period\",null,[[\"model\",\"profilePath\",\"data-spy\",\"label\"],[[19,1,[\"timePeriod\"]],\"record.main.timePeriod\",\"Time Period\",\"Time Period\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"object/md-object-table\",null,[[\"items\",\"header\",\"data-spy\",\"profilePath\",\"buttonText\",\"ellipsis\",\"attributes\",\"collapsible\"],[[19,1,[\"resourceMaintenance\"]],\"Maintenance\",\"Maintenance\",\"record.main.maintenance\",\"Add Maintenance\",true,\"frequency\",true]],{\"statements\":[[0,\"          \"],[1,[25,\"object/md-maintenance\",null,[[\"model\",\"profilePath\"],[[19,3,[]],\"record.main.maintenance\"]]],false],[0,\"\\n\"]],\"parameters\":[3]},null],[0,\"\\n\"],[4,\"if\",[[25,\"is-array\",[[19,1,[\"graphicOverview\"]]],null]],null,{\"statements\":[[0,\"        \"],[1,[25,\"object/md-graphic-array\",null,[[\"model\",\"data-spy\",\"button-text\",\"label\",\"profilePath\"],[[19,1,[\"graphicOverview\"]],\"Graphic Overview\",\"Add Graphic\",\"Graphic Overview\",\"record.main.graphicOverview\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[25,\"is-array\",[[19,1,[\"credit\"]]],null]],null,{\"statements\":[[4,\"object/md-simple-array-table\",null,[[\"data-spy\",\"title\",\"profilePath\",\"value\"],[\"Credit\",\"Credit\",\"record.main.credit\",[19,1,[\"credit\"]]]],{\"statements\":[[0,\"            \"],[6,\"td\"],[7],[0,\"\\n                \"],[1,[25,\"input/md-input\",null,[[\"value\",\"placeholder\"],[[19,2,[\"item\",\"value\"]],\"Additional credits for the resource.\"]]],false],[0,\"\\n            \"],[8],[0,\"\\n\"]],\"parameters\":[2]},null]],\"parameters\":[]},null],[0,\"    \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"\\n\"],[1,[25,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-scroll-spy-record-edit\",[25,\"component\",[\"control/md-scroll-spy\"],[[\"scrollInit\",\"setScrollTo\",\"refresh\"],[[20,[\"scrollTo\"]],[25,\"route-action\",[\"setScrollTo\"],null],[20,[\"model\",\"profile\"]]]]]]]],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/edit/main/index/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "xsolbQ6D", "block": "{\"symbols\":[\"resource\",\"credit\",\"editing\"],\"statements\":[[4,\"with\",[[20,[\"model\",\"json\",\"metadata\",\"resourceInfo\"]]],null,{\"statements\":[[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n    \"],[6,\"form\"],[9,\"class\",\"col-xxl-11 col-xxxl-10 col-xxl-offset-1\"],[7],[0,\"\\n      \"],[6,\"h4\"],[9,\"class\",\"section-header\"],[7],[0,\"\\n        Editing \"],[6,\"em\"],[7],[1,[20,[\"model\",\"title\"]],false],[8],[0,\"\\n        \"],[1,[25,\"control/md-status\",null,[[\"model\"],[[20,[\"model\"]]]]],false],[0,\"\\n      \"],[8],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"title\",\"collapsible\",\"collapsed\",\"profilePath\",\"data-spy\",\"required\"],[\"Basic Information\",true,false,\"record.main.basicInformation\",\"Basic Information\",true]],{\"statements\":[[0,\"\\n\"],[4,\"layout/md-wrap\",null,[[\"data-spy\",\"class\",\"profilePath\"],[\"Record ID\",\"md-embedded\",\"record.main.recordId\"]],{\"statements\":[[0,\"        \"],[6,\"div\"],[9,\"class\",\"form-group\"],[7],[0,\"\\n          \"],[6,\"label\"],[9,\"class\",\"required\"],[7],[0,\"Record ID\"],[8],[0,\"\\n          \"],[6,\"div\"],[9,\"class\",\"input-group input-group-md\"],[7],[0,\"\\n            \"],[1,[25,\"input/md-input\",null,[[\"valuePath\",\"model\",\"placeholder\",\"disabled\"],[\"recordId\",[20,[\"model\"]],\"Assigned Record ID\",true]]],false],[0,\"\\n            \"],[6,\"span\"],[9,\"class\",\"input-group-btn\"],[7],[0,\"\\n                \"],[6,\"button\"],[9,\"class\",\"btn btn-warning\"],[9,\"type\",\"button\"],[3,\"action\",[[19,0,[]],[25,\"route-action\",[\"editId\"],null]]],[7],[0,\"\\n                  \"],[1,[25,\"fa-icon\",[\"pencil\"],null],false],[0,\"\\n                  Edit\"],[8],[0,\"\\n                  \"],[1,[25,\"ember-tooltip\",null,[[\"text\",\"tooltipClassName\"],[\"Edit the metadata id\",\"ember-tooltip md-tooltip warning\"]]],false],[0,\"\\n            \"],[8],[0,\"\\n          \"],[8],[0,\"\\n        \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n        \"],[1,[25,\"input/md-input\",null,[[\"value\",\"placeholder\",\"label\",\"required\",\"profilePath\",\"data-spy\",\"class\"],[[20,[\"model\",\"title\"]],\"Enter the title for the resource.\",\"Title\",true,\"record.main.title\",\"Title\",\"md-embedded\"]]],false],[0,\"\\n\\n\"],[4,\"if\",[[25,\"is-array\",[[19,1,[\"status\"]]],null]],null,{\"statements\":[[0,\"        \"],[1,[25,\"input/md-codelist-multi\",null,[[\"value\",\"label\",\"required\",\"create\",\"tooltip\",\"icon\",\"mdCodeName\",\"placeholder\",\"profilePath\",\"data-spy\",\"class\"],[[19,1,[\"status\"]],\"Status\",true,true,true,false,\"progress\",\"Select the current status\",\"record.main.status\",\"Status\",\"md-embedded\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"title\",\"shadow\",\"data-spy\",\"required\",\"profilePath\"],[\"Default Locale\",false,false,true,\"record.main.defaultLocale\"]],{\"statements\":[[0,\"          \"],[1,[25,\"object/md-locale\",null,[[\"model\"],[[19,1,[\"defaultResourceLocale\"]]]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[25,\"is-array\",[[19,1,[\"resourceType\"]]],null]],null,{\"statements\":[[0,\"        \"],[6,\"div\"],[9,\"class\",\"form-group\"],[7],[0,\"\\n            \"],[1,[25,\"object/md-resource-type-array\",null,[[\"plain\",\"value\",\"required\",\"data-spy\",\"profilePath\"],[false,[19,1,[\"resourceType\"]],true,\"Resource Types\",\"record.main.resourceType\"]]],false],[0,\"\\n        \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[25,\"is-array\",[[19,1,[\"pointOfContact\"]]],null]],null,{\"statements\":[[0,\"        \"],[1,[25,\"object/md-party-array\",null,[[\"title\",\"pluralTitle\",\"data-spy\",\"collapsible\",\"collapsed\",\"required\",\"value\",\"profilePath\"],[\"Point Of Contact\",\"Points of Contact\",\"Point Of Contact\",true,false,true,[19,1,[\"pointOfContact\"]],\"record.main.pointOfContact\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n        \"],[1,[25,\"object/md-citation/preview\",null,[[\"profilePath\",\"citation\",\"muted\",\"required\",\"editCitation\"],[\"record.main.citation\",[19,1,[\"citation\"]],true,true,\"editCitation\"]]],false],[0,\"\\n\\n\"],[4,\"layout/md-card\",null,[[\"title\",\"collapsible\",\"collapsed\",\"profilePath\",\"required\"],[\"Description\",true,false,\"record.main.description\",true]],{\"statements\":[[0,\"          \"],[1,[25,\"input/md-markdown-area\",null,[[\"value\",\"profilePath\",\"label\",\"placeholder\",\"required\"],[[19,1,[\"abstract\"]],\"record.main.abstract\",\"Abstract\",\"Enter an Abstract describing the resource.\",true]]],false],[0,\"\\n\\n          \"],[1,[25,\"input/md-markdown-area\",null,[[\"value\",\"profilePath\",\"label\",\"placeholder\",\"maxlength\"],[[19,1,[\"shortAbstract\"]],\"record.main.shortAbstract\",\"Short Abstract\",\"A short description of the resource. Max of 300 characters.\",300]]],false],[0,\"\\n\\n          \"],[1,[25,\"input/md-textarea\",null,[[\"value\",\"profilePath\",\"label\",\"placeholder\"],[[19,1,[\"purpose\"]],\"record.main.purpose\",\"Purpose\",\"Enter text describing the reason for creating the resource.\"]]],false],[0,\"\\n\\n          \"],[1,[25,\"input/md-textarea\",null,[[\"value\",\"profilePath\",\"label\",\"placeholder\"],[[19,1,[\"supplementalInfo\"]],\"record.main.supplementalInfo\",\"Supplemental Information\",\"Enter text describing other descriptive information about the resource.\"]]],false],[0,\"\\n\\n          \"],[1,[25,\"input/md-textarea\",null,[[\"value\",\"profilePath\",\"label\",\"placeholder\"],[[19,1,[\"environmentDescription\"]],\"record.main.environmentDescription\",\"Environment Description\",\"Description of the processing environment, for example the software, hardware, or the computer operating system.\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[19,1,[\"timePeriod\"]]],null,{\"statements\":[[0,\"        \"],[1,[25,\"object/md-time-period\",null,[[\"model\",\"profilePath\",\"data-spy\",\"label\"],[[19,1,[\"timePeriod\"]],\"record.main.timePeriod\",\"Time Period\",\"Time Period\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"object/md-object-table\",null,[[\"items\",\"header\",\"data-spy\",\"profilePath\",\"buttonText\",\"ellipsis\",\"attributes\",\"collapsible\"],[[19,1,[\"resourceMaintenance\"]],\"Maintenance\",\"Maintenance\",\"record.main.maintenance\",\"Add Maintenance\",true,\"frequency\",true]],{\"statements\":[[0,\"          \"],[1,[25,\"object/md-maintenance\",null,[[\"model\",\"profilePath\"],[[19,3,[]],\"record.main.maintenance\"]]],false],[0,\"\\n\"]],\"parameters\":[3]},null],[0,\"\\n\"],[4,\"if\",[[25,\"is-array\",[[19,1,[\"graphicOverview\"]]],null]],null,{\"statements\":[[0,\"        \"],[1,[25,\"object/md-graphic-array\",null,[[\"model\",\"data-spy\",\"button-text\",\"label\",\"profilePath\"],[[19,1,[\"graphicOverview\"]],\"Graphic Overview\",\"Add Graphic\",\"Graphic Overview\",\"record.main.graphicOverview\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[25,\"is-array\",[[19,1,[\"credit\"]]],null]],null,{\"statements\":[[4,\"object/md-simple-array-table\",null,[[\"data-spy\",\"title\",\"profilePath\",\"value\"],[\"Credit\",\"Credit\",\"record.main.credit\",[19,1,[\"credit\"]]]],{\"statements\":[[0,\"            \"],[6,\"td\"],[7],[0,\"\\n                \"],[1,[25,\"input/md-input\",null,[[\"value\",\"placeholder\"],[[19,2,[\"item\",\"value\"]],\"Additional credits for the resource.\"]]],false],[0,\"\\n            \"],[8],[0,\"\\n\"]],\"parameters\":[2]},null]],\"parameters\":[]},null],[0,\"    \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"\\n\"],[1,[25,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-scroll-spy-record-edit\",[25,\"component\",[\"control/md-scroll-spy\"],[[\"scrollInit\",\"setScrollTo\",\"refresh\"],[[20,[\"scrollTo\"]],[25,\"route-action\",[\"setScrollTo\"],null],[20,[\"model\",\"profile\"]]]]]]]],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/edit/main/index/template.hbs" } });
 });
 define('mdeditor/pods/record/show/edit/main/route', ['exports'], function (exports) {
   'use strict';
@@ -22316,11 +21786,7 @@ define('mdeditor/pods/record/show/edit/metadata/alternate/identifier/route', ['e
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route,
-        get = Ember.get,
-        isEmpty = Ember.isEmpty,
-        isArray = Ember.isArray;
-  exports.default = Route.extend(_scrollTo.default, {
+  exports.default = Ember.Route.extend(_scrollTo.default, {
     model(params) {
       this.set('identifierId', params.identifier_id);
 
@@ -22339,13 +21805,13 @@ define('mdeditor/pods/record/show/edit/metadata/alternate/identifier/route', ['e
     },
 
     setupModel() {
-      let identifierId = get(this, 'identifierId');
+      let identifierId = Ember.get(this, 'identifierId');
       let model = this.modelFor('record.show.edit.metadata.alternate');
-      let identifiers = get(model, 'identifier');
-      let identifier = identifierId && isArray(identifiers) ? identifiers.get(identifierId) : undefined;
+      let identifiers = Ember.get(model, 'identifier');
+      let identifier = identifierId && Ember.isArray(identifiers) ? identifiers.get(identifierId) : undefined;
 
       //make sure the identifier exists
-      if (isEmpty(identifier)) {
+      if (Ember.isEmpty(identifier)) {
         Ember.get(this, 'flashMessages').warning('No identifier found! Re-directing to Alternate Metadata...');
         this.replaceWith('record.show.edit.metadata.alternate');
 
@@ -22375,8 +21841,7 @@ define('mdeditor/pods/record/show/edit/metadata/alternate/index/route', ['export
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route;
-  exports.default = Route.extend(_scrollTo.default, {
+  exports.default = Ember.Route.extend(_scrollTo.default, {
     actions: {
       editIdentifier(index) {
         this.transitionTo('record.show.edit.metadata.alternate.identifier', index).then(function () {
@@ -22400,11 +21865,7 @@ define('mdeditor/pods/record/show/edit/metadata/alternate/route', ['exports'], f
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route,
-        get = Ember.get,
-        isEmpty = Ember.isEmpty,
-        isArray = Ember.isArray;
-  exports.default = Route.extend({
+  exports.default = Ember.Route.extend({
     model(params) {
       this.set('citationId', params.citation_id);
 
@@ -22423,13 +21884,13 @@ define('mdeditor/pods/record/show/edit/metadata/alternate/route', ['exports'], f
     },
 
     setupModel() {
-      let citationId = get(this, 'citationId');
+      let citationId = Ember.get(this, 'citationId');
       let model = this.modelFor('record.show.edit');
       let citations = model.get('json.metadata.metadataInfo.alternateMetadataReference');
-      let citation = citationId && isArray(citations) ? citations.get(citationId) : undefined;
+      let citation = citationId && Ember.isArray(citations) ? citations.get(citationId) : undefined;
 
       //make sure the identifier exists
-      if (isEmpty(citation)) {
+      if (Ember.isEmpty(citation)) {
         Ember.get(this, 'flashMessages').warning('No citation found! Re-directing...');
         this.replaceWith('record.show.edit.metadata');
 
@@ -22459,10 +21920,7 @@ define('mdeditor/pods/record/show/edit/metadata/identifier/route', ['exports', '
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route,
-        get = Ember.get,
-        getWithDefault = Ember.getWithDefault;
-  exports.default = Route.extend(_scrollTo.default, {
+  exports.default = Ember.Route.extend(_scrollTo.default, {
     model() {
       return this.setupModel();
     },
@@ -22482,9 +21940,9 @@ define('mdeditor/pods/record/show/edit/metadata/identifier/route', ['exports', '
       let model = this.modelFor('record.show.edit');
 
       //make sure the identifier exists
-      model.set('json.metadata.metadataInfo.metadataIdentifier', getWithDefault(model, 'json.metadata.metadataInfo.metadataIdentifier', {}));
+      model.set('json.metadata.metadataInfo.metadataIdentifier', Ember.getWithDefault(model, 'json.metadata.metadataInfo.metadataIdentifier', {}));
 
-      return get(model, 'json.metadata.metadataInfo.metadataIdentifier');
+      return Ember.get(model, 'json.metadata.metadataInfo.metadataIdentifier');
     }
   });
 });
@@ -22502,26 +21960,22 @@ define('mdeditor/pods/record/show/edit/metadata/index/route', ['exports', 'mdedi
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route,
-        getWithDefault = Ember.getWithDefault,
-        get = Ember.get,
-        set = Ember.set;
-  exports.default = Route.extend(_scrollTo.default, {
+  exports.default = Ember.Route.extend(_scrollTo.default, {
     afterModel(m) {
       this._super(...arguments);
 
-      let model = get(m, 'json.metadata.metadataInfo');
+      let model = Ember.get(m, 'json.metadata.metadataInfo');
 
       Ember.run.once(this, () => {
-        set(model, 'metadataContact', getWithDefault(model, 'metadataContact', []));
-        set(model, 'metadataDate', getWithDefault(model, 'metadataDate', []));
-        set(model, 'metadataMaintenance', getWithDefault(model, 'metadataMaintenance', {}));
-        set(model, 'metadataOnlineResource', getWithDefault(model, 'metadataOnlineResource', []));
-        set(model, 'defaultMetadataLocale', getWithDefault(model, 'defaultMetadataLocale', {}));
-        set(model, 'metadataIdentifier', getWithDefault(model, 'metadataIdentifier', {}));
-        set(model, 'parentMetadata', getWithDefault(model, 'parentMetadata', {}));
-        set(model, 'alternateMetadataReference', getWithDefault(model, 'alternateMetadataReference', []));
-        set(m, 'json.metadataRepository', getWithDefault(m, 'json.metadataRepository', []));
+        Ember.set(model, 'metadataContact', Ember.getWithDefault(model, 'metadataContact', []));
+        Ember.set(model, 'metadataDate', Ember.getWithDefault(model, 'metadataDate', []));
+        Ember.set(model, 'metadataMaintenance', Ember.getWithDefault(model, 'metadataMaintenance', {}));
+        Ember.set(model, 'metadataOnlineResource', Ember.getWithDefault(model, 'metadataOnlineResource', []));
+        Ember.set(model, 'defaultMetadataLocale', Ember.getWithDefault(model, 'defaultMetadataLocale', {}));
+        Ember.set(model, 'metadataIdentifier', Ember.getWithDefault(model, 'metadataIdentifier', {}));
+        Ember.set(model, 'parentMetadata', Ember.getWithDefault(model, 'parentMetadata', {}));
+        Ember.set(model, 'alternateMetadataReference', Ember.getWithDefault(model, 'alternateMetadataReference', []));
+        Ember.set(m, 'json.metadataRepository', Ember.getWithDefault(m, 'json.metadataRepository', []));
       });
     },
 
@@ -22558,11 +22012,7 @@ define('mdeditor/pods/record/show/edit/metadata/parent/identifier/route', ['expo
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route,
-        get = Ember.get,
-        isEmpty = Ember.isEmpty,
-        isArray = Ember.isArray;
-  exports.default = Route.extend(_scrollTo.default, {
+  exports.default = Ember.Route.extend(_scrollTo.default, {
     model(params) {
       this.set('identifierId', params.identifier_id);
 
@@ -22581,13 +22031,13 @@ define('mdeditor/pods/record/show/edit/metadata/parent/identifier/route', ['expo
     },
 
     setupModel() {
-      let identifierId = get(this, 'identifierId');
+      let identifierId = Ember.get(this, 'identifierId');
       let model = this.modelFor('record.show.edit');
       let identifiers = model.get('json.metadata.metadataInfo.parentMetadata.identifier');
-      let identifier = identifierId && isArray(identifiers) ? identifiers.get(identifierId) : undefined;
+      let identifier = identifierId && Ember.isArray(identifiers) ? identifiers.get(identifierId) : undefined;
 
       //make sure the identifier exists
-      if (isEmpty(identifier)) {
+      if (Ember.isEmpty(identifier)) {
         Ember.get(this, 'flashMessages').warning('No identifier found! Re-directing to Parent Metadata...');
         this.replaceWith('record.show.edit.metadata.parent.index');
 
@@ -22612,14 +22062,11 @@ define('mdeditor/pods/record/show/edit/metadata/parent/index/route', ['exports',
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route,
-        isNone = Ember.isNone,
-        get = Ember.get;
-  exports.default = Route.extend(_scrollTo.default, {
+  exports.default = Ember.Route.extend(_scrollTo.default, {
     afterModel(model) {
       this._super(...arguments);
 
-      if (isNone(get(model, 'json.metadata.metadataInfo.parentMetadata'))) {
+      if (Ember.isNone(Ember.get(model, 'json.metadata.metadataInfo.parentMetadata'))) {
         Ember.get(this, 'flashMessages').warning('No Parent Citation found! Re-directing to Metadata...');
         this.replaceWith('record.show.edit.metadata', {
           queryParams: {
@@ -22694,7 +22141,7 @@ define("mdeditor/pods/record/show/edit/nav/template", ["exports"], function (exp
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "lallpmJR", "block": "{\"symbols\":[],\"statements\":[[6,\"li\"],[9,\"class\",\"divider-vertical\"],[7],[0,\"\\n\"],[8],[0,\"\\n\"],[6,\"li\"],[7],[0,\"\\n  \"],[1,[25,\"input/md-select-profile\",null,[[\"value\",\"updateProfile\"],[[20,[\"model\",\"profile\"]],\"updateProfile\"]]],false],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/edit/nav/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "IJ6PfGxd", "block": "{\"symbols\":[],\"statements\":[[6,\"li\"],[9,\"class\",\"divider-vertical\"],[7],[0,\"\\n\"],[8],[0,\"\\n\"],[6,\"li\"],[7],[0,\"\\n  \"],[1,[25,\"input/md-select-profile\",null,[[\"value\",\"updateProfile\"],[[20,[\"model\",\"profile\"]],[25,\"route-action\",[\"updateProfile\"],null]]]],false],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/edit/nav/template.hbs" } });
 });
 define('mdeditor/pods/record/show/edit/route', ['exports', 'mdeditor/mixins/hash-poll'], function (exports, _hashPoll) {
   'use strict';
@@ -22702,13 +22149,14 @@ define('mdeditor/pods/record/show/edit/route', ['exports', 'mdeditor/mixins/hash
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const inject = Ember.inject,
-        Route = Ember.Route,
-        get = Ember.get;
-  exports.default = Route.extend(_hashPoll.default, {
-    breadCrumb: {
-      title: 'Edit',
-      linkable: false
+  exports.default = Ember.Route.extend(_hashPoll.default, {
+    init() {
+      this._super(...arguments);
+
+      this.breadCrumb = {
+        title: 'Edit',
+        linkable: false
+      };
     },
 
     /**
@@ -22716,7 +22164,7 @@ define('mdeditor/pods/record/show/edit/route', ['exports', 'mdeditor/mixins/hash
      *
      * @return {Ember.Service} profile
      */
-    profile: inject.service(),
+    profile: Ember.inject.service(),
 
     /**
      * The route activate hook, sets the profile.
@@ -22762,7 +22210,7 @@ define('mdeditor/pods/record/show/edit/route', ['exports', 'mdeditor/mixins/hash
       saveRecord: function saveRecord() {
         let model = this.currentRouteModel();
         model.save().then(() => {
-          get(this, 'flashMessages').success(`Saved Record: ${model.get('title')}`);
+          Ember.get(this, 'flashMessages').success(`Saved Record: ${model.get('title')}`);
         });
       },
 
@@ -22781,7 +22229,7 @@ define('mdeditor/pods/record/show/edit/route', ['exports', 'mdeditor/mixins/hash
         let model = this.currentRouteModel();
         let message = `Cancelled changes to Record: ${model.get('title')}`;
         let controller = this.controller;
-        let same = !controller.cancelScope || Ember.getOwner(this).lookup('controller:application').currentPath === get(controller, 'cancelScope.routeName');
+        let same = !controller.cancelScope || Ember.getOwner(this).lookup('controller:application').currentPath === Ember.get(controller, 'cancelScope.routeName');
 
         if (this.get('settings.data.autoSave')) {
           let json = model.get('jsonRevert');
@@ -22800,7 +22248,7 @@ define('mdeditor/pods/record/show/edit/route', ['exports', 'mdeditor/mixins/hash
               });
             }
 
-            get(this, 'flashMessages').warning(message);
+            Ember.get(this, 'flashMessages').warning(message);
           }
 
           return;
@@ -22817,7 +22265,7 @@ define('mdeditor/pods/record/show/edit/route', ['exports', 'mdeditor/mixins/hash
               controller.set('cancelScope', null);
             });
           }
-          get(this, 'flashMessages').warning(message);
+          Ember.get(this, 'flashMessages').warning(message);
         });
       },
 
@@ -22974,7 +22422,7 @@ define('mdeditor/pods/record/show/edit/taxonomy/collection/route', ['exports'], 
       let collectionId = Ember.get(this, 'collectionId');
       let model = this.modelFor('record.show.edit');
       let objects = model.get('json.metadata.resourceInfo.taxonomy');
-      let resource = collectionId && Ember.isArray(objects) ? Ember.Array.apply(objects).objectAt(collectionId) : undefined;
+      let resource = collectionId && Ember.isArray(objects) ? Ember.A(objects).objectAt(collectionId) : undefined;
 
       //make sure the identifier exists
       if (Ember.isEmpty(resource)) {
@@ -23164,7 +22612,7 @@ define("mdeditor/pods/record/show/edit/template", ["exports"], function (exports
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "kuKYbF6O", "block": "{\"symbols\":[\"spy\"],\"statements\":[[6,\"div\"],[9,\"class\",\"row md-section-secondary\"],[7],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"md-record-content col-sm-10\"],[7],[0,\"\\n    \"],[1,[18,\"outlet\"],false],[0,\"\\n  \"],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"col-sm-2\"],[7],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"md-control-sidebar hidden-print\"],[7],[0,\"\\n      \"],[1,[25,\"control/md-crud-buttons\",null,[[\"model\",\"doSave\",\"doCancel\",\"doDelete\",\"doCopy\"],[[20,[\"model\"]],\"saveRecord\",\"cancelRecord\",\"destroyRecord\",\"copyRecord\"]]],false],[0,\"\\n      \"],[1,[25,\"component\",[[20,[\"subbar\"]]],[[\"context\"],[[25,\"route-action\",[\"getContext\"],null]]]],false],[0,\"\\n      \"],[6,\"hr\"],[7],[8],[0,\"\\n      \"],[1,[25,\"from-elsewhere\",null,[[\"name\"],[\"md-subbar-extra\"]]],false],[0,\"\\n\\n\"],[4,\"from-elsewhere\",null,[[\"name\"],[\"md-scroll-spy-record-edit\"]],{\"statements\":[[0,\"          \"],[1,[25,\"component\",[[19,1,[]]],[[\"offset\"],[145]]],false],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"    \"],[8],[0,\"\\n  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/edit/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "IEJi6r0p", "block": "{\"symbols\":[\"spy\"],\"statements\":[[6,\"div\"],[9,\"class\",\"row md-section-secondary\"],[7],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"md-record-content col-sm-10\"],[7],[0,\"\\n    \"],[1,[18,\"outlet\"],false],[0,\"\\n  \"],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"col-sm-2\"],[7],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"md-control-sidebar hidden-print\"],[7],[0,\"\\n      \"],[1,[25,\"control/md-crud-buttons\",null,[[\"model\",\"doSave\",\"doCancel\",\"doDelete\",\"doCopy\"],[[20,[\"model\"]],[25,\"route-action\",[\"saveRecord\"],null],[25,\"route-action\",[\"cancelRecord\"],null],[25,\"route-action\",[\"destroyRecord\"],null],[25,\"route-action\",[\"copyRecord\"],null]]]],false],[0,\"\\n      \"],[1,[25,\"component\",[[20,[\"subbar\"]]],[[\"context\"],[[25,\"route-action\",[\"getContext\"],null]]]],false],[0,\"\\n      \"],[6,\"hr\"],[7],[8],[0,\"\\n      \"],[1,[25,\"from-elsewhere\",null,[[\"name\"],[\"md-subbar-extra\"]]],false],[0,\"\\n\\n\"],[4,\"from-elsewhere\",null,[[\"name\"],[\"md-scroll-spy-record-edit\"]],{\"statements\":[[0,\"          \"],[1,[25,\"component\",[[19,1,[]]],[[\"offset\"],[145]]],false],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"    \"],[8],[0,\"\\n  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/edit/template.hbs" } });
 });
 define('mdeditor/pods/record/show/index/route', ['exports', 'mdeditor/mixins/scroll-to'], function (exports, _scrollTo) {
   'use strict';
@@ -23192,7 +22640,7 @@ define("mdeditor/pods/record/show/index/template", ["exports"], function (export
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "s7WydDuW", "block": "{\"symbols\":[\"resource\",\"extent\",\"index\",\"l\",\"type\"],\"statements\":[[4,\"with\",[[20,[\"model\",\"json\",\"metadata\",\"resourceInfo\"]]],null,{\"statements\":[[6,\"div\"],[9,\"class\",\"row md-no-spotlight\"],[7],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"col-sm-9 col-md-offset-1\"],[7],[0,\"\\n        \"],[6,\"h3\"],[7],[0,\"\\n        \"],[1,[25,\"fa-icon\",[[20,[\"model\",\"icon\"]]],[[\"class\"],[\"text-muted\"]]],false],[0,\"\\n        Viewing Record: \"],[1,[20,[\"model\",\"title\"]],false],[0,\"\\n        \"],[1,[25,\"control/md-status\",null,[[\"model\"],[[20,[\"model\"]]]]],false],[0,\"\\n        \"],[8],[0,\"\\n\\n\"],[4,\"layout/md-card\",null,[[\"shadow\",\"muted\",\"title\",\"bodyIsRow\",\"collapsible\",\"btnText\",\"btnClass\",\"btnAction\",\"btnIcon\"],[false,true,\"Main\",false,true,\"Edit\",\"success\",[25,\"route-action\",[\"linkTo\",\"record.show.edit.main\"],null],\"pencil\"]],{\"statements\":[[0,\"          \"],[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n            \"],[6,\"dl\"],[9,\"class\",\"dl-horizontal col-xxl-8\"],[7],[0,\"\\n                \"],[1,[25,\"control/md-definition\",null,[[\"title\",\"text\"],[\"Record Id\",[20,[\"model\",\"recordId\"]]]]],false],[0,\"\\n                \"],[1,[25,\"control/md-definition\",null,[[\"title\",\"text\"],[\"Record Title\",[20,[\"model\",\"title\"]]]]],false],[0,\"\\n                \"],[1,[25,\"control/md-definition\",null,[[\"title\",\"text\"],[\"Status\",[25,\"if\",[[19,1,[\"status\"]],[25,\"join\",[\", \",[19,1,[\"status\"]]],null]],null]]]],false],[0,\"\\n                \"],[1,[25,\"control/md-definition\",null,[[\"title\",\"text\"],[\"Contact Instructions\",[20,[\"model\",\"json\",\"contactInstructions\"]]]]],false],[0,\"\\n\\n            \"],[8],[0,\"\\n            \"],[6,\"dl\"],[9,\"class\",\"dl-horizontal col-xxl-4\"],[7],[0,\"\\n\"],[4,\"control/md-definition\",null,[[\"title\"],[\"Resource Type(s)\"]],{\"statements\":[[4,\"each\",[[19,1,[\"resourceType\"]]],null,{\"statements\":[[0,\"                        \"],[1,[19,5,[\"type\"]],false],[0,\":\\n\"],[4,\"if\",[[19,5,[\"name\"]]],null,{\"statements\":[[0,\"                            \"],[1,[19,5,[\"name\"]],false],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"                            \"],[6,\"em\"],[7],[0,\"Not named\"],[8],[0,\"\\n\"]],\"parameters\":[]}],[0,\"                        \"],[6,\"br\"],[7],[8],[0,\"\\n\"]],\"parameters\":[5]},{\"statements\":[[0,\"                            \"],[6,\"em\"],[9,\"class\",\"text-muted\"],[7],[0,\"No types assigned!\"],[8],[0,\"\\n\"]],\"parameters\":[]}]],\"parameters\":[]},null],[0,\"            \"],[8],[0,\"\\n            \"],[6,\"div\"],[9,\"class\",\"col-xs-12\"],[7],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"shadow\",\"muted\",\"plain\",\"shadow\"],[false,true,true,false]],{\"statements\":[[0,\"                \"],[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n                  \"],[6,\"div\"],[9,\"class\",\"text-info col-xs-6 col-sm-3\"],[7],[0,\"Default Resource Locale\"],[8],[0,\"\\n                  \"],[6,\"div\"],[9,\"class\",\"col-xs-6 col-sm-3\"],[7],[0,\"\\n                    \"],[6,\"label\"],[9,\"class\",\"text-nowrap\"],[7],[0,\"Character Set:\"],[8],[0,\"\\n                    \"],[6,\"span\"],[9,\"class\",\"text-nowrap\"],[7],[1,[19,1,[\"defaultResourceLocale\",\"characterSet\"]],false],[8],[0,\"\\n                  \"],[8],[0,\"\\n                  \"],[6,\"div\"],[9,\"class\",\"col-xs-6 col-sm-3\"],[7],[0,\"\\n                    \"],[6,\"label\"],[7],[0,\"Country:\"],[8],[0,\"\\n                    \"],[6,\"span\"],[9,\"class\",\"text-nowrap\"],[7],[1,[19,1,[\"defaultResourceLocale\",\"country\"]],false],[8],[0,\"\\n                  \"],[8],[0,\"\\n                  \"],[6,\"div\"],[9,\"class\",\"col-xs-6 col-sm-3\"],[7],[0,\"\\n                    \"],[6,\"label\"],[7],[0,\"Language:\"],[8],[0,\"\\n                    \"],[6,\"span\"],[7],[1,[19,1,[\"defaultResourceLocale\",\"language\"]],false],[8],[0,\"\\n                  \"],[8],[0,\"\\n                \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"            \"],[8],[0,\"\\n          \"],[8],[0,\"\\n\\n\"],[4,\"layout/md-card\",null,[[\"shadow\",\"muted\",\"title\",\"collapsible\",\"scroll\",\"maximizable\",\"class\"],[false,true,\"Abstract\",true,true,true,\"md-embedded\"]],{\"statements\":[[0,\"              \"],[1,[25,\"md-markdown\",[[19,1,[\"abstract\"]],\"Abstract not provided!\"],null],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"shadow\",\"muted\",\"title\",\"collapsible\",\"scroll\",\"class\"],[false,true,\"Short Abstract\",true,false,\"md-embedded\"]],{\"statements\":[[0,\"              \"],[1,[25,\"md-markdown\",[[19,1,[\"shortAbstract\"]],\"Short Abstract not provided!\"],null],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"shadow\",\"muted\",\"title\",\"bodyIsRow\",\"collapsible\",\"btnText\",\"btnClass\",\"btnAction\",\"btnIcon\"],[false,true,\"Geographic Extent\",false,true,\"Edit\",\"success\",[25,\"route-action\",[\"linkTo\",\"record.show.edit.extent\"],null],\"pencil\"]],{\"statements\":[[0,\"\\n        \"],[6,\"section\"],[7],[0,\"\\n\"],[4,\"each\",[[19,1,[\"extent\"]]],null,{\"statements\":[[0,\"            \"],[6,\"div\"],[9,\"class\",\"row md-extent-container\"],[7],[0,\"\\n              \"],[6,\"div\"],[9,\"class\",\"col-sm-12\"],[7],[0,\"\\n                \"],[6,\"h4\"],[9,\"class\",\"text-info\"],[7],[0,\"\\n                  Geographic Extent #\"],[1,[19,3,[]],false],[0,\"\\n                \"],[8],[0,\"\\n              \"],[8],[0,\"\\n              \"],[6,\"div\"],[9,\"class\",\"col-sm-6\"],[7],[0,\"\\n                \"],[6,\"label\"],[9,\"class\",\"\"],[7],[0,\"\\n                  Description\\n                \"],[8],[0,\"\\n                \"],[6,\"p\"],[7],[0,\"\\n                  \"],[1,[25,\"get-property\",[[19,2,[]],\"description\"],null],false],[0,\"\\n                \"],[8],[0,\"\\n              \"],[8],[0,\"\\n              \"],[6,\"div\"],[9,\"class\",\"col-sm-6 md-extent-map\"],[7],[0,\"\\n\"],[4,\"if\",[[19,2,[\"geographicExtent\",\"0\",\"geographicElement\",\"length\"]]],null,{\"statements\":[[4,\"leaflet-map\",null,[[\"lat\",\"lng\",\"zoom\",\"maxZoom\",\"onLoad\"],[0,0,2,18,[25,\"route-action\",[\"setupMap\",[19,2,[\"geographicExtent\",\"0\",\"geographicElement\"]]],null]]],{\"statements\":[[4,\"layer-group\",null,[[\"name\",\"baselayer\",\"default\"],[\"Terrain\",true,true]],{\"statements\":[[0,\"                      \"],[1,[25,\"tile-layer\",null,[[\"url\",\"attribution\"],[\"//stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png\",[20,[\"mapAttribution\"]]]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"feature-group\",null,[[\"name\",\"default\"],[\"Features\",true]],{\"statements\":[[4,\"each\",[[19,2,[\"geographicExtent\",\"0\",\"geographicElement\"]]],null,{\"statements\":[[0,\"                        \"],[1,[25,\"geojson-layer\",null,[[\"geoJSON\"],[[19,4,[]]]]],false],[0,\"\\n\"]],\"parameters\":[4]},null]],\"parameters\":[]},null],[0,\"\\n                    \"],[1,[18,\"layer-control\"],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},{\"statements\":[[0,\"                  \"],[6,\"div\"],[9,\"class\",\"alert alert-info\"],[7],[0,\"\\n                    No Features to display.\\n                  \"],[8],[0,\"\\n\"]],\"parameters\":[]}],[0,\"              \"],[8],[0,\"\\n            \"],[8],[0,\"\\n\"]],\"parameters\":[2,3]},{\"statements\":[[0,\"            \"],[6,\"h3\"],[9,\"class\",\"alert alert-info\"],[7],[0,\"No geographic extents found.\\n            \"],[8],[0,\"\\n\"]],\"parameters\":[]}],[0,\"        \"],[8],[0,\"\\n\\n\"]],\"parameters\":[]},null],[0,\"\\n        \"],[1,[18,\"outlet\"],false],[0,\"\\n    \"],[8],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"col-sm-2\"],[7],[0,\"\\n      \"],[6,\"div\"],[9,\"class\",\"md-control-sidebar hidden-print\"],[7],[0,\"\\n\"],[4,\"control/md-crud-buttons\",null,[[\"model\",\"doDelete\",\"doCopy\"],[[20,[\"model\"]],\"destroyRecord\",\"copyRecord\"]],{\"statements\":[[4,\"link-to\",[\"record.show.edit\",[20,[\"model\",\"id\"]]],[[\"class\"],[\"btn btn-lg btn-success\"]],{\"statements\":[[0,\"            \"],[1,[25,\"fa-icon\",[\"pencil\"],null],false],[0,\" Edit\"]],\"parameters\":[]},null],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"        \"],[6,\"hr\"],[7],[8],[0,\"\\n\"],[4,\"link-to\",[\"records\"],[[\"class\"],[\"btn btn-lg btn-primary btn-block\"]],{\"statements\":[[0,\"        \"],[1,[25,\"fa-icon\",[\"list\"],null],false],[0,\" Show List\"]],\"parameters\":[]},null],[0,\"\\n\\n        \"],[1,[25,\"control/md-scroll-spy\",null,[[\"scrollInit\",\"setScrollTo\",\"refresh\"],[[20,[\"scrollTo\"]],[25,\"route-action\",[\"setScrollTo\"],null],[20,[\"model\",\"profile\"]]]]],false],[0,\"\\n      \"],[8],[0,\"\\n    \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"parameters\":[1]},null]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/index/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "q9NJlMGR", "block": "{\"symbols\":[\"resource\",\"extent\",\"index\",\"l\",\"type\"],\"statements\":[[4,\"with\",[[20,[\"model\",\"json\",\"metadata\",\"resourceInfo\"]]],null,{\"statements\":[[6,\"div\"],[9,\"class\",\"row md-no-spotlight\"],[7],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"col-sm-9 col-md-offset-1\"],[7],[0,\"\\n        \"],[6,\"h3\"],[7],[0,\"\\n        \"],[1,[25,\"fa-icon\",[[20,[\"model\",\"icon\"]]],[[\"class\"],[\"text-muted\"]]],false],[0,\"\\n        Viewing Record: \"],[1,[20,[\"model\",\"title\"]],false],[0,\"\\n        \"],[1,[25,\"control/md-status\",null,[[\"model\"],[[20,[\"model\"]]]]],false],[0,\"\\n        \"],[8],[0,\"\\n\\n\"],[4,\"layout/md-card\",null,[[\"shadow\",\"muted\",\"title\",\"bodyIsRow\",\"collapsible\",\"btnText\",\"btnClass\",\"btnAction\",\"btnIcon\"],[false,true,\"Main\",false,true,\"Edit\",\"success\",[25,\"route-action\",[\"linkTo\",\"record.show.edit.main\"],null],\"pencil\"]],{\"statements\":[[0,\"          \"],[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n            \"],[6,\"dl\"],[9,\"class\",\"dl-horizontal col-xxl-8\"],[7],[0,\"\\n                \"],[1,[25,\"control/md-definition\",null,[[\"title\",\"text\"],[\"Record Id\",[20,[\"model\",\"recordId\"]]]]],false],[0,\"\\n                \"],[1,[25,\"control/md-definition\",null,[[\"title\",\"text\"],[\"Record Title\",[20,[\"model\",\"title\"]]]]],false],[0,\"\\n                \"],[1,[25,\"control/md-definition\",null,[[\"title\",\"text\"],[\"Status\",[25,\"if\",[[19,1,[\"status\"]],[25,\"join\",[\", \",[19,1,[\"status\"]]],null]],null]]]],false],[0,\"\\n                \"],[1,[25,\"control/md-definition\",null,[[\"title\",\"text\"],[\"Contact Instructions\",[20,[\"model\",\"json\",\"contactInstructions\"]]]]],false],[0,\"\\n\\n            \"],[8],[0,\"\\n            \"],[6,\"dl\"],[9,\"class\",\"dl-horizontal col-xxl-4\"],[7],[0,\"\\n\"],[4,\"control/md-definition\",null,[[\"title\"],[\"Resource Type(s)\"]],{\"statements\":[[4,\"each\",[[19,1,[\"resourceType\"]]],null,{\"statements\":[[0,\"                        \"],[1,[19,5,[\"type\"]],false],[0,\":\\n\"],[4,\"if\",[[19,5,[\"name\"]]],null,{\"statements\":[[0,\"                            \"],[1,[19,5,[\"name\"]],false],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"                            \"],[6,\"em\"],[7],[0,\"Not named\"],[8],[0,\"\\n\"]],\"parameters\":[]}],[0,\"                        \"],[6,\"br\"],[7],[8],[0,\"\\n\"]],\"parameters\":[5]},{\"statements\":[[0,\"                            \"],[6,\"em\"],[9,\"class\",\"text-muted\"],[7],[0,\"No types assigned!\"],[8],[0,\"\\n\"]],\"parameters\":[]}]],\"parameters\":[]},null],[0,\"            \"],[8],[0,\"\\n            \"],[6,\"div\"],[9,\"class\",\"col-xs-12\"],[7],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"shadow\",\"muted\",\"plain\",\"shadow\"],[false,true,true,false]],{\"statements\":[[0,\"                \"],[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n                  \"],[6,\"div\"],[9,\"class\",\"text-info col-xs-6 col-sm-3\"],[7],[0,\"Default Resource Locale\"],[8],[0,\"\\n                  \"],[6,\"div\"],[9,\"class\",\"col-xs-6 col-sm-3\"],[7],[0,\"\\n                    \"],[6,\"label\"],[9,\"class\",\"text-nowrap\"],[7],[0,\"Character Set:\"],[8],[0,\"\\n                    \"],[6,\"span\"],[9,\"class\",\"text-nowrap\"],[7],[1,[19,1,[\"defaultResourceLocale\",\"characterSet\"]],false],[8],[0,\"\\n                  \"],[8],[0,\"\\n                  \"],[6,\"div\"],[9,\"class\",\"col-xs-6 col-sm-3\"],[7],[0,\"\\n                    \"],[6,\"label\"],[7],[0,\"Country:\"],[8],[0,\"\\n                    \"],[6,\"span\"],[9,\"class\",\"text-nowrap\"],[7],[1,[19,1,[\"defaultResourceLocale\",\"country\"]],false],[8],[0,\"\\n                  \"],[8],[0,\"\\n                  \"],[6,\"div\"],[9,\"class\",\"col-xs-6 col-sm-3\"],[7],[0,\"\\n                    \"],[6,\"label\"],[7],[0,\"Language:\"],[8],[0,\"\\n                    \"],[6,\"span\"],[7],[1,[19,1,[\"defaultResourceLocale\",\"language\"]],false],[8],[0,\"\\n                  \"],[8],[0,\"\\n                \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"            \"],[8],[0,\"\\n          \"],[8],[0,\"\\n\\n\"],[4,\"layout/md-card\",null,[[\"shadow\",\"muted\",\"title\",\"collapsible\",\"scroll\",\"maximizable\",\"class\"],[false,true,\"Abstract\",true,true,true,\"md-embedded\"]],{\"statements\":[[0,\"              \"],[1,[25,\"md-markdown\",[[19,1,[\"abstract\"]],\"Abstract not provided!\"],null],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"shadow\",\"muted\",\"title\",\"collapsible\",\"scroll\",\"class\"],[false,true,\"Short Abstract\",true,false,\"md-embedded\"]],{\"statements\":[[0,\"              \"],[1,[25,\"md-markdown\",[[19,1,[\"shortAbstract\"]],\"Short Abstract not provided!\"],null],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"shadow\",\"muted\",\"title\",\"bodyIsRow\",\"collapsible\",\"btnText\",\"btnClass\",\"btnAction\",\"btnIcon\"],[false,true,\"Geographic Extent\",false,true,\"Edit\",\"success\",[25,\"route-action\",[\"linkTo\",\"record.show.edit.extent\"],null],\"pencil\"]],{\"statements\":[[0,\"\\n        \"],[6,\"section\"],[7],[0,\"\\n\"],[4,\"each\",[[19,1,[\"extent\"]]],null,{\"statements\":[[0,\"            \"],[6,\"div\"],[9,\"class\",\"row md-extent-container\"],[7],[0,\"\\n              \"],[6,\"div\"],[9,\"class\",\"col-sm-12\"],[7],[0,\"\\n                \"],[6,\"h4\"],[9,\"class\",\"text-info\"],[7],[0,\"\\n                  Geographic Extent #\"],[1,[19,3,[]],false],[0,\"\\n                \"],[8],[0,\"\\n              \"],[8],[0,\"\\n              \"],[6,\"div\"],[9,\"class\",\"col-sm-6\"],[7],[0,\"\\n                \"],[6,\"label\"],[9,\"class\",\"\"],[7],[0,\"\\n                  Description\\n                \"],[8],[0,\"\\n                \"],[6,\"p\"],[7],[0,\"\\n                  \"],[1,[25,\"get-property\",[[19,2,[]],\"description\"],null],false],[0,\"\\n                \"],[8],[0,\"\\n              \"],[8],[0,\"\\n              \"],[6,\"div\"],[9,\"class\",\"col-sm-6 md-extent-map\"],[7],[0,\"\\n\"],[4,\"if\",[[19,2,[\"geographicExtent\",\"0\",\"geographicElement\",\"length\"]]],null,{\"statements\":[[4,\"leaflet-map\",null,[[\"lat\",\"lng\",\"zoom\",\"maxZoom\",\"onLoad\"],[0,0,2,18,[25,\"route-action\",[\"setupMap\",[19,2,[\"geographicExtent\",\"0\",\"geographicElement\"]]],null]]],{\"statements\":[[4,\"layer-group\",null,[[\"name\",\"baselayer\",\"default\"],[\"Terrain\",true,true]],{\"statements\":[[0,\"                      \"],[1,[25,\"tile-layer\",null,[[\"url\",\"attribution\"],[\"//stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png\",[20,[\"mapAttribution\"]]]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"feature-group\",null,[[\"name\",\"default\"],[\"Features\",true]],{\"statements\":[[4,\"each\",[[19,2,[\"geographicExtent\",\"0\",\"geographicElement\"]]],null,{\"statements\":[[0,\"                        \"],[1,[25,\"geojson-layer\",null,[[\"geoJSON\"],[[19,4,[]]]]],false],[0,\"\\n\"]],\"parameters\":[4]},null]],\"parameters\":[]},null],[0,\"\\n                    \"],[1,[18,\"layer-control\"],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},{\"statements\":[[0,\"                  \"],[6,\"div\"],[9,\"class\",\"alert alert-info\"],[7],[0,\"\\n                    No Features to display.\\n                  \"],[8],[0,\"\\n\"]],\"parameters\":[]}],[0,\"              \"],[8],[0,\"\\n            \"],[8],[0,\"\\n\"]],\"parameters\":[2,3]},{\"statements\":[[0,\"            \"],[6,\"h3\"],[9,\"class\",\"alert alert-info\"],[7],[0,\"No geographic extents found.\\n            \"],[8],[0,\"\\n\"]],\"parameters\":[]}],[0,\"        \"],[8],[0,\"\\n\\n\"]],\"parameters\":[]},null],[0,\"\\n        \"],[1,[18,\"outlet\"],false],[0,\"\\n    \"],[8],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"col-sm-2\"],[7],[0,\"\\n      \"],[6,\"div\"],[9,\"class\",\"md-control-sidebar hidden-print\"],[7],[0,\"\\n\"],[4,\"control/md-crud-buttons\",null,[[\"model\",\"doDelete\",\"doCopy\"],[[20,[\"model\"]],[25,\"route-action\",[\"destroyRecord\"],null],[25,\"route-action\",[\"copyRecord\"],null]]],{\"statements\":[[4,\"link-to\",[\"record.show.edit\",[20,[\"model\",\"id\"]]],[[\"class\"],[\"btn btn-lg btn-success\"]],{\"statements\":[[0,\"            \"],[1,[25,\"fa-icon\",[\"pencil\"],null],false],[0,\" Edit\"]],\"parameters\":[]},null],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"        \"],[6,\"hr\"],[7],[8],[0,\"\\n\"],[4,\"link-to\",[\"records\"],[[\"class\"],[\"btn btn-lg btn-primary btn-block\"]],{\"statements\":[[0,\"        \"],[1,[25,\"fa-icon\",[\"list\"],null],false],[0,\" Show List\"]],\"parameters\":[]},null],[0,\"\\n\\n        \"],[1,[25,\"control/md-scroll-spy\",null,[[\"scrollInit\",\"setScrollTo\",\"refresh\"],[[20,[\"scrollTo\"]],[25,\"route-action\",[\"setScrollTo\"],null],[20,[\"model\",\"profile\"]]]]],false],[0,\"\\n      \"],[8],[0,\"\\n    \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"parameters\":[1]},null]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/index/template.hbs" } });
 });
 define("mdeditor/pods/record/show/nav/template", ["exports"], function (exports) {
   "use strict";
@@ -23200,7 +22648,7 @@ define("mdeditor/pods/record/show/nav/template", ["exports"], function (exports)
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "pcZmAY1Q", "block": "{\"symbols\":[],\"statements\":[[6,\"li\"],[7],[0,\"\\n\"],[4,\"link-to\",[\"record.show.translate\"],null,{\"statements\":[[0,\"    \"],[6,\"span\"],[9,\"class\",\"fa fa-retweet\"],[7],[8],[0,\"\\n    \"],[6,\"span\"],[9,\"class\",\"md-nav-text\"],[7],[0,\"Translate\"],[8],[0,\" \"],[1,[25,\"tooltip-on-element\",null,[[\"text\",\"side\",\"class\"],[\"Translate\",\"bottom\",\"md-nav-tip\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[8],[0,\"\\n\"],[6,\"li\"],[7],[0,\"\\n\\n  \"],[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n    \"],[6,\"form\"],[9,\"class\",\"col-xxl-11 col-xxxl-10 col-xxl-offset-1\"],[7],[0,\"\\n\"],[4,\"link-to\",[\"publish\"],null,{\"statements\":[[0,\"        \"],[6,\"span\"],[9,\"class\",\"fa fa-share-square-o\"],[7],[8],[0,\"\\n        \"],[6,\"span\"],[9,\"class\",\"md-nav-text\"],[7],[0,\"Publish\"],[8],[0,\" \"],[1,[25,\"tooltip-on-element\",null,[[\"text\",\"side\",\"class\"],[\"Publish\",\"bottom\",\"md-nav-tip\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"    \"],[8],[0,\"\\n  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"],[1,[18,\"outlet\"],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/nav/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "fJZlJbZg", "block": "{\"symbols\":[],\"statements\":[[6,\"li\"],[7],[0,\"\\n\"],[4,\"link-to\",[\"record.show.translate\"],null,{\"statements\":[[0,\"    \"],[6,\"span\"],[9,\"class\",\"fa fa-retweet\"],[7],[8],[0,\"\\n    \"],[6,\"span\"],[9,\"class\",\"md-nav-text\"],[7],[0,\"Translate\"],[8],[0,\" \"],[1,[25,\"ember-tooltip\",null,[[\"text\",\"side\",\"tooltipClassName\"],[\"Translate\",\"bottom\",\"ember-tooltip md-nav-tip\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[8],[0,\"\\n\"],[6,\"li\"],[7],[0,\"\\n\\n  \"],[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n    \"],[6,\"form\"],[9,\"class\",\"col-xxl-11 col-xxxl-10 col-xxl-offset-1\"],[7],[0,\"\\n\"],[4,\"link-to\",[\"publish\"],null,{\"statements\":[[0,\"        \"],[6,\"span\"],[9,\"class\",\"fa fa-share-square-o\"],[7],[8],[0,\"\\n        \"],[6,\"span\"],[9,\"class\",\"md-nav-text\"],[7],[0,\"Publish\"],[8],[0,\" \"],[1,[25,\"ember-tooltip\",null,[[\"text\",\"side\",\"tooltipClassName\"],[\"Publish\",\"bottom\",\"ember-tooltip md-nav-tip\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"    \"],[8],[0,\"\\n  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"],[1,[18,\"outlet\"],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/nav/template.hbs" } });
 });
 define('mdeditor/pods/record/show/route', ['exports'], function (exports) {
   'use strict';
@@ -23208,10 +22656,8 @@ define('mdeditor/pods/record/show/route', ['exports'], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const get = Ember.get,
-        copy = Ember.copy;
   exports.default = Ember.Route.extend({
-    breadCrumb: {},
+    //breadCrumb: {},
     afterModel(model) {
       const name = model.get('title');
 
@@ -23237,14 +22683,14 @@ define('mdeditor/pods/record/show/route', ['exports'], function (exports) {
       destroyRecord: function destroyRecord() {
         let model = this.currentRouteModel();
         model.destroyRecord().then(() => {
-          get(this, 'flashMessages').success(`Deleted Record: ${model.get('title')}`);
+          Ember.get(this, 'flashMessages').success(`Deleted Record: ${model.get('title')}`);
           this.replaceWith('records');
         });
       },
       copyRecord: function copyRecord() {
 
-        get(this, 'flashMessages').success(`Copied Record: ${this.currentRouteModel().get('title')}`);
-        this.transitionTo('record.new.id', copy(this.currentRouteModel()));
+        Ember.get(this, 'flashMessages').success(`Copied Record: ${this.currentRouteModel().get('title')}`);
+        this.transitionTo('record.new.id', Ember.copy(this.currentRouteModel()));
       }
     }
   });
@@ -23263,8 +22709,18 @@ define('mdeditor/pods/record/show/translate/route', ['exports'], function (expor
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route;
-  exports.default = Route.extend({});
+  exports.default = Ember.Route.extend({
+    setupController(controller, model) {
+      this._super(controller, model);
+
+      controller.setProperties({
+        writer: controller.writer || null,
+        forceValid: controller.forceValid || false,
+        showAllTags: controller.showAllTags || false
+      });
+    }
+
+  });
 });
 define("mdeditor/pods/record/show/translate/template", ["exports"], function (exports) {
   "use strict";
@@ -23272,7 +22728,7 @@ define("mdeditor/pods/record/show/translate/template", ["exports"], function (ex
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "BIqSDNoM", "block": "{\"symbols\":[],\"statements\":[[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"col-xxl-11 col-xxxl-10 col-xxl-offset-1\"],[7],[0,\"\\n      \"],[6,\"h3\"],[7],[0,\"Translate Record\"],[8],[0,\"\\n        \"],[1,[25,\"md-translate\",null,[[\"model\",\"store\"],[[20,[\"model\"]],[20,[\"store\"]]]]],false],[0,\"\\n    \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/translate/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "DadraSiL", "block": "{\"symbols\":[],\"statements\":[[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"col-xxl-11 col-xxxl-10 col-xxl-offset-1\"],[7],[0,\"\\n      \"],[6,\"h3\"],[7],[0,\"Translate Record\"],[8],[0,\"\\n        \"],[1,[25,\"md-translate\",null,[[\"model\",\"store\",\"writer\",\"forceValid\",\"showAllTags\"],[[20,[\"model\"]],[20,[\"store\"]],[20,[\"writer\"]],[20,[\"forceValid\"]],[20,[\"showAllTags\"]]]]],false],[0,\"\\n    \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/translate/template.hbs" } });
 });
 define("mdeditor/pods/record/template", ["exports"], function (exports) {
   "use strict";
@@ -23296,26 +22752,28 @@ define('mdeditor/pods/records/route', ['exports'], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Route = Ember.Route,
-        service = Ember.inject.service;
-  exports.default = Route.extend({
-    slider: service(),
+
+
+  const columns = [{
+    propertyName: 'title',
+    title: 'Title'
+  }, {
+    propertyName: 'defaultType',
+    title: 'Resource Type',
+    filterWithSelect: true
+  }, {
+    propertyName: 'recordId',
+    title: 'ID'
+  }];
+
+  exports.default = Ember.Route.extend({
+    slider: Ember.inject.service(),
     model() {
       //return this.store.peekAll('contact');
       return this.modelFor('application').findBy('modelName', 'record');
     },
 
-    columns: [{
-      propertyName: 'title',
-      title: 'Title'
-    }, {
-      propertyName: 'defaultType',
-      title: 'Resource Type',
-      filterWithSelect: true
-    }, {
-      propertyName: 'recordId',
-      title: 'ID'
-    }],
+    columns: columns,
 
     renderTemplate() {
       this.render('records.nav', {
@@ -23413,7 +22871,7 @@ define("mdeditor/pods/settings/template", ["exports"], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "C7jeKTzd", "block": "{\"symbols\":[\"catalog\",\"meta\"],\"statements\":[[6,\"div\"],[9,\"class\",\"page-header\"],[7],[0,\"\\n  \"],[6,\"h3\"],[7],[0,\"Settings\\n    \"],[6,\"small\"],[9,\"class\",\"small\"],[7],[0,\"mdEditor Version: \"],[1,[18,\"control/md-repo-link\"],false],[8],[0,\"\\n  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\\n\"],[4,\"layout/md-card\",null,[[\"title\"],[\"General Settings\"]],{\"statements\":[[6,\"form\"],[9,\"class\",\"form-horizontal\"],[7],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"form-group\"],[7],[0,\"\\n      \"],[6,\"label\"],[9,\"class\",\"col-sm-2 col-lg-1 control-label\"],[7],[0,\"Auto Save\"],[8],[0,\"\\n      \"],[6,\"div\"],[9,\"class\",\"col-sm-1\"],[7],[0,\"\\n        \"],[1,[25,\"x-toggle\",null,[[\"value\",\"onToggle\",\"showLabels\",\"onLabel\",\"offLabel\",\"size\",\"theme\"],[[20,[\"model\",\"autoSave\"]],[25,\"mut\",[[20,[\"model\",\"autoSave\"]]],null],true,\"On::true\",\"Off::false\",\"medium\",\"default\"]]],false],[0,\"\\n      \"],[8],[0,\"\\n  \"],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"form-group\"],[7],[0,\"\\n      \"],[6,\"label\"],[9,\"class\",\"col-sm-2 col-lg-1 control-label\"],[7],[0,\"Clear All Records\"],[8],[0,\"\\n      \"],[6,\"div\"],[9,\"class\",\"col-sm-1\"],[7],[0,\"\\n\"],[4,\"control/md-button-modal\",null,[[\"class\",\"type\",\"message\",\"onConfirm\"],[\"btn btn-lg btn-danger\",\"button\",\"<h1>Are you sure?</h1> Clicking OK will delete ALL  records in\\n            your browser cache. Have you made a backup?\",[25,\"route-action\",[\"clearLocalStorage\"],null]]],{\"statements\":[[0,\"            \"],[6,\"span\"],[9,\"class\",\"fa fa-times\"],[7],[8],[0,\" Clear Storage Cache\\n\"]],\"parameters\":[]},null],[0,\"      \"],[8],[0,\"\\n  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"title\",\"shadow\"],[\"Defaults\",true]],{\"statements\":[[6,\"div\"],[9,\"class\",\"form-group\"],[7],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"col-md-4\"],[7],[0,\"\\n      \"],[1,[25,\"input/md-codelist\",null,[[\"value\",\"create\",\"tooltip\",\"icon\",\"disabled\",\"mdCodeName\",\"label\",\"showValidations\",\"placeholder\"],[[20,[\"model\",\"language\"]],true,true,false,[20,[\"disabled\"]],\"language\",\"Language\",true,\"Select or enter a language code.\"]]],false],[0,\"\\n    \"],[8],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"col-md-4\"],[7],[0,\"\\n      \"],[1,[25,\"input/md-codelist\",null,[[\"value\",\"create\",\"tooltip\",\"icon\",\"disabled\",\"mdCodeName\",\"label\",\"showValidations\",\"placeholder\"],[[20,[\"model\",\"characterSet\"]],false,true,false,[20,[\"disabled\"]],\"characterSet\",\"Character Set\",true,\"Select character set.\"]]],false],[0,\"\\n    \"],[8],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"col-md-4\"],[7],[0,\"\\n      \"],[1,[25,\"input/md-codelist\",null,[[\"value\",\"create\",\"tooltip\",\"icon\",\"disabled\",\"mdCodeName\",\"label\",\"placeholder\"],[[20,[\"model\",\"country\"]],false,true,false,[20,[\"disabled\"]],\"countries\",\"Country\",\"Select country code.\"]]],false],[0,\"\\n    \"],[8],[0,\"\\n    \"],[6,\"hr\"],[9,\"class\",\"col-md-12\"],[7],[8],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"col-md-8\"],[7],[0,\"\\n      \"],[1,[25,\"input/md-input\",null,[[\"label\",\"type\",\"value\",\"placeholder\"],[\"Import URL\",\"url\",[20,[\"model\",\"importUriBase\"]],\"Text string used as the default URL for importing.\"]]],false],[0,\"\\n    \"],[8],[0,\"\\n    \"],[6,\"hr\"],[9,\"class\",\"col-md-12\"],[7],[8],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"col-md-8\"],[7],[0,\"\\n      \"],[6,\"label\"],[7],[0,\"mdTranslator API URL\"],[8],[0,\"\\n      \"],[6,\"div\"],[9,\"class\",\"input-group\"],[7],[0,\"\\n        \"],[1,[25,\"input/md-input\",null,[[\"type\",\"value\",\"placeholder\"],[\"url\",[20,[\"model\",\"mdTranslatorAPI\"]],\"URL for the ADIwg Metadata Translator.\"]]],false],[0,\"\\n        \"],[6,\"span\"],[9,\"class\",\"input-group-btn\"],[7],[0,\"\\n          \"],[6,\"button\"],[9,\"class\",\"btn btn-warning\"],[9,\"type\",\"button\"],[3,\"action\",[[19,0,[]],\"resetMdTranslatorAPI\"]],[7],[0,\"Default\\n            \"],[1,[25,\"tooltip-on-element\",null,[[\"class\",\"text\"],[\"md-tooltip info\",\"Reset to default\"]]],false],[0,\"\\n          \"],[8],[0,\"\\n        \"],[8],[0,\"\\n      \"],[8],[0,\"\\n    \"],[8],[0,\"\\n\"],[8],[0,\"\\n\\n\"],[6,\"div\"],[9,\"class\",\"clearfix\"],[7],[8],[0,\"\\n\"],[6,\"hr\"],[7],[8],[0,\"\\n\"],[4,\"object/md-array-table\",null,[[\"columns\",\"value\",\"plain\",\"title\",\"templateClass\",\"onChange\",\"data-spy\"],[\"Repository, Collection Title\",[20,[\"model\",\"repositoryDefaults\"]],true,\"Metadata Repository\",[20,[\"settings\",\"repositoryTemplate\"]],[25,\"route-action\",[\"save\"],null],\"Metadata Repository\"]],{\"statements\":[[0,\"    \"],[6,\"td\"],[7],[0,\"\\n      \"],[1,[25,\"input/md-codelist\",null,[[\"value\",\"create\",\"tooltip\",\"icon\",\"mdCodeName\",\"closeOnSelect\",\"placeholder\",\"change\"],[[19,2,[\"item\",\"repository\"]],true,true,false,\"metadataRepository\",true,\"Select or enter a repository.\",[25,\"route-action\",[\"save\"],null]]]],false],[0,\"\\n    \"],[8],[0,\"\\n    \"],[6,\"td\"],[7],[0,\"\\n      \"],[1,[25,\"input/md-input\",null,[[\"type\",\"value\",\"placeholder\",\"change\"],[\"text\",[19,2,[\"item\",\"title\"]],\"Text string used to identify a set of resources in the repository.\",[25,\"route-action\",[\"save\"],null]]]],false],[0,\"\\n    \"],[8],[0,\"\\n\"]],\"parameters\":[2]},null]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"title\"],[\"Date Settings\"]],{\"statements\":[[0,\"  \"],[6,\"div\"],[9,\"class\",\"col-md-4\"],[7],[0,\"\\n    \"],[1,[25,\"input/md-month\",null,[[\"date\",\"format\",\"altFormat\",\"label\",\"placeholder\"],[[20,[\"model\",\"fiscalStartMonth\"]],\"MMMM\",\"MM\",\"Start Month of Fiscal Year\",\"Select month.\"]]],false],[0,\"\\n  \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"title\"],[\"Publishing Settings\"]],{\"statements\":[[4,\"each\",[[25,\"compute\",[[25,\"route-action\",[\"catalogs\"],null]],null]],null,{\"statements\":[[4,\"layout/md-card\",null,[[\"title\",\"collapsible\",\"collapsed\",\"shadow\"],[[19,1,[\"name\"]],true,true,false]],{\"statements\":[[0,\"    \"],[1,[25,\"component\",[[19,1,[\"settingsComponent\"]]],[[\"model\"],[[20,[\"model\",\"publishOptions\"]]]]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[1]},null]],\"parameters\":[]},null],[0,\" \"],[1,[18,\"outlet\"],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/settings/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "uhKvNUle", "block": "{\"symbols\":[\"catalog\",\"meta\"],\"statements\":[[6,\"div\"],[9,\"class\",\"page-header\"],[7],[0,\"\\n  \"],[6,\"h3\"],[7],[0,\"Settings\\n    \"],[6,\"small\"],[9,\"class\",\"small\"],[7],[0,\"mdEditor Version: \"],[1,[18,\"control/md-repo-link\"],false],[8],[0,\"\\n  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\\n\"],[4,\"layout/md-card\",null,[[\"title\"],[\"General Settings\"]],{\"statements\":[[6,\"form\"],[9,\"class\",\"form-horizontal\"],[7],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"form-group\"],[7],[0,\"\\n      \"],[6,\"label\"],[9,\"class\",\"col-sm-2 col-lg-1 control-label\"],[7],[0,\"Auto Save\"],[8],[0,\"\\n      \"],[6,\"div\"],[9,\"class\",\"col-sm-1\"],[7],[0,\"\\n        \"],[1,[25,\"x-toggle\",null,[[\"value\",\"onToggle\",\"showLabels\",\"onLabel\",\"offLabel\",\"size\",\"theme\"],[[20,[\"model\",\"autoSave\"]],[25,\"mut\",[[20,[\"model\",\"autoSave\"]]],null],true,\"On::true\",\"Off::false\",\"medium\",\"default\"]]],false],[0,\"\\n      \"],[8],[0,\"\\n  \"],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"form-group\"],[7],[0,\"\\n      \"],[6,\"label\"],[9,\"class\",\"col-sm-2 col-lg-1 control-label\"],[7],[0,\"Clear All Records\"],[8],[0,\"\\n      \"],[6,\"div\"],[9,\"class\",\"col-sm-1\"],[7],[0,\"\\n\"],[4,\"control/md-button-modal\",null,[[\"class\",\"type\",\"message\",\"onConfirm\"],[\"btn btn-lg btn-danger\",\"button\",\"<h1>Are you sure?</h1> Clicking OK will delete ALL  records in\\n            your browser cache. Have you made a backup?\",[25,\"route-action\",[\"clearLocalStorage\"],null]]],{\"statements\":[[0,\"            \"],[6,\"span\"],[9,\"class\",\"fa fa-times\"],[7],[8],[0,\" Clear Storage Cache\\n\"]],\"parameters\":[]},null],[0,\"      \"],[8],[0,\"\\n  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"title\",\"shadow\"],[\"Defaults\",true]],{\"statements\":[[6,\"div\"],[9,\"class\",\"form-group\"],[7],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"col-md-4\"],[7],[0,\"\\n      \"],[1,[25,\"input/md-codelist\",null,[[\"value\",\"create\",\"tooltip\",\"icon\",\"disabled\",\"mdCodeName\",\"label\",\"showValidations\",\"placeholder\"],[[20,[\"model\",\"language\"]],true,true,false,[20,[\"disabled\"]],\"language\",\"Language\",true,\"Select or enter a language code.\"]]],false],[0,\"\\n    \"],[8],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"col-md-4\"],[7],[0,\"\\n      \"],[1,[25,\"input/md-codelist\",null,[[\"value\",\"create\",\"tooltip\",\"icon\",\"disabled\",\"mdCodeName\",\"label\",\"showValidations\",\"placeholder\"],[[20,[\"model\",\"characterSet\"]],false,true,false,[20,[\"disabled\"]],\"characterSet\",\"Character Set\",true,\"Select character set.\"]]],false],[0,\"\\n    \"],[8],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"col-md-4\"],[7],[0,\"\\n      \"],[1,[25,\"input/md-codelist\",null,[[\"value\",\"create\",\"tooltip\",\"icon\",\"disabled\",\"mdCodeName\",\"label\",\"placeholder\"],[[20,[\"model\",\"country\"]],false,true,false,[20,[\"disabled\"]],\"countries\",\"Country\",\"Select country code.\"]]],false],[0,\"\\n    \"],[8],[0,\"\\n    \"],[6,\"hr\"],[9,\"class\",\"col-md-12\"],[7],[8],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"col-md-8\"],[7],[0,\"\\n      \"],[1,[25,\"input/md-input\",null,[[\"label\",\"type\",\"value\",\"placeholder\"],[\"Import URL\",\"url\",[20,[\"model\",\"importUriBase\"]],\"Text string used as the default URL for importing.\"]]],false],[0,\"\\n    \"],[8],[0,\"\\n    \"],[6,\"hr\"],[9,\"class\",\"col-md-12\"],[7],[8],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"col-md-8\"],[7],[0,\"\\n      \"],[6,\"label\"],[7],[0,\"mdTranslator API URL\"],[8],[0,\"\\n      \"],[6,\"div\"],[9,\"class\",\"input-group\"],[7],[0,\"\\n        \"],[1,[25,\"input/md-input\",null,[[\"type\",\"value\",\"placeholder\"],[\"url\",[20,[\"model\",\"mdTranslatorAPI\"]],\"URL for the ADIwg Metadata Translator.\"]]],false],[0,\"\\n        \"],[6,\"span\"],[9,\"class\",\"input-group-btn\"],[7],[0,\"\\n          \"],[6,\"button\"],[9,\"class\",\"btn btn-warning\"],[9,\"type\",\"button\"],[3,\"action\",[[19,0,[]],\"resetMdTranslatorAPI\"]],[7],[0,\"Default\\n            \"],[1,[25,\"ember-tooltip\",null,[[\"tooltipClassName\",\"text\"],[\"ember-tooltip md-tooltip info\",\"Reset to default\"]]],false],[0,\"\\n          \"],[8],[0,\"\\n        \"],[8],[0,\"\\n      \"],[8],[0,\"\\n    \"],[8],[0,\"\\n\"],[8],[0,\"\\n\\n\"],[6,\"div\"],[9,\"class\",\"clearfix\"],[7],[8],[0,\"\\n\"],[6,\"hr\"],[7],[8],[0,\"\\n\"],[4,\"object/md-array-table\",null,[[\"columns\",\"value\",\"plain\",\"title\",\"templateClass\",\"onChange\",\"data-spy\"],[\"Repository, Collection Title\",[20,[\"model\",\"repositoryDefaults\"]],true,\"Metadata Repository\",[20,[\"settings\",\"repositoryTemplate\"]],[25,\"route-action\",[\"save\"],null],\"Metadata Repository\"]],{\"statements\":[[0,\"    \"],[6,\"td\"],[7],[0,\"\\n      \"],[1,[25,\"input/md-codelist\",null,[[\"value\",\"create\",\"tooltip\",\"icon\",\"mdCodeName\",\"closeOnSelect\",\"placeholder\",\"change\"],[[19,2,[\"item\",\"repository\"]],true,true,false,\"metadataRepository\",true,\"Select or enter a repository.\",[25,\"route-action\",[\"save\"],null]]]],false],[0,\"\\n    \"],[8],[0,\"\\n    \"],[6,\"td\"],[7],[0,\"\\n      \"],[1,[25,\"input/md-input\",null,[[\"type\",\"value\",\"placeholder\",\"change\"],[\"text\",[19,2,[\"item\",\"title\"]],\"Text string used to identify a set of resources in the repository.\",[25,\"route-action\",[\"save\"],null]]]],false],[0,\"\\n    \"],[8],[0,\"\\n\"]],\"parameters\":[2]},null]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"title\"],[\"Date Settings\"]],{\"statements\":[[0,\"  \"],[6,\"div\"],[9,\"class\",\"col-md-4\"],[7],[0,\"\\n    \"],[1,[25,\"input/md-month\",null,[[\"date\",\"format\",\"altFormat\",\"label\",\"placeholder\"],[[20,[\"model\",\"fiscalStartMonth\"]],\"MMMM\",\"MM\",\"Start Month of Fiscal Year\",\"Select month.\"]]],false],[0,\"\\n  \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"title\"],[\"Publishing Settings\"]],{\"statements\":[[4,\"each\",[[25,\"compute\",[[25,\"route-action\",[\"catalogs\"],null]],null]],null,{\"statements\":[[4,\"layout/md-card\",null,[[\"title\",\"collapsible\",\"collapsed\",\"shadow\"],[[19,1,[\"name\"]],true,true,false]],{\"statements\":[[0,\"    \"],[1,[25,\"component\",[[19,1,[\"settingsComponent\"]]],[[\"model\"],[[20,[\"model\",\"publishOptions\"]]]]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[1]},null]],\"parameters\":[]},null],[0,\" \"],[1,[18,\"outlet\"],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/settings/template.hbs" } });
 });
 define('mdeditor/pods/translate/route', ['exports'], function (exports) {
   'use strict';
@@ -23655,19 +23113,15 @@ define('mdeditor/routes/application', ['exports'], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const $ = Ember.$,
-        A = Ember.A,
-        Route = Ember.Route,
-        EmberObject = Ember.Object,
-        guidFor = Ember.guidFor,
-        RSVP = Ember.RSVP,
-        Logger = Ember.Logger,
-        service = Ember.inject.service;
-  exports.default = Route.extend({
+
+
+  const console = window.console;
+
+  exports.default = Ember.Route.extend({
     init() {
       this._super(...arguments);
 
-      $(window).bind('beforeunload', evt => {
+      Ember.$(window).bind('beforeunload', evt => {
         let dirty = this.currentRouteModel().filter(function (itm) {
           return itm.filterBy('hasDirtyHash').length;
         }).length;
@@ -23680,8 +23134,8 @@ define('mdeditor/routes/application', ['exports'], function (exports) {
       });
     },
 
-    spotlight: service(),
-    slider: service(),
+    spotlight: Ember.inject.service(),
+    slider: Ember.inject.service(),
 
     /**
      * Models for sidebar navigation
@@ -23697,17 +23151,17 @@ define('mdeditor/routes/application', ['exports'], function (exports) {
         reload: true
       })];
 
-      let meta = A([EmberObject.create({
+      let meta = Ember.A([Ember.Object.create({
         type: 'record',
         list: 'records',
         title: 'Metadata Records',
         icon: 'file-o'
-      }), EmberObject.create({
+      }), Ember.Object.create({
         type: 'contact',
         list: 'contacts',
         title: 'Contacts',
         icon: 'users'
-      }), EmberObject.create({
+      }), Ember.Object.create({
         type: 'dictionary',
         list: 'dictionaries',
         title: 'Dictionaries',
@@ -23718,14 +23172,14 @@ define('mdeditor/routes/application', ['exports'], function (exports) {
 
       let mapFn = function mapFn(item) {
 
-        meta[idx].set('listId', guidFor(item));
+        meta[idx].set('listId', Ember.guidFor(item));
         item.set('meta', meta[idx]);
         idx = ++idx;
 
         return item;
       };
 
-      return RSVP.map(promises, mapFn);
+      return Ember.RSVP.map(promises, mapFn);
     },
 
     setupController(controller, model) {
@@ -23744,7 +23198,7 @@ define('mdeditor/routes/application', ['exports'], function (exports) {
 
     actions: {
       error(error) {
-        Logger.error(error);
+        console.error(error);
 
         if (error.status === 404) {
           return this.transitionTo('not-found');
@@ -23799,6 +23253,51 @@ define('mdeditor/serializers/application', ['exports', 'ember-local-storage/seri
     }
   });
 });
+define('mdeditor/services/-gestures', ['exports', 'mdeditor/config/environment', 'ember-gestures/services/-gestures'], function (exports, _environment, _gestures) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+
+  const assign = Ember.assign || Ember.merge;
+
+  let gestures = assign({}, {
+    useCapture: false
+  });
+  gestures = assign(gestures, _environment.default.gestures);
+
+  exports.default = _gestures.default.extend({
+    useCapture: gestures.useCapture
+  });
+});
+define('mdeditor/services/-observer-admin', ['exports', 'ember-in-viewport/services/-observer-admin'], function (exports, _observerAdmin) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _observerAdmin.default;
+    }
+  });
+});
+define('mdeditor/services/-raf-admin', ['exports', 'ember-in-viewport/services/-raf-admin'], function (exports, _rafAdmin) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _rafAdmin.default;
+    }
+  });
+});
 define('mdeditor/services/ajax', ['exports', 'ember-ajax/services/ajax'], function (exports, _ajax) {
   'use strict';
 
@@ -23818,22 +23317,17 @@ define('mdeditor/services/cleaner', ['exports'], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const typeOf = Ember.typeOf,
-        isArray = Ember.isArray,
-        isBlank = Ember.isBlank,
-        Service = Ember.Service,
-        assign = Ember.assign;
-  exports.default = Service.extend({
+  exports.default = Ember.Service.extend({
     clean(obj, options) {
-      const opt = assign({
+      const opt = Ember.assign({
         target: {},
         preserveArrays: true,
         //preserveObjects: true,
         preserveRootOnly: true
       }, options);
 
-      if (isBlank(obj)) {
-        if (isArray(obj) && opt.preserveArrays) {
+      if (Ember.isBlank(obj)) {
+        if (Ember.isArray(obj) && opt.preserveArrays) {
           return [];
         }
         return;
@@ -23851,19 +23345,19 @@ define('mdeditor/services/cleaner', ['exports'], function (exports) {
           return result;
         }
 
-        if (isArray(obj[key])) {
+        if (Ember.isArray(obj[key])) {
           if (opt.preserveArrays === false && obj[key].length === 0) {
             return result;
           }
           let resultArray = [];
 
           obj[key].forEach(itm => {
-            let type = isArray(itm) ? [] : typeof itm === 'object' ? {} : null;
+            let type = Ember.isArray(itm) ? [] : typeof itm === 'object' ? {} : null;
             let cleanItem = this.clean(itm, {
               target: type,
               preserveArrays: opt.preserveRootOnly ? false : opt.preserveArrays
             });
-            if (isBlank(cleanItem) || typeof cleanItem === 'object' && Object.keys(cleanItem).length === 0) {
+            if (Ember.isBlank(cleanItem) || typeof cleanItem === 'object' && Object.keys(cleanItem).length === 0) {
               return;
             }
 
@@ -23881,13 +23375,13 @@ define('mdeditor/services/cleaner', ['exports'], function (exports) {
           return result;
         }
 
-        if (isBlank(obj[key])) {
+        if (Ember.isBlank(obj[key])) {
           //if(obj[key] === undefined) {
           return result;
         }
 
-        if (typeOf(obj[key]) === 'object' || typeOf(obj[key]) === 'instance') {
-          let objOpt = assign(opt, {
+        if (Ember.typeOf(obj[key]) === 'object' || Ember.typeOf(obj[key]) === 'instance') {
+          let objOpt = Ember.assign(opt, {
             preserveArrays: !opt.preserveRootOnly,
             target: {}
           });
@@ -23911,8 +23405,7 @@ define('mdeditor/services/codelist', ['exports', 'npm:mdcodes/resources/js/mdcod
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const get = Ember.get,
-        Service = Ember.Service;
+
 
   /**
    * Codelist Service
@@ -23946,12 +23439,12 @@ define('mdeditor/services/codelist', ['exports', 'npm:mdcodes/resources/js/mdcod
       return {
         code: itm,
         codeName: itm,
-        description: get(profile, 'profiles.' + itm + '.description')
+        description: Ember.get(profile, 'profiles.' + itm + '.description')
       };
     })
   };
 
-  exports.default = Service.extend(codelist);
+  exports.default = Ember.Service.extend(codelist);
 });
 define('mdeditor/services/contacts', ['exports'], function (exports) {
   'use strict';
@@ -23959,11 +23452,7 @@ define('mdeditor/services/contacts', ['exports'], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const Service = Ember.Service,
-        inject = Ember.inject,
-        A = Ember.A,
-        computed = Ember.computed;
-  exports.default = Service.extend({
+  exports.default = Ember.Service.extend({
     init() {
       this._super(...arguments);
 
@@ -23972,29 +23461,29 @@ define('mdeditor/services/contacts', ['exports'], function (exports) {
       this.set('contacts', store.peekAll('contact'));
     },
 
-    store: inject.service(),
+    store: Ember.inject.service(),
 
-    contacts: A(),
+    contacts: Ember.A(),
 
-    organizations: computed('contacts.[]', function () {
+    organizations: Ember.computed('contacts.[]', function () {
       let orgs = this.get('contacts').filterBy('json.isOrganization');
 
       return orgs;
     }),
 
-    individuals: computed('contacts.[]', function () {
+    individuals: Ember.computed('contacts.[]', function () {
       let ind = this.get('contacts').rejectBy('json.isOrganization');
 
       return ind;
     }),
 
-    organizationsCodes: computed('contactsCodes.[]', function () {
+    organizationsCodes: Ember.computed('contactsCodes.[]', function () {
       let orgs = this.get('contactsCodes').filterBy('icon', 'users');
 
       return orgs;
     }),
 
-    individualsCodes: computed('contactsCodes.[]', function () {
+    individualsCodes: Ember.computed('contactsCodes.[]', function () {
       let ind = this.get('contactsCodes').rejectBy('icon', 'users');
 
       return ind;
@@ -24387,7 +23876,7 @@ define('mdeditor/services/itis', ['exports', 'ember-cli-string-helpers/utils/tit
     }
   });
 });
-define('mdeditor/services/jsonvalidator', ['exports', 'npm:ajv', 'npm:ajv/lib/refs/json-schema-draft-04.json'], function (exports, _npmAjv, _jsonSchemaDraft) {
+define('mdeditor/services/jsonvalidator', ['exports', 'ajv', 'ajv/lib/refs/json-schema-draft-04'], function (exports, _ajv, _jsonSchemaDraft) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -24395,14 +23884,16 @@ define('mdeditor/services/jsonvalidator', ['exports', 'npm:ajv', 'npm:ajv/lib/re
   });
 
 
-  let validator = new _npmAjv.default({
+  let validator = new _ajv.default({
     verbose: true,
     allErrors: true,
-    removeAdditional: false
+    removeAdditional: false,
+    meta: false,
+    schemaId: 'id'
   });
 
   //support draft-04
-  validator.addMetaSchema(_jsonSchemaDraft.default);
+  validator.addMetaSchema(_jsonSchemaDraft);
   //add JSON API schema
   validator.addSchema({
     "$schema": "http://json-schema.org/draft-04/schema#",
@@ -24839,7 +24330,7 @@ define("mdeditor/services/liquid-fire-transitions", ["exports", "liquid-fire/tra
   });
   exports.default = _transitionMap.default;
 });
-define('mdeditor/services/mdjson', ['exports', 'npm:ajv', 'npm:mdjson-schemas/resources/js/schemas.js', 'mdeditor/pods/components/object/md-citation/component', 'npm:ajv/lib/refs/json-schema-draft-04.json'], function (exports, _npmAjv, _schemas, _component, _jsonSchemaDraft) {
+define('mdeditor/services/mdjson', ['exports', 'ajv', 'mdjson-schemas/resources/js/schemas', 'mdeditor/pods/components/object/md-citation/component', 'ajv/lib/refs/json-schema-draft-04'], function (exports, _ajv, _schemas, _component, _jsonSchemaDraft) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -24849,39 +24340,35 @@ define('mdeditor/services/mdjson', ['exports', 'npm:ajv', 'npm:mdjson-schemas/re
 
   Ember.libraries.register('mdJson-schemas', _schemas.default.schema.version);
 
-  const validator = new _npmAjv.default({
+  const validator = new _ajv.default({
     verbose: true,
     allErrors: true,
     jsonPointers: true,
-    removeAdditional: false
+    removeAdditional: false,
+    meta: false,
+    schemaId: 'id'
   });
 
   //support draft-04
-  validator.addMetaSchema(_jsonSchemaDraft.default);
+  validator.addMetaSchema(_jsonSchemaDraft);
 
   Object.keys(_schemas.default).forEach(function (key) {
+    if (key === 'default') {
+      return;
+    }
     let val = _schemas.default[key];
 
     validator.addSchema(val, key);
   });
 
-  const Service = Ember.Service,
-        inject = Ember.inject,
-        isArray = Ember.isArray,
-        set = Ember.set,
-        get = Ember.get,
-        getWithDefault = Ember.getWithDefault,
-        EmObject = Ember.Object;
-
-
   const unImplemented = ['metadata.metadataInfo.otherMetadataLocale', 'metadata.resourceInfo.spatialRepresentation', ['metadata.resourceInfo.extent', 'verticalExtent'], ['metadata.resourceInfo.extent', 'temporalExtent'], 'metadata.resourceInfo.coverageDescription',
   //'metadata.resourceInfo.taxonomy',
   'metadata.resourceInfo.otherResourceLocale'];
 
-  exports.default = Service.extend({
-    cleaner: inject.service(),
-    contacts: inject.service(),
-    store: inject.service(),
+  exports.default = Ember.Service.extend({
+    cleaner: Ember.inject.service(),
+    contacts: Ember.inject.service(),
+    store: Ember.inject.service(),
 
     injectCitations(json) {
       let assoc = json.metadata.associatedResource;
@@ -24900,27 +24387,27 @@ define('mdeditor/services/mdjson', ['exports', 'npm:ajv', 'npm:mdjson-schemas/re
           let record = records.findBy('recordId', ref.mdRecordId);
 
           if (record) {
-            let info = get(record, 'json.metadata.metadataInfo') || {};
+            let info = Ember.get(record, 'json.metadata.metadataInfo') || {};
             let metadata = {
-              'title': `Metadata for ${get(record, 'title')}`,
-              'responsibleParty': getWithDefault(info, 'metadataContact', []),
-              'date': getWithDefault(info, 'metadataDate', []),
-              'onlineResource': getWithDefault(info, 'metadataOnlineResource', []),
-              'identifier': [getWithDefault(info, 'metadataIdentifier', {})]
+              'title': `Metadata for ${Ember.get(record, 'title')}`,
+              'responsibleParty': Ember.getWithDefault(info, 'metadataContact', []),
+              'date': Ember.getWithDefault(info, 'metadataDate', []),
+              'onlineResource': Ember.getWithDefault(info, 'metadataOnlineResource', []),
+              'identifier': [Ember.getWithDefault(info, 'metadataIdentifier', {})]
             };
 
-            let citation = get(record, 'json.metadata.resourceInfo.citation') || {};
-            let resourceType = get(record, 'json.metadata.resourceInfo.resourceType') || [];
+            let citation = Ember.get(record, 'json.metadata.resourceInfo.citation') || {};
+            let resourceType = Ember.get(record, 'json.metadata.resourceInfo.resourceType') || [];
 
-            set(ref, 'resourceCitation', EmObject.create((0, _component.formatCitation)(citation)));
-            set(ref, 'metadataCitation', EmObject.create((0, _component.formatCitation)(metadata)));
-            set(ref, 'resourceType', resourceType);
-            set(ref, 'mdRecordId', null);
+            Ember.set(ref, 'resourceCitation', Ember.Object.create((0, _component.formatCitation)(citation)));
+            Ember.set(ref, 'metadataCitation', Ember.Object.create((0, _component.formatCitation)(metadata)));
+            Ember.set(ref, 'resourceType', resourceType);
+            Ember.set(ref, 'mdRecordId', null);
 
             return;
           }
 
-          set(ref, 'mdRecordId', null);
+          Ember.set(ref, 'mdRecordId', null);
         });
       }
     },
@@ -24942,7 +24429,7 @@ define('mdeditor/services/mdjson', ['exports', 'npm:ajv', 'npm:mdjson-schemas/re
         });
       }
 
-      set(json, 'dataDictionary', arr);
+      Ember.set(json, 'dataDictionary', arr);
     },
 
     formatRecord(rec, asText) {
@@ -24969,7 +24456,7 @@ define('mdeditor/services/mdjson', ['exports', 'npm:ajv', 'npm:mdjson-schemas/re
             return null;
           }
 
-          let orgs = isArray(contact.get('json.memberOfOrganization')) ? contact.get('json.memberOfOrganization').slice(0) : null;
+          let orgs = Ember.isArray(contact.get('json.memberOfOrganization')) ? contact.get('json.memberOfOrganization').slice(0) : null;
           _contacts.push(value);
 
           if (orgs && orgs.length) {
@@ -25001,7 +24488,7 @@ define('mdeditor/services/mdjson', ['exports', 'npm:ajv', 'npm:mdjson-schemas/re
       };
 
       let cleaner = this.get('cleaner');
-      let clean = cleaner.clean(get(rec, 'json'));
+      let clean = cleaner.clean(Ember.get(rec, 'json'));
 
       this.injectCitations(clean);
       this.injectDictionaries(rec, clean);
@@ -25010,24 +24497,24 @@ define('mdeditor/services/mdjson', ['exports', 'npm:ajv', 'npm:mdjson-schemas/re
       let contacts = this.get('store').peekAll('contact').mapBy('json');
 
       json.contact = contacts.filter(item => {
-        return _contacts.includes(get(item, 'contactId'));
+        return _contacts.includes(Ember.get(item, 'contactId'));
       });
 
       if (unImplemented) {
         unImplemented.forEach(path => {
-          let array = isArray(path);
-          let target = array ? get(json, path[0]) : get(json, path);
+          let array = Ember.isArray(path);
+          let target = array ? Ember.get(json, path[0]) : Ember.get(json, path);
 
           if (target) {
             if (array) {
               target.forEach(item => {
-                set(item, path[1], undefined);
+                Ember.set(item, path[1], undefined);
               });
 
               return;
             }
 
-            set(json, path, undefined);
+            Ember.set(json, path, undefined);
           }
         });
       }
@@ -25087,14 +24574,15 @@ define('mdeditor/services/modal-dialog', ['exports', 'mdeditor/config/environmen
     })
   });
 });
-define('mdeditor/services/moment', ['exports', 'mdeditor/config/environment', 'ember-moment/services/moment'], function (exports, _environment, _moment) {
+define('mdeditor/services/moment', ['exports', 'ember-moment/services/moment', 'mdeditor/config/environment'], function (exports, _moment, _environment) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
+  const get = Ember.get;
   exports.default = _moment.default.extend({
-    defaultFormat: Ember.get(_environment.default, 'moment.outputFormat')
+    defaultFormat: get(_environment.default, 'moment.outputFormat')
   });
 });
 define('mdeditor/services/page-title-list', ['exports', 'ember-page-title/services/page-title-list', 'mdeditor/config/environment'], function (exports, _pageTitleList, _environment) {
@@ -25118,7 +24606,7 @@ define('mdeditor/services/page-title-list', ['exports', 'ember-page-title/servic
 
   exports.default = _pageTitleList.default.extend(defaults);
 });
-define('mdeditor/services/patch', ['exports', 'npm:mdjson-schemas/resources/js/schemas.js'], function (exports, _schemas) {
+define('mdeditor/services/patch', ['exports', 'mdjson-schemas/resources/js/schemas'], function (exports, _schemas) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -26146,10 +25634,8 @@ define('mdeditor/services/publish', ['exports'], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const A = Ember.A,
-        Service = Ember.Service;
-  exports.default = Service.extend({
-    catalogs: A()
+  exports.default = Ember.Service.extend({
+    catalogs: Ember.A()
   });
 });
 define('mdeditor/services/resize', ['exports', 'ember-resize/services/resize'], function (exports, _resize) {
@@ -26173,12 +25659,8 @@ define('mdeditor/services/settings', ['exports', 'mdeditor/config/environment', 
   });
   const version = _environment.default.APP.version,
         environment = _environment.default.environment;
-  const Service = Ember.Service,
-        getWithDefault = Ember.getWithDefault,
-        inject = Ember.inject,
-        set = Ember.set;
-  exports.default = Service.extend({
-    store: inject.service(),
+  exports.default = Ember.Service.extend({
+    store: Ember.inject.service(),
     data: 'null',
 
     init() {
@@ -26201,7 +25683,7 @@ define('mdeditor/services/settings', ['exports', 'mdeditor/config/environment', 
           settings.set('lastVersion', version);
         }
 
-        set(settings, 'repositoryDefaults', getWithDefault(settings, 'repositoryDefaults', []));
+        Ember.set(settings, 'repositoryDefaults', Ember.getWithDefault(settings, 'repositoryDefaults', []));
 
         //update mdTranslatorAPI if default is being used
         let isDefaultAPI = Ember.isEmpty(settings.get('mdTranslatorAPI')) || settings.get('mdTranslatorAPI').match('https://mdtranslator.herokuapp.com/api/v(.)/translator');
@@ -26346,14 +25828,6 @@ define("mdeditor/templates/application", ["exports"], function (exports) {
   });
   exports.default = Ember.HTMLBars.template({ "id": "zD5L8mIX", "block": "{\"symbols\":[\"title\",\"flash\",\"component\",\"flash\"],\"statements\":[[1,[18,\"head-layout\"],false],[0,\"\\n\\n\"],[6,\"div\"],[9,\"class\",\"md-message-container\"],[7],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"md-message-wrapper\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"flashMessages\",\"queue\"]]],null,{\"statements\":[[4,\"flash-message\",null,[[\"flash\"],[[19,2,[]]]],{\"statements\":[[0,\"    \"],[1,[19,4,[\"message\"]],false],[0,\"\\n\"],[4,\"if\",[[19,4,[\"showProgress\"]]],null,{\"statements\":[[0,\"    \"],[6,\"div\"],[9,\"class\",\"progress\"],[7],[0,\"\\n      \"],[6,\"div\"],[9,\"class\",\"progress-bar\"],[9,\"role\",\"progressbar\"],[10,\"aria-valuenow\",[26,[[19,4,[\"progressValue\"]]]]],[9,\"aria-valuemin\",\"0\"],[9,\"aria-valuemax\",\"100\"],[10,\"style\",[26,[\"width: \",[25,\"html-safe\",[[19,4,[\"progressValue\"]]],null],\"%;\"]]],[7],[0,\"\\n        \"],[1,[19,4,[\"progressValue\"]],false],[0,\"%\\n      \"],[8],[0,\"\\n    \"],[8],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[3,4]},null]],\"parameters\":[2]},null],[0,\"  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\\n\"],[4,\"md-title\",null,null,{\"statements\":[[0,\"  \"],[1,[25,\"page-title\",[[19,1,[]]],[[\"replace\"],[false]]],false],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"\\n\"],[6,\"div\"],[9,\"id\",\"md-wrapper\"],[9,\"class\",\"\"],[7],[0,\"\\n\\n  \"],[2,\" Slider \"],[0,\"\\n\"],[4,\"layout/md-slider\",null,[[\"visible\",\"fromName\",\"onClose\",\"context\"],[[20,[\"slider\",\"showSlider\"]],[20,[\"slider\",\"fromName\"]],[20,[\"slider\",\"onClose\"]],[20,[\"slider\",\"context\"]]]],{\"statements\":[],\"parameters\":[]},null],[0,\"  \"],[2,\" /#slider \"],[0,\"\\n\\n  \"],[2,\" Sidebar \"],[0,\"\\n    \"],[1,[25,\"layout/md-nav-sidebar\",null,[[\"items\"],[[20,[\"model\"]]]]],false],[0,\"\\n  \"],[2,\" /#sidebar-wrapper \"],[0,\"\\n\\n  \"],[2,\" Page Content \"],[0,\"\\n  \"],[6,\"div\"],[9,\"id\",\"md-page-content-wrapper\"],[7],[0,\"\\n    \"],[6,\"div\"],[9,\"id\",\"md-navbars\"],[7],[0,\"\\n\"],[4,\"layout/md-nav-main\",null,null,{\"statements\":[[0,\"        \"],[1,[25,\"outlet\",[\"nav\"],null],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"      \"],[1,[18,\"layout/md-breadcrumb\"],false],[0,\" \"],[1,[25,\"outlet\",[\"nav-secondary\"],null],false],[0,\"\\n    \"],[8],[0,\"\\n    \"],[6,\"div\"],[9,\"id\",\"md-page-content\"],[9,\"class\",\"container-fluid\"],[7],[0,\"\\n      \"],[1,[18,\"outlet\"],false],[0,\"\\n    \"],[8],[0,\"\\n  \"],[8],[0,\"\\n  \"],[2,\" /#page-content-wrapper \"],[0,\"\\n  \"],[1,[25,\"layout/md-footer\",null,[[\"class\"],[\"hidden-print\"]]],false],[0,\"\\n\"],[8],[0,\"\\n\"],[1,[18,\"ember-load-remover\"],false],[0,\"\\n\\n\"],[4,\"control/md-modal\",null,[[\"isShowing\",\"showConfirm\",\"confirmLabel\"],[[20,[\"settings\",\"data\",\"showSplash\"]],true,\"OK\"]],{\"statements\":[[0,\"    \"],[6,\"div\"],[9,\"class\",\"alert alert-info\"],[9,\"role\",\"alert\"],[7],[1,[25,\"fa-icon\",[\"exclamation-triangle\"],null],false],[0,\" Update Alert\"],[8],[0,\"\\n    \"],[6,\"div\"],[9,\"class\",\"alert alert-warning\"],[9,\"role\",\"alert\"],[7],[1,[25,\"fa-icon\",[\"wrench\"],null],false],[0,\"\\n        This application is in beta testing,  \"],[6,\"a\"],[9,\"href\",\"https://github.com/adiwg/mdEditor/issues\"],[9,\"target\",\"_blank\"],[7],[0,\"please let us know\"],[8],[0,\" if you find any bugs.\\n        Thank-you!\\n    \"],[8],[0,\"\\n    \"],[6,\"p\"],[7],[0,\"\\n        The  md\"],[6,\"span\"],[9,\"class\",\"md-icon-mdeditor\"],[7],[8],[0,\"ditor has been updated\\n        since your last session. Some features may have been added or changed.\\n        Please note the version below (also shown in the \"],[4,\"link-to\",[\"settings\"],null,{\"statements\":[[0,\"Settings\"]],\"parameters\":[]},null],[0,\") when reporting bugs or issues. If you\\n        are having problems, you might want to \"],[4,\"link-to\",[\"settings\"],null,{\"statements\":[[0,\" clear\\n        your localstorage\"]],\"parameters\":[]},null],[0,\" which will delete all records. This\\n        application is in beta but \"],[6,\"strong\"],[9,\"class\",\"text-warning\"],[7],[0,\"SHOULD BE\"],[8],[0,\"\\n        safe for production use.\\n    \"],[8],[0,\"\\n    \"],[6,\"p\"],[7],[0,\"\\n        Current Version: \"],[6,\"span\"],[9,\"class\",\"text-info\"],[7],[1,[18,\"control/md-repo-link\"],false],[8],[0,\"\\n    \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[20,[\"spotlight\",\"show\"]]],null,{\"statements\":[[0,\"  \"],[1,[18,\"control/md-spotlight\"],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[1,[25,\"control/md-scroll-spy\",null,[[\"scrollInit\",\"routeName\"],[\"top\",[20,[\"currentRoute\"]]]]],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/templates/application.hbs" } });
 });
-define("mdeditor/templates/components/bs-datetimepicker", ["exports"], function (exports) {
-  "use strict";
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = Ember.HTMLBars.template({ "id": "QJ42Hsdd", "block": "{\"symbols\":[\"&default\"],\"statements\":[[4,\"if\",[[22,1]],null,{\"statements\":[[0,\"  \"],[11,1],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"  \"],[1,[25,\"input\",null,[[\"type\",\"class\",\"disabled\",\"name\",\"placeholder\"],[\"text\",\"form-control\",[20,[\"disabled\"]],[20,[\"textFieldName\"]],[20,[\"placeholder\"]]]]],false],[0,\"\\n\"]],\"parameters\":[]}],[4,\"unless\",[[20,[\"noIcon\"]]],null,{\"statements\":[[6,\"span\"],[9,\"class\",\"input-group-addon\"],[7],[0,\"\\n  \"],[6,\"span\"],[10,\"class\",[26,[[25,\"if\",[[20,[\"icons\",\"date\"]],[20,[\"icons\",\"date\"]],[20,[\"dateIcon\"]]],null]]]],[7],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"parameters\":[]},null]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/templates/components/bs-datetimepicker.hbs" } });
-});
 define("mdeditor/templates/components/draggable-object-target", ["exports"], function (exports) {
   "use strict";
 
@@ -26394,21 +25868,13 @@ define("mdeditor/templates/components/leaflet-table/row", ["exports"], function 
   });
   exports.default = Ember.HTMLBars.template({ "id": "1l9spbnk", "block": "{\"symbols\":[\"column\"],\"statements\":[[6,\"tr\"],[10,\"class\",[20,[\"record\",\"state\"]],null],[3,\"action\",[[19,0,[]],\"mouseEnter\",[20,[\"record\"]]],[[\"on\"],[\"mouseEnter\"]]],[3,\"action\",[[19,0,[]],\"mouseLeave\",[20,[\"record\"]]],[[\"on\"],[\"mouseLeave\"]]],[3,\"action\",[[19,0,[]],[25,\"action\",[[19,0,[]],[20,[\"showForm\"]],[20,[\"record\"]]],null]],[[\"on\"],[\"doubleClick\"]]],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"processedColumns\"]]],null,{\"statements\":[[4,\"if\",[[19,1,[\"isVisible\"]]],null,{\"statements\":[[0,\"      \"],[6,\"td\"],[10,\"class\",[19,1,[\"className\"]],null],[7],[0,\"\\n\"],[4,\"if\",[[19,1,[\"template\"]]],null,{\"statements\":[[0,\"          \"],[12,[19,1,[\"template\"]],[1]],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"          \"],[1,[25,\"get\",[[20,[\"record\"]],[19,1,[\"propertyName\"]]],null],false],[0,\"\\n\"]],\"parameters\":[]}],[0,\"      \"],[8],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[1]},null],[8],[0,\"\\n\"]],\"hasEval\":true}", "meta": { "moduleName": "mdeditor/templates/components/leaflet-table/row.hbs" } });
 });
-define("mdeditor/templates/components/multiselect-checkboxes", ["exports"], function (exports) {
-  "use strict";
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = Ember.HTMLBars.template({ "id": "c/R44imm", "block": "{\"symbols\":[\"checkbox\",\"index\",\"&default\"],\"statements\":[[4,\"each\",[[20,[\"checkboxes\"]]],null,{\"statements\":[[4,\"if\",[[22,3]],null,{\"statements\":[[0,\"    \"],[11,3,[[19,1,[\"option\"]],[19,1,[\"isSelected\"]],[19,2,[]]]],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"    \"],[6,\"li\"],[7],[0,\"\\n      \"],[6,\"label\"],[7],[0,\"\\n        \"],[1,[25,\"input\",null,[[\"type\",\"checked\",\"disabled\"],[\"checkbox\",[19,1,[\"isSelected\"]],[20,[\"disabled\"]]]]],false],[0,\"\\n        \"],[1,[19,1,[\"label\"]],false],[0,\"\\n      \"],[8],[0,\"\\n    \"],[8],[0,\"\\n\"]],\"parameters\":[]}]],\"parameters\":[1,2]},null]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/templates/components/multiselect-checkboxes.hbs" } });
-});
 define("mdeditor/templates/components/object-bin", ["exports"], function (exports) {
   "use strict";
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "/xVlV0ok", "block": "{\"symbols\":[\"obj\",\"&default\"],\"statements\":[[4,\"draggable-object-target\",null,[[\"action\"],[\"handleObjectDropped\"]],{\"statements\":[[0,\"  \"],[6,\"div\"],[9,\"class\",\"object-bin-title\"],[7],[1,[18,\"name\"],false],[8],[0,\"\\n  \"],[6,\"br\"],[7],[8],[0,\"\\n\"],[4,\"each\",[[20,[\"model\"]]],null,{\"statements\":[[4,\"draggable-object\",null,[[\"action\",\"content\"],[\"handleObjectDragged\",[19,1,[]]]],{\"statements\":[[0,\"      \"],[11,2,[[19,1,[]]]],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[1]},null]],\"parameters\":[]},null]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/templates/components/object-bin.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "WjleEpn9", "block": "{\"symbols\":[\"obj\",\"&default\"],\"statements\":[[4,\"draggable-object-target\",null,[[\"action\"],[[25,\"action\",[[19,0,[]],\"handleObjectDropped\"],null]]],{\"statements\":[[0,\"  \"],[6,\"div\"],[9,\"class\",\"object-bin-title\"],[7],[1,[18,\"name\"],false],[8],[0,\"\\n  \"],[6,\"br\"],[7],[8],[0,\"\\n\"],[4,\"each\",[[20,[\"model\"]]],null,{\"statements\":[[4,\"draggable-object\",null,[[\"action\",\"content\"],[\"handleObjectDragged\",[19,1,[]]]],{\"statements\":[[0,\"      \"],[11,2,[[19,1,[]]]],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[1]},null]],\"parameters\":[]},null]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/templates/components/object-bin.hbs" } });
 });
 define("mdeditor/templates/components/sortable-objects", ["exports"], function (exports) {
   "use strict";
@@ -26514,24 +25980,21 @@ define('mdeditor/transforms/json', ['exports', 'ember-data'], function (exports,
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const inject = Ember.inject,
-        isArray = Ember.isArray,
-        A = Ember.A;
   exports.default = _emberData.default.Transform.extend({
-    clean: inject.service('cleaner'),
+    clean: Ember.inject.service('cleaner'),
 
     deserialize(serialized) {
       let json = JSON.parse(serialized);
 
-      if (isArray(json)) {
-        return A(json);
+      if (Ember.isArray(json)) {
+        return Ember.A(json);
       }
 
       return Ember.Object.create(json);
     },
 
     serialize(deserialized) {
-      let target = isArray(deserialized) ? [] : {};
+      let target = Ember.isArray(deserialized) ? [] : {};
       return JSON.stringify(this.get('clean').clean(deserialized, { target: target }));
     }
 
@@ -26810,19 +26273,6 @@ define('mdeditor/utils/fmt', ['exports', 'ember-models-table/utils/fmt'], functi
     }
   });
 });
-define('mdeditor/utils/functions', ['exports', 'ember-string-helpers/utils/functions'], function (exports, _functions) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(exports, 'default', {
-    enumerable: true,
-    get: function () {
-      return _functions.default;
-    }
-  });
-});
 define('mdeditor/utils/intl/missing-message', ['exports', 'ember-intl/utils/missing-message'], function (exports, _missingMessage) {
   'use strict';
 
@@ -26890,9 +26340,6 @@ define('mdeditor/validators/array-required', ['exports', 'ember-cp-validations/v
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const assert = Ember.assert,
-        get = Ember.get,
-        isArray = Ember.isArray;
 
 
   const ArrayRequired = _base.default.extend({
@@ -26922,9 +26369,10 @@ define('mdeditor/validators/array-required', ['exports', 'ember-cp-validations/v
     getDependentsFor(attribute, options) {
       //return[];
       let track = [];
-      let opts = get(options, 'track');
+      let opts = Ember.get(options, 'track');
 
-      assert(`[validator:array-valid] [${attribute}] option 'track' must be an array`, isArray(opts));
+      (true && !(Ember.isArray(opts)) && Ember.assert(`[validator:array-valid] [${attribute}] option 'track' must be an array`, Ember.isArray(opts)));
+
 
       opts.forEach(itm => {
         track.push(`model.${attribute}.@each.${itm}`);
@@ -26942,13 +26390,12 @@ define('mdeditor/validators/array-valid', ['exports', 'ember-cp-validations/vali
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  const get = Ember.get;
 
 
   const ArrayValid = _base.default.extend({
     validate(value /*, options, model, attribute*/) {
       let check = value.some(itm => {
-        return get(itm, 'validations.isInvalid');
+        return Ember.get(itm, 'validations.isInvalid');
       });
       return check ? 'At least one item is invalid.' : true;
     }
@@ -27186,6 +26633,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("mdeditor/app")["default"].create({"repository":"https://github.com/adiwg/mdEditor","name":"mdeditor","version":"0.6.1+3f04da6d"});
+  require("mdeditor/app")["default"].create({"repository":"https://github.com/adiwg/mdEditor","name":"mdeditor","version":"0.6.1+721a0f66"});
 }
 //# sourceMappingURL=mdeditor.map
