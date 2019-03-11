@@ -5663,6 +5663,86 @@ define('ember-tooltips/test-support/utils/validate-side', ['exports'], function 
     }
   }
 });
+define("mdeditor/tests/helpers/create-citation", ["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = createCitation;
+  function createCitation(total) {
+
+    const citations = [];
+
+    for (let i = 0; i < total; i++) {
+
+      const citation = Ember.Object.create({
+        "title": "title" + i,
+        "alternateTitle": ["alternateTitle0", "alternateTitle1"],
+        "date": [{
+          "date": "2016-10-13",
+          "dateType": "dateType"
+        }, {
+          "date": "2016-10-22",
+          "dateType": "dateType"
+        }],
+        "edition": "edition",
+        "responsibleParty": [{
+          "role": "role",
+          "roleExtent": [{
+            "temporalExtent": [{
+              "timePeriod": {
+                "startDateTime": "2016-10-24T11:10:15.2-10:00"
+              }
+            }]
+          }],
+          "party": [{
+            "contactId": "individualId0"
+          }]
+        }, {
+          "role": "role",
+          "roleExtent": [{
+            "temporalExtent": [{
+              "timePeriod": {
+                "startDateTime": "2016-10-24T11:10:15.2-10:00"
+              }
+            }]
+          }],
+          "party": [{
+            "contactId": "individualId0"
+          }]
+        }],
+        "presentationForm": ["presentationForm0", "presentationForm1"],
+        "identifier": [{
+          "identifier": "identifier" + i,
+          "authority": {
+            "title": "title"
+          }
+        }, {
+          "identifier": "identifier-" + i
+        }],
+        "series": {
+          "seriesName": "seriesName"
+        },
+        "otherCitationDetails": ["otherCitationDetails0", "otherCitationDetails1"],
+        "onlineResource": [{
+          "uri": "http://adiwg.org"
+        }, {
+          "uri": "http://mdeditor.org"
+        }],
+        "graphic": [{
+          "fileName": "fileName"
+        }, {
+          "fileName": "fileName"
+        }]
+      });
+
+      citations.push(citation);
+    }
+
+    return citations;
+  }
+});
 define("mdeditor/tests/helpers/create-contact", ["exports"], function (exports) {
   "use strict";
 
@@ -5737,6 +5817,35 @@ define("mdeditor/tests/helpers/create-dictionary", ["exports"], function (export
     }
 
     return dictionaries;
+  }
+});
+define("mdeditor/tests/helpers/create-identifier", ["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = createIdentifier;
+  function createIdentifier(total) {
+
+    const identifiers = [];
+
+    for (let i = 0; i < total; i++) {
+
+      const identifier = Ember.Object.create({
+        "identifier": "identifier" + i,
+        "namespace": "namespace" + i,
+        "version": "version" + i,
+        "description": "description" + i,
+        "authority": {
+          "title": "title" + i
+        }
+      });
+
+      identifiers.push(identifier);
+    }
+
+    return identifiers;
   }
 });
 define('mdeditor/tests/helpers/create-map-layer', ['exports'], function (exports) {
@@ -5825,6 +5934,292 @@ define("mdeditor/tests/helpers/create-record", ["exports"], function (exports) {
     }
 
     return records;
+  }
+});
+define("mdeditor/tests/helpers/create-taxonomy", ["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = createTaxonomy;
+  function createTaxonomy() {
+
+    const taxonomies = [{
+      "taxonomicClassification": [{
+        "taxonomicSystemId": "555705",
+        "taxonomicLevel": "Kingdom",
+        "taxonomicName": "Fungi",
+        "subClassification": [{
+          "taxonomicSystemId": "936287",
+          "taxonomicLevel": "Subkingdom",
+          "taxonomicName": "Dikarya",
+          "subClassification": [{
+            "taxonomicSystemId": "623881",
+            "taxonomicLevel": "Division",
+            "taxonomicName": "Basidiomycota",
+            "isITIS": true
+          }],
+          "isITIS": true
+        }],
+        "isITIS": true,
+        "commonName": ["Kingdom"]
+      }, {
+        "taxonomicSystemId": "202423",
+        "taxonomicLevel": "Kingdom",
+        "taxonomicName": "Animalia",
+        "subClassification": [{
+          "taxonomicSystemId": "914153",
+          "taxonomicLevel": "Subkingdom",
+          "taxonomicName": "Radiata",
+          "subClassification": [{
+            "taxonomicSystemId": "48738",
+            "taxonomicLevel": "Phylum",
+            "taxonomicName": "Cnidaria",
+            "subClassification": [{
+              "taxonomicSystemId": "718920",
+              "taxonomicLevel": "Subphylum",
+              "taxonomicName": "Medusozoa",
+              "subClassification": [{
+                "taxonomicSystemId": "51483",
+                "taxonomicLevel": "Class",
+                "taxonomicName": "Scyphozoa",
+                "subClassification": [{
+                  "taxonomicSystemId": "718923",
+                  "taxonomicLevel": "Subclass",
+                  "taxonomicName": "Discomedusae",
+                  "subClassification": [{
+                    "taxonomicSystemId": "51756",
+                    "taxonomicLevel": "Order",
+                    "taxonomicName": "Rhizostomeae",
+                    "subClassification": [{
+                      "taxonomicSystemId": "51911",
+                      "taxonomicLevel": "Family",
+                      "taxonomicName": "Rhizostomatidae",
+                      "subClassification": [{
+                        "taxonomicSystemId": "51919",
+                        "taxonomicLevel": "Genus",
+                        "taxonomicName": "Rhopilema",
+                        "subClassification": [{
+                          "taxonomicSystemId": "51920",
+                          "taxonomicLevel": "Species",
+                          "taxonomicName": "Rhopilema verrilli",
+                          "commonName": ["mushroom jellyfish"],
+                          "isITIS": true
+                        }],
+                        "isITIS": true
+                      }],
+                      "isITIS": true
+                    }],
+                    "isITIS": true
+                  }],
+                  "isITIS": true
+                }],
+                "isITIS": true
+              }],
+              "isITIS": true
+            }],
+            "isITIS": true
+          }],
+          "isITIS": true
+        }],
+        "isITIS": true
+      }],
+      "taxonomicSystem": [{
+        "citation": {
+          "title": "Integrated Taxonomic Information System (ITIS)",
+          "date": [{
+            "date": "2019-02-26",
+            "dateType": "transmitted",
+            "description": "Taxa imported from ITIS"
+          }],
+          "presentationForm": ["webService", "webSite"],
+          "otherCitationDetails": ["Retrieved from the Integrated Taxonomic Information System on-line database, https://www.itis.gov."],
+          "onlineResource": [{
+            "uri": "https://www.itis.gov",
+            "name": "ITIS website",
+            "protocol": "HTTPS",
+            "function": "information",
+            "description": "ITIS contains taxonomic information on plants, animals, fungi, and microbes of North America and the world."
+          }],
+          "graphic": [{
+            "fileName": "itis_logo.jpg",
+            "fileType": "JPEG",
+            "fileUri": [{
+              "uri": "https://itis.gov/Static/images/itis_logo.jpg"
+            }]
+          }]
+        },
+        modifications: "modifications"
+      }],
+      "observer": [{
+        "party": [{
+          "contactId": "CID003"
+        }],
+        "role": "pointOfContact"
+      }],
+      "voucher": [{
+        "repository": {
+          "party": [{
+            "contactId": "CID003"
+          }],
+          "role": "custodian"
+        },
+        "specimen": "Specimen"
+      }],
+      "generalScope": "Scope",
+      "identificationProcedure": "Id Procedure",
+      "identificationCompleteness": "Id Completeness"
+    }, {
+      "taxonomicSystem": [{
+        "citation": {
+          "title": "ITIS - Integrated Taxonomic Information System",
+          "alternateTitle": ["Citation for ITIS"],
+          "date": [{
+            "date": "2013-06-22",
+            "dateType": "publication"
+          }],
+          "responsibleParty": [{
+            "role": "originator",
+            "party": [{
+              "contactId": "CID004"
+            }]
+          }]
+        },
+        "modifications": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+      }, {
+        "citation": {
+          "title": "Some OTHER Taxonomic System",
+          "date": [{
+            "date": "2013-06-22",
+            "dateType": "publication"
+          }],
+          "responsibleParty": [{
+            "role": "originator",
+            "party": [{
+              "contactId": "CID004"
+            }]
+          }]
+        }
+      }],
+      "generalScope": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "identificationReference": [{
+        "title": "citation",
+        "identifier": [{
+          "identifier": "identifier0",
+          "namespace": "namespace0",
+          "version": "version0",
+          "description": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+          "authority": {
+            "title": "title0",
+            "date": [{
+              "date": "2013-06-22",
+              "dateType": "publication"
+            }],
+            "responsibleParty": [{
+              "role": "originator",
+              "party": [{
+                "contactId": "CID004"
+              }]
+            }]
+          }
+        }]
+      }, {
+        "title": "citation1",
+        "identifier": [{
+          "identifier": "identifier1",
+          "namespace": "namespace1",
+          "version": "version1",
+          "description": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+          "authority": {
+            "title": "title1",
+            "date": [{
+              "date": "2013-06-22",
+              "dateType": "publication"
+            }],
+            "responsibleParty": [{
+              "role": "originator",
+              "party": [{
+                "contactId": "CID004"
+              }]
+            }]
+          }
+        }]
+      }],
+      "observer": [{
+        "party": [{
+          "contactId": "CID006"
+        }, {
+          "contactId": "CID004"
+        }],
+        "role": "coPrincipalInvestigator"
+      }, {
+        "party": [{
+          "contactId": "CID001"
+        }],
+        "role": "editor"
+      }],
+      "identificationProcedure": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "identificationCompleteness": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "voucher": [{
+        "repository": {
+          "role": "custodian",
+          "party": [{
+            "contactId": "CID002"
+          }]
+        },
+        "specimen": "bear claw"
+      }, {
+        "repository": {
+          "role": "custodian",
+          "party": [{
+            "contactId": "CID002"
+          }]
+        },
+        "specimen": "moose tooth"
+      }],
+      "taxonomicClassification": [{
+        "taxonomicLevel": "taxonomicLevel0",
+        "taxonomicName": "taxonomicName",
+        "commonName": ["commonName0", "commonName1"],
+        "subClassification": [{
+          "taxonomicSystemId": "taxonomicSystemId00",
+          "taxonomicLevel": "taxonomicLevel00",
+          "taxonomicName": "taxonomicName",
+          "commonName": ["commonName0", "commonName1"],
+          "subClassification": [{
+            "taxonomicLevel": "taxonomicLevel000",
+            "taxonomicName": "taxonomicName",
+            "commonName": ["commonName0", "commonName1"],
+            "subClassification": [{
+              "taxonomicSystemId": "taxonomicSystemId0000.1",
+              "taxonomicLevel": "taxonomicLevel0000.1",
+              "taxonomicName": "taxonomicName",
+              "commonName": ["commonName0", "commonName1"]
+            }, {
+              "taxonomicSystemId": "taxonomicSystemId0000.2",
+              "taxonomicLevel": "taxonomicLevel0000.2",
+              "taxonomicName": "taxonomicName",
+              "commonName": ["commonName0", "commonName1"]
+            }]
+          }]
+        }, {
+          "taxonomicLevel": "taxonomicLevel01",
+          "taxonomicName": "taxonomicName",
+          "commonName": ["commonName0", "commonName1"],
+          "subClassification": [{
+            "taxonomicLevel": "taxonomicLevel010",
+            "taxonomicName": "taxonomicName",
+            "commonName": ["commonName0", "commonName1"]
+          }]
+        }]
+      }, {
+        "taxonomicLevel": "taxonomicLevel0201",
+        "taxonomicName": "taxonomicName"
+      }]
+    }];
+
+    return taxonomies;
   }
 });
 define('mdeditor/tests/helpers/data-transfer', ['exports'], function (exports) {
@@ -6304,7 +6699,7 @@ define('mdeditor/tests/integration/components/feature-table-test', ['@ember/test
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('.feature-table').innerText.replace(/[\s, \t]/g, '\n').trim().replace(/[ +\n]+/g, '|'), 'Search:|Columns|ID|Name|Description|1|Feature|1|2|Feature|2|Show|1|-|2|of|2');
+      assert.equal((0, _testHelpers.find)('.feature-table').textContent.replace(/[\s, \t]/g, '\n').trim().replace(/[ +\n]+/g, '|'), 'Search:|Columns|Show|All|Hide|All|Restore|Defaults|ID|Name|Description|ID|Name|Description|1|Feature|1|2|Feature|2|Show|1|-|2|of|2|10|25|50|500');
     });
   });
 });
@@ -6410,7 +6805,7 @@ define('mdeditor/tests/integration/components/leaflet-table-test', ['@ember/test
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('.feature-table').innerText.replace(/[\s\t]/g, '\n').trim().replace(/[ \n]+/g, '|'), 'ID|Name|Description|1|Feature|1|2|Feature|2|Show|1|-|2|of|2');
+      assert.equal((0, _testHelpers.find)('.feature-table').textContent.replace(/[\s\t]/g, '\n').trim().replace(/[ \n]+/g, '|'), 'ID|Name|Description|1|Feature|1|2|Feature|2|Show|1|-|2|of|2|10|25|50|500');
     });
   });
 });
@@ -6624,7 +7019,7 @@ define('mdeditor/tests/integration/components/tree-branch-test', ['@ember/test-h
 
       await (0, _testHelpers.click)('.tree-leaf .toggle-icon');
 
-      assert.equal((0, _testHelpers.find)('.tree-branch').innerText.replace(/[ \n]+/g, '|'), 'foo1label|foo2label|');
+      assert.equal((0, _testHelpers.find)('.tree-branch').innerText.replace(/[\s\n]+/g, '|'), '|foo1label|foo2label');
 
       assert.equal((0, _testHelpers.findAll)('.tree-leaf')[1].querySelectorAll('.tree-indent').length, 3, 'proper indentation');
     });
@@ -6824,7 +7219,7 @@ define('mdeditor/tests/integration/components/tree-view-test', ['@ember/test-hel
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('.tree-trunk').innerText.replace(/[ \n]+/g, '|'), 'bar1label|foo1label|');
+      assert.equal((0, _testHelpers.find)('.tree-trunk').innerText.replace(/[\s\n]+/g, '|'), '|bar1label|foo1label');
 
       assert.ok((0, _testHelpers.find)('.tree-leaf').classList.contains('tree-highlight'), 'selected leaf highlighted');
 
@@ -6841,7 +7236,7 @@ define('mdeditor/tests/integration/components/tree-view-test', ['@ember/test-hel
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('.tree-trunk').innerText.replace(/[ \n]+/g, '|'), 'bar1label|foo1label|foo2label|');
+      assert.equal((0, _testHelpers.find)('.tree-trunk').innerText.replace(/[\s\n]+/g, '|'), '|bar1label|foo1label|foo2label');
 
       await (0, _testHelpers.click)((0, _testHelpers.findAll)('.tree-leaf')[1]);
 
@@ -7129,8 +7524,9 @@ define('mdeditor/tests/integration/pods/components/control/md-crud-buttons/compo
         "block": "{\"symbols\":[],\"statements\":[[1,[21,\"control/md-crud-buttons\"],false]],\"hasEval\":false}",
         "meta": {}
       }));
+      await (0, _testHelpers.triggerEvent)('.md-crud-buttons', 'mouseenter');
 
-      assert.equal((0, _testHelpers.find)('.md-crud-buttons').textContent.replace(/[ \n]+/g, '|'), '|Copy|Delete|Manage|the|record|');
+      assert.equal((0, _testHelpers.find)('.md-crud-buttons').textContent.replace(/[ \n]+/g, '|'), '|Copy|Delete|');
 
       // Template block usage:" + EOL +
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
@@ -7139,7 +7535,7 @@ define('mdeditor/tests/integration/pods/components/control/md-crud-buttons/compo
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('.md-crud-buttons').textContent.replace(/[ \n]+/g, '|'), '|Save|Cancel|Copy|Delete|template|block|text|Manage|the|record|', 'block, doSave');
+      assert.equal((0, _testHelpers.find)('.md-crud-buttons').textContent.replace(/[ \n]+/g, '|'), '|Save|Cancel|Copy|Delete|template|block|text|', 'block, doSave');
 
       assert.equal((0, _testHelpers.find)('.md-crud-buttons .btn-success').disabled, true, 'save disabled');
     });
@@ -7250,7 +7646,7 @@ define('mdeditor/tests/integration/pods/components/control/md-errors/component-t
     });
   });
 });
-define('mdeditor/tests/integration/pods/components/control/md-fiscalyear/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit', 'ember-power-select/test-support', 'ember-power-select/test-support/helpers'], function (_testHelpers, _qunit, _emberQunit, _testSupport, _helpers) {
+define('mdeditor/tests/integration/pods/components/control/md-fiscalyear/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit', 'ember-power-select/test-support', 'ember-power-select/test-support/helpers', 'moment'], function (_testHelpers, _qunit, _emberQunit, _testSupport, _helpers, _moment) {
   'use strict';
 
   (0, _qunit.module)('Integration | Component | control/md fiscalyear', function (hooks) {
@@ -7266,7 +7662,7 @@ define('mdeditor/tests/integration/pods/components/control/md-fiscalyear/compone
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('.md-select.md-fiscalyear').innerText.replace(/[\n]+/g, '|').trim(), 'Pick Fiscal Year|Pick a Fiscal Year|');
+      assert.equal((0, _testHelpers.find)('.md-select.md-fiscalyear').innerText.replace(/[\n]+/g, '|').trim(), 'Pick Fiscal Year|Pick a Fiscal Year');
     });
 
     (0, _qunit.test)('select a year', async function (assert) {
@@ -7292,8 +7688,8 @@ define('mdeditor/tests/integration/pods/components/control/md-fiscalyear/compone
       await (0, _helpers.clickTrigger)('.md-fiscalyear');
       await (0, _testSupport.selectChoose)('.md-fiscalyear', year);
 
-      assert.equal('2020-01-01T07:59:59.999Z', this.end, 'end set');
-      assert.equal('2019-01-01T08:00:00.000Z', this.start, 'end start');
+      assert.equal(this.end, (0, _moment.default)(year, 'YYYY').month(this.settings.data.fiscalStartMonth + 10).endOf('month').toISOString(), 'end set');
+      assert.equal(this.start, (0, _moment.default)(year, 'YYYY').month(this.settings.data.fiscalStartMonth - 1).startOf('month').toISOString(), 'start set');
 
       this.set('settings.data.fiscalStartMonth', null);
 
@@ -7335,7 +7731,7 @@ define('mdeditor/tests/integration/pods/components/control/md-import-csv/compone
       assert.equal((0, _testHelpers.find)('.ember-view').textContent.replace(/[ \n]+/g, '|').trim(), '|Processing...|Stop|57%|Complete|', 'updates progressbar');
     });
 
-    (0, _qunit.todo)('upload csv', async function (assert) {
+    (0, _qunit.skip)('upload csv', async function (assert) {
       assert.ok();
     });
   });
@@ -7396,7 +7792,7 @@ define('mdeditor/tests/integration/pods/components/control/md-itis/component-tes
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('.md-itis').textContent.replace(/[ \n]+/g, '|').trim(), '|Search|Value|Kingdom|(optional)|Select|a|kingdom.|Click|to|send|search|request|Search|');
+      assert.equal((0, _testHelpers.find)('.md-itis').textContent.replace(/[ \n]+/g, '|').trim(), '|Search|Value|Kingdom|(optional)|Select|a|kingdom.|Search|');
 
       // await fillIn('.md-input-input input.ember-text-field', 'shark');
       // await click('button[type=submit]');
@@ -7559,7 +7955,7 @@ define('mdeditor/tests/integration/pods/components/control/md-record-table/butto
     (0, _emberQunit.setupRenderingTest)(hooks);
 
     (0, _qunit.test)('it renders', async function (assert) {
-      assert.expect(2);
+      assert.expect(4);
       // Set any properties with this.set('myProperty', 'value');
       this.set('model', {
         hasDirtyHash: true,
@@ -7573,8 +7969,9 @@ define('mdeditor/tests/integration/pods/components/control/md-record-table/butto
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('.md-dashboard-buttons').textContent.replace(/[ \n]+/g, '|').trim(), '|Show|Edit|Delete|Preview|JSON|This|record|has|been|modified!|Cick|to|save.|This|record|has|errors!|Click|to|view.|');
-
+      assert.equal((0, _testHelpers.find)('.md-dashboard-buttons').textContent.replace(/[ \n]+/g, '|').trim(), '|Show|Edit|Delete|Preview|JSON|');
+      assert.dom('.md-status-icon .btn-danger').isVisible();
+      assert.dom('.md-status-icon .btn-warning').isVisible();
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
         "id": "EZ0t44CS",
@@ -7926,11 +8323,12 @@ define('mdeditor/tests/integration/pods/components/control/md-status/component-t
         "block": "{\"symbols\":[],\"statements\":[[1,[27,\"control/md-status\",null,[[\"model\"],[[23,[\"model\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
-
-      assert.equal((0, _testHelpers.find)('.md-status').textContent.trim(), 'This record has been modified! Cick to save.');
+      assert.dom('.md-status-icon .md-error').isVisible();
 
       this.set('model.hasDirtyHash', false);
       this.set('model.hasSchemaErrors', true);
+
+      assert.dom('.md-status-icon .md-error').isNotVisible();
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
         "id": "ZkYxinz+",
@@ -7938,7 +8336,7 @@ define('mdeditor/tests/integration/pods/components/control/md-status/component-t
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('.md-status').textContent.trim(), 'This record has errors! Click to view.');
+      assert.dom('.md-status-icon .md-warning').isVisible();
     });
   });
 });
@@ -7959,7 +8357,7 @@ define('mdeditor/tests/integration/pods/components/control/subbar-citation/compo
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('.btn-group-vertical').textContent.replace(/[ \n\t\s]+/g, '|').trim(), '|Select|a|Record|Select|a|record|to|copy|into|the|association.|Note:|This|will|only|copy|information.|foobar|');
+      assert.equal((0, _testHelpers.find)('.btn-group-vertical').textContent.replace(/[ \n\t\s]+/g, '|').trim(), '|Select|a|Record|foobar|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
@@ -7968,7 +8366,7 @@ define('mdeditor/tests/integration/pods/components/control/subbar-citation/compo
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('.btn-group-vertical').textContent.replace(/[ \n\t\s]+/g, '|').trim(), '|Select|a|Record|Select|a|record|to|copy|into|the|association.|Note:|This|will|only|copy|information.|template|block|text|');
+      assert.equal((0, _testHelpers.find)('.btn-group-vertical').textContent.replace(/[ \n\t\s]+/g, '|').trim(), '|Select|a|Record|template|block|text|');
     });
   });
 });
@@ -8274,7 +8672,7 @@ define('mdeditor/tests/integration/pods/components/control/subbar-thesaurus/comp
     });
   });
 });
-define('mdeditor/tests/integration/pods/components/ember-tooltip/component-test', ['qunit', 'ember-qunit', '@ember/test-helpers'], function (_qunit, _emberQunit, _testHelpers) {
+define('mdeditor/tests/integration/pods/components/ember-tooltip/component-test', ['qunit', 'ember-qunit', '@ember/test-helpers', 'ember-tooltips/test-support'], function (_qunit, _emberQunit, _testHelpers, _testSupport) {
   'use strict';
 
   (0, _qunit.module)('Integration | Component | ember-tooltip', function (hooks) {
@@ -8294,12 +8692,14 @@ define('mdeditor/tests/integration/pods/components/ember-tooltip/component-test'
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "wPTAModp",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"ember-tooltip\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "6nHpSXF3",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"ember-tooltip\",null,[[\"isShown\"],[\"true\"]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal(this.element.textContent.trim(), 'template block text');
+      (0, _testSupport.assertTooltipContent)(assert, {
+        contentString: 'template block text'
+      });
     });
   });
 });
@@ -8790,7 +9190,7 @@ define('mdeditor/tests/integration/pods/components/input/md-select-contacts/comp
       await (0, _testSupport.selectChoose)('.md-select-contact', 'Contact0');
       await (0, _testSupport.selectChoose)('.md-select-contact', 'Contact1');
 
-      assert.equal((0, _testHelpers.find)('.md-select-contact').innerText.trim(), '× Contact0 × Contact1', 'select multiple contacts');
+      assert.equal((0, _testHelpers.find)('.md-select-contact').innerText.replace(/[\s\n]+/g, '|').trim(), '×|Contact0|×|Contact1', 'select multiple contacts');
     });
   });
 });
@@ -8812,7 +9212,7 @@ define('mdeditor/tests/integration/pods/components/input/md-select-profile/compo
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('.testme').textContent.replace(/[ \n]+/g, '|'), '|Profile|full|?|The|kitchen|sink|');
+      assert.equal((0, _testHelpers.find)('.testme').textContent.replace(/[ \n]+/g, '|'), '|Profile|full|?|');
     });
 
     (0, _qunit.test)('should trigger external action on change', async function (assert) {
@@ -9110,7 +9510,7 @@ define('mdeditor/tests/integration/pods/components/layout/md-footer/component-te
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('.md-footer').textContent.replace(/[ \n]+/g, '|').trim(), '|Report|Issue|Report|bugs,|Request|features|-|GitHub|account|required.|AutoSave:|Off|');
+      assert.equal((0, _testHelpers.find)('.md-footer').textContent.replace(/[ \n]+/g, '|').trim(), '|Report|Issue|AutoSave:|Off|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
@@ -9119,7 +9519,7 @@ define('mdeditor/tests/integration/pods/components/layout/md-footer/component-te
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('.md-footer').textContent.replace(/[ \n]+/g, '|').trim(), '|Report|Issue|Report|bugs,|Request|features|-|GitHub|account|required.|AutoSave:|On|template|block|text|');
+      assert.equal((0, _testHelpers.find)('.md-footer').textContent.replace(/[ \n]+/g, '|').trim(), '|Report|Issue|AutoSave:|On|template|block|text|');
     });
   });
 });
@@ -9420,14 +9820,29 @@ define('mdeditor/tests/integration/pods/components/md-models-table/component-tes
     (0, _qunit.test)('it renders', async function (assert) {
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.on('myAction', function(val) { ... });
+      this.set('data', [{
+        title: 'foo',
+        type: 'bar'
+      }, {
+        title: 'biz',
+        type: 'baz'
+      }]);
+
+      this.set('columns', [{
+        propertyName: 'title',
+        title: 'Title'
+      }, {
+        propertyName: 'type',
+        title: 'Type'
+      }]);
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "qZaHN7k6",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"md-models-table\"],false]],\"hasEval\":false}",
+        "id": "4pjC89/T",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"md-models-table\",null,[[\"data\",\"columns\"],[[23,[\"data\"]],[23,[\"columns\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Search:|Columns|Show|All|Hide|All|Restore|Defaults|Title|Type|Title|Type|foo|bar|biz|baz|Show|1|-|2|of|2|10|25|50|500|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
@@ -9436,7 +9851,7 @@ define('mdeditor/tests/integration/pods/components/md-models-table/component-tes
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|template|block|text|');
     });
   });
 });
@@ -9447,16 +9862,39 @@ define('mdeditor/tests/integration/pods/components/md-models-table/components/ch
     (0, _emberQunit.setupRenderingTest)(hooks);
 
     (0, _qunit.test)('it renders', async function (assert) {
+      assert.expect(4);
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.on('myAction', function(val) { ... });
+      this.data = {
+        themeInstance: {
+          'select-all-rows': 'select',
+          'deselect-all-rows': 'deselect'
+        },
+        selectedItems: {
+          length: 0
+        },
+        length: 1
+      };
+
+      this.toggleAllSelection = function () {
+        assert.ok(true, 'toggleAll action');
+
+        this.set('selectedItems.length', 1);
+      };
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "YR4OuOlZ",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"md-models-table/components/check-all\"],false]],\"hasEval\":false}",
+        "id": "8nV3BIyp",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"md-models-table/components/check-all\",null,[[\"data\",\"selectedItems\",\"themeInstance\",\"toggleAllSelection\"],[[23,[\"data\"]],[23,[\"data\",\"selectedItems\"]],[23,[\"data\",\"themeInstance\"]],[23,[\"toggleAllSelection\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.ok((0, _testHelpers.find)('span').classList.contains('deselect'), 'add class');
+
+      await (0, _testHelpers.click)('span');
+
+      // await render(hbs`{{md-models-table/components/check-all data=data themeInstance=data.themeInstance toggleAllSelection=toggleAllSelection}}`);
+
+      assert.ok((0, _testHelpers.find)('span').classList.contains('select'), 'deselect');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
@@ -9465,7 +9903,7 @@ define('mdeditor/tests/integration/pods/components/md-models-table/components/ch
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal(this.element.textContent.trim(), '');
     });
   });
 });
@@ -9478,14 +9916,24 @@ define('mdeditor/tests/integration/pods/components/md-models-table/components/ch
     (0, _qunit.test)('it renders', async function (assert) {
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.on('myAction', function(val) { ... });
+      this.themeInstance = {
+        'select-row': 'select',
+        'deselect-row': 'deselect'
+      };
+
+      this.set('isSelected', false);
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "bMATeOAG",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"md-models-table/components/check\"],false]],\"hasEval\":false}",
+        "id": "T8N8/Hyk",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"md-models-table/components/check\",null,[[\"isSelected\",\"themeInstance\"],[[23,[\"isSelected\"]],[23,[\"themeInstance\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.ok((0, _testHelpers.find)('span').classList.contains('deselect'), 'add class');
+
+      this.set('isSelected', true);
+
+      assert.ok((0, _testHelpers.find)('span').classList.contains('select'), 'update class');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
@@ -9494,7 +9942,7 @@ define('mdeditor/tests/integration/pods/components/md-models-table/components/ch
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal(this.element.textContent.trim(), '');
     });
   });
 });
@@ -9514,7 +9962,7 @@ define('mdeditor/tests/integration/pods/components/md-title/component-test', ['@
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal(this.element.textContent.trim(), '');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
@@ -9523,11 +9971,11 @@ define('mdeditor/tests/integration/pods/components/md-title/component-test', ['@
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal(this.element.textContent.trim(), 'template block text');
     });
   });
 });
-define('mdeditor/tests/integration/pods/components/md-translate/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit'], function (_testHelpers, _qunit, _emberQunit) {
+define('mdeditor/tests/integration/pods/components/md-translate/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit', 'mdeditor/tests/helpers/create-record'], function (_testHelpers, _qunit, _emberQunit, _createRecord) {
   'use strict';
 
   (0, _qunit.module)('Integration | Component | md translate', function (hooks) {
@@ -9537,14 +9985,42 @@ define('mdeditor/tests/integration/pods/components/md-translate/component-test',
 
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.on('myAction', function(val) { ... });
+      this.model = (0, _createRecord.default)(1)[0];
+      this.isLoading = false;
+      this.messages = null;
+      this.result = null;
+      this.writer = {
+        type: 'json'
+      };
+
+      window.saveAs = function (blob, title) {
+        assert.ok(title, 'save title');
+        assert.equal(blob.constructor.name, 'Blob', 'save blob');
+      };
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "qkGBhVo1",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"md-translate\"],false]],\"hasEval\":false}",
+        "id": "LvKB8aly",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"md-translate\",null,[[\"model\",\"isLoading\",\"messages\",\"result\",\"errorLevel\",\"isJson\",\"writeObj\"],[[23,[\"model\"]],[23,[\"isLoading\"]],[23,[\"messages\"]],[23,[\"result\"]],2,true,[23,[\"writer\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Options|Choose|Format|Select|one|option|Force|Valid|Ouput?|No|Yes|Show|Empty|Tags?|No|Yes|Translate|');
+
+      this.set('isLoading', true);
+
+      assert.ok((0, _testHelpers.find)('.md-spinner'), 'loading');
+
+      this.set('messages', [["WARNING", " FGDC writer", " citation originator role is missing", " CONTEXT is lineage method"], ["WARNING", " FGDC writer", " citation publication date is missing", " CONTEXT is lineage method"]]);
+
+      assert.equal((0, _testHelpers.find)('.md-translator-error').textContent.replace(/[\s\n]+/g, '|').trim(), '|Translation|Warning|Warning|ocurred|during|translation.|WARNING|citation|originator|role|is|missing|FGDC|writer|context|is|lineage|method|WARNING|citation|publication|date|is|missing|FGDC|writer|context|is|lineage|method|', 'messages');
+
+      this.set('result', '{"foo":"bar"}');
+
+      assert.equal((0, _testHelpers.find)('.md-translator-preview.warning').textContent.replace(/[\s\n]+/g, '|').trim(), '|Result|Preview|JSON|Format|Save|Result|', 'result');
+
+      assert.equal((0, _testHelpers.find)('.md-translator-preview.warning textarea').value, '{"foo":"bar"}', 'textarea value set');
+
+      (0, _testHelpers.click)('.md-translator-preview.warning .btn-success');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
@@ -9553,7 +10029,7 @@ define('mdeditor/tests/integration/pods/components/md-translate/component-test',
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Options|Choose|Format|Select|one|option|Force|Valid|Ouput?|No|Yes|Show|Empty|Tags?|No|Yes|Translate|template|block|text|', 'block');
     });
   });
 });
@@ -9726,7 +10202,7 @@ define('mdeditor/tests/integration/pods/components/object/md-associated/componen
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[ \n]+/g, '|').trim(), '|Association|Type|product|?|the|associated|resource|is|a|product|developed|as|deliverable|of|the|main|resource|×|Initiative|Type|Choose|Type|of|Initiative|Resource|Types|2|Add|#|Type|Name|0|website|?|information|applies|to|a|website|such|as|a|thematic|portal|×|Delete|1|product|?|metadata|describing|an|ISO|19131|data|product|specification|×|Delete|Basic|Information|Title|Alternate|Titles|0|Add|Alternate|Title|Add|Alternate|Title|Dates|1|Add|Date|#|Date|Date|Type|Description|0|publication|?|date|identifies|when|the|resource|was|issued|×|Delete|Edition|Presentation|Form|Responsible|Parties|0|Add|#|Role|Contacts|Add|Responsible|Party|Online|Resource|0|Add|OK|#|Name|Uri|Add|Resource|OK|Identifier|1|Add|OK|#|Identifier|Namespace|Description|0|5a70c2dee4b0a9a2e9dafbe7|gov.sciencebase.catalog|Identifier|imported|from|ScienceBase|during|publication|More...|Delete|OK|Identifier|1|Add|OK|#|Identifier|Namespace|0|5a70c2dee4b0a9a2e9dafbe7|gov.sciencebase.catalog|Edit|Delete|OK|Identifier|1|Add|OK|#|Identifier|Namespace|0|5a70c2dee4b0a9a2e9dafbe7|gov.sciencebase.catalog|Edit|Delete|OK|Series|Name|Issue|Page|Other|Details|0|Add|Add|Other|Details|Graphic|0|Add|OK|Add|Graphic|OK|Metadata|Citation|Basic|Information|Title|Alternate|Titles|0|Add|Alternate|Title|Add|Alternate|Title|Dates|0|Add|Date|#|Date|Date|Type|Description|Add|Date|Responsible|Parties|1|Add|#|Role|Contacts|0|author|?|party|who|authored|the|resource|×|Delete|Online|Resource|0|Add|OK|#|Name|Uri|Add|Resource|OK|Identifier|1|Add|OK|#|Identifier|Namespace|Description|0|f4abb4e0-a3d6-450f-adca-6d07eac19b0b|urn:uuid|Not|Defined|More...|Delete|OK|Identifier|1|Add|OK|#|Identifier|Namespace|0|f4abb4e0-a3d6-450f-adca-6d07eac19b0b|urn:uuid|Edit|Delete|OK|Identifier|1|Add|OK|#|Identifier|Namespace|0|f4abb4e0-a3d6-450f-adca-6d07eac19b0b|urn:uuid|Edit|Delete|OK|');
+      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[ \n]+/g, '|').trim(), '|Association|Type|product|?|×|Initiative|Type|Choose|Type|of|Initiative|Resource|Types|2|Add|#|Type|Name|0|website|?|×|Delete|1|product|?|×|Delete|Basic|Information|Title|Alternate|Titles|0|Add|Alternate|Title|Add|Alternate|Title|Dates|1|Add|Date|#|Date|Date|Type|Description|0|publication|?|×|Delete|Edition|Presentation|Form|Responsible|Parties|0|Add|#|Role|Contacts|Add|Responsible|Party|Online|Resource|0|Add|OK|#|Name|Uri|Add|Resource|OK|Identifier|1|Add|OK|#|Identifier|Namespace|Description|0|5a70c2dee4b0a9a2e9dafbe7|gov.sciencebase.catalog|Identifier|imported|from|ScienceBase|during|publication|More...|Delete|OK|Identifier|1|Add|OK|#|Identifier|Namespace|0|5a70c2dee4b0a9a2e9dafbe7|gov.sciencebase.catalog|Edit|Delete|OK|Identifier|1|Add|OK|#|Identifier|Namespace|0|5a70c2dee4b0a9a2e9dafbe7|gov.sciencebase.catalog|Edit|Delete|OK|Series|Name|Issue|Page|Other|Details|0|Add|Add|Other|Details|Graphic|0|Add|OK|Add|Graphic|OK|Metadata|Citation|Basic|Information|Title|Alternate|Titles|0|Add|Alternate|Title|Add|Alternate|Title|Dates|0|Add|Date|#|Date|Date|Type|Description|Add|Date|Responsible|Parties|1|Add|#|Role|Contacts|0|author|?|×|Delete|Online|Resource|0|Add|OK|#|Name|Uri|Add|Resource|OK|Identifier|1|Add|OK|#|Identifier|Namespace|Description|0|f4abb4e0-a3d6-450f-adca-6d07eac19b0b|urn:uuid|Not|Defined|More...|Delete|OK|Identifier|1|Add|OK|#|Identifier|Namespace|0|f4abb4e0-a3d6-450f-adca-6d07eac19b0b|urn:uuid|Edit|Delete|OK|Identifier|1|Add|OK|#|Identifier|Namespace|0|f4abb4e0-a3d6-450f-adca-6d07eac19b0b|urn:uuid|Edit|Delete|OK|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
@@ -9735,7 +10211,7 @@ define('mdeditor/tests/integration/pods/components/object/md-associated/componen
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[ \n]+/g, '|').trim(), '|Association|Type|product|?|the|associated|resource|is|a|product|developed|as|deliverable|of|the|main|resource|×|Initiative|Type|Choose|Type|of|Initiative|Resource|Types|2|Add|#|Type|Name|0|website|?|information|applies|to|a|website|such|as|a|thematic|portal|×|Delete|1|product|?|metadata|describing|an|ISO|19131|data|product|specification|×|Delete|Basic|Information|Title|Alternate|Titles|0|Add|Alternate|Title|Add|Alternate|Title|Dates|1|Add|Date|#|Date|Date|Type|Description|0|publication|?|date|identifies|when|the|resource|was|issued|×|Delete|Edition|Presentation|Form|Responsible|Parties|0|Add|#|Role|Contacts|Add|Responsible|Party|Online|Resource|0|Add|OK|#|Name|Uri|Add|Resource|OK|Identifier|1|Add|OK|#|Identifier|Namespace|Description|0|5a70c2dee4b0a9a2e9dafbe7|gov.sciencebase.catalog|Identifier|imported|from|ScienceBase|during|publication|More...|Delete|OK|Identifier|1|Add|OK|#|Identifier|Namespace|0|5a70c2dee4b0a9a2e9dafbe7|gov.sciencebase.catalog|Edit|Delete|OK|Identifier|1|Add|OK|#|Identifier|Namespace|0|5a70c2dee4b0a9a2e9dafbe7|gov.sciencebase.catalog|Edit|Delete|OK|Series|Name|Issue|Page|Other|Details|0|Add|Add|Other|Details|Graphic|0|Add|OK|Add|Graphic|OK|Metadata|Citation|Basic|Information|Title|Alternate|Titles|0|Add|Alternate|Title|Add|Alternate|Title|Dates|0|Add|Date|#|Date|Date|Type|Description|Add|Date|Responsible|Parties|1|Add|#|Role|Contacts|0|author|?|party|who|authored|the|resource|×|Delete|Online|Resource|0|Add|OK|#|Name|Uri|Add|Resource|OK|Identifier|1|Add|OK|#|Identifier|Namespace|Description|0|f4abb4e0-a3d6-450f-adca-6d07eac19b0b|urn:uuid|Not|Defined|More...|Delete|OK|Identifier|1|Add|OK|#|Identifier|Namespace|0|f4abb4e0-a3d6-450f-adca-6d07eac19b0b|urn:uuid|Edit|Delete|OK|Identifier|1|Add|OK|#|Identifier|Namespace|0|f4abb4e0-a3d6-450f-adca-6d07eac19b0b|urn:uuid|Edit|Delete|OK|template|block|text|', 'block');
+      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[ \n]+/g, '|').trim(), '|Association|Type|product|?|×|Initiative|Type|Choose|Type|of|Initiative|Resource|Types|2|Add|#|Type|Name|0|website|?|×|Delete|1|product|?|×|Delete|Basic|Information|Title|Alternate|Titles|0|Add|Alternate|Title|Add|Alternate|Title|Dates|1|Add|Date|#|Date|Date|Type|Description|0|publication|?|×|Delete|Edition|Presentation|Form|Responsible|Parties|0|Add|#|Role|Contacts|Add|Responsible|Party|Online|Resource|0|Add|OK|#|Name|Uri|Add|Resource|OK|Identifier|1|Add|OK|#|Identifier|Namespace|Description|0|5a70c2dee4b0a9a2e9dafbe7|gov.sciencebase.catalog|Identifier|imported|from|ScienceBase|during|publication|More...|Delete|OK|Identifier|1|Add|OK|#|Identifier|Namespace|0|5a70c2dee4b0a9a2e9dafbe7|gov.sciencebase.catalog|Edit|Delete|OK|Identifier|1|Add|OK|#|Identifier|Namespace|0|5a70c2dee4b0a9a2e9dafbe7|gov.sciencebase.catalog|Edit|Delete|OK|Series|Name|Issue|Page|Other|Details|0|Add|Add|Other|Details|Graphic|0|Add|OK|Add|Graphic|OK|Metadata|Citation|Basic|Information|Title|Alternate|Titles|0|Add|Alternate|Title|Add|Alternate|Title|Dates|0|Add|Date|#|Date|Date|Type|Description|Add|Date|Responsible|Parties|1|Add|#|Role|Contacts|0|author|?|×|Delete|Online|Resource|0|Add|OK|#|Name|Uri|Add|Resource|OK|Identifier|1|Add|OK|#|Identifier|Namespace|Description|0|f4abb4e0-a3d6-450f-adca-6d07eac19b0b|urn:uuid|Not|Defined|More...|Delete|OK|Identifier|1|Add|OK|#|Identifier|Namespace|0|f4abb4e0-a3d6-450f-adca-6d07eac19b0b|urn:uuid|Edit|Delete|OK|Identifier|1|Add|OK|#|Identifier|Namespace|0|f4abb4e0-a3d6-450f-adca-6d07eac19b0b|urn:uuid|Edit|Delete|OK|template|block|text|', 'block');
     });
   });
 });
@@ -9843,7 +10319,7 @@ define('mdeditor/tests/integration/pods/components/object/md-attribute/component
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('.md-card').textContent.replace(/[ \n]+/g, '|').trim(), '');
+      assert.equal((0, _testHelpers.find)('.md-card').textContent.replace(/[ \n]+/g, '|').trim(), '|Attribute|Information|Code|Name|Definition|Data|Type|float|?|×|Allow|Null?|Allow|null|values|Common|Name|Domain|Select|or|enter|the|domain|for|this|attribute.|Aliases|0|Add|Alias|Add|Alias|Units|Units|Resolution|Case|Sensitive?|Is|the|attribute|content|case|sensitive?|Field|Width|Missing|Value|Minimum|Value|Maximum|Value|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
@@ -9852,7 +10328,7 @@ define('mdeditor/tests/integration/pods/components/object/md-attribute/component
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('.md-card').textContent.replace(/[ \n]+/g, '|').trim(), 'template block text');
+      assert.equal((0, _testHelpers.find)('.md-card').textContent.replace(/[ \n]+/g, '|').trim(), '|Attribute|Information|Code|Name|Definition|Data|Type|float|?|×|Allow|Null?|Allow|null|values|Common|Name|Domain|Select|or|enter|the|domain|for|this|attribute.|Aliases|0|Add|Alias|Add|Alias|Units|Units|Resolution|Case|Sensitive?|Is|the|attribute|content|case|sensitive?|Field|Width|Missing|Value|Minimum|Value|Maximum|Value|', 'block');
     });
   });
 });
@@ -9864,24 +10340,35 @@ define('mdeditor/tests/integration/pods/components/object/md-attribute/preview/c
 
     (0, _qunit.test)('it renders', async function (assert) {
       // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
+      this.set('model', {
+        "allowNull": false,
+        "attributeReference": {
+          "title": "Producer defined"
+        },
+        "valueRange": [{
+          "minRangeValue": "0",
+          "maxRangeValue": "0.XXXXXX"
+        }],
+        "commonName": "20XX_pyes.tif",
+        "codeName": "20XX_pyes.tif",
+        "definition": "The predicted annual probability that beach mice presence is Yes in 20XX.",
+        "mustBeUnique": true,
+        "units": "annual probability that beach mice presence is Yes",
+        "isCaseSensitive": false,
+        "minValue": "0",
+        "maxValue": "0.XXXXXX",
+        "dataType": "float"
+      });
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "qAlEVu6l",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-attribute/preview\"],false]],\"hasEval\":false}",
+        "id": "1i4Uea4E",
+        "block": "{\"symbols\":[],\"statements\":[[7,\"div\"],[11,\"class\",\"testme\"],[9],[1,[27,\"object/md-attribute/preview\",null,[[\"model\",\"profilePath\"],[[23,[\"model\"]],\"foobar\"]]],false],[10]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
-
-      // Template block usage:
-      await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "HPK37VsD",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-attribute/preview\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
-        "meta": {}
-      }));
-
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal((0, _testHelpers.find)('.testme').textContent.replace(/[ \n]+/g, '|').trim(), '|float|?|×|');
+      assert.equal((0, _testHelpers.findAll)('.testme input').length, 3, 'render inputs');
+      assert.ok((0, _testHelpers.find)('.testme .md-select'), 'render select');
     });
   });
 });
@@ -9894,28 +10381,39 @@ define('mdeditor/tests/integration/pods/components/object/md-bbox/component-test
     (0, _qunit.test)('it renders', async function (assert) {
 
       // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
+      this.set('model', {
+        "westLongitude": -87.52179241764053,
+        "eastLongitude": -85.30119385960293,
+        "southLatitude": 29.640690610830635,
+        "northLatitude": 30.42485959910817
+      });
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "Ys7ayxa7",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-bbox\"],false]],\"hasEval\":false}",
+        "id": "sbvOx++R",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-bbox\",null,[[\"profilePath\",\"model\"],[\"foobar\",[23,[\"model\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal((0, _testHelpers.find)('.form').textContent.replace(/[ \n]+/g, '|').trim(), '|North|East|South|West|');
+
+      var inputs = (0, _testHelpers.findAll)('input');
+      assert.equal(inputs[0].value, this.model.northLatitude, 'north');
+      assert.equal(inputs[1].value, this.model.eastLongitude, 'east');
+      assert.equal(inputs[2].value, this.model.southLatitude, 'south');
+      assert.equal(inputs[3].value, this.model.westLongitude, 'west');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "Xciy7Cjz",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-bbox\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "D/PdYyoV",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-bbox\",null,[[\"profilePath\",\"model\"],[\"foobar\",[23,[\"model\"]]]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal((0, _testHelpers.find)('.form').textContent.replace(/[ \n]+/g, '|').trim(), '|North|East|South|West|template|block|text|', 'block');
     });
   });
 });
-define('mdeditor/tests/integration/pods/components/object/md-citation-array/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit'], function (_testHelpers, _qunit, _emberQunit) {
+define('mdeditor/tests/integration/pods/components/object/md-citation-array/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit', 'mdeditor/tests/helpers/create-citation'], function (_testHelpers, _qunit, _emberQunit, _createCitation) {
   'use strict';
 
   (0, _qunit.module)('Integration | Component | object/md citation array', function (hooks) {
@@ -9924,7 +10422,7 @@ define('mdeditor/tests/integration/pods/components/object/md-citation-array/comp
     (0, _qunit.test)('it renders', async function (assert) {
 
       // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
+      this.set('citation', (0, _createCitation.default)(3));
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
         "id": "WzA5D9Qy",
@@ -9932,7 +10430,15 @@ define('mdeditor/tests/integration/pods/components/object/md-citation-array/comp
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal((0, _testHelpers.find)('.md-object-table').textContent.replace(/[ \n]+/g, '|').trim(), '|No|Citation|found.|Add|Citation|');
+
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "BthDjgu6",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-citation-array\",null,[[\"model\"],[[23,[\"citation\"]]]]],false]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      assert.equal((0, _testHelpers.find)('.md-object-table').textContent.replace(/[ \n]+/g, '|').trim(), '|Citation|3|Add|OK|#|Title|0|title0|More...|Delete|1|title1|More...|Delete|2|title2|More...|Delete|OK|', 'renders rows');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
@@ -9941,11 +10447,11 @@ define('mdeditor/tests/integration/pods/components/object/md-citation-array/comp
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal((0, _testHelpers.find)('.md-object-table').textContent.replace(/[ \n]+/g, '|').trim(), '|No|Citation|found.|Add|Citation|');
     });
   });
 });
-define('mdeditor/tests/integration/pods/components/object/md-citation/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit'], function (_testHelpers, _qunit, _emberQunit) {
+define('mdeditor/tests/integration/pods/components/object/md-citation/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit', 'mdeditor/tests/helpers/create-citation'], function (_testHelpers, _qunit, _emberQunit, _createCitation) {
   'use strict';
 
   (0, _qunit.module)('Integration | Component | object/md citation', function (hooks) {
@@ -9954,28 +10460,28 @@ define('mdeditor/tests/integration/pods/components/object/md-citation/component-
     (0, _qunit.test)('it renders', async function (assert) {
 
       // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
+      this.set('citation', (0, _createCitation.default)(1)[0]);
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "3hfbTjCo",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-citation\"],false]],\"hasEval\":false}",
+        "id": "7vDrdTEt",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-citation\",null,[[\"profilePath\",\"model\"],[\"foobar\",[23,[\"citation\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[ \n]+/g, '|').trim(), '|Basic|Information|Title|Alternate|Titles|2|Add|Alternate|Title|0|Delete|1|Delete|Dates|2|Add|Date|#|Date|Date|Type|Description|0|dateType|×|Delete|1|dateType|×|Delete|Edition|Presentation|Form|×|presentationForm0|×|presentationForm1|Responsible|Parties|2|Add|#|Role|Contacts|0|role|×|Delete|1|role|×|Delete|Online|Resource|2|Add|OK|#|Name|Uri|0|Not|Defined|http://adiwg.org|Edit|Delete|1|Not|Defined|http://mdeditor.org|Edit|Delete|OK|Identifier|2|Add|OK|#|Identifier|Namespace|Description|0|identifier0|Not|Defined|Not|Defined|More...|Delete|1|identifier-0|Not|Defined|Not|Defined|More...|Delete|OK|Identifier|2|Add|OK|#|Identifier|Namespace|0|identifier0|Not|Defined|Edit|Delete|1|identifier-0|Not|Defined|Edit|Delete|OK|Identifier|2|Add|OK|#|Identifier|Namespace|0|identifier0|Not|Defined|Edit|Delete|1|identifier-0|Not|Defined|Edit|Delete|OK|Series|Name|Issue|Page|Other|Details|2|Add|0|Delete|1|Delete|Graphic|2|Add|OK|0|fileName:|Edit|Delete|1|fileName:|Edit|Delete|OK|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "3mR9K3MQ",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-citation\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "eOi54CPK",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-citation\",null,[[\"profilePath\"],[\"foobar\"]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[ \n]+/g, '|').trim(), '|Basic|Information|Title|Alternate|Titles|0|Add|Alternate|Title|Add|Alternate|Title|Dates|0|Add|Date|#|Date|Date|Type|Description|Add|Date|Edition|Presentation|Form|Responsible|Parties|0|Add|#|Role|Contacts|Add|Responsible|Party|Online|Resource|0|Add|OK|#|Name|Uri|Add|Resource|OK|No|Identifier|found.|Add|Identifier|Identifier|0|Add|OK|#|Identifier|Namespace|Add|Identifier|OK|Identifier|0|Add|OK|#|Identifier|Namespace|Add|Identifier|OK|Series|Name|Issue|Page|Other|Details|0|Add|Add|Other|Details|Graphic|0|Add|OK|Add|Graphic|OK|template|block|text|', 'block');
     });
   });
 });
-define('mdeditor/tests/integration/pods/components/object/md-citation/preview/body/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit'], function (_testHelpers, _qunit, _emberQunit) {
+define('mdeditor/tests/integration/pods/components/object/md-citation/preview/body/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit', 'mdeditor/tests/helpers/create-citation'], function (_testHelpers, _qunit, _emberQunit, _createCitation) {
   'use strict';
 
   (0, _qunit.module)('Integration | Component | object/md citation/preview/body', function (hooks) {
@@ -9984,15 +10490,15 @@ define('mdeditor/tests/integration/pods/components/object/md-citation/preview/bo
     (0, _qunit.test)('it renders', async function (assert) {
 
       // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
+      this.set('citation', (0, _createCitation.default)(1)[0]);
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "s9+5mB79",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-citation/preview/body\"],false]],\"hasEval\":false}",
+        "id": "SOqK9Xz/",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-citation/preview/body\",null,[[\"citation\"],[[23,[\"citation\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal((0, _testHelpers.find)('.row').textContent.replace(/[ \n]+/g, '|').trim(), '|Title|title0|Alternate|Titles|alternateTitle0|alternateTitle1|Dates|October|13th|2016|(dateType)|October|22nd|2016|(dateType)|Identifier|identifier0|identifier-0|Responsible|Party|role|(|)|role|(|)|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
@@ -10001,37 +10507,44 @@ define('mdeditor/tests/integration/pods/components/object/md-citation/preview/bo
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal((0, _testHelpers.find)('.row').textContent.replace(/[ \n]+/g, '|').trim(), '|Title|Not|Defined|Alternate|Titles|No|alternate|titles|assigned.|Dates|No|dates|assigned.|Identifier|No|identifiers|assigned.|Responsible|Party|No|responsibility|assigned.|template|block|text|', 'block');
     });
   });
 });
-define('mdeditor/tests/integration/pods/components/object/md-citation/preview/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit'], function (_testHelpers, _qunit, _emberQunit) {
+define('mdeditor/tests/integration/pods/components/object/md-citation/preview/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit', 'mdeditor/tests/helpers/create-citation'], function (_testHelpers, _qunit, _emberQunit, _createCitation) {
   'use strict';
 
   (0, _qunit.module)('Integration | Component | object/md citation/preview', function (hooks) {
     (0, _emberQunit.setupRenderingTest)(hooks);
 
     (0, _qunit.test)('it renders', async function (assert) {
+      assert.expect(3);
 
       // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
+      this.set('citation', (0, _createCitation.default)(1)[0]);
+
+      this.set('editCitation', function (v) {
+        assert.ok(v, 'Called external action');
+      });
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "jIpG3KI2",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-citation/preview\"],false]],\"hasEval\":false}",
+        "id": "0r+adoXx",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-citation/preview\",null,[[\"editCitation\",\"citation\"],[[23,[\"editCitation\"]],[23,[\"citation\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal((0, _testHelpers.find)('.md-card').textContent.replace(/[ \n]+/g, '|').trim(), '|Citation|Edit|Title|title0|Alternate|Titles|alternateTitle0|alternateTitle1|Dates|October|13th|2016|(dateType)|October|22nd|2016|(dateType)|Identifier|identifier0|identifier-0|Responsible|Party|role|(|)|role|(|)|Edit|Citation|');
+
+      await (0, _testHelpers.click)('.btn-success');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "2DnwUCVu",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-citation/preview\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "ejmbIe0S",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-citation/preview\",null,[[\"editCitation\"],[[23,[\"editCitation\"]]]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal((0, _testHelpers.find)('.md-card').textContent.replace(/[ \n]+/g, '|').trim(), '|Citation|Edit|Title|Not|Defined|Alternate|Titles|No|alternate|titles|assigned.|Dates|No|dates|assigned.|Identifier|No|identifiers|assigned.|Responsible|Party|No|responsibility|assigned.|template|block|text|Edit|Citation|', 'block');
     });
   });
 });
@@ -10044,24 +10557,24 @@ define('mdeditor/tests/integration/pods/components/object/md-constraint/componen
     (0, _qunit.test)('it renders', async function (assert) {
 
       // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
+      this.set('model', {});
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "IISx9wu1",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-constraint\"],false]],\"hasEval\":false}",
+        "id": "1Rkmj7Vf",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-constraint\",null,[[\"profilePath\",\"model\"],[\"foobar\",[23,[\"model\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[ \n]+/g, '|').trim(), '|Constraint|Type|The|type|of|constraint.|Use|Limitations|0|Add|Add|Use|Limitations|Legal|Access|Constraints|Use|Constraints|Other|Constraints|0|Add|Other|Constraint|Add|Other|Constraint|Security|Classification|Name|of|the|handling|restrictions|on|the|resource|or|metadata.|Classification|System|Name|Note|Handling|Description|Responsible|Parties|0|Add|#|Role|Contacts|Add|Responsible|Party|Graphic|or|Logo|0|Add|OK|Add|Graphic|OK|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "2+8tjJsb",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-constraint\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "5xG/qi02",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-constraint\",null,[[\"profilePath\",\"model\"],[\"foobar\",[23,[\"model\"]]]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[ \n]+/g, '|').trim(), "|Constraint|Type|The|type|of|constraint.|Use|Limitations|0|Add|Add|Use|Limitations|Legal|Access|Constraints|Use|Constraints|Other|Constraints|0|Add|Other|Constraint|Add|Other|Constraint|Security|Classification|Name|of|the|handling|restrictions|on|the|resource|or|metadata.|Classification|System|Name|Note|Handling|Description|Responsible|Parties|0|Add|#|Role|Contacts|Add|Responsible|Party|Graphic|or|Logo|0|Add|OK|Add|Graphic|OK|template|block|text|", 'block');
     });
   });
 });
@@ -10077,21 +10590,29 @@ define('mdeditor/tests/integration/pods/components/object/md-date-array/componen
       // Handle any actions with this.on('myAction', function(val) { ... });
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "6l4Qw9qB",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-date-array\"],false]],\"hasEval\":false}",
+        "id": "IMRTjB1D",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-date-array\",null,[[\"value\"],[[23,[\"model\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal((0, _testHelpers.find)('.panel').textContent.replace(/[ \n]+/g, '|').trim(), '|Dates|0|Add|#|Date|Date|Type|Description|Add|Date|');
+
+      this.set('model', [{
+        "date": "2016-10-12",
+        "dateType": "dateType",
+        description: 'description'
+      }]);
+
+      assert.equal((0, _testHelpers.find)('.panel').textContent.replace(/[ \n]+/g, '|').trim(), '|Dates|1|Add|#|Date|Date|Type|Description|0|dateType|×|Delete|', 'item');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "jC3l5pap",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-date-array\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "TZRnO3XP",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-date-array\",null,[[\"value\"],[[23,[\"model\"]]]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal((0, _testHelpers.find)('.panel').textContent.replace(/[ \n]+/g, '|').trim(), '|Dates|1|Add|#|Date|Date|Type|Description|0|dateType|×|template|block|text|Delete|', 'block');
     });
   });
 });
@@ -10104,28 +10625,35 @@ define('mdeditor/tests/integration/pods/components/object/md-date/component-test
     (0, _qunit.test)('it renders', async function (assert) {
 
       // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "CCGaJosS",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-date\"],false]],\"hasEval\":false}",
+        "id": "mS3zKLDY",
+        "block": "{\"symbols\":[],\"statements\":[[7,\"table\"],[9],[7,\"tr\"],[9],[1,[27,\"object/md-date\",null,[[\"model\"],[[23,[\"model\"]]]]],false],[10],[10]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal((0, _testHelpers.find)('table').textContent.replace(/[ \n]+/g, '|').trim(), "|Choose|date|type|");
+
+      this.set('model', {
+        "date": "2016-10-12",
+        "dateType": "dateType",
+        description: 'description'
+      });
+
+      assert.equal((0, _testHelpers.find)('table').textContent.replace(/[ \n]+/g, '|').trim(), "|dateType|×|");
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "/AcDRj3F",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-date\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "we8wBTra",
+        "block": "{\"symbols\":[],\"statements\":[[7,\"table\"],[9],[7,\"tr\"],[9],[0,\"\\n\"],[4,\"object/md-date\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"],[10],[10]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal((0, _testHelpers.find)('table').textContent.replace(/[ \n]+/g, '|').trim(), "|Choose|date|type|template|block|text|");
     });
   });
 });
-define('mdeditor/tests/integration/pods/components/object/md-distribution/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit'], function (_testHelpers, _qunit, _emberQunit) {
+define('mdeditor/tests/integration/pods/components/object/md-distribution/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit', 'mdeditor/tests/helpers/create-record'], function (_testHelpers, _qunit, _emberQunit, _createRecord) {
   'use strict';
 
   (0, _qunit.module)('Integration | Component | object/md distribution', function (hooks) {
@@ -10134,24 +10662,55 @@ define('mdeditor/tests/integration/pods/components/object/md-distribution/compon
     (0, _qunit.test)('it renders', async function (assert) {
 
       // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
+      this.set('record', (0, _createRecord.default)(1)[0]);
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "w9jF4LR+",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-distribution\"],false]],\"hasEval\":false}",
+        "id": "269abYv9",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-distribution\",null,[[\"model\",\"profilePath\"],[[23,[\"record\"]],\"foobar\"]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal((0, _testHelpers.find)('section').textContent.replace(/[\s\n]+/g, '|').trim(), '|No|distribution|sections|found.|Add|Distribution|Section|');
+
+      this.record.json.metadata.resourceDistribution.push({
+        "description": "description",
+        "liabilityStatement": "liabilityStatement",
+        "distributor": [{
+          "contact": {
+            "role": "role",
+            "roleExtent": [{
+              "temporalExtent": [{
+                "timePeriod": {
+                  "startDateTime": "2016-10-24T11:10:15.2-10:00"
+                }
+              }]
+            }],
+            "party": [{
+              "contactId": "individualId0"
+            }]
+          }
+        }, {
+          "contact": {
+            "role": "role",
+            "party": [{
+              "contactId": "individualId0"
+            }]
+          }
+        }]
+      });
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "mtyviVYN",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-distribution\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "yjHKdiku",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-distribution\",null,[[\"model\",\"profilePath\"],[[23,[\"record\"]],\"foobar\"]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal((0, _testHelpers.find)('section').textContent.replace(/[\s\n]+/g, '|').trim(), '|Distribution|Section|#0|Edit|Distributors|Delete|Section|Distributors|role|(|)|role|(|)|Description|', 'block and list');
+    });
+
+    (0, _qunit.skip)('call actions', async function (assert) {
+      assert.expect(1);
     });
   });
 });
@@ -10164,24 +10723,48 @@ define('mdeditor/tests/integration/pods/components/object/md-distributor/compone
     (0, _qunit.test)('it renders', async function (assert) {
 
       // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
+      this.set('distributor', {
+        "contact": {
+          "role": "role",
+          "roleExtent": [{
+            "temporalExtent": [{
+              "timePeriod": {
+                "startDateTime": "2016-10-24T11:10:15.2-10:00"
+              }
+            }]
+          }],
+          "party": [{
+            "contactId": "individualId0"
+          }]
+        },
+        "orderProcess": [{
+          "fees": "1.00USD"
+        }, {
+          "fees": "2.00USD"
+        }],
+        "transferOption": [{
+          "transferSize": 9.9
+        }, {
+          "transferSize": 10.9
+        }]
+      });
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "nythbIcF",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-distributor\"],false]],\"hasEval\":false}",
+        "id": "+VFT3Lvz",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-distributor\",null,[[\"model\",\"profilePath\"],[[23,[\"distributor\"]],\"foobar\"]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[\s\n]+/g, '|').trim(), '|Contacts|Role|role|×|Transfer|Options|Transfer|Size|(MB)|Distribution|units|Online|Option|0|Add|OK|#|Name|Uri|Add|Resource|OK|Offline|Option|0|Add|OK|#|Title|Add|Offline|Option|OK|Distribution|Formats|0|Add|#|Format|Name|Version|Compression|Method|URL|Add|Distribution|Format|Transfer|Frequency|Years|Months|Days|Hours|Minutes|Seconds|Order|Process|Fees|Planned|Availability|Ordering|Instructions|Turnaround|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "5OavlLyx",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-distributor\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "rfNVApJZ",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-distributor\",null,[[\"model\",\"profilePath\"],[[23,[\"distributor\"]],\"foobar\"]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[\s\n]+/g, '|').trim(), '|Contacts|Role|role|×|Transfer|Options|Transfer|Size|(MB)|Distribution|units|Online|Option|0|Add|OK|#|Name|Uri|Add|Resource|OK|Offline|Option|0|Add|OK|#|Title|Add|Offline|Option|OK|Distribution|Formats|0|Add|#|Format|Name|Version|Compression|Method|URL|Add|Distribution|Format|Transfer|Frequency|Years|Months|Days|Hours|Minutes|Seconds|Order|Process|Fees|Planned|Availability|Ordering|Instructions|Turnaround|template|block|text|', 'block');
     });
   });
 });
@@ -10202,20 +10785,20 @@ define('mdeditor/tests/integration/pods/components/object/md-distributor/preview
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal(this.element.textContent.trim(), '');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "THGaBF/W",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-distributor/preview\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "Jrf07kbD",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-distributor/preview\",null,[[\"class\"],[\"testme\"]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal((0, _testHelpers.find)('.testme').textContent.trim(), 'template block text');
     });
   });
 });
-define('mdeditor/tests/integration/pods/components/object/md-documentation/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit'], function (_testHelpers, _qunit, _emberQunit) {
+define('mdeditor/tests/integration/pods/components/object/md-documentation/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit', 'mdeditor/tests/helpers/create-citation'], function (_testHelpers, _qunit, _emberQunit, _createCitation) {
   'use strict';
 
   (0, _qunit.module)('Integration | Component | object/md documentation', function (hooks) {
@@ -10224,28 +10807,34 @@ define('mdeditor/tests/integration/pods/components/object/md-documentation/compo
     (0, _qunit.test)('it renders', async function (assert) {
 
       // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
+      this.set('doc', {
+        resourceType: [{
+          "type": "foo",
+          "name": "bar"
+        }],
+        citation: (0, _createCitation.default)(2)
+      });
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "2kSn1doH",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-documentation\"],false]],\"hasEval\":false}",
+        "id": "lh1lGz48",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-documentation\",null,[[\"profilePath\",\"model\"],[\"foobar\",[23,[\"doc\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[\s\n]+/g, '|').trim(), '|Resource|Types|1|Add|#|Type|Name|0|foo|×|Delete|Basic|Information|Title|Alternate|Titles|2|Add|Alternate|Title|0|Delete|1|Delete|Dates|2|Add|Date|#|Date|Date|Type|Description|0|dateType|×|Delete|1|dateType|×|Delete|Edition|Presentation|Form|×|presentationForm0|×|presentationForm1|Responsible|Parties|2|Add|#|Role|Contacts|0|role|×|Delete|1|role|×|Delete|Online|Resource|2|Add|OK|#|Name|Uri|0|Not|Defined|http://adiwg.org|Edit|Delete|1|Not|Defined|http://mdeditor.org|Edit|Delete|OK|Identifier|2|Add|OK|#|Identifier|Namespace|Description|0|identifier0|Not|Defined|Not|Defined|More...|Delete|1|identifier-0|Not|Defined|Not|Defined|More...|Delete|OK|Identifier|2|Add|OK|#|Identifier|Namespace|0|identifier0|Not|Defined|Edit|Delete|1|identifier-0|Not|Defined|Edit|Delete|OK|Identifier|2|Add|OK|#|Identifier|Namespace|0|identifier0|Not|Defined|Edit|Delete|1|identifier-0|Not|Defined|Edit|Delete|OK|Series|Name|Issue|Page|Other|Details|2|Add|0|Delete|1|Delete|Graphic|2|Add|OK|0|fileName:|Edit|Delete|1|fileName:|Edit|Delete|OK|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "u7JXV7ty",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-documentation\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "xX31bCqi",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-documentation\",null,[[\"profilePath\",\"model\"],[\"foobar\",[23,[\"doc\"]]]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[\s\n]+/g, '|').trim(), '|Resource|Types|1|Add|#|Type|Name|0|foo|×|Delete|Basic|Information|Title|Alternate|Titles|2|Add|Alternate|Title|0|Delete|1|Delete|Dates|2|Add|Date|#|Date|Date|Type|Description|0|dateType|×|Delete|1|dateType|×|Delete|Edition|Presentation|Form|×|presentationForm0|×|presentationForm1|Responsible|Parties|2|Add|#|Role|Contacts|0|role|×|Delete|1|role|×|Delete|Online|Resource|2|Add|OK|#|Name|Uri|0|Not|Defined|http://adiwg.org|Edit|Delete|1|Not|Defined|http://mdeditor.org|Edit|Delete|OK|Identifier|2|Add|OK|#|Identifier|Namespace|Description|0|identifier0|Not|Defined|Not|Defined|More...|Delete|1|identifier-0|Not|Defined|Not|Defined|More...|Delete|OK|Identifier|2|Add|OK|#|Identifier|Namespace|0|identifier0|Not|Defined|Edit|Delete|1|identifier-0|Not|Defined|Edit|Delete|OK|Identifier|2|Add|OK|#|Identifier|Namespace|0|identifier0|Not|Defined|Edit|Delete|1|identifier-0|Not|Defined|Edit|Delete|OK|Series|Name|Issue|Page|Other|Details|2|Add|0|Delete|1|Delete|Graphic|2|Add|OK|0|fileName:|Edit|Delete|1|fileName:|Edit|Delete|OK|template|block|text|', 'block');
     });
   });
 });
-define('mdeditor/tests/integration/pods/components/object/md-documentation/preview/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit'], function (_testHelpers, _qunit, _emberQunit) {
+define('mdeditor/tests/integration/pods/components/object/md-documentation/preview/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit', 'mdeditor/tests/helpers/create-citation'], function (_testHelpers, _qunit, _emberQunit, _createCitation) {
   'use strict';
 
   (0, _qunit.module)('Integration | Component | object/md documentation/preview', function (hooks) {
@@ -10254,24 +10843,29 @@ define('mdeditor/tests/integration/pods/components/object/md-documentation/previ
     (0, _qunit.test)('it renders', async function (assert) {
 
       // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
-
+      this.set('doc', {
+        resourceType: [{
+          "type": "foo",
+          "name": "bar"
+        }],
+        citation: (0, _createCitation.default)(2)
+      });
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "7cwNTerM",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-documentation/preview\"],false]],\"hasEval\":false}",
+        "id": "catHAT3z",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-documentation/preview\",null,[[\"item\"],[[23,[\"doc\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal((0, _testHelpers.find)('.text-muted').textContent.replace(/[\s\n]+/g, '|').trim(), '|Document|#|Resource|Type(s)|foo:|bar|Title|title0|Alternate|Titles|alternateTitle0|alternateTitle1|Dates|October|13th|2016|(dateType)|October|22nd|2016|(dateType)|Identifier|identifier0|identifier-0|Responsible|Party|role|(|)|role|(|)|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "Jk/k2B0V",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-documentation/preview\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "1LVbYvKn",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-documentation/preview\",null,[[\"class\",\"item\"],[\"testme\",[23,[\"doc\"]]]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal((0, _testHelpers.find)('.testme').textContent.replace(/[\s\n]+/g, '|').trim(), '|Document|#|Resource|Type(s)|foo:|bar|Title|title0|Alternate|Titles|alternateTitle0|alternateTitle1|Dates|October|13th|2016|(dateType)|October|22nd|2016|(dateType)|Identifier|identifier0|identifier-0|Responsible|Party|role|(|)|role|(|)|', 'block');
     });
   });
 });
@@ -10283,24 +10877,34 @@ define('mdeditor/tests/integration/pods/components/object/md-domain/component-te
 
     (0, _qunit.test)('it renders', async function (assert) {
       // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
+      this.set('domain', {
+        "domainId": "domainId0",
+        "commonName": "commonName",
+        "codeName": "codeName",
+        "description": "description",
+        "domainItem": [{
+          "name": "name0",
+          "value": "value0",
+          "definition": "definition0"
+        }]
+      });
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "OC5jnPiK",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-domain\"],false]],\"hasEval\":false}",
+        "id": "rnP/nBHT",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-domain\",null,[[\"profilePath\",\"model\"],[\"foobar\",[23,[\"domain\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[\s\n]+/g, '|').trim(), '|Domain|Information|Domain|Identifier|Code|Name|Common|Name|Description|Domain|Items|1|Add|OK|#|Name|Value|Definition|0|More...|Delete|OK|Domain|Reference|Edit|Title|Not|Defined|Alternate|Titles|No|alternate|titles|assigned.|Dates|No|dates|assigned.|Identifier|No|identifiers|assigned.|Responsible|Party|No|responsibility|assigned.|Edit|Citation|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "CWUiXEVf",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-domain\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "jopVpDw3",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-domain\",null,[[\"profilePath\",\"model\"],[\"foobar\",[23,[\"domain\"]]]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[\s\n]+/g, '|').trim(), '|Domain|Information|Domain|Identifier|Code|Name|Common|Name|Description|Domain|Items|1|Add|OK|#|Name|Value|Definition|0|More...|Delete|OK|Domain|Reference|Edit|Title|Not|Defined|Alternate|Titles|No|alternate|titles|assigned.|Dates|No|dates|assigned.|Identifier|No|identifiers|assigned.|Responsible|Party|No|responsibility|assigned.|Edit|Citation|', 'block');
     });
   });
 });
@@ -10312,24 +10916,31 @@ define('mdeditor/tests/integration/pods/components/object/md-domainitem/componen
 
     (0, _qunit.test)('it renders', async function (assert) {
       // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
+      this.set('item', {
+        "name": "name0",
+        "value": "value0",
+        "definition": "definition0",
+        "reference": {
+          "title": "domainReference"
+        }
+      });
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "qDPqoLpX",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-domainitem\"],false]],\"hasEval\":false}",
+        "id": "CN2V0RzJ",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-domainitem\",null,[[\"profilePath\",\"model\"],[\"foobar\",[23,[\"item\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[\s\n]+/g, '|').trim(), '|Name|Value|Definition|Item|Reference|Content|Basic|Information|Title|Alternate|Titles|0|Add|Alternate|Title|Add|Alternate|Title|Dates|0|Add|Date|#|Date|Date|Type|Description|Add|Date|Responsible|Parties|0|Add|#|Role|Contacts|Add|Responsible|Party|Online|Resource|0|Add|OK|#|Name|Uri|Add|Resource|OK|No|Identifier|found.|Add|Identifier|Identifier|0|Add|OK|#|Identifier|Namespace|Add|Identifier|OK|Identifier|0|Add|OK|#|Identifier|Namespace|Add|Identifier|OK|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "NkABG9Ct",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-domainitem\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "yJqI8XBF",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-domainitem\",null,[[\"profilePath\",\"model\"],[\"foobar\",[27,\"hash\",null,null]]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[\s\n]+/g, '|').trim(), "|Name|Value|Definition|Item|Reference|Content|Basic|Information|Title|Alternate|Titles|0|Add|Alternate|Title|Add|Alternate|Title|Dates|0|Add|Date|#|Date|Date|Type|Description|Add|Date|Responsible|Parties|0|Add|#|Role|Contacts|Add|Responsible|Party|Online|Resource|0|Add|OK|#|Name|Uri|Add|Resource|OK|No|Identifier|found.|Add|Identifier|Identifier|0|Add|OK|#|Identifier|Namespace|Add|Identifier|OK|Identifier|0|Add|OK|#|Identifier|Namespace|Add|Identifier|OK|", 'block');
     });
   });
 });
@@ -10341,28 +10952,38 @@ define('mdeditor/tests/integration/pods/components/object/md-domainitem/preview/
 
     (0, _qunit.test)('it renders', async function (assert) {
       // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
+      this.set('item', {
+        "name": "name0",
+        "value": "value0",
+        "definition": "definition0",
+        "reference": {
+          "title": "domainReference"
+        }
+      });
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "vWBho80W",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-domainitem/preview\"],false]],\"hasEval\":false}",
+        "id": "HwjaAqyU",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-domainitem/preview\",null,[[\"profilePath\",\"model\",\"tagName\"],[\"foobar\",[23,[\"item\"]],\"table\"]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal((0, _testHelpers.findAll)('input').length, 3);
+      assert.equal((0, _testHelpers.findAll)('input')[0].value, 'name0', 'name');
+      assert.equal((0, _testHelpers.findAll)('input')[1].value, 'value0', 'value');
+      assert.equal((0, _testHelpers.findAll)('input')[2].value, 'definition0', 'definition');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "n+uqTJGF",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-domainitem/preview\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "Q55DPmm1",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-domainitem/preview\",null,[[\"profilePath\",\"model\",\"tagName\"],[\"foobar\",[23,[\"item\"]],\"table\"]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal((0, _testHelpers.find)('table').textContent.replace(/[\s\n]+/g, '|').trim(), '|', 'block');
     });
   });
 });
-define('mdeditor/tests/integration/pods/components/object/md-entity/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit'], function (_testHelpers, _qunit, _emberQunit) {
+define('mdeditor/tests/integration/pods/components/object/md-entity/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit', 'mdeditor/tests/helpers/create-dictionary'], function (_testHelpers, _qunit, _emberQunit, _createDictionary) {
   'use strict';
 
   (0, _qunit.module)('Integration | Component | object/md entity', function (hooks) {
@@ -10370,24 +10991,70 @@ define('mdeditor/tests/integration/pods/components/object/md-entity/component-te
 
     (0, _qunit.test)('it renders', async function (assert) {
       // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
+      this.set('dictionary', (0, _createDictionary.default)(1)[0]);
+      this.set('entity', {
+        "entityId": "entityId",
+        "commonName": "commonName",
+        "codeName": "codeName",
+        "alias": ["alias0", "alias1"],
+        "definition": "definition",
+        "primaryKeyAttributeCodeName": ["primaryKeyAttributeCodeName0", "primaryKeyAttributeCodeName1"],
+        "index": [],
+        "attribute": [],
+        "foreignKey": []
+      }, {
+        "entityId": "",
+        "commonName": "",
+        "codeName": "",
+        "alias": [""],
+        "definition": "",
+        "entityReference": [{
+          "title": "entityReference"
+        }],
+        "primaryKeyAttributeCodeName": [""],
+        "index": [{
+          "codeName": "",
+          "allowDuplicates": false,
+          "attributeCodeName": [""]
+        }],
+        "attribute": [{
+          "commonName": "",
+          "codeName": "",
+          "alias": [""],
+          "definition": "",
+          "dataType": "",
+          "allowNull": true,
+          "units": "",
+          "domainId": "",
+          "minValue": "",
+          "maxValue": ""
+        }],
+        "foreignKey": [{
+          "localAttributeCodeName": [""],
+          "referencedEntityCodeName": "",
+          "referencedAttributeCodeName": [""]
+        }],
+        "fieldSeparatorCharacter": ",",
+        "numberOfHeaderLines": 9,
+        "quoteCharacter": "\""
+      });
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "KuNKPGr0",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-entity\"],false]],\"hasEval\":false}",
+        "id": "M++r2pc7",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-entity\",null,[[\"dictionary\",\"profilePath\",\"model\"],[[23,[\"dictionary\"]],\"foobar\",[23,[\"entity\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[\s\n]+/g, '|').trim(), '|Entity|Information|Entity|Identifier|Code|Name|Definition|Common|Name|Aliases|2|Add|Alias|0|Delete|1|Delete|No|Attributes|found.|Add|Attribute|Entity|Structure|Field|Separator|Character|#|Header|Lines|Quote|Character|Entity|Keys|Primary|Key|Attributes|×|primaryKeyAttributeCodeName0|×|primaryKeyAttributeCodeName1|Foreign|Key|Attributes|0|Add|Foreign|Key|Attributes|#|Local|Attributes|Referenced|Entity|Referenced|Attributes|Add|Foreign|Key|Attributes|Entity|Indices|0|Add|#|Name|Attributes|Duplicates?|Add|Entity|Index|No|Entity|Reference|found.|Add|Entity|Reference|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "/9bPUjE5",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-entity\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "MIuWCMAS",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-entity\",null,[[\"dictionary\",\"profilePath\",\"model\"],[[27,\"hash\",null,null],\"foobar\",[27,\"hash\",null,null]]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[\s\n]+/g, '|').trim(), '|Entity|Information|Entity|Identifier|Code|Name|Definition|Common|Name|Aliases|0|Add|Alias|Add|Alias|No|Attributes|found.|Add|Attribute|Entity|Structure|Field|Separator|Character|#|Header|Lines|Quote|Character|Entity|Keys|Primary|Key|Attributes|Foreign|Key|Attributes|0|Add|Foreign|Key|Attributes|#|Local|Attributes|Referenced|Entity|Referenced|Attributes|Add|Foreign|Key|Attributes|Entity|Indices|0|Add|#|Name|Attributes|Duplicates?|Add|Entity|Index|No|Entity|Reference|found.|Add|Entity|Reference|', 'block');
     });
   });
 });
@@ -10400,24 +11067,33 @@ define('mdeditor/tests/integration/pods/components/object/md-funding/component-t
     (0, _qunit.test)('it renders', async function (assert) {
 
       // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
+      this.set('funding', {
+        "allocation": [{
+          "amount": 9.9,
+          "currency": "currency"
+        }]
+      }, {
+        "timePeriod": {
+          "endDateTime": "2016-12-31"
+        }
+      });
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "8GbR1zS9",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-funding\"],false]],\"hasEval\":false}",
+        "id": "EnVAsS+X",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-funding\",null,[[\"model\"],[[23,[\"funding\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[\s\n]+/g, '|').trim(), "|Allocation|1|Add|OK|#|Amount|Currency|Matching|0|9.9|currency|Not|Defined|Edit|Delete|OK|Time|Period|Dates|Start|Date|End|Date|Pick|Fiscal|Year|Pick|a|Fiscal|Year|Identifier|Description|Time|Period|Names|0|Add|Time|Period|Name|Add|Time|Period|Name|Interval|Interval|Amount|Time|Unit|Choose|unit|of|time|Duration|Years|Months|Days|Hours|Minutes|Seconds|Description|");
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "ZC04ovCS",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-funding\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "pg3cWmTB",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-funding\",null,[[\"model\"],[[27,\"hash\",null,null]]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[\s\n]+/g, '|').trim(), "|Allocation|0|Add|OK|#|Amount|Currency|Matching|Add|Allocation|OK|Time|Period|Dates|Start|Date|End|Date|Pick|Fiscal|Year|Pick|a|Fiscal|Year|Identifier|Description|Time|Period|Names|0|Add|Time|Period|Name|Add|Time|Period|Name|Interval|Interval|Amount|Time|Unit|Choose|unit|of|time|Duration|Years|Months|Days|Hours|Minutes|Seconds|Description|", 'block');
     });
   });
 });
@@ -10430,24 +11106,32 @@ define('mdeditor/tests/integration/pods/components/object/md-funding/preview/com
     (0, _qunit.test)('it renders', async function (assert) {
 
       // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
+      this.set('funding', {
+        "allocation": [{
+          "amount": 9.9,
+          "currency": "currency"
+        }],
+        "timePeriod": {
+          "endDateTime": "2016-12-31"
+        }
+      });
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "r1YkfU9k",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-funding/preview\"],false]],\"hasEval\":false}",
+        "id": "L1eA1Ue8",
+        "block": "{\"symbols\":[],\"statements\":[[7,\"section\"],[9],[1,[27,\"object/md-funding/preview\",null,[[\"item\"],[[23,[\"funding\"]]]]],false],[10]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal((0, _testHelpers.find)('section').textContent.replace(/[\s\n]+/g, '|').trim(), '|Allocation|#|Start|Date:|Not|defined|End|Date:|12-31-2016|Amount|Currency|Source|Recipient|Match?|9.9|currency|--|--|--|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "4b9OWNk9",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-funding/preview\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "wVNRvCOH",
+        "block": "{\"symbols\":[],\"statements\":[[7,\"section\"],[9],[0,\"\\n\"],[4,\"object/md-funding/preview\",null,[[\"item\"],[[27,\"hash\",null,null]]],{\"statements\":[[0,\"        template block text\\n      \"]],\"parameters\":[]},null],[10],[0,\"\\n    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal((0, _testHelpers.find)('section').textContent.replace(/[\s\n]+/g, '|').trim(), '|Allocation|#|Start|Date:|Not|defined|End|Date:|Not|defined|Amount|Currency|Source|Recipient|Match?|No|allocations|found.|', 'block');
     });
   });
 });
@@ -10460,24 +11144,39 @@ define('mdeditor/tests/integration/pods/components/object/md-graphic-array/compo
     (0, _qunit.test)('it renders', async function (assert) {
 
       // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
+      this.set('graphic', [{
+        "fileName": "fileName",
+        "fileDescription": "fileDescription",
+        "fileType": "fileType",
+        "fileUri": [{
+          "uri": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="
+        }]
+      }, {
+        "fileName": "fileName1",
+        "fileDescription": "fileDescription1",
+        "fileType": "fileType1",
+        "fileUri": [{
+          "uri": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="
+        }]
+      }]);
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "SCd+Y7XJ",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-graphic-array\"],false]],\"hasEval\":false}",
+        "id": "rk+U+LK4",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-graphic-array\",null,[[\"model\"],[[23,[\"graphic\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal((0, _testHelpers.find)('.md-object-table').textContent.replace(/[\s\n]+/g, '|').trim(), '|Graphic|2|Add|OK|0|fileName:|Edit|Delete|1|fileName1:|Edit|Delete|OK|');
+      assert.ok((0, _testHelpers.find)('.md-logo-preview').complete, 'loaded image');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "Dvt6xAw6",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-graphic-array\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "tDghbOzo",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-graphic-array\",null,[[\"model\"],[[23,[\"graphic\"]]]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal((0, _testHelpers.find)('.md-object-table').textContent.replace(/[\s\n]+/g, '|').trim(), '|Graphic|2|Add|OK|0|fileName:|Edit|Delete|1|fileName1:|Edit|Delete|OK|', 'block');
     });
   });
 });
@@ -10488,30 +11187,53 @@ define('mdeditor/tests/integration/pods/components/object/md-identifier-array/co
     (0, _emberQunit.setupRenderingTest)(hooks);
 
     (0, _qunit.test)('it renders', async function (assert) {
+      assert.expect(5);
 
       // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
+      this.set('id', [{
+        "identifier": "identifier",
+        "authority": {
+          "title": "title"
+        }
+      }, {
+        "identifier": "identifier1",
+        "authority": {
+          "title": "title1"
+        }
+      }]);
+
+      this.set('edit', function (id) {
+        assert.ok(id, 'called edit');
+      });
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "s5/HG+71",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-identifier-array\"],false]],\"hasEval\":false}",
+        "id": "4FqF5HOF",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-identifier-array\",null,[[\"model\",\"editItem\"],[[23,[\"id\"]],[23,[\"edit\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal((0, _testHelpers.find)('.md-object-table').textContent.replace(/[\s\n]+/g, '|').trim(), '|Identifier|2|Add|OK|#|Identifier|Namespace|Description|0|identifier|Not|Defined|Not|Defined|More...|Delete|1|identifier1|Not|Defined|Not|Defined|More...|Delete|OK|');
+
+      await (0, _testHelpers.click)('.btn-info');
+
+      assert.equal(this.id.length, 3, 'add item');
+
+      await (0, _testHelpers.doubleClick)('.btn-danger');
+
+      assert.equal(this.id.length, 2), 'delete item';
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "4eUPH/Qb",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-identifier-array\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "eH2JXx2I",
+        "block": "{\"symbols\":[],\"statements\":[[7,\"section\"],[9],[0,\"\\n\"],[4,\"object/md-identifier-array\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"      \"],[10],[0,\"\\n    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal((0, _testHelpers.find)('section').textContent.replace(/[\s\n]+/g, '|').trim(), '|No|Identifier|found.|Add|Identifier|template|block|text|', 'block');
     });
   });
 });
-define('mdeditor/tests/integration/pods/components/object/md-identifier-object-table/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit'], function (_testHelpers, _qunit, _emberQunit) {
+define('mdeditor/tests/integration/pods/components/object/md-identifier-object-table/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit', 'mdeditor/tests/helpers/create-identifier'], function (_testHelpers, _qunit, _emberQunit, _createIdentifier) {
   'use strict';
 
   (0, _qunit.module)('Integration | Component | object/md identifier object table', function (hooks) {
@@ -10520,15 +11242,15 @@ define('mdeditor/tests/integration/pods/components/object/md-identifier-object-t
     (0, _qunit.test)('it renders', async function (assert) {
 
       // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
+      this.set('id', (0, _createIdentifier.default)(2));
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "hcN6ngeu",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-identifier-object-table\"],false]],\"hasEval\":false}",
+        "id": "5JyxNwZP",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-identifier-object-table\",null,[[\"model\"],[[23,[\"id\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal((0, _testHelpers.find)('.md-object-table').textContent.replace(/[\s\n]+/g, '|').trim(), '|Identifier|2|Add|OK|#|Identifier|Namespace|0|identifier0|namespace0|Edit|Delete|1|identifier1|namespace1|Edit|Delete|OK|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
@@ -10537,11 +11259,11 @@ define('mdeditor/tests/integration/pods/components/object/md-identifier-object-t
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal((0, _testHelpers.find)('.md-object-table').textContent.replace(/[\s\n]+/g, '|').trim(), '|Identifier|0|Add|OK|#|Identifier|Namespace|Add|Identifier|OK|', 'block');
     });
   });
 });
-define('mdeditor/tests/integration/pods/components/object/md-identifier/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit'], function (_testHelpers, _qunit, _emberQunit) {
+define('mdeditor/tests/integration/pods/components/object/md-identifier/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit', 'mdeditor/tests/helpers/create-identifier'], function (_testHelpers, _qunit, _emberQunit, _createIdentifier) {
   'use strict';
 
   (0, _qunit.module)('Integration | Component | object/md identifier', function (hooks) {
@@ -10550,28 +11272,29 @@ define('mdeditor/tests/integration/pods/components/object/md-identifier/componen
     (0, _qunit.test)('it renders', async function (assert) {
 
       // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
+      this.set('id', (0, _createIdentifier.default)(1)[0]);
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "CaMXPyjs",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-identifier\"],false]],\"hasEval\":false}",
+        "id": "+LtExbm8",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-identifier\",null,[[\"model\",\"profilePath\"],[[23,[\"id\"]],\"foobar\"]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal((0, _testHelpers.find)('.md-identifier').textContent.replace(/[\s\n]+/g, '|').trim(), 'Identifier|Namespace|namespace0|×|Version|Description|Authority|Basic|Information|Title|Alternate|Titles|0|Add|Alternate|Title|Add|Alternate|Title|Dates|0|Add|Date|#|Date|Date|Type|Description|Add|Date|Responsible|Parties|0|Add|#|Role|Contacts|Add|Responsible|Party|Online|Resource|0|Add|OK|#|Name|Uri|Add|Resource|OK|No|Identifier|found.|Add|Identifier|Identifier|0|Add|OK|#|Identifier|Namespace|Add|Identifier|OK|Identifier|0|Add|OK|#|Identifier|Namespace|Add|Identifier|OK|');
 
+      assert.equal((0, _testHelpers.find)('input').value, 'identifier0', 'assign value');
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "fWvg+CcG",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-identifier\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "mWXveBKX",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-identifier\",null,[[\"profilePath\",\"model\"],[\"foobar\",[27,\"hash\",null,null]]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal((0, _testHelpers.find)('.md-identifier').textContent.replace(/[\s\n]+/g, '|').trim(), "Identifier|Namespace|Select|or|type|a|namespace|for|the|identifier.|Version|Description|Authority|Basic|Information|Title|Alternate|Titles|0|Add|Alternate|Title|Add|Alternate|Title|Dates|0|Add|Date|#|Date|Date|Type|Description|Add|Date|Responsible|Parties|0|Add|#|Role|Contacts|Add|Responsible|Party|Online|Resource|0|Add|OK|#|Name|Uri|Add|Resource|OK|No|Identifier|found.|Add|Identifier|Identifier|0|Add|OK|#|Identifier|Namespace|Add|Identifier|OK|Identifier|0|Add|OK|#|Identifier|Namespace|Add|Identifier|OK|template|block|text|", 'block');
     });
   });
 });
-define('mdeditor/tests/integration/pods/components/object/md-keyword-citation/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit'], function (_testHelpers, _qunit, _emberQunit) {
+define('mdeditor/tests/integration/pods/components/object/md-keyword-citation/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit', 'mdeditor/tests/helpers/create-citation'], function (_testHelpers, _qunit, _emberQunit, _createCitation) {
   'use strict';
 
   (0, _qunit.module)('Integration | Component | object/md keyword citation', function (hooks) {
@@ -10579,24 +11302,31 @@ define('mdeditor/tests/integration/pods/components/object/md-keyword-citation/co
 
     (0, _qunit.test)('it renders', async function (assert) {
       // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
+      this.set('keyword', {
+        keywordType: 'theme',
+        thesaurus: (0, _createCitation.default)(1)[0]
+      });
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "aFoVXYLQ",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-keyword-citation\"],false]],\"hasEval\":false}",
+        "id": "A5fYHTki",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-keyword-citation\",null,[[\"model\"],[[23,[\"keyword\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[\s\n]+/g, '|').trim(), '|Title|Date|Date|Type|Choose|date|type|Type|theme|?|Edition|URL|');
+
+      var input = (0, _testHelpers.findAll)('form input').mapBy('value').join('|');
+
+      assert.equal(input, "title0|2016-10-13|edition|http://adiwg.org", 'input values');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "hHT6Ro1P",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-keyword-citation\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "qGb0jwev",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-keyword-citation\",null,[[\"model\"],[[27,\"hash\",null,[[\"thesaurus\"],[[27,\"hash\",null,null]]]]]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[\s\n]+/g, '|').trim(), "|Title|Date|Date|Type|Choose|date|type|Type|Choose|keyword|type|Edition|URL|", 'block');
     });
   });
 });
@@ -10619,7 +11349,6 @@ define('mdeditor/tests/integration/pods/components/object/md-keyword-list/compon
           'path': ['foo1', 'bar1']
         }]
       });
-      // Handle any actions with this.on('myAction', function(val) { ... });
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
         "id": "n9qz6j5D",
@@ -10627,7 +11356,7 @@ define('mdeditor/tests/integration/pods/components/object/md-keyword-list/compon
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.replace(/[ \n]+/g, '|').trim(), '|Delete|foo1|Delete|bar1|');
+      assert.equal((0, _testHelpers.find)('ul').textContent.replace(/[ \n]+/g, '|').trim(), '|Delete|foo1|Delete|bar1|');
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
         "id": "pTiBYqsO",
@@ -10639,16 +11368,16 @@ define('mdeditor/tests/integration/pods/components/object/md-keyword-list/compon
       assert.equal((0, _testHelpers.findAll)('input').length, 4, 'Check number of input el.');
       assert.equal(this.$('input')[2].value, 'bar1', 'Correct value for keyword input.');
       assert.equal(this.$('input')[3].value, 'id2', 'Correct value for id input.');
-      assert.equal((0, _testHelpers.find)('*').textContent.replace(/[ \n]+/g, '|').trim(), '|Keyword|Id|(Optional)|Delete|Delete|Add|Keyword|', 'readOnly = false.');
+      assert.equal((0, _testHelpers.find)('table').textContent.replace(/[ \n]+/g, '|').trim(), '|Keyword|Id|(Optional)|Delete|Delete|Add|Keyword|Toggle|Thesaurus|', 'readOnly = false.');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "32aKsT5k",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-keyword-list\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "OWhHG9kH",
+        "block": "{\"symbols\":[],\"statements\":[[7,\"section\"],[9],[0,\"\\n\"],[4,\"object/md-keyword-list\",null,null,{\"statements\":[[0,\"        template block text\\n      \"]],\"parameters\":[]},null],[10],[0,\"\\n    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.replace(/[ \n]+/g, '|').trim(), '|Add|some|keywords.|template|block|text|', 'Block form renders.');
+      assert.equal((0, _testHelpers.find)('section').textContent.replace(/[ \n]+/g, '|').trim(), '|Add|some|keywords.|template|block|text|', 'Block form renders.');
     });
   });
 });
@@ -10661,24 +11390,44 @@ define('mdeditor/tests/integration/pods/components/object/md-lineage/component-t
     (0, _qunit.test)('it renders', async function (assert) {
 
       // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
+      this.set('lineage', {
+        "statement": "statement",
+        "scope": {
+          "scopeCode": "scopeCode"
+        },
+        "citation": [{
+          "title": "title"
+        }, {
+          "title": "title"
+        }],
+        "source": [{
+          "description": "description"
+        }, {
+          "description": "description"
+        }],
+        "sourceProcessStep": [{
+          "description": "description"
+        }, {
+          "description": "description"
+        }]
+      });
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "pkR81ZOb",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-lineage\"],false]],\"hasEval\":false}",
+        "id": "qxK0NO6P",
+        "block": "{\"symbols\":[],\"statements\":[[7,\"section\"],[9],[1,[27,\"object/md-lineage\",null,[[\"profilePath\",\"model\"],[\"foobar\",[23,[\"lineage\"]]]]],false],[10]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal((0, _testHelpers.find)('section').textContent.replace(/[\s\n]+/g, '|').trim(), '|Statement|No|Process|Step|found.|Add|Process|Step|Source|2|Add|OK|#|Description|0|More...|Delete|1|More...|Delete|OK|Citation|2|Add|OK|#|Title|0|title|More...|Delete|1|title|More...|Delete|OK|Scope|scopeCode|×|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "6Jwm43iv",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-lineage\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "h3Z1/+t9",
+        "block": "{\"symbols\":[],\"statements\":[[7,\"section\"],[9],[0,\"\\n\"],[4,\"object/md-lineage\",null,[[\"profilePath\",\"model\"],[\"foobar\",[27,\"hash\",null,null]]],{\"statements\":[[0,\"        template block text\\n      \"]],\"parameters\":[]},null],[10],[0,\"\\n    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal((0, _testHelpers.find)('section').textContent.replace(/[\s\n]+/g, '|').trim(), '|Statement|No|Process|Step|found.|Add|Process|Step|No|Source|found.|Add|Source|No|Citation|found.|Add|Citation|Scope|Select|type|of|resource.|template|block|text|', 'block');
     });
   });
 });
@@ -10692,23 +11441,44 @@ define('mdeditor/tests/integration/pods/components/object/md-lineage/preview/com
 
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.on('myAction', function(val) { ... });
+      this.set('lineage', {
+        "statement": "statement",
+        "scope": {
+          "scopeCode": "scopeCode"
+        },
+        "citation": [{
+          "title": "title"
+        }, {
+          "title": "title"
+        }],
+        "source": [{
+          "description": "description"
+        }, {
+          "description": "description"
+        }],
+        "sourceProcessStep": [{
+          "description": "description"
+        }, {
+          "description": "description"
+        }]
+      });
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "OsZ28bfe",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-lineage/preview\"],false]],\"hasEval\":false}",
+        "id": "YNiO3xgB",
+        "block": "{\"symbols\":[],\"statements\":[[7,\"section\"],[9],[1,[27,\"object/md-lineage/preview\",null,[[\"item\"],[[23,[\"lineage\"]]]]],false],[10]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal((0, _testHelpers.find)('section').textContent.replace(/[\s\n]+/g, '|').trim(), '|Lineage|#|Statement|statement|Process|Step|No|proces|steps|assigned.|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "cT/yHJQu",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-lineage/preview\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "/FhDHpFf",
+        "block": "{\"symbols\":[],\"statements\":[[7,\"section\"],[9],[0,\"\\n\"],[4,\"object/md-lineage/preview\",null,null,{\"statements\":[[0,\"        template block text\\n      \"]],\"parameters\":[]},null],[10],[0,\"\\n    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal((0, _testHelpers.find)('section').textContent.replace(/[\s\n]+/g, '|').trim(), '|Lineage|#|Statement|Not|Defined|Process|Step|No|proces|steps|assigned.|', 'template block');
     });
   });
 });
@@ -10720,15 +11490,23 @@ define('mdeditor/tests/integration/pods/components/object/md-locale-array/compon
 
     (0, _qunit.test)('it renders', async function (assert) {
       // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
+      this.set('locales', [{
+        language: "eng",
+        characterSet: "UTF-8",
+        country: "USA"
+      }, {
+        language: "spa",
+        characterSet: "UTF-32",
+        country: "BDI"
+      }]);
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "oPLIeKMU",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-locale-array\"],false]],\"hasEval\":false}",
+        "id": "RzoCClzv",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-locale-array\",null,[[\"value\"],[[23,[\"locales\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal((0, _testHelpers.find)('.panel').textContent.replace(/[\s\n]+/g, '|').trim(), '|2|Add|#|Language|Character|Set|Country|0|eng|?|×|UTF-8|?|×|USA|?|×|Delete|1|spa|?|×|UTF-32|?|×|BDI|?|×|Delete|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
@@ -10737,7 +11515,7 @@ define('mdeditor/tests/integration/pods/components/object/md-locale-array/compon
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal((0, _testHelpers.find)('.panel').textContent.replace(/[\s\n]+/g, '|').trim(), '|Add|#|Language|Character|Set|Country|Add|', 'block');
     });
   });
 });
@@ -10748,26 +11526,31 @@ define('mdeditor/tests/integration/pods/components/object/md-locale/component-te
     (0, _emberQunit.setupRenderingTest)(hooks);
 
     (0, _qunit.test)('it renders', async function (assert) {
-
       // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
+      this.set('settings', Ember.Object.create({
+        data: Ember.Object.create({
+          language: "eng",
+          characterSet: "UTF-8",
+          country: "USA"
+        })
+      }));
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "RYjlzhoz",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-locale\"],false]],\"hasEval\":false}",
+        "id": "eS4kzYb8",
+        "block": "{\"symbols\":[],\"statements\":[[7,\"section\"],[9],[1,[27,\"object/md-locale\",null,[[\"settings\",\"model\"],[[23,[\"settings\"]],[27,\"hash\",null,null]]]],false],[10]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal((0, _testHelpers.find)('section').textContent.replace(/[\s\n]+/g, '|').trim(), '|Language|eng|?|×|Character|Set|UTF-8|?|×|Country|USA|?|×|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "gw8acWu8",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-locale\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "nNpKSXzD",
+        "block": "{\"symbols\":[],\"statements\":[[7,\"section\"],[9],[0,\"\\n\"],[4,\"object/md-locale\",null,[[\"settings\",\"model\"],[[23,[\"settings\"]],[27,\"hash\",null,null]]],{\"statements\":[[0,\"        template block text\\n      \"]],\"parameters\":[]},null],[10],[0,\"\\n    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal((0, _testHelpers.find)('section').textContent.replace(/[\s\n]+/g, '|').trim(), '|Language|eng|?|×|Character|Set|UTF-8|?|×|Country|USA|?|×|template|block|text|', 'template block');
     });
   });
 });
@@ -10780,24 +11563,64 @@ define('mdeditor/tests/integration/pods/components/object/md-maintenance/compone
     (0, _qunit.test)('it renders', async function (assert) {
 
       // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
+      this.model = {
+        "frequency": "frequency",
+        "date": [{
+          "date": "2016-10-12",
+          "dateType": "creation"
+        }, {
+          "date": "2016-10-12",
+          "dateType": "publication"
+        }],
+        "scope": [{
+          "scopeCode": "scopeCode0"
+        }, {
+          "scopeCode": "scopeCode1"
+        }],
+        "note": ["note0", "note1"],
+        "contact": [{
+          "role": "author",
+          "roleExtent": [{
+            "temporalExtent": [{
+              "timePeriod": {
+                "startDateTime": "2016-10-24T11:10:15.2-10:00"
+              }
+            }]
+          }],
+          "party": [{
+            "contactId": "individualId0"
+          }]
+        }, {
+          "role": "publisher",
+          "roleExtent": [{
+            "temporalExtent": [{
+              "timePeriod": {
+                "startDateTime": "2016-10-24T11:10:15.2-10:00"
+              }
+            }]
+          }],
+          "party": [{
+            "contactId": "individualId1"
+          }]
+        }]
+      };
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "s4NwpRsz",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-maintenance\"],false]],\"hasEval\":false}",
+        "id": "JhySdLAw",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-maintenance\",null,[[\"profilePath\",\"model\"],[\"foobar\",[23,[\"model\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[\s\n]+/g, '|').trim(), '|Frequency|frequency|×|Dates|2|Add|Date|#|Date|Date|Type|Description|0|creation|?|×|Delete|1|publication|?|×|Delete|Contacts|2|Add|Contact|#|Role|Contacts|0|author|?|×|Delete|1|publisher|?|×|Delete|Notes|2|Add|Notes|0|Delete|1|Delete|Scope|×|scopeCode0|×|scopeCode1|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "E5F1mT7c",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-maintenance\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "n3hfZH+Z",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-maintenance\",null,[[\"profilePath\"],[\"foobar\"]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[\s\n]+/g, '|').trim(), '|Frequency|Choose|a|value.|Dates|0|Add|Date|#|Date|Date|Type|Description|Add|Date|Contacts|0|Add|Contact|#|Role|Contacts|Add|Contact|Notes|0|Add|Notes|Add|Notes|Scope|template|block|text|', 'block');
     });
   });
 });
@@ -10810,24 +11633,72 @@ define('mdeditor/tests/integration/pods/components/object/md-medium/component-te
     (0, _qunit.test)('it renders', async function (assert) {
 
       // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
+      this.model = {
+        "mediumSpecification": {
+          "title": "title"
+        },
+        "density": 9.9,
+        "units": "units",
+        "numberOfVolumes": 9,
+        "mediumFormat": ["mediumFormat0", "mediumFormat1"],
+        "note": "note",
+        "identifier": {
+          "identifier": "identifier"
+        }
+      };
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "yoykDtz6",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-medium\"],false]],\"hasEval\":false}",
+        "id": "t3+d591W",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-medium\",null,[[\"profilePath\",\"model\"],[\"foobar\",[23,[\"model\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[\s\n]+/g, '|').trim(), 'Medium|Title|Storage|Density|Density|Units|Number|Of|Volumes|Storage|Format|×|mediumFormat0|×|mediumFormat1|Identifier|Namespace|Select|or|type|a|namespace|for|the|identifier.|Version|Description|Note|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "KxxSNq/D",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-medium\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "+FuXFMjx",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-medium\",null,[[\"profilePath\",\"model\"],[\"foobar\",[27,\"hash\",null,null]]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[\s\n]+/g, '|').trim(), "Medium|Title|Storage|Density|Density|Units|Number|Of|Volumes|Storage|Format|Identifier|Namespace|Select|or|type|a|namespace|for|the|identifier.|Version|Description|Note|template|block|text|", 'block');
+    });
+  });
+});
+define('mdeditor/tests/integration/pods/components/object/md-object-table/component-test', ['qunit', 'ember-qunit', '@ember/test-helpers'], function (_qunit, _emberQunit, _testHelpers) {
+  'use strict';
+
+  (0, _qunit.module)('Integration | Component | object/md-object-table', function (hooks) {
+    (0, _emberQunit.setupRenderingTest)(hooks);
+
+    (0, _qunit.test)('it renders', async function (assert) {
+      // Set any properties with this.set('myProperty', 'value');
+      // Handle any actions with this.set('myAction', function(val) { ... });
+      this.model = [{
+        biz: 'biz0',
+        baz: 'baz0'
+      }, {
+        biz: 'biz1',
+        baz: 'baz1'
+      }];
+
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "G/u4v6iH",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-object-table\",null,[[\"attributes\"],[\"biz,baz\"]]],false]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|0|Add|OK|#|Biz|Baz|Add|OK|');
+
+      // Template block usage:
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "Nf+apZFy",
+        "block": "{\"symbols\":[\"foo\"],\"statements\":[[0,\"\\n\"],[4,\"object/md-object-table\",null,[[\"items\",\"header\",\"buttonText\",\"ellipsis\",\"profilePath\",\"attributes\"],[[23,[\"model\"]],\"FooBar\",\"Add FooBar\",true,\"foobar\",\"biz,baz\"]],{\"statements\":[[0,\"        \"],[7,\"span\"],[9],[0,\"Biz:\"],[1,[22,1,[\"biz\"]],false],[10],[0,\"\\n        \"],[7,\"span\"],[9],[0,\"Baz:\"],[1,[22,1,[\"baz\"]],false],[10],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"    \"]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|FooBar|2|Add|OK|#|Biz|Baz|0|biz0|baz0|Edit|Delete|1|biz1|baz1|Edit|Delete|OK|', 'block');
     });
   });
 });
@@ -10841,23 +11712,30 @@ define('mdeditor/tests/integration/pods/components/object/md-objectroute-table/c
 
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.on('myAction', function(val) { ... });
+      this.model = [{
+        biz: 'biz0',
+        baz: 'baz0'
+      }, {
+        biz: 'biz1',
+        baz: 'baz1'
+      }];
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "IWjyRcc9",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-objectroute-table\"],false]],\"hasEval\":false}",
+        "id": "GS7E+RtM",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-objectroute-table\",null,[[\"attributes\",\"header\"],[\"biz,baz\",\"FooBar\"]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|No|FooBar|found.|Add|FooBar|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "327cfRrB",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-objectroute-table\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "fQRRTiEV",
+        "block": "{\"symbols\":[\"foo\"],\"statements\":[[0,\"\\n\"],[4,\"object/md-objectroute-table\",null,[[\"items\",\"header\",\"buttonText\",\"ellipsis\",\"profilePath\",\"attributes\"],[[23,[\"model\"]],\"FooBar\",\"Add FooBar\",true,\"foobar\",\"biz,baz\"]],{\"statements\":[[0,\"        \"],[7,\"span\"],[9],[0,\"Biz:\"],[1,[22,1,[\"biz\"]],false],[10],[0,\"\\n        \"],[7,\"span\"],[9],[0,\"Baz:\"],[1,[22,1,[\"baz\"]],false],[10],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|FooBar|2|Add|OK|#|Biz|Baz|0|biz0|baz0|More...|Delete|1|biz1|baz1|More...|Delete|OK|', 'block');
     });
   });
 });
@@ -10871,57 +11749,87 @@ define('mdeditor/tests/integration/pods/components/object/md-online-resource/com
 
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.on('myAction', function(val) { ... });
+      this.model = {
+        "uri": "http://URI.example.com",
+        "protocol": "protocol",
+        "name": "name",
+        "description": "description",
+        "function": "download"
+      };
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "XcX6fF9w",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-online-resource\"],false]],\"hasEval\":false}",
+        "id": "XA75Tr8w",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-online-resource\",null,[[\"model\",\"profilePath\"],[[23,[\"model\"]],\"foobar\"]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), 'Name|URI|Protocol|Description|Function|download|?|×|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "mMZELtWz",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-online-resource\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "wIgi8dEu",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-online-resource\",null,[[\"profilePath\",\"model\"],[\"foobar\",[23,[\"model\"]]]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Name|URI|Protocol|Description|Function|download|?|×|template|block|text|', 'block');
     });
   });
 });
-define('mdeditor/tests/integration/pods/components/object/md-party-array/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit'], function (_testHelpers, _qunit, _emberQunit) {
+define('mdeditor/tests/integration/pods/components/object/md-party-array/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit', 'mdeditor/tests/helpers/create-contact'], function (_testHelpers, _qunit, _emberQunit, _createContact) {
   'use strict';
 
-  (0, _qunit.module)('Integration | Component | object/md party', function (hooks) {
+  (0, _qunit.module)('Integration | Component | object/md party array', function (hooks) {
     (0, _emberQunit.setupRenderingTest)(hooks);
 
     (0, _qunit.test)('it renders', async function (assert) {
 
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.on('myAction', function(val) { ... });
+      this.party = [{
+        "role": "author",
+        "roleExtent": [{
+          "temporalExtent": [{
+            "timePeriod": {
+              "startDateTime": "2016-10-24T11:10:15.2-10:00"
+            }
+          }]
+        }],
+        "party": [{
+          "contactId": 0
+        }]
+      }, {
+        "role": "publisher",
+        "party": [{
+          "contactId": 1
+        }]
+      }];
+
+      var contacts = (0, _createContact.default)(2);
+      var cs = this.owner.lookup('service:contacts');
+
+      cs.set('contacts', contacts);
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "zlc6Qvlk",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-party-array\"],false]],\"hasEval\":false}",
+        "id": "/oclFM/2",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-party-array\",null,[[\"value\"],[[23,[\"party\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|2|Add|#|Role|Contacts|0|author|?|×|×|Contact0|Delete|1|publisher|?|×|×|Contact1|Delete|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "mo/dm2Z0",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-party-array\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "60oKzv50",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-party-array\",null,[[\"model\"],[[27,\"hash\",null,null]]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Add|#|Role|Contacts|Add|', 'block');
     });
   });
 });
-define('mdeditor/tests/integration/pods/components/object/md-party/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit'], function (_testHelpers, _qunit, _emberQunit) {
+define('mdeditor/tests/integration/pods/components/object/md-party/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit', 'mdeditor/tests/helpers/create-contact'], function (_testHelpers, _qunit, _emberQunit, _createContact) {
   'use strict';
 
   (0, _qunit.module)('Integration | Component | object/md party', function (hooks) {
@@ -10929,28 +11837,45 @@ define('mdeditor/tests/integration/pods/components/object/md-party/component-tes
 
     (0, _qunit.test)('it renders', async function (assert) {
       // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
+      this.party = {
+        "role": "author",
+        "roleExtent": [{
+          "temporalExtent": [{
+            "timePeriod": {
+              "startDateTime": "2016-10-24T11:10:15.2-10:00"
+            }
+          }]
+        }],
+        "party": [{
+          "contactId": 0
+        }]
+      };
+
+      var contacts = (0, _createContact.default)(2);
+      var cs = this.owner.lookup('service:contacts');
+
+      cs.set('contacts', contacts);
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "f59ZC4Rn",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-party\"],false]],\"hasEval\":false}",
+        "id": "zSESlwFo",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-party\",null,[[\"model\"],[[23,[\"party\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Role|author|?|×|Contacts|×|Contact0|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "mltt2Maj",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-party\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "JiboxtLf",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-party\",null,[[\"model\"],[[27,\"hash\",null,null]]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), "|Role|Select|or|enter|a|role|Contacts|", 'block');
     });
   });
 });
-define('mdeditor/tests/integration/pods/components/object/md-process-step/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit'], function (_testHelpers, _qunit, _emberQunit) {
+define('mdeditor/tests/integration/pods/components/object/md-process-step/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit', 'mdeditor/tests/helpers/create-contact'], function (_testHelpers, _qunit, _emberQunit, _createContact) {
   'use strict';
 
   (0, _qunit.module)('Integration | Component | object/md process step', function (hooks) {
@@ -10960,23 +11885,110 @@ define('mdeditor/tests/integration/pods/components/object/md-process-step/compon
 
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.on('myAction', function(val) { ... });
+      var contacts = (0, _createContact.default)(2);
+      var cs = this.owner.lookup('service:contacts');
+
+      cs.set('contacts', contacts);
+      //
+      this.step = {
+        "stepId": "stepId",
+        "description": "description",
+        "rationale": "rationale",
+        "timePeriod": {
+          "startDateTime": "2016-10-15"
+        },
+        "processor": [{
+          "role": "role",
+          "party": [{
+            "contactId": "0"
+          }]
+        }, {
+          "role": "role",
+          "party": [{
+            "contactId": "1"
+          }]
+        }],
+        "stepSource": [{
+          "description": "description",
+          "sourceCitation": {
+            "title": "title"
+          },
+          "metadataCitation": [{
+            "title": "title0"
+          }, {
+            "title": "title1"
+          }],
+          "spatialResolution": {
+            "measure": {
+              "type": "distance",
+              "value": 99.9,
+              "unitOfMeasure": "unitOfMeasure"
+            }
+          },
+          "referenceSystem": {
+            "referenceSystemType": "referenceSystemType",
+            "referenceSystemIdentifier": {
+              "identifier": "identifier"
+            }
+          },
+          "sourceProcessStep": [{
+            "description": "description0"
+          }, {
+            "description": "description1"
+          }]
+        }],
+        "stepProduct": [{
+          "description": "description",
+          "sourceCitation": {
+            "title": "title"
+          },
+          "metadataCitation": [{
+            "title": "title0"
+          }, {
+            "title": "title1"
+          }],
+          "spatialResolution": {
+            "measure": {
+              "type": "distance",
+              "value": 99.9,
+              "unitOfMeasure": "unitOfMeasure"
+            }
+          },
+          "referenceSystem": {
+            "referenceSystemType": "referenceSystemType",
+            "referenceSystemIdentifier": {
+              "identifier": "identifier"
+            }
+          },
+          "sourceProcessStep": [{
+            "description": "description0"
+          }, {
+            "description": "description1"
+          }]
+        }],
+        "reference": [{
+          "title": "title0"
+        }, {
+          "title": "title1"
+        }]
+      };
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "IB6Qa8hI",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-process-step\"],false]],\"hasEval\":false}",
+        "id": "Nsn9mgBm",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-process-step\",null,[[\"profilePath\",\"model\"],[\"foobar\",[23,[\"step\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), "Step|ID|Description|Step|Sources|1|Add|#|Description|0|Delete|Step|Products|1|Add|#|Description|0|Delete|Processors|2|Add|#|Role|Contacts|0|role|×|Delete|1|role|×|Delete|Step|Reference|2|Add|OK|#|Title|0|title0|More...|Delete|1|title1|More...|Delete|OK|Time|Period|Dates|Start|Date|End|Date|Pick|Fiscal|Year|Pick|a|Fiscal|Year|Identifier|Description|Time|Period|Names|0|Add|Time|Period|Name|Add|Time|Period|Name|Interval|Interval|Amount|Time|Unit|Choose|unit|of|time|Duration|Years|Months|Days|Hours|Minutes|Seconds|Scope|Select|type|of|resource.|");
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "wGE0vu+I",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-process-step\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "mxjFonHb",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-process-step\",null,[[\"profilePath\",\"model\"],[\"foobar\",[23,[\"step\"]]]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), "|Step|ID|Description|Step|Sources|1|Add|#|Description|0|Delete|Step|Products|1|Add|#|Description|0|Delete|Processors|2|Add|#|Role|Contacts|0|role|×|Delete|1|role|×|Delete|Step|Reference|2|Add|OK|#|Title|0|title0|More...|Delete|1|title1|More...|Delete|OK|Time|Period|Dates|Start|Date|End|Date|Pick|Fiscal|Year|Pick|a|Fiscal|Year|Identifier|Description|Time|Period|Names|0|Add|Time|Period|Name|Add|Time|Period|Name|Interval|Interval|Amount|Time|Unit|Choose|unit|of|time|Duration|Years|Months|Days|Hours|Minutes|Seconds|Scope|Select|type|of|resource.|template|block|text|", 'block');
     });
   });
 });
@@ -10990,14 +12002,25 @@ define('mdeditor/tests/integration/pods/components/object/md-repository-array/co
 
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.on('myAction', function(val) { ... });
+      this.repo = [{
+        "citation": {
+          "title": "Arctic LCC data.gov"
+        },
+        "repository": "data.gov"
+      }, {
+        "citation": {
+          "title": "Something"
+        },
+        "repository": "data.gov"
+      }];
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "W9Om5qxB",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-repository-array\"],false]],\"hasEval\":false}",
+        "id": "PO/BkJxi",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-repository-array\",null,[[\"value\"],[[23,[\"repo\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Metadata|Repositories|2|Add|#|Repository|Collection|Title|0|data.gov|?|×|Delete|1|data.gov|?|×|Delete|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
@@ -11006,7 +12029,7 @@ define('mdeditor/tests/integration/pods/components/object/md-repository-array/co
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Metadata|Repositories|Add|#|Repository|Collection|Title|Add|Metadata|Repository|', 'block');
     });
   });
 });
@@ -11020,14 +12043,20 @@ define('mdeditor/tests/integration/pods/components/object/md-resource-type-array
 
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.on('myAction', function(val) { ... });
+      this.rt = [{
+        "type": "project",
+        "name": "foobar"
+      }, {
+        "type": "map"
+      }];
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "6T0Lbe9v",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-resource-type-array\"],false]],\"hasEval\":false}",
+        "id": "KqYM6iI5",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-resource-type-array\",null,[[\"value\"],[[23,[\"rt\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Resource|Types|2|Add|#|Type|Name|0|project|?|×|Delete|1|map|?|×|Delete|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
@@ -11036,7 +12065,7 @@ define('mdeditor/tests/integration/pods/components/object/md-resource-type-array
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Resource|Types|Add|#|Type|Name|Add|Resource|Type|', 'block');
     });
   });
 });
@@ -11051,22 +12080,38 @@ define('mdeditor/tests/integration/pods/components/object/md-simple-array-table/
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.on('myAction', function(val) { ... });
 
+      this.model = ['biz', 'baz'];
+      // this.on('addItem', function(val) {
+      //   this.model.pushObject(val);
+      // });
+      // this.on('addItem', function(val) {
+      //   this.model.pushObject(val);
+      // });
+
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
         "id": "6OSQ6Ux5",
         "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-simple-array-table\"],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Items|0|Add|Add|Item|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "PpN+CBSi",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-simple-array-table\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "JESvK570",
+        "block": "{\"symbols\":[\"foo\"],\"statements\":[[0,\"\\n\"],[4,\"object/md-simple-array-table\",null,[[\"title\",\"required\",\"plain\",\"value\"],[\"FooBar\",false,true,[23,[\"model\"]]]],{\"statements\":[[0,\"        \"],[7,\"td\"],[9],[0,\"\\n            \"],[1,[22,1,[\"item\",\"value\"]],false],[0,\"\\n        \"],[10],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|FooBars|2|Add|FooBar|0|biz|Delete|1|baz|Delete|');
+
+      await (0, _testHelpers.click)('.btn-info');
+
+      assert.equal((0, _testHelpers.findAll)('.table tr').length, 3, 'addItem');
+
+      await (0, _testHelpers.doubleClick)('.btn-danger');
+
+      assert.equal(this.model.length, 1, 'deleteItem');
     });
   });
 });
@@ -11079,23 +12124,52 @@ define('mdeditor/tests/integration/pods/components/object/md-source/component-te
     (0, _qunit.test)('it renders', async function (assert) {
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.on('myAction', function(val) { ... });
+      this.source = {
+        "description": "description",
+        "sourceCitation": {
+          "title": "title"
+        },
+        "metadataCitation": [{
+          "title": "title0"
+        }, {
+          "title": "title1"
+        }],
+        "spatialResolution": {
+          "measure": {
+            "type": "distance",
+            "value": 99.9,
+            "unitOfMeasure": "unitOfMeasure"
+          }
+        },
+        "referenceSystem": {
+          "referenceSystemType": "referenceSystemType",
+          "referenceSystemIdentifier": {
+            "identifier": "identifier"
+          }
+        },
+        "sourceProcessStep": [{
+          "description": "description0"
+        }, {
+          "description": "description1"
+        }]
+      };
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "hvWjNK8J",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-source\"],false]],\"hasEval\":false}",
+        "id": "sGHSiB8m",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-source\",null,[[\"profilePath\",\"model\"],[\"foobar\",[23,[\"source\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), 'Source|ID|Description|Scope|Select|type|of|resource.|Source|Citation|Basic|Information|Title|Alternate|Titles|0|Add|Alternate|Title|Add|Alternate|Title|Dates|0|Add|Date|#|Date|Date|Type|Description|Add|Date|Responsible|Parties|0|Add|#|Role|Contacts|Add|Responsible|Party|Online|Resource|0|Add|OK|#|Name|Uri|Add|Resource|OK|No|Identifier|found.|Add|Identifier|Identifier|0|Add|OK|#|Identifier|Namespace|Add|Identifier|OK|Identifier|0|Add|OK|#|Identifier|Namespace|Add|Identifier|OK|Metadata|Citation|2|Add|OK|#|Title|0|title0|Edit|Delete|1|title1|Edit|Delete|OK|Spatial|Reference|System|Reference|System|Type|referenceSystemType|×|Reference|System|Identifier|Identifier|Namespace|Select|or|type|a|namespace|for|the|identifier.|Version|Description|Authority|Basic|Information|Title|Alternate|Titles|0|Add|Alternate|Title|Add|Alternate|Title|Dates|0|Add|Date|#|Date|Date|Type|Description|Add|Date|Responsible|Parties|0|Add|#|Role|Contacts|Add|Responsible|Party|Online|Resource|0|Add|OK|#|Name|Uri|Add|Resource|OK|No|Identifier|found.|Add|Identifier|Identifier|0|Add|OK|#|Identifier|Namespace|Add|Identifier|OK|Identifier|0|Add|OK|#|Identifier|Namespace|Add|Identifier|OK|Spatial|Resolution|Scale|Factor|Level|Of|Detail|Measure|Measure|Type|distance|Value|Units|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "uzEG3mPm",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-source\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "j1FGio71",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-source\",null,[[\"profilePath\",\"model\"],[\"foobar\",[27,\"hash\",null,null]]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), "|Source|ID|Description|Scope|Select|type|of|resource.|Source|Citation|Basic|Information|Title|Alternate|Titles|0|Add|Alternate|Title|Add|Alternate|Title|Dates|0|Add|Date|#|Date|Date|Type|Description|Add|Date|Responsible|Parties|0|Add|#|Role|Contacts|Add|Responsible|Party|Online|Resource|0|Add|OK|#|Name|Uri|Add|Resource|OK|No|Identifier|found.|Add|Identifier|Identifier|0|Add|OK|#|Identifier|Namespace|Add|Identifier|OK|Identifier|0|Add|OK|#|Identifier|Namespace|Add|Identifier|OK|Metadata|Citation|0|Add|OK|#|Title|Add|Citation|OK|Spatial|Reference|System|Reference|System|Type|Select|type|of|reference|system|used.|Reference|System|Identifier|Identifier|Namespace|Select|or|type|a|namespace|for|the|identifier.|Version|Description|Authority|Basic|Information|Title|Alternate|Titles|0|Add|Alternate|Title|Add|Alternate|Title|Dates|0|Add|Date|#|Date|Date|Type|Description|Add|Date|Responsible|Parties|0|Add|#|Role|Contacts|Add|Responsible|Party|Online|Resource|0|Add|OK|#|Name|Uri|Add|Resource|OK|No|Identifier|found.|Add|Identifier|Identifier|0|Add|OK|#|Identifier|Namespace|Add|Identifier|OK|Identifier|0|Add|OK|#|Identifier|Namespace|Add|Identifier|OK|Spatial|Resolution|Scale|Factor|Level|Of|Detail|Measure|Measure|Type|The|type|of|measurement.|Value|Units|", 'block');
     });
   });
 });
@@ -11108,23 +12182,52 @@ define('mdeditor/tests/integration/pods/components/object/md-source/preview/comp
     (0, _qunit.test)('it renders', async function (assert) {
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.on('myAction', function(val) { ... });
+      this.source = {
+        "description": "description",
+        "sourceCitation": {
+          "title": "title"
+        },
+        "metadataCitation": [{
+          "title": "title0"
+        }, {
+          "title": "title1"
+        }],
+        "spatialResolution": {
+          "measure": {
+            "type": "distance",
+            "value": 99.9,
+            "unitOfMeasure": "unitOfMeasure"
+          }
+        },
+        "referenceSystem": {
+          "referenceSystemType": "referenceSystemType",
+          "referenceSystemIdentifier": {
+            "identifier": "identifier"
+          }
+        },
+        "sourceProcessStep": [{
+          "description": "description0"
+        }, {
+          "description": "description1"
+        }]
+      };
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "JwsAYI2i",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-source/preview\"],false]],\"hasEval\":false}",
+        "id": "IdLU9ExD",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-source/preview\",null,[[\"model\",\"profilePath\"],[[23,[\"source\"]],\"foobar\"]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal((0, _testHelpers.find)('textarea').value, 'description');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "bjR8PzXG",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-source/preview\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "VzuJmV1d",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-source/preview\",null,[[\"model\",\"profilePath\"],[[23,[\"source\"]],\"foobar\"]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal((0, _testHelpers.find)('textarea').value, 'description');
     });
   });
 });
@@ -11135,26 +12238,67 @@ define('mdeditor/tests/integration/pods/components/object/md-spatial-extent/comp
     (0, _emberQunit.setupRenderingTest)(hooks);
 
     (0, _qunit.test)('it renders', async function (assert) {
-
+      assert.expect(5);
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.on('myAction', function(val) { ... });
+      this.deleteExtent = function (val) {
+        assert.equal(val, 9, 'call delete');
+      };
+      this.editExtent = function (val) {
+        assert.equal(val, 9, 'call edit');
+      };
+
+      this.extent = {
+        "geographicExtent": [{
+          // "boundingBox": {
+          //   "northLatitude": 34.741612,
+          //   "southLatitude": 32.472695,
+          //   "eastLongitude": -116.542054,
+          //   "westLongitude": -117.729264
+          // },
+          "geographicElement": [{
+            "type": "Feature",
+            "id": "3843b29f-bec7-418d-919a-4f794ce749cf",
+            "geometry": {
+              "type": "Polygon",
+              "coordinates": [[[-116.542054, 32.472695], [-117.596742, 34.741612], [-117.596742, 34.741612], [-117.729264, 32.805745], [-117.729264, 32.805745], [-116.542054, 32.472695]]]
+            },
+            "properties": {
+              "name": "New Feature"
+            }
+          }]
+        }]
+      };
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "ymAUzWcc",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-spatial-extent\"],false]],\"hasEval\":false}",
+        "id": "vM1y3Ce9",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-spatial-extent\",null,[[\"extent\",\"index\",\"deleteExtent\",\"editExtent\"],[[23,[\"extent\"]],9,[23,[\"deleteExtent\"]],[23,[\"editExtent\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Geographic|Extent|#9|Edit|Extent|Features|Delete|Extent|Bounding|Box|North|East|South|West|Calculate|Description|+−|Terrain|FeaturesLeaflet|');
 
+      await (0, _testHelpers.click)('.btn-primary');
+
+      assert.equal(JSON.stringify(this.extent.geographicExtent[0].boundingBox), JSON.stringify({
+        "northLatitude": 34.741612,
+        "southLatitude": 32.472695,
+        "eastLongitude": -116.542054,
+        "westLongitude": -117.729264
+      }), 'calculateBox');
+
+      await (0, _testHelpers.click)('.btn-success');
+      await (0, _testHelpers.doubleClick)('.btn-danger');
+
+      this.empty = { geographicExtent: [{}] };
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "mpdPUss7",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-spatial-extent\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "9kSaHRo3",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-spatial-extent\",null,[[\"extent\"],[[23,[\"empty\"]]]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Geographic|Extent|#|Edit|Extent|Features|Delete|Extent|Bounding|Box|North|East|South|West|Description|No|Features|to|display.|', 'block');
     });
   });
 });
@@ -11168,23 +12312,103 @@ define('mdeditor/tests/integration/pods/components/object/md-spatial-info/compon
 
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.on('myAction', function(val) { ... });
+      this.model = {
+        spatialReferenceSystem: [{
+          "referenceSystemType": "referenceSystemType",
+          "referenceSystemIdentifier": {
+            "identifier": "identifier"
+          }
+        }, {
+          "referenceSystemType": "projected",
+          "referenceSystemIdentifier": {
+            "identifier": "Zone 10",
+            "namespace": "UTM",
+            "description": "Universal Transverse Mercator Zone 10 Seattle, Washington"
+          }
+        }, {
+          "referenceSystemType": "geodeticGeographic2D",
+          "referenceSystemIdentifier": {
+            "identifier": "4326",
+            "namespace": "urn:ogc:def:crs:EPSG",
+            "description": "epsg projection 4326 - wgs 84 - Latitude Longitude",
+            "authority": {
+              "title": "European Petroleum Survey Group"
+            }
+          }
+        }, {
+          "referenceSystemType": "projected",
+          "referenceSystemWKT": "PROJCS ['Wyoming 4901, Eastern Zone (1983, meters)', GEOGCS ['GRS 80', DATUM ['GRS 80', SPHEROID ['GRS 80', 6378137.000000, 298.257222]], PRIMEM ['Greenwich', 0.000000 ], UNIT ['Decimal Degree', 0.01745329251994330]], PROJECTION ['Transverse Mercator'], PARAMETER ['Scale_Factor', 0.999938], PARAMETER ['Central_Meridian', -105.166667], PARAMETER ['Latitude_Of_Origin', 40.500000], PARAMETER ['False_Easting', 200000.000000], UNIT ['Meter', 1.000000000000]]"
+        }, {
+          "referenceSystemType": "geodeticGeographic2D",
+          "referenceSystemParameterSet": {
+            "geodetic": {
+              "datumIdentifier": {
+                "identifier": "identifier"
+              },
+              "ellipsoidIdentifier": {
+                "identifier": "identifier"
+              },
+              "semiMajorAxis": 9.9,
+              "axisUnits": "axisUnits",
+              "denominatorOfFlatteningRatio": 9.9
+            }
+          }
+        }],
+        spatialResolution: [{
+          "scaleFactor": 99999
+        }, {
+          "measure": {
+            "type": "distance",
+            "value": 99.9,
+            "unitOfMeasure": "unitOfMeasure"
+          }
+        }, {
+          "levelOfDetail": "levelOfDetail"
+        }, {
+          "geographicResolution": {
+            "latitudeResolution": 9.9,
+            "longitudeResolution": 9.9,
+            "unitOfMeasure": "unitOfMeasure"
+          }
+        }, {
+          "bearingDistanceResolution": {
+            "distanceResolution": 9.9,
+            "distanceUnitOfMeasure": "",
+            "bearingResolution": 9.9,
+            "bearingUnitOfMeasure": "",
+            "bearingReferenceDirection": "north",
+            "bearingReferenceMeridian": "assumed"
+          }
+        }, {
+          "coordinateResolution": {
+            "abscissaResolutionX": 9.9,
+            "ordinateResolutionY": 9.9,
+            "unitOfMeasure": "unitOfMeasure"
+          }
+        }],
+        spatialRepresentationType: ["vector", "stereoModel"]
+      };
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "ESR2Sal5",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-spatial-info\"],false]],\"hasEval\":false}",
+        "id": "j66y6Tf6",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-spatial-info\",null,[[\"profilePath\",\"model\"],[\"foobar\",[23,[\"model\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Spatial|Representation|Type|×|stereoModel|?|×|vector|?|Spatial|Reference|System|5|Add|OK|#|Reference|System|Type|Identifier|0|referenceSystemType|identifier|Edit|Delete|1|projected|Zone|10|Edit|Delete|2|geodeticGeographic2D|4326|Edit|Delete|3|projected|Not|Defined|Edit|Delete|4|geodeticGeographic2D|Not|Defined|Edit|Delete|OK|Spatial|Resolution|6|Add|OK|#|Scale|Factor|Level|Of|Detail|Type|0|99999|Not|Defined|Not|Defined|Edit|Delete|1|Not|Defined|Not|Defined|distance|Edit|Delete|2|Not|Defined|levelOfDetail|Not|Defined|Edit|Delete|3|Not|Defined|Not|Defined|Not|Defined|Edit|Delete|4|Not|Defined|Not|Defined|Not|Defined|Edit|Delete|5|Not|Defined|Not|Defined|Not|Defined|Edit|Delete|OK|Add|Spatial|Resolution|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "qEGSNYNJ",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-spatial-info\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "l1mM0SJr",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-spatial-info\",null,[[\"profilePath\",\"model\"],[\"foobar\",[27,\"hash\",null,null]]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Spatial|Representation|Type|Spatial|Reference|System|0|Add|OK|#|Reference|System|Type|Identifier|Add|Reference|System|OK|Spatial|Resolution|0|Add|OK|#|Scale|Factor|Level|Of|Detail|Type|Add|Spatial|Resolution|OK|template|block|text|', 'block');
+    });
+
+    (0, _qunit.skip)('test actions', async function (assert) {
+      assert.expect(1);
     });
   });
 });
@@ -11198,23 +12422,110 @@ define('mdeditor/tests/integration/pods/components/object/md-spatial-resolution/
 
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.on('myAction', function(val) { ... });
+      this.model = {
+        "scaleFactor": {
+          scaleFactor: 99999
+        },
+        "measure": {
+          "measure": {
+            "type": "distance",
+            "value": 99.9,
+            "unitOfMeasure": "unitOfMeasure"
+          }
+        },
+        "levelOfDetail": {
+          levelOfDetail: "levelOfDetail"
+        },
+        "geographicResolution": {
+          geographicResolution: {
+            "latitudeResolution": 9.9,
+            "longitudeResolution": 9.9,
+            "unitOfMeasure": "unitOfMeasure"
+          }
+        },
+        "bearingDistanceResolution": {
+          bearingDistanceResolution: {
+            "distanceResolution": 9.9,
+            "distanceUnitOfMeasure": "",
+            "bearingResolution": 9.9,
+            "bearingUnitOfMeasure": "",
+            "bearingReferenceDirection": "north",
+            "bearingReferenceMeridian": "assumed"
+          }
+        },
+        "coordinateResolution": {
+          coordinateResolution: {
+            "abscissaResolutionX": 9.9,
+            "ordinateResolutionY": 9.9,
+            "unitOfMeasure": "unitOfMeasure"
+          }
+        }
+      };
+
+      var empty = "Scale|Factor|Level|Of|Detail|Measure|Measure|Type|The|type|of|measurement.|Value|Units|";
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "iFtn2PL+",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-spatial-resolution\"],false]],\"hasEval\":false}",
+        "id": "tTscHVxZ",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-spatial-resolution\",null,[[\"profilePath\",\"model\"],[\"foobar\",[23,[\"model\",\"scaleFactor\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal((0, _testHelpers.findAll)('.md-input-input input')[0].value, this.model.scaleFactor.scaleFactor, 'scaleFactor');
+      assert.ok((0, _testHelpers.findAll)('.md-input-input input')[1].disabled, 'level disabled');
+      assert.ok((0, _testHelpers.findAll)('.md-input-input input')[2].disabled, 'measure disabled');
+
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "x4WbMadH",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-spatial-resolution\",null,[[\"profilePath\",\"model\"],[\"foobar\",[23,[\"model\",\"measure\"]]]]],false]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      assert.equal((0, _testHelpers.findAll)('.md-input-input input')[2].value, this.model.measure.measure.value, 'measure');
+      assert.ok((0, _testHelpers.findAll)('.md-input-input input')[1].disabled, 'level disabled');
+      assert.ok((0, _testHelpers.findAll)('.md-input-input input')[0].disabled, 'scaleFactor disabled');
+
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "24JlzbnS",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-spatial-resolution\",null,[[\"profilePath\",\"model\"],[\"foobar\",[23,[\"model\",\"levelOfDetail\"]]]]],false]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      assert.equal((0, _testHelpers.findAll)('.md-input-input input')[1].value, this.model.levelOfDetail.levelOfDetail, 'levelOfDetail');
+      assert.ok((0, _testHelpers.findAll)('.md-input-input input')[2].disabled, 'measure disabled');
+      assert.ok((0, _testHelpers.findAll)('.md-input-input input')[0].disabled, 'scaleFactor disabled');
+
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "MdRpj4yB",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-spatial-resolution\",null,[[\"profilePath\",\"model\"],[\"foobar\",[23,[\"model\",\"geographicResolution\"]]]]],false]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), empty, 'geographicResolution');
+
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "sCekfBRh",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-spatial-resolution\",null,[[\"profilePath\",\"model\"],[\"foobar\",[23,[\"model\",\"bearingDistanceResolution\"]]]]],false]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), empty, 'bearingDistanceResolution');
+
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "6TSBmhgY",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-spatial-resolution\",null,[[\"profilePath\",\"model\"],[\"foobar\",[23,[\"model\",\"coordinateResolution\"]]]]],false]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), empty, 'coordinateResolution');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "eB3V1t5h",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-spatial-resolution\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "zWDUlqpF",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-spatial-resolution\",null,[[\"model\",\"profilePath\"],[[27,\"hash\",null,null],\"foobar\"]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|' + empty + 'template|block|text|', 'block');
     });
   });
 });
@@ -11228,27 +12539,39 @@ define('mdeditor/tests/integration/pods/components/object/md-srs/component-test'
 
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.on('myAction', function(val) { ... });
+      this.srs = {
+        "referenceSystemType": "projected",
+        "referenceSystemIdentifier": {
+          "identifier": "identifier",
+          "version": "version",
+          "description": "description"
+        }
+      };
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "NZOy0glz",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-srs\"],false]],\"hasEval\":false}",
+        "id": "DO8NJ6aE",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-srs\",null,[[\"profilePath\",\"model\"],[\"foobar\",[23,[\"srs\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Reference|System|Type|projected|?|×|Reference|System|Identifier|Identifier|Namespace|Select|or|type|a|namespace|for|the|identifier.|Version|Description|Authority|Basic|Information|Title|Alternate|Titles|0|Add|Alternate|Title|Add|Alternate|Title|Dates|0|Add|Date|#|Date|Date|Type|Description|Add|Date|Responsible|Parties|0|Add|#|Role|Contacts|Add|Responsible|Party|Online|Resource|0|Add|OK|#|Name|Uri|Add|Resource|OK|No|Identifier|found.|Add|Identifier|Identifier|0|Add|OK|#|Identifier|Namespace|Add|Identifier|OK|Identifier|0|Add|OK|#|Identifier|Namespace|Add|Identifier|OK|');
+
+      var input = (0, _testHelpers.findAll)('input, textarea').mapBy('value').join('|');
+
+      assert.equal(input, 'identifier|version|description|', 'input values');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "D2H4iH1J",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-srs\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "8sDbB5EM",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-srs\",null,[[\"profilePath\"],[\"foobar\"]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), "|Reference|System|Type|Select|type|of|reference|system|used.|template|block|text|", 'block');
     });
   });
 });
-define('mdeditor/tests/integration/pods/components/object/md-taxonomy/classification/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit'], function (_testHelpers, _qunit, _emberQunit) {
+define('mdeditor/tests/integration/pods/components/object/md-taxonomy/classification/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit', 'mdeditor/tests/helpers/create-taxonomy'], function (_testHelpers, _qunit, _emberQunit, _createTaxonomy) {
   'use strict';
 
   (0, _qunit.module)('Integration | Component | object/md taxonomy/classification', function (hooks) {
@@ -11257,14 +12580,23 @@ define('mdeditor/tests/integration/pods/components/object/md-taxonomy/classifica
     (0, _qunit.test)('it renders', async function (assert) {
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.on('myAction', function(val) { ... });
+      this.model = (0, _createTaxonomy.default)()[0].taxonomicClassification;
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "CknzyzCA",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-taxonomy/classification\"],false]],\"hasEval\":false}",
+        "id": "/Ise4VKA",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-taxonomy/classification\",null,[[\"model\"],[[23,[\"model\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Kingdom|Fungi|(555705)|Kingdom|Edit|Delete|Subkingdom|Dikarya|(936287)|Edit|Delete|Division|Basidiomycota|(623881)|Edit|Delete|Kingdom|Animalia|(202423)|Edit|Delete|Subkingdom|Radiata|(914153)|Edit|Delete|Phylum|Cnidaria|(48738)|Edit|Delete|Subphylum|Medusozoa|(718920)|Edit|Delete|Class|Scyphozoa|(51483)|Edit|Delete|Subclass|Discomedusae|(718923)|Edit|Delete|Order|Rhizostomeae|(51756)|Edit|Delete|Family|Rhizostomatidae|(51911)|Edit|Delete|Genus|Rhopilema|(51919)|Edit|Delete|Species|Rhopilema|verrilli|(51920)|mushroom|jellyfish|Edit|Delete|');
+
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "hzr84rWL",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-taxonomy/classification\",null,[[\"model\",\"preview\"],[[23,[\"model\"]],true]]],false]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Kingdom|Fungi|(555705)|Kingdom|Kingdom|Animalia|(202423)|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
@@ -11273,40 +12605,61 @@ define('mdeditor/tests/integration/pods/components/object/md-taxonomy/classifica
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|No|Classification|found.|', 'block');
     });
   });
 });
-define('mdeditor/tests/integration/pods/components/object/md-taxonomy/classification/taxon/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit'], function (_testHelpers, _qunit, _emberQunit) {
+define('mdeditor/tests/integration/pods/components/object/md-taxonomy/classification/taxon/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit', 'mdeditor/tests/helpers/create-taxonomy'], function (_testHelpers, _qunit, _emberQunit, _createTaxonomy) {
   'use strict';
 
   (0, _qunit.module)('Integration | Component | object/md taxonomy/classification/taxon', function (hooks) {
     (0, _emberQunit.setupRenderingTest)(hooks);
 
     (0, _qunit.test)('it renders', async function (assert) {
+      assert.expect(5);
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.on('myAction', function(val) { ... });
+      this.model = (0, _createTaxonomy.default)()[0].taxonomicClassification[0];
+
+      this.delete = function (taxa) {
+        assert.ok(taxa, 'called delete');
+      };
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "vLVbt/1b",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-taxonomy/classification/taxon\"],false]],\"hasEval\":false}",
+        "id": "RK0K33ht",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-taxonomy/classification/taxon\",null,[[\"model\"],[[23,[\"model\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Kingdom|Fungi|(555705)|Kingdom|Edit|Delete|Subkingdom|Dikarya|(936287)|Edit|Delete|Division|Basidiomycota|(623881)|Edit|Delete|');
+
+      await (0, _testHelpers.click)('.btn-success');
+
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Kingdom|Fungi|(555705)|Kingdom|Taxonomic|Level|Taxonomic|Name|Taxonomic|ID|Common|Names|1|Add|Common|Name|0|Delete|OK|Subkingdom|Dikarya|(936287)|Edit|Delete|Division|Basidiomycota|(623881)|Edit|Delete|', 'edit');
+
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "qFFun9r4",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-taxonomy/classification/taxon\",null,[[\"model\",\"deleteTaxa\"],[[23,[\"model\"]],[23,[\"delete\"]]]]],false]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      await (0, _testHelpers.click)('.btn-danger');
+      await (0, _testHelpers.click)('.btn-danger');
+
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Kingdom|Fungi|(555705)|Kingdom|Edit|Delete|Subkingdom|Dikarya|(936287)|Edit|Delete|Division|Basidiomycota|(623881)|Edit|Delete|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "WVyRpWUB",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-taxonomy/classification/taxon\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "+GWYjKtF",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-taxonomy/classification/taxon\",null,[[\"model\"],[[23,[\"model\"]]]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Kingdom|Fungi|(555705)|Kingdom|Edit|Delete|Subkingdom|Dikarya|(936287)|Edit|Delete|Division|Basidiomycota|(623881)|Edit|Delete|', 'block');
     });
   });
 });
-define('mdeditor/tests/integration/pods/components/object/md-taxonomy/collection/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit'], function (_testHelpers, _qunit, _emberQunit) {
+define('mdeditor/tests/integration/pods/components/object/md-taxonomy/collection/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit', 'mdeditor/tests/helpers/create-taxonomy'], function (_testHelpers, _qunit, _emberQunit, _createTaxonomy) {
   'use strict';
 
   (0, _qunit.module)('Integration | Component | object/md taxonomy/collection', function (hooks) {
@@ -11315,27 +12668,32 @@ define('mdeditor/tests/integration/pods/components/object/md-taxonomy/collection
     (0, _qunit.test)('it renders', async function (assert) {
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.on('myAction', function(val) { ... });
+      this.model = (0, _createTaxonomy.default)()[0];
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "+GQOw85R",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-taxonomy/collection\"],false]],\"hasEval\":false}",
+        "id": "5/fKo5J5",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-taxonomy/collection\",null,[[\"model\",\"profilePath\"],[[23,[\"model\"]],\"foobar\"]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Taxonomic|System|1|Add|OK|#|Title|Modifications|0|More...|Delete|OK|Classification|Kingdom|Fungi|(555705)|Kingdom|Edit|Delete|Subkingdom|Dikarya|(936287)|Edit|Delete|Division|Basidiomycota|(623881)|Edit|Delete|Kingdom|Animalia|(202423)|Edit|Delete|Subkingdom|Radiata|(914153)|Edit|Delete|Phylum|Cnidaria|(48738)|Edit|Delete|Subphylum|Medusozoa|(718920)|Edit|Delete|Class|Scyphozoa|(51483)|Edit|Delete|Subclass|Discomedusae|(718923)|Edit|Delete|Order|Rhizostomeae|(51756)|Edit|Delete|Family|Rhizostomatidae|(51911)|Edit|Delete|Genus|Rhopilema|(51919)|Edit|Delete|Species|Rhopilema|verrilli|(51920)|mushroom|jellyfish|Edit|Delete|Observers|1|Add|#|Role|Contacts|0|pointOfContact|?|×|Delete|General|Scope|Identification|Procedure|Identification|Completeness|Voucher|1|Add|OK|#|Specimen|0|Specimen|Edit|Delete|OK|');
+
+      var input = (0, _testHelpers.findAll)('form input, form textarea').mapBy('value').join('|');
+
+      assert.equal(input, "Integrated Taxonomic Information System (ITIS)|modifications||Scope|Id Procedure|Id Completeness", 'input values');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "g2QryW6N",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-taxonomy/collection\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "S8CyIoTd",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-taxonomy/collection\",null,[[\"profilePath\",\"model\"],[\"foobar\",[27,\"hash\",null,null]]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|No|Taxonomic|System|found.|Add|Taxonomic|System|Classification|No|Classification|found.|Observers|0|Add|#|Role|Contacts|Add|Observer|General|Scope|Identification|Procedure|Identification|Completeness|Voucher|0|Add|OK|#|Specimen|Add|Voucher|OK|', 'block');
     });
   });
 });
-define('mdeditor/tests/integration/pods/components/object/md-taxonomy/collection/system/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit'], function (_testHelpers, _qunit, _emberQunit) {
+define('mdeditor/tests/integration/pods/components/object/md-taxonomy/collection/system/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit', 'mdeditor/tests/helpers/create-taxonomy'], function (_testHelpers, _qunit, _emberQunit, _createTaxonomy) {
   'use strict';
 
   (0, _qunit.module)('Integration | Component | object/md taxonomy/collection/system', function (hooks) {
@@ -11344,27 +12702,32 @@ define('mdeditor/tests/integration/pods/components/object/md-taxonomy/collection
     (0, _qunit.test)('it renders', async function (assert) {
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.on('myAction', function(val) { ... });
+      this.model = (0, _createTaxonomy.default)()[0].taxonomicSystem[0];
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "2sfxhaDN",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-taxonomy/collection/system\"],false]],\"hasEval\":false}",
+        "id": "rqKuwkIp",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-taxonomy/collection/system\",null,[[\"model\",\"profilePath\"],[[23,[\"model\"]],\"foobar\"]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Modifications|Basic|Information|Title|Alternate|Titles|0|Add|Alternate|Title|Add|Alternate|Title|Dates|1|Add|Date|#|Date|Date|Type|Description|0|transmitted|?|×|Delete|Edition|Presentation|Form|×|webService|?|×|webSite|?|Responsible|Parties|0|Add|#|Role|Contacts|Add|Responsible|Party|Online|Resource|1|Add|OK|#|Name|Uri|0|ITIS|website|https://www.itis.gov|Edit|Delete|OK|No|Identifier|found.|Add|Identifier|Identifier|0|Add|OK|#|Identifier|Namespace|Add|Identifier|OK|Identifier|0|Add|OK|#|Identifier|Namespace|Add|Identifier|OK|Series|Name|Issue|Page|Other|Details|1|Add|0|Delete|Graphic|1|Add|OK|0|itis_logo.jpg:|Edit|Delete|OK|');
+
+      var input = (0, _testHelpers.findAll)('form input, form textarea').mapBy('value').join('|');
+
+      assert.equal(input, "modifications|Integrated Taxonomic Information System (ITIS)|2019-02-26|Taxa imported from ITIS||||||Retrieved from the Integrated Taxonomic Information System on-line database, https://www.itis.gov.", 'input values');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "igZAN1lT",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-taxonomy/collection/system\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "17zS1/th",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-taxonomy/collection/system\",null,[[\"model\",\"profilePath\"],[[27,\"hash\",null,null],\"foobar\"]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Modifications|Basic|Information|Title|Alternate|Titles|0|Add|Alternate|Title|Add|Alternate|Title|Dates|0|Add|Date|#|Date|Date|Type|Description|Add|Date|Edition|Presentation|Form|Responsible|Parties|0|Add|#|Role|Contacts|Add|Responsible|Party|Online|Resource|0|Add|OK|#|Name|Uri|Add|Resource|OK|No|Identifier|found.|Add|Identifier|Identifier|0|Add|OK|#|Identifier|Namespace|Add|Identifier|OK|Identifier|0|Add|OK|#|Identifier|Namespace|Add|Identifier|OK|Series|Name|Issue|Page|Other|Details|0|Add|Add|Other|Details|Graphic|0|Add|OK|Add|Graphic|OK|', 'block');
     });
   });
 });
-define('mdeditor/tests/integration/pods/components/object/md-taxonomy/collection/system/preview/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit'], function (_testHelpers, _qunit, _emberQunit) {
+define('mdeditor/tests/integration/pods/components/object/md-taxonomy/collection/system/preview/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit', 'mdeditor/tests/helpers/create-taxonomy'], function (_testHelpers, _qunit, _emberQunit, _createTaxonomy) {
   'use strict';
 
   (0, _qunit.module)('Integration | Component | object/md taxonomy/collection/system/preview', function (hooks) {
@@ -11373,27 +12736,30 @@ define('mdeditor/tests/integration/pods/components/object/md-taxonomy/collection
     (0, _qunit.test)('it renders', async function (assert) {
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.on('myAction', function(val) { ... });
+      this.model = (0, _createTaxonomy.default)()[0].taxonomicSystem[0];
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "wP3yOG3y",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-taxonomy/collection/system/preview\"],false]],\"hasEval\":false}",
+        "id": "sWtInHbk",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-taxonomy/collection/system/preview\",null,[[\"model\",\"profilePath\"],[[23,[\"model\"]],\"foobar\"]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      var input = (0, _testHelpers.findAll)('input, textarea').mapBy('value').join('|');
+
+      assert.equal(input, "Integrated Taxonomic Information System (ITIS)|modifications", 'input values');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "WZnYo2jM",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-taxonomy/collection/system/preview\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "+ebEUGzg",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-taxonomy/collection/system/preview\",null,[[\"model\",\"profilePath\"],[[27,\"hash\",null,null],\"foobar\"]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), "|");
     });
   });
 });
-define('mdeditor/tests/integration/pods/components/object/md-taxonomy/collection/voucher/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit'], function (_testHelpers, _qunit, _emberQunit) {
+define('mdeditor/tests/integration/pods/components/object/md-taxonomy/collection/voucher/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit', 'mdeditor/tests/helpers/create-taxonomy'], function (_testHelpers, _qunit, _emberQunit, _createTaxonomy) {
   'use strict';
 
   (0, _qunit.module)('Integration | Component | object/md taxonomy/collection/voucher', function (hooks) {
@@ -11402,27 +12768,32 @@ define('mdeditor/tests/integration/pods/components/object/md-taxonomy/collection
     (0, _qunit.test)('it renders', async function (assert) {
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.on('myAction', function(val) { ... });
+      this.model = (0, _createTaxonomy.default)()[0].voucher[0];
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "0BKsbx7I",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-taxonomy/collection/voucher\"],false]],\"hasEval\":false}",
+        "id": "HCKPW5rT",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-taxonomy/collection/voucher\",null,[[\"profilePath\",\"model\"],[\"foobar\",[23,[\"model\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Specimen|Repository|Role|custodian|?|×|Contacts|');
+
+      var input = (0, _testHelpers.findAll)('input, textarea').mapBy('value').join('|');
+
+      assert.equal(input, "Specimen|", 'input values');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "yKDhLO+X",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-taxonomy/collection/voucher\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "RtQFNZJ5",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-taxonomy/collection/voucher\",null,[[\"profilePath\",\"model\"],[\"foobar\",[27,\"hash\",null,[[\"repository\"],[[27,\"hash\",null,null]]]]]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), "|Specimen|Repository|Role|Select|or|enter|a|role|Contacts|", 'block');
     });
   });
 });
-define('mdeditor/tests/integration/pods/components/object/md-taxonomy/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit'], function (_testHelpers, _qunit, _emberQunit) {
+define('mdeditor/tests/integration/pods/components/object/md-taxonomy/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit', 'mdeditor/tests/helpers/create-taxonomy'], function (_testHelpers, _qunit, _emberQunit, _createTaxonomy) {
   'use strict';
 
   (0, _qunit.module)('Integration | Component | object/md taxonomy', function (hooks) {
@@ -11431,14 +12802,19 @@ define('mdeditor/tests/integration/pods/components/object/md-taxonomy/component-
     (0, _qunit.test)('it renders', async function (assert) {
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.on('myAction', function(val) { ... });
+      this.model = (0, _createTaxonomy.default)()[0];
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "nWgXQBgI",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-taxonomy\"],false]],\"hasEval\":false}",
+        "id": "3a21iXSt",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-taxonomy\",null,[[\"model\",\"index\"],[[23,[\"model\"]],0]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Collection|#0:|Integrated|Taxonomic|Information|System|(ITIS)|Edit|Collection|Delete|Collection|Kingdom|Fungi|(555705)|Kingdom|Kingdom|Animalia|(202423)|');
+
+      await (0, _testHelpers.click)('li .icon');
+
+      assert.equal((0, _testHelpers.find)('li').textContent.replace(/[\s\n]+/g, '|').trim(), '|Kingdom|Fungi|(555705)|Kingdom|Subkingdom|Dikarya|(936287)|Division|Basidiomycota|(623881)|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
@@ -11447,11 +12823,11 @@ define('mdeditor/tests/integration/pods/components/object/md-taxonomy/component-
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Collection|#undefined|Edit|Collection|Delete|Collection|No|Classification|found.|', 'block');
     });
   });
 });
-define('mdeditor/tests/integration/pods/components/object/md-time-period/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit'], function (_testHelpers, _qunit, _emberQunit) {
+define('mdeditor/tests/integration/pods/components/object/md-time-period/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit', 'moment'], function (_testHelpers, _qunit, _emberQunit, _moment) {
   'use strict';
 
   (0, _qunit.module)('Integration | Component | object/md time period', function (hooks) {
@@ -11461,23 +12837,79 @@ define('mdeditor/tests/integration/pods/components/object/md-time-period/compone
 
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.on('myAction', function(val) { ... });
+      var date = new Date("2016-10-14T13:10:15-0800");
+
+      this.model = [{
+        "id": "id",
+        "description": "description",
+        "identifier": {
+          "identifier": "identifier",
+          "namespace": "namespace"
+        },
+        "periodName": ["periodName0", "periodName1"],
+        "startDateTime": date,
+        "endDateTime": "2016-12-31",
+        "timeInterval": {
+          "interval": 9,
+          "units": "year"
+        },
+        "duration": {
+          "years": 1,
+          "months": 1,
+          "days": 1,
+          "hours": 1,
+          "minutes": 1,
+          "seconds": 1
+        }
+      }, {
+        "id": "id",
+        "description": "description",
+        "identifier": {
+          "identifier": "identifier",
+          "namespace": "namespace"
+        },
+        "periodName": ["periodName0", "periodName1"],
+        "startGeologicAge": {
+          "ageTimeScale": "ageTimeScale",
+          "ageEstimate": "ageEstimate"
+        },
+        "endGeologicAge": {
+          "ageTimeScale": "ageTimeScale",
+          "ageEstimate": "ageEstimate"
+        }
+      }];
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "gqrYRakX",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-time-period\"],false]],\"hasEval\":false}",
+        "id": "1T7nGgfZ",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-time-period\",null,[[\"profilePath\",\"model\"],[\"foobar\",[23,[\"model\",\"firstObject\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Time|Period|Dates|Start|Date|End|Date|Pick|Fiscal|Year|Pick|a|Fiscal|Year|Identifier|Description|Time|Period|Names|2|Add|Time|Period|Name|0|Delete|1|Delete|Interval|Interval|Amount|Time|Unit|year|×|Duration|Years|Months|Days|Hours|Minutes|Seconds|');
 
+      var input = (0, _testHelpers.findAll)('form input, form textarea').mapBy('value').join('|');
+
+      assert.equal(input, (0, _moment.default)(date).format('YYYY-MM-DD HH:mm:ss') + '|2016-12-31 00:00:00|id|description|periodName0|periodName1|9|1|1|1|1|1|1', 'input values');
+
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "UH4t66ob",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-time-period\",null,[[\"profilePath\",\"model\"],[\"foobar\",[23,[\"model\",\"lastObject\"]]]]],false]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      var input1 = (0, _testHelpers.findAll)('form input, form textarea').mapBy('value').join('|');
+
+      assert.equal(input1, "||id|description|periodName0|periodName1|||||||", 'geologic input values');
+
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), "|Time|Period|Dates|Start|Date|End|Date|Pick|Fiscal|Year|Pick|a|Fiscal|Year|Identifier|Description|Time|Period|Names|2|Add|Time|Period|Name|0|Delete|1|Delete|Interval|Interval|Amount|Time|Unit|Choose|unit|of|time|Duration|Years|Months|Days|Hours|Minutes|Seconds|", 'geologic age');
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "8gyQoiwg",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-time-period\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "NXJfvpA3",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-time-period\",null,[[\"profilePath\",\"model\"],[\"foobar\",[27,\"hash\",null,null]]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), "|Time|Period|Dates|Start|Date|End|Date|Pick|Fiscal|Year|Pick|a|Fiscal|Year|Identifier|Description|Time|Period|Names|0|Add|Time|Period|Name|Add|Time|Period|Name|Interval|Interval|Amount|Time|Unit|Choose|unit|of|time|Duration|Years|Months|Days|Hours|Minutes|Seconds|template|block|text|", 'block');
     });
   });
 });
@@ -11491,23 +12923,57 @@ define('mdeditor/tests/integration/pods/components/object/md-transfer/component-
 
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.on('myAction', function(val) { ... });
+      this.model = {
+        "unitsOfDistribution": "unitsOfDistribution",
+        "transferSize": 9.9,
+        "onlineOption": [{
+          "uri": "http://adiwg.org"
+        }, {
+          "uri": "http://adiwg.org/"
+        }],
+        "offlineOption": [{
+          "mediumSpecification": {
+            "title": "title0"
+          }
+        }, {
+          "mediumSpecification": {
+            "title": "title1"
+          }
+        }],
+        "transferFrequency": {
+          "months": 9
+        },
+        "distributionFormat": [{
+          "formatSpecification": {
+            "title": "title0"
+          }
+        }, {
+          "formatSpecification": {
+            "title": "title1"
+          }
+        }]
+      };
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "Gt7/tbzq",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-transfer\"],false]],\"hasEval\":false}",
+        "id": "40oDYvKG",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-transfer\",null,[[\"profilePath\",\"model\"],[\"foobar\",[23,[\"model\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), '');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Transfer|Size|(MB)|Distribution|units|Online|Option|2|Add|OK|#|Name|Uri|0|Not|Defined|http://adiwg.org|Edit|Delete|1|Not|Defined|http://adiwg.org/|Edit|Delete|OK|Offline|Option|2|Add|OK|#|Title|0|Not|Defined|Edit|Delete|1|Not|Defined|Edit|Delete|OK|Distribution|Formats|2|Add|#|Format|Name|Version|Compression|Method|URL|0|Delete|1|Delete|Transfer|Frequency|Years|Months|Days|Hours|Minutes|Seconds|');
+
+      var input = (0, _testHelpers.findAll)('form input').mapBy('value').join('|');
+
+      assert.equal(input, "9.9|unitsOfDistribution|title0||||title1|||||9||||", 'input values');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "A5I8188A",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-transfer\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "K4SrFmdQ",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-transfer\",null,[[\"profilePath\",\"model\"],[\"foobar\",[27,\"hash\",null,null]]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('*').textContent.trim(), 'template block text');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Transfer|Size|(MB)|Distribution|units|Online|Option|0|Add|OK|#|Name|Uri|Add|Resource|OK|Offline|Option|0|Add|OK|#|Title|Add|Offline|Option|OK|Distribution|Formats|0|Add|#|Format|Name|Version|Compression|Method|URL|Add|Distribution|Format|Transfer|Frequency|Years|Months|Days|Hours|Minutes|Seconds|template|block|text|', 'block');
     });
   });
 });
@@ -12218,7 +13684,7 @@ define('mdeditor/tests/lint/app.lint-test', [], function () {
 
   QUnit.test('pods/components/object/md-spatial-extent/component.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'pods/components/object/md-spatial-extent/component.js should pass ESLint\n\n35:21 - Don\'t use observers if possible (ember/no-observers)');
+    assert.ok(true, 'pods/components/object/md-spatial-extent/component.js should pass ESLint\n\n50:21 - Don\'t use observers if possible (ember/no-observers)');
   });
 
   QUnit.test('pods/components/object/md-spatial-info/component.js', function (assert) {
@@ -13226,11 +14692,6 @@ define('mdeditor/tests/lint/templates.template.lint-test', [], function () {
     assert.ok(true, 'mdeditor/pods/components/md-models-table/components/check/template.hbs should pass TemplateLint.\n\n');
   });
 
-  QUnit.test('mdeditor/pods/components/md-models-table/template.hbs', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'mdeditor/pods/components/md-models-table/template.hbs should pass TemplateLint.\n\n');
-  });
-
   QUnit.test('mdeditor/pods/components/md-title/template.hbs', function (assert) {
     assert.expect(1);
     assert.ok(true, 'mdeditor/pods/components/md-title/template.hbs should pass TemplateLint.\n\n');
@@ -14211,6 +15672,11 @@ define('mdeditor/tests/lint/tests.lint-test', [], function () {
     assert.ok(true, 'acceptance/pods/record/new-test.js should pass ESLint\n\n');
   });
 
+  QUnit.test('helpers/create-citation.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'helpers/create-citation.js should pass ESLint\n\n');
+  });
+
   QUnit.test('helpers/create-contact.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'helpers/create-contact.js should pass ESLint\n\n');
@@ -14221,6 +15687,11 @@ define('mdeditor/tests/lint/tests.lint-test', [], function () {
     assert.ok(true, 'helpers/create-dictionary.js should pass ESLint\n\n');
   });
 
+  QUnit.test('helpers/create-identifier.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'helpers/create-identifier.js should pass ESLint\n\n');
+  });
+
   QUnit.test('helpers/create-map-layer.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'helpers/create-map-layer.js should pass ESLint\n\n');
@@ -14229,6 +15700,11 @@ define('mdeditor/tests/lint/tests.lint-test', [], function () {
   QUnit.test('helpers/create-record.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'helpers/create-record.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('helpers/create-taxonomy.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'helpers/create-taxonomy.js should pass ESLint\n\n');
   });
 
   QUnit.test('helpers/destroy-app.js', function (assert) {
@@ -14839,6 +16315,11 @@ define('mdeditor/tests/lint/tests.lint-test', [], function () {
   QUnit.test('integration/pods/components/object/md-medium/component-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'integration/pods/components/object/md-medium/component-test.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('integration/pods/components/object/md-object-table/component-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/pods/components/object/md-object-table/component-test.js should pass ESLint\n\n');
   });
 
   QUnit.test('integration/pods/components/object/md-objectroute-table/component-test.js', function (assert) {
@@ -15767,10 +17248,14 @@ define('mdeditor/tests/unit/helpers/bbox-to-poly-test', ['mdeditor/helpers/bbox-
   'use strict';
 
   (0, _qunit.module)('Unit | Helper | bbox to poly', function () {
-    // Replace this with your real tests.
     (0, _qunit.test)('it works', function (assert) {
-      let result = (0, _bboxToPoly.bboxToPoly)([42]);
-      assert.ok(result);
+      let result = (0, _bboxToPoly.bboxToPoly)([{
+        southLatitude: 1,
+        northLatitude: 2,
+        westLongitude: 3,
+        eastLongitude: 4
+      }]);
+      assert.equal("[[1,3],[2,3],[2,4],[1,4]]", JSON.stringify(result));
     });
   });
 });
@@ -15778,10 +17263,15 @@ define('mdeditor/tests/unit/helpers/get-dash-test', ['mdeditor/helpers/get-dash'
   'use strict';
 
   (0, _qunit.module)('Unit | Helper | get dash', function () {
-    // Replace this with your real tests.
     (0, _qunit.test)('it works', function (assert) {
-      let result = (0, _getDash.getDash)([42]);
-      assert.ok(result);
+      let obj = { foo: 'bar' };
+      let result = (0, _getDash.getDash)([obj, 'foo']);
+
+      assert.equal(result, 'bar', 'value');
+
+      result = (0, _getDash.getDash)([obj, 'biz']);
+
+      assert.equal(result, '--', 'dash');
     });
   });
 });
@@ -15802,8 +17292,8 @@ define('mdeditor/tests/unit/helpers/md-markdown-test', ['mdeditor/helpers/md-mar
   (0, _qunit.module)('Unit | Helper | md markdown', function () {
     // Replace this with your real tests.
     (0, _qunit.test)('it works', function (assert) {
-      let result = (0, _mdMarkdown.mdMarkdown)([42]);
-      assert.ok(result);
+      let result = (0, _mdMarkdown.mdMarkdown)('# Test');
+      assert.equal(result.string.trim(), '<p>#</p>');
     });
   });
 });
@@ -15905,11 +17395,12 @@ define('mdeditor/tests/unit/instance-initializers/route-publish-test', ['mdedito
       (0, _destroyApp.default)(this.application);
     });
 
-    // Replace this with your real tests.
     (0, _qunit.test)('it works', function (assert) {
+      let a = [{ route: 'test' }];
+
+      this.appInstance.register('service:publish', Ember.Service.extend({ catalogs: a }));
       (0, _routePublish.initialize)(this.appInstance);
 
-      // you would normally confirm the results of the initializer here
       assert.ok(true);
     });
   });
@@ -15930,12 +17421,15 @@ define('mdeditor/tests/unit/instance-initializers/settings-sciencebase-test', ['
       (0, _destroyApp.default)(this.application);
     });
 
+    let a = [];
+
     // Replace this with your real tests.
     (0, _qunit.test)('it works', function (assert) {
+      this.appInstance.register('service:publish', Ember.Service.extend({ catalogs: a }));
       (0, _settingsSciencebase.initialize)(this.appInstance);
 
       // you would normally confirm the results of the initializer here
-      assert.ok(true);
+      assert.ok(this.appInstance.lookup('service:publish').catalogs.findBy('route', 'sciencebase'));
     });
   });
 });
@@ -16165,18 +17659,8 @@ define('mdeditor/tests/unit/pods/contact/show/route-test', ['qunit', 'ember-quni
 define('mdeditor/tests/unit/pods/contacts/route-test', ['qunit', 'ember-qunit'], function (_qunit, _emberQunit) {
   'use strict';
 
-  let originalConfirm;
-
   (0, _qunit.module)('Unit | Route | contacts', function (hooks) {
     (0, _emberQunit.setupTest)(hooks);
-
-    hooks.beforeEach(function () {
-      originalConfirm = window.confirm;
-    });
-
-    hooks.afterEach(function () {
-      window.confirm = originalConfirm;
-    });
 
     (0, _qunit.test)('it exists', function (assert) {
       var route = this.owner.lookup('route:contacts');
@@ -16199,41 +17683,12 @@ define('mdeditor/tests/unit/pods/dashboard/route-test', ['qunit', 'ember-qunit']
 define('mdeditor/tests/unit/pods/dictionaries/route-test', ['qunit', 'ember-qunit'], function (_qunit, _emberQunit) {
   'use strict';
 
-  let originalConfirm;
-
   (0, _qunit.module)('Unit | Route | dictionaries', function (hooks) {
     (0, _emberQunit.setupTest)(hooks);
-
-    hooks.beforeEach(function () {
-      originalConfirm = window.confirm;
-    });
-
-    hooks.afterEach(function () {
-      window.confirm = originalConfirm;
-    });
 
     (0, _qunit.test)('it exists', function (assert) {
       var route = this.owner.lookup('route:dictionaries');
       assert.ok(route);
-    });
-
-    (0, _qunit.test)('should display a confirm', function (assert) {
-      assert.expect(2);
-
-      let route = this.owner.lookup('route:dictionaries');
-
-      // test _deleteItem to displays the expected window.confirm message
-      const expectedTextFoo = 'foo';
-      window.confirm = message => {
-        assert.equal(message, expectedTextFoo, 'expect confirm to display ${expectedTextFoo}');
-      };
-      route._deleteItem(0, expectedTextFoo);
-
-      // test action deleteItem calls _deleteItem and displays a window.confirm
-      window.confirm = message => {
-        assert.ok(message, 'expect confirm to display a message');
-      };
-      route.send('deleteItem', 0);
     });
   });
 });
@@ -17416,41 +18871,12 @@ define('mdeditor/tests/unit/pods/record/show/translate/route-test', ['qunit', 'e
 define('mdeditor/tests/unit/pods/records/route-test', ['qunit', 'ember-qunit'], function (_qunit, _emberQunit) {
   'use strict';
 
-  let originalConfirm;
-
   (0, _qunit.module)('Unit | Route | records', function (hooks) {
     (0, _emberQunit.setupTest)(hooks);
-
-    hooks.beforeEach(function () {
-      originalConfirm = window.confirm;
-    });
-
-    hooks.afterEach(function () {
-      window.confirm = originalConfirm;
-    });
 
     (0, _qunit.test)('it exists', function (assert) {
       var route = this.owner.lookup('route:records');
       assert.ok(route);
-    });
-
-    (0, _qunit.test)('should display a confirm', function (assert) {
-      assert.expect(2);
-
-      let route = this.owner.lookup('route:records');
-
-      // test _deleteItem to displays the expected window.confirm message
-      const expectedTextFoo = 'foo';
-      window.confirm = message => {
-        assert.equal(message, expectedTextFoo, 'expect confirm to display ${expectedTextFoo}');
-      };
-      route._deleteItem(0, expectedTextFoo);
-
-      // test action deleteItem calls _deleteItem and displays a window.confirm
-      window.confirm = message => {
-        assert.ok(message, 'expect confirm to display a message');
-      };
-      route.send('deleteItem', 0);
     });
   });
 });
@@ -17582,7 +19008,9 @@ define('mdeditor/tests/unit/services/codelist-test', ['qunit', 'ember-qunit', 'm
       var service = this.owner.lookup('service:codelist');
 
       Object.keys(_mdcodes.default).forEach(function (key) {
-        const name = key.replace(/^iso_/, '');
+        if (key === 'default') return;
+
+        const name = key.replace(/^(iso_|adiwg_)/, '');
 
         assert.ok(service.get(name), name + ' is present.');
       });
@@ -17663,7 +19091,7 @@ define('mdeditor/tests/unit/services/jsonvalidator-test', ['qunit', 'ember-qunit
         }]
       };
 
-      assert.ok(service.validate('jsonapi', obj));
+      assert.ok(service.validator.validate('jsonapi', obj));
     });
   });
 });
@@ -17779,9 +19207,11 @@ define('mdeditor/tests/unit/transforms/json-test', ['qunit', 'ember-qunit'], fun
 
     (0, _qunit.test)('it deserialized', function (assert) {
       let transform = this.owner.lookup('transform:json');
-      assert.deepEqual(transform.deserialize('{"foo":"bar"}'), {
-        foo: "bar"
-      });
+      let obj = transform.deserialize('{"foo":"bar"}');
+
+      assert.equal(obj.get('foo'), "bar");
+      assert.equal(Object.keys(obj)[0], 'foo');
+      assert.equal(Object.keys(obj).length, 1);
     });
 
     (0, _qunit.test)('it serialized', function (assert) {
@@ -17798,8 +19228,8 @@ define('mdeditor/tests/unit/utils/config-test', ['mdeditor/utils/config', 'qunit
   (0, _qunit.module)('Unit | Utility | config', function () {
     // Replace this with your real tests.
     (0, _qunit.test)('it works', function (assert) {
-      let result = (0, _config.default)();
-      assert.ok(result);
+      let result = _config.default.name;
+      assert.equal(result, 'ScienceBase');
     });
   });
 });
