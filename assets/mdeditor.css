@@ -7276,6 +7276,9 @@ div.ember-basic-dropdown-content {
   margin-top: 0;
   padding: 0;
 }
+.section-header hr {
+  margin: 0;
+}
 
 .no-margin {
   margin: 0;
@@ -7312,6 +7315,12 @@ a {
   text-decoration: none;
 }
 
+.word-break-all {
+  overflow-wrap: break-word;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+
 .required > .card-header .card-title::after,
 form .required > label::after,
 label.required::after,
@@ -7343,6 +7352,14 @@ input[disabled] + .md-input-error {
 .md-inputgroup-error {
   right: 45px;
   z-index: 2;
+}
+
+.md-info {
+  color: #29abe0;
+}
+
+.md-success {
+  color: #93c54b;
 }
 
 .md-error {
@@ -7403,16 +7420,16 @@ input[disabled] + .md-input-error {
   background-color: #f47937;
 }
 .md-tooltip.warning.ember-tooltip[x-placement^=top] .ember-tooltip-arrow {
-  border-top-color: #d7530c;
+  border-top-color: #f36c24;
 }
 .md-tooltip.warning.ember-tooltip[x-placement^=left] .ember-tooltip-arrow {
-  border-left-color: #d7530c;
+  border-left-color: #f36c24;
 }
 .md-tooltip.warning.ember-tooltip[x-placement^=right] .ember-tooltip-arrow {
-  border-right-color: #d7530c;
+  border-right-color: #f36c24;
 }
 .md-tooltip.warning.ember-tooltip[x-placement^=bottom] .ember-tooltip-arrow {
-  border-bottom-color: #d7530c;
+  border-bottom-color: #f36c24;
 }
 .md-tooltip.info {
   background-color: #1b8dbb;
@@ -7470,6 +7487,10 @@ body.slider {
 
 .v-align-middle {
   vertical-align: middle;
+}
+
+.display-table {
+  display: table;
 }
 
 #md-wrapper {
@@ -7753,6 +7774,10 @@ body.slider {
   color: #29abe0;
   cursor: pointer;
 }
+.md-record-table > .table td,
+.md-select-table > .table td {
+  vertical-align: middle;
+}
 .md-record-table .table-hover > tbody > tr,
 .md-select-table .table-hover > tbody > tr {
   transition: all 0.1s linear;
@@ -7816,17 +7841,24 @@ body.slider {
 }
 
 @media screen and (min-width: 992px) {
-  .md-dashboard-buttons {
+  .md-dashboard-buttons,
+.md-row-buttons {
     display: table;
     white-space: nowrap;
   }
-  .md-dashboard-buttons .btn {
+  .md-dashboard-buttons .btn,
+.md-dashboard-buttons .btn-group,
+.md-row-buttons .btn,
+.md-row-buttons .btn-group {
     margin-left: 1px;
     margin-right: 1px;
   }
 }
 @media screen and (max-width: 991px) {
-  .md-dashboard-buttons .btn {
+  .md-dashboard-buttons .btn,
+.md-dashboard-buttons .btn-group,
+.md-row-buttons .btn,
+.md-row-buttons .btn-group {
     display: block;
     margin: 1px auto;
     width: 100%;
@@ -8473,6 +8505,15 @@ form tfoot {
   border-top-color: #fff;
 }
 
+.form-group-inline {
+  align-items: center;
+  display: flex;
+  margin-bottom: 5px;
+}
+.form-group-inline > * {
+  margin-right: 1em;
+}
+
 @-moz-keyframes fadeIn {
   0% {
     opacity: 0;
@@ -8583,15 +8624,36 @@ form tfoot {
 
 .fadeOut {
   -moz-animation: fadeOut 1s;
-  display: none;
+  visibility: hidden;
   -webkit-animation: fadeOut 1s;
-  display: none;
+  visibility: hidden;
   -o-animation: fadeOut 1s;
-  display: none;
+  visibility: hidden;
   -ms-animation: fadeOut 1s;
-  display: none;
+  visibility: hidden;
   animation: fadeOut 1s;
-  display: none;
+  visibility: hidden;
+}
+
+.fade-in-fast {
+  -moz-animation: fadeIn 0.25s;
+  -webkit-animation: fadeIn 0.25s;
+  -o-animation: fadeIn 0.25s;
+  -ms-animation: fadeIn 0.25s;
+  animation: fadeIn 0.25s;
+}
+
+.fade-out-fast {
+  -moz-animation: fadeOut 0.25s;
+  visibility: hidden;
+  -webkit-animation: fadeOut 0.25s;
+  visibility: hidden;
+  -o-animation: fadeOut 0.25s;
+  visibility: hidden;
+  -ms-animation: fadeOut 0.25s;
+  visibility: hidden;
+  animation: fadeOut 0.25s;
+  visibility: hidden;
 }
 
 .box-shadow--2dp {
@@ -9247,6 +9309,12 @@ label .x-toggle-form.x-toggle-btn::after {
 .md-classification .md-taxon-body:hover {
   background-color: #edf8fc;
 }
+.md-classification .md-taxon-body:hover .md-taxon-btn {
+  opacity: 1;
+}
+.md-classification .md-taxon-body.md-spotlight-target {
+  background-color: #fff;
+}
 .md-classification .md-taxon-body .icon:hover {
   cursor: pointer;
 }
@@ -9272,6 +9340,10 @@ label .x-toggle-form.x-toggle-btn::after {
 .md-classification .md-taxon-body .md-taxon-text .spacer::after {
   content: ":";
 }
+.md-classification .md-taxon-body .md-taxon-btn {
+  opacity: 0.1;
+  transition: opacity 0.25s ease;
+}
 .md-classification .md-taxon-form {
   margin-top: 1em;
 }
@@ -9291,6 +9363,15 @@ label .x-toggle-form.x-toggle-btn::after {
 .md-card.full-screen .card-collapse > .md-classification {
   max-height: calc(100vh - 40px);
   overflow-y: auto;
+}
+
+.md-collapsible-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.25s ease-in-out;
+}
+.md-collapsible-content.open {
+  max-height: 100vh;
 }
 
 .ember-modal-dialog {
