@@ -7241,7 +7241,7 @@
       let errors = this.hasSchemaErrors;
 
       if (this.currentHash) {
-        return dirty ? 'danger' : errors ? 'warning' : 'success';
+        return dirty ? 'danger' : errors.length ? 'warning' : 'success';
       }
 
       return 'success';
