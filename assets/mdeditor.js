@@ -7131,7 +7131,7 @@
 
     title: Ember.computed.alias('json.metadata.resourceInfo.citation.title'),
 
-    icon: Ember.computed('json.metadata.resourceInfo.resourceType.0.type', function () {
+    icon: Ember.computed('json.metadata.resourceInfo.resourceType.firstObject.type', function () {
       const type = this.get('json.metadata.resourceInfo.resourceType.0.type') || '';
       const list = Ember.getOwner(this).lookup('service:icon');
 
@@ -27794,7 +27794,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("mdeditor/app")["default"].create({"repository":"https://github.com/adiwg/mdEditor","name":"mdeditor","version":"0.9.0-alpha+cc467a7f"});
+            require("mdeditor/app")["default"].create({"repository":"https://github.com/adiwg/mdEditor","name":"mdeditor","version":"0.9.0-alpha+ab4ae99a"});
           }
         
 //# sourceMappingURL=mdeditor.map
