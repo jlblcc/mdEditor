@@ -4,7 +4,7 @@
   "alternateId": [],
   "title": "Test Profile",
   "description": "A basic example of a profile.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "components": {
     "record": {
       "main": {
