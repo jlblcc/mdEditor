@@ -6504,7 +6504,7 @@
      * @category computed
      * @requires
      */
-    customSchemas: Ember.computed('schemas.schemas.[]', 'profile', function () {
+    customSchemas: Ember.computed('schemas.schemas.@each.isGlobal', 'profile', function () {
       return this.schemas.schemas.filter(schema => {
         if (schema.schemaType !== this.constructor.modelName) {
           return false;
