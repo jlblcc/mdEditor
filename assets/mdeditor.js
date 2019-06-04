@@ -67,7 +67,7 @@
         (true && !(path.charAt(0) !== '.') && Ember.assert(`${path} is not a profile path!`, path.charAt(0) !== '.'));
 
         Ember.defineProperty(this, 'isVisible', Ember.computed('profile.active', function () {
-          // console.log(path);
+          console.log(path);
           if (!profile.activeComponents) {
             return isVisible;
           }

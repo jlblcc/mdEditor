@@ -13699,7 +13699,7 @@ define('mdeditor/tests/lint/app.lint-test', [], function () {
 
   QUnit.test('app.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'app.js should pass ESLint\n\n');
+    assert.ok(true, 'app.js should pass ESLint\n\n72:11 - Unexpected console statement. (no-console)');
   });
 
   QUnit.test('formats.js', function (assert) {
