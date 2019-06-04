@@ -20138,7 +20138,7 @@
   });
 
 
-  const modelTypes = ['records', 'contacts', 'dictionaries', 'settings', 'schemas'];
+  const modelTypes = ['records', 'contacts', 'dictionaries', 'settings', 'schemas', 'custom-profiles', 'profiles'];
 
   exports.default = Ember.Route.extend(_scrollTo.default, {
     mdjson: Ember.inject.service(),
@@ -20228,6 +20228,8 @@
           //export schemas with settings
           if (filterIds.setting.length) {
             filterIds['schema'] = store.peekAll('schema').mapBy('id');
+            filterIds['profile'] = store.peekAll('profile').mapBy('id');
+            filterIds['custom-profile'] = store.peekAll('custom-profile').mapBy('id');
           }
 
           store.exportSelectedData(modelTypes, {
