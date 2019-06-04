@@ -7270,14 +7270,20 @@ div.ember-basic-dropdown-content {
   margin: 20px 0;
 }
 
-.section-header {
+.section-header,
+.tab-header {
   color: #1e9dd1;
   margin-bottom: 20px;
   margin-top: 0;
   padding: 0;
 }
-.section-header hr {
+.section-header hr,
+.tab-header hr {
   margin: 0;
+}
+
+.tab-header {
+  margin: 15px 0;
 }
 
 .no-margin {
@@ -7292,6 +7298,11 @@ div.ember-basic-dropdown-content {
   font-size: 40px;
 }
 
+.list-group-item-heading hr {
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+}
+
 a {
   transition: all 0.3s ease-out;
 }
@@ -7302,6 +7313,10 @@ a {
 
 .text-white {
   color: #fff !important;
+}
+
+.text-info-dark {
+  color: #1e9dd1 !important;
 }
 
 .plain-link {
@@ -8462,6 +8477,10 @@ form .table-hover > tbody > tr:hover {
 }
 form tfoot {
   background-color: #fbfbfb;
+}
+form.no-gutter .form-group > * {
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .label-pill {

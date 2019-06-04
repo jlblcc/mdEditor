@@ -7877,11 +7877,14 @@ define('mdeditor/tests/integration/pods/components/control/md-errors/component-t
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.on('myAction', function(val) { ... });
       this.set('errors', [{
-        dataPath: '/foo/biz',
-        message: 'message1'
-      }, {
-        message: 'message2'
-      }]);
+        title: 'Test',
+        errors: [{
+          dataPath: '/foo/biz',
+          message: 'message1'
+        }, {
+          message: 'message2'
+        }]
+      }, { title: 'Test2', errors: [] }]);
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
         "id": "xNlicEFz",
@@ -7889,7 +7892,7 @@ define('mdeditor/tests/integration/pods/components/control/md-errors/component-t
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('.md-error-list').textContent.replace(/[ \n]+/g, '|').trim(), '|0|message1|/foo/biz|1|message2|');
+      assert.equal((0, _testHelpers.find)('.md-error-list').textContent.replace(/[ \n]+/g, '|').trim(), '|Test|0|message1|/foo/biz|1|message2|Test2|');
 
       assert.ok((0, _testHelpers.findAll)('.md-error-list .label')[1].classList.contains('label-danger'), 'class applied');
 
@@ -7900,7 +7903,7 @@ define('mdeditor/tests/integration/pods/components/control/md-errors/component-t
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('.md-error-list').textContent.replace(/[ \n]+/g, '|').trim(), '|0|message1|/foo/biz|1|message2|template|block|text|', 'block');
+      assert.equal((0, _testHelpers.find)('.md-error-list').textContent.replace(/[ \n]+/g, '|').trim(), '|Test|0|message1|/foo/biz|1|message2|Test2|template|block|text|', 'block');
     });
   });
 });
@@ -10036,6 +10039,35 @@ define('mdeditor/tests/integration/pods/components/layout/md-wrap/component-test
       }));
 
       assert.equal((0, _testHelpers.find)('.testme').textContent.trim(), 'template block text');
+    });
+  });
+});
+define('mdeditor/tests/integration/pods/components/layout/nav/dictionary/nav-main/component-test', ['qunit', 'ember-qunit', '@ember/test-helpers'], function (_qunit, _emberQunit, _testHelpers) {
+  'use strict';
+
+  (0, _qunit.module)('Integration | Component | layout/nav/dictionary/nav-main', function (hooks) {
+    (0, _emberQunit.setupRenderingTest)(hooks);
+
+    (0, _qunit.test)('it renders', async function (assert) {
+      // Set any properties with this.set('myProperty', 'value');
+      // Handle any actions with this.set('myAction', function(val) { ... });
+
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "k07xliw5",
+        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"layout/nav/dictionary/nav-main\"],false]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      assert.equal(this.element.textContent.trim(), '');
+
+      // Template block usage:
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "MdbB3cwn",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"layout/nav/dictionary/nav-main\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      assert.equal(this.element.textContent.trim(), 'template block text');
     });
   });
 });
@@ -12474,6 +12506,122 @@ define('mdeditor/tests/integration/pods/components/object/md-process-step/compon
     });
   });
 });
+define('mdeditor/tests/integration/pods/components/object/md-profile/component-test', ['qunit', 'ember-qunit', '@ember/test-helpers'], function (_qunit, _emberQunit, _testHelpers) {
+  'use strict';
+
+  (0, _qunit.module)('Integration | Component | object/md-profile', function (hooks) {
+    (0, _emberQunit.setupRenderingTest)(hooks);
+
+    (0, _qunit.test)('it renders', async function (assert) {
+      // Set any properties with this.set('myProperty', 'value');
+      // Handle any actions with this.set('myAction', function(val) { ... });
+
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "Zf+NpTAo",
+        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-profile\"],false]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      assert.equal(this.element.textContent.trim(), '');
+
+      // Template block usage:
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "6X1mUgB+",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-profile\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      assert.equal(this.element.textContent.trim(), 'template block text');
+    });
+  });
+});
+define('mdeditor/tests/integration/pods/components/object/md-profile/custom/component-test', ['qunit', 'ember-qunit', '@ember/test-helpers'], function (_qunit, _emberQunit, _testHelpers) {
+  'use strict';
+
+  (0, _qunit.module)('Integration | Component | object/md-profile/custom', function (hooks) {
+    (0, _emberQunit.setupRenderingTest)(hooks);
+
+    (0, _qunit.test)('it renders', async function (assert) {
+      // Set any properties with this.set('myProperty', 'value');
+      // Handle any actions with this.set('myAction', function(val) { ... });
+
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "6o6nyNLD",
+        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-profile/custom\"],false]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      assert.equal(this.element.textContent.trim(), '');
+
+      // Template block usage:
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "jDqF1GCj",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-profile/custom\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      assert.equal(this.element.textContent.trim(), 'template block text');
+    });
+  });
+});
+define('mdeditor/tests/integration/pods/components/object/md-profile/form/component-test', ['qunit', 'ember-qunit', '@ember/test-helpers'], function (_qunit, _emberQunit, _testHelpers) {
+  'use strict';
+
+  (0, _qunit.module)('Integration | Component | object/md-profile/form', function (hooks) {
+    (0, _emberQunit.setupRenderingTest)(hooks);
+
+    (0, _qunit.test)('it renders', async function (assert) {
+      // Set any properties with this.set('myProperty', 'value');
+      // Handle any actions with this.set('myAction', function(val) { ... });
+
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "7KnlWmon",
+        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-profile/form\"],false]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      assert.equal(this.element.textContent.trim(), '');
+
+      // Template block usage:
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "2rfCWb9k",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-profile/form\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      assert.equal(this.element.textContent.trim(), 'template block text');
+    });
+  });
+});
+define('mdeditor/tests/integration/pods/components/object/md-profile/preview/component-test', ['qunit', 'ember-qunit', '@ember/test-helpers'], function (_qunit, _emberQunit, _testHelpers) {
+  'use strict';
+
+  (0, _qunit.module)('Integration | Component | object/md-profile/preview', function (hooks) {
+    (0, _emberQunit.setupRenderingTest)(hooks);
+
+    (0, _qunit.test)('it renders', async function (assert) {
+      // Set any properties with this.set('myProperty', 'value');
+      // Handle any actions with this.set('myAction', function(val) { ... });
+
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "OykxDAmn",
+        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-profile/preview\"],false]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      assert.equal(this.element.textContent.trim(), '');
+
+      // Template block usage:
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "V7xyW7zt",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-profile/preview\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      assert.equal(this.element.textContent.trim(), 'template block text');
+    });
+  });
+});
 define('mdeditor/tests/integration/pods/components/object/md-repository-array/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit'], function (_testHelpers, _qunit, _emberQunit) {
   'use strict';
 
@@ -12562,7 +12710,10 @@ define('mdeditor/tests/integration/pods/components/object/md-schema/component-te
       // Handle any actions with this.set('myAction', function(val) { ... });
       this.set('data', Ember.Object.create({
         title: 'foo',
-        uri: 'bar'
+        uri: 'bar',
+        remoteVersion: '1.1',
+        localVersion: '1.0',
+        hasUpdate: true
       }));
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
@@ -12571,7 +12722,7 @@ define('mdeditor/tests/integration/pods/components/object/md-schema/component-te
         "meta": {}
       }));
 
-      assert.equal(this.element.textContent.replace(/[ \s\n]+/g, '|').trim(), '|Info|Schemas|Title|URL|Description|Type|Select|the|record|type|for|schema.|Apply|Globally?|No|Yes|');
+      assert.equal(this.element.textContent.replace(/[ \s\n]+/g, '|').trim(), '|Info|Schemas|Title|URL|Version|1.0|Update|Available|(1.1)|Description|Type|Select|the|record|type|for|schema.|Apply|Globally?|No|Yes|');
 
       assert.equal((0, _testHelpers.find)('.md-schema input').value, 'foo', 'render form');
       // Template block usage:
@@ -12581,7 +12732,7 @@ define('mdeditor/tests/integration/pods/components/object/md-schema/component-te
         "meta": {}
       }));
 
-      assert.equal(this.element.textContent.replace(/[ \s\n]+/g, '|').trim(), '|Info|Schemas|Title|URL|Description|Type|Select|the|record|type|for|schema.|Apply|Globally?|No|Yes|');
+      assert.equal(this.element.textContent.replace(/[ \s\n]+/g, '|').trim(), '|Info|Schemas|Title|URL|Version|1.0|Update|Available|(1.1)|Description|Type|Select|the|record|type|for|schema.|Apply|Globally?|No|Yes|');
     });
   });
 });
@@ -12596,7 +12747,10 @@ define('mdeditor/tests/integration/pods/components/object/md-schema/form/compone
       // Handle any actions with this.set('myAction', function(val) { ... });
       this.set('data', Ember.Object.create({
         title: 'foo',
-        uri: 'bar'
+        uri: 'bar',
+        remoteVersion: '1.1',
+        localVersion: '1.0',
+        hasUpdate: true
       }));
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
@@ -12605,7 +12759,7 @@ define('mdeditor/tests/integration/pods/components/object/md-schema/form/compone
         "meta": {}
       }));
 
-      assert.equal(this.element.textContent.replace(/[ \s\n]+/g, '|').trim(), 'Title|URL|Description|Type|Select|the|record|type|for|schema.|Apply|Globally?|No|Yes|');
+      assert.equal(this.element.textContent.replace(/[ \s\n]+/g, '|').trim(), 'Title|URL|Version|1.0|Update|Available|(1.1)|Description|Type|Select|the|record|type|for|schema.|Apply|Globally?|No|Yes|');
 
       assert.equal((0, _testHelpers.find)('input').value, 'foo', 'render form');
 
@@ -12616,7 +12770,7 @@ define('mdeditor/tests/integration/pods/components/object/md-schema/form/compone
         "meta": {}
       }));
 
-      assert.equal(this.element.textContent.replace(/[ \s\n]+/g, '|').trim(), '|Title|URL|Description|Type|Select|the|record|type|for|schema.|Apply|Globally?|No|Yes|template|block|text|');
+      assert.equal(this.element.textContent.replace(/[ \s\n]+/g, '|').trim(), '|Title|URL|Version|1.0|Update|Available|(1.1)|Description|Type|Select|the|record|type|for|schema.|Apply|Globally?|No|Yes|template|block|text|');
     });
   });
 });
@@ -13640,7 +13794,7 @@ define('mdeditor/tests/lint/app.lint-test', [], function () {
 
   QUnit.test('models/base.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'models/base.js should pass ESLint\n\n46:18 - Don\'t use observers if possible (ember/no-observers)\n54:20 - Don\'t use observers if possible (ember/no-observers)');
+    assert.ok(true, 'models/base.js should pass ESLint\n\n41:18 - Don\'t use observers if possible (ember/no-observers)\n49:20 - Don\'t use observers if possible (ember/no-observers)');
   });
 
   QUnit.test('models/contact.js', function (assert) {
@@ -13648,9 +13802,19 @@ define('mdeditor/tests/lint/app.lint-test', [], function () {
     assert.ok(true, 'models/contact.js should pass ESLint\n\n');
   });
 
+  QUnit.test('models/custom-profile.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'models/custom-profile.js should pass ESLint\n\n');
+  });
+
   QUnit.test('models/dictionary.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'models/dictionary.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('models/profile.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'models/profile.js should pass ESLint\n\n');
   });
 
   QUnit.test('models/record.js', function (assert) {
@@ -13958,6 +14122,11 @@ define('mdeditor/tests/lint/app.lint-test', [], function () {
     assert.ok(true, 'pods/components/layout/md-wrap/component.js should pass ESLint\n\n');
   });
 
+  QUnit.test('pods/components/layout/nav/dictionary/nav-main/component.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'pods/components/layout/nav/dictionary/nav-main/component.js should pass ESLint\n\n');
+  });
+
   QUnit.test('pods/components/layout/nav/record/nav-main/component.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'pods/components/layout/nav/record/nav-main/component.js should pass ESLint\n\n');
@@ -14246,6 +14415,26 @@ define('mdeditor/tests/lint/app.lint-test', [], function () {
   QUnit.test('pods/components/object/md-process-step/component.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'pods/components/object/md-process-step/component.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('pods/components/object/md-profile/component.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'pods/components/object/md-profile/component.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('pods/components/object/md-profile/custom/component.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'pods/components/object/md-profile/custom/component.js should pass ESLint\n\n15:7 - Unexpected console statement. (no-console)');
+  });
+
+  QUnit.test('pods/components/object/md-profile/form/component.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'pods/components/object/md-profile/form/component.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('pods/components/object/md-profile/preview/component.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'pods/components/object/md-profile/preview/component.js should pass ESLint\n\n');
   });
 
   QUnit.test('pods/components/object/md-repository-array/component.js', function (assert) {
@@ -14585,7 +14774,7 @@ define('mdeditor/tests/lint/app.lint-test', [], function () {
 
   QUnit.test('pods/record/new/id/route.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'pods/record/new/id/route.js should pass ESLint\n\n');
+    assert.ok(false, 'pods/record/new/id/route.js should pass ESLint\n\n1:20 - \'service\' is defined but never used. (no-unused-vars)');
   });
 
   QUnit.test('pods/record/new/index/route.js', function (assert) {
@@ -14953,6 +15142,26 @@ define('mdeditor/tests/lint/app.lint-test', [], function () {
     assert.ok(true, 'pods/settings/main/route.js should pass ESLint\n\n');
   });
 
+  QUnit.test('pods/settings/profile/index/controller.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'pods/settings/profile/index/controller.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('pods/settings/profile/index/route.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'pods/settings/profile/index/route.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('pods/settings/profile/manage/controller.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'pods/settings/profile/manage/controller.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('pods/settings/profile/manage/route.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'pods/settings/profile/manage/route.js should pass ESLint\n\n');
+  });
+
   QUnit.test('pods/settings/profile/route.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'pods/settings/profile/route.js should pass ESLint\n\n');
@@ -15010,12 +15219,17 @@ define('mdeditor/tests/lint/app.lint-test', [], function () {
 
   QUnit.test('services/codelist.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'services/codelist.js should pass ESLint\n\n');
+    assert.ok(false, 'services/codelist.js should pass ESLint\n\n1:10 - \'get\' is defined but never used. (no-unused-vars)');
   });
 
   QUnit.test('services/contacts.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'services/contacts.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('services/custom-profile.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'services/custom-profile.js should pass ESLint\n\n');
   });
 
   QUnit.test('services/icon.js', function (assert) {
@@ -15333,6 +15547,11 @@ define('mdeditor/tests/lint/templates.template.lint-test', [], function () {
     assert.ok(true, 'mdeditor/pods/components/layout/md-wrap/template.hbs should pass TemplateLint.\n\n');
   });
 
+  QUnit.test('mdeditor/pods/components/layout/nav/dictionary/nav-main/template.hbs', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'mdeditor/pods/components/layout/nav/dictionary/nav-main/template.hbs should pass TemplateLint.\n\n');
+  });
+
   QUnit.test('mdeditor/pods/components/layout/nav/record/nav-main/template.hbs', function (assert) {
     assert.expect(1);
     assert.ok(true, 'mdeditor/pods/components/layout/nav/record/nav-main/template.hbs should pass TemplateLint.\n\n');
@@ -15626,6 +15845,26 @@ define('mdeditor/tests/lint/templates.template.lint-test', [], function () {
   QUnit.test('mdeditor/pods/components/object/md-process-step/template.hbs', function (assert) {
     assert.expect(1);
     assert.ok(true, 'mdeditor/pods/components/object/md-process-step/template.hbs should pass TemplateLint.\n\n');
+  });
+
+  QUnit.test('mdeditor/pods/components/object/md-profile/custom/template.hbs', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'mdeditor/pods/components/object/md-profile/custom/template.hbs should pass TemplateLint.\n\n');
+  });
+
+  QUnit.test('mdeditor/pods/components/object/md-profile/form/template.hbs', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'mdeditor/pods/components/object/md-profile/form/template.hbs should pass TemplateLint.\n\n');
+  });
+
+  QUnit.test('mdeditor/pods/components/object/md-profile/preview/template.hbs', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'mdeditor/pods/components/object/md-profile/preview/template.hbs should pass TemplateLint.\n\n');
+  });
+
+  QUnit.test('mdeditor/pods/components/object/md-profile/template.hbs', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'mdeditor/pods/components/object/md-profile/template.hbs should pass TemplateLint.\n\n');
   });
 
   QUnit.test('mdeditor/pods/components/object/md-repository-array/template.hbs', function (assert) {
@@ -16323,6 +16562,16 @@ define('mdeditor/tests/lint/templates.template.lint-test', [], function () {
     assert.ok(true, 'mdeditor/pods/settings/main/template.hbs should pass TemplateLint.\n\n');
   });
 
+  QUnit.test('mdeditor/pods/settings/profile/index/template.hbs', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'mdeditor/pods/settings/profile/index/template.hbs should pass TemplateLint.\n\n');
+  });
+
+  QUnit.test('mdeditor/pods/settings/profile/manage/template.hbs', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'mdeditor/pods/settings/profile/manage/template.hbs should pass TemplateLint.\n\n');
+  });
+
   QUnit.test('mdeditor/pods/settings/profile/template.hbs', function (assert) {
     assert.expect(1);
     assert.ok(true, 'mdeditor/pods/settings/profile/template.hbs should pass TemplateLint.\n\n');
@@ -16335,7 +16584,7 @@ define('mdeditor/tests/lint/templates.template.lint-test', [], function () {
 
   QUnit.test('mdeditor/pods/settings/validation/template.hbs', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'mdeditor/pods/settings/validation/template.hbs should pass TemplateLint.\n\nmdeditor/pods/settings/validation/template.hbs\n  59:4  error  Duplicate attribute \'disabled\' found in the SubExpression.  no-duplicate-attributes\n');
+    assert.ok(true, 'mdeditor/pods/settings/validation/template.hbs should pass TemplateLint.\n\n');
   });
 
   QUnit.test('mdeditor/pods/translate/template.hbs', function (assert) {
@@ -16838,6 +17087,11 @@ define('mdeditor/tests/lint/tests.lint-test', [], function () {
     assert.ok(true, 'integration/pods/components/layout/md-wrap/component-test.js should pass ESLint\n\n');
   });
 
+  QUnit.test('integration/pods/components/layout/nav/dictionary/nav-main/component-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/pods/components/layout/nav/dictionary/nav-main/component-test.js should pass ESLint\n\n');
+  });
+
   QUnit.test('integration/pods/components/layout/nav/record/nav-main/component-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'integration/pods/components/layout/nav/record/nav-main/component-test.js should pass ESLint\n\n');
@@ -17116,6 +17370,26 @@ define('mdeditor/tests/lint/tests.lint-test', [], function () {
   QUnit.test('integration/pods/components/object/md-process-step/component-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'integration/pods/components/object/md-process-step/component-test.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('integration/pods/components/object/md-profile/component-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/pods/components/object/md-profile/component-test.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('integration/pods/components/object/md-profile/custom/component-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/pods/components/object/md-profile/custom/component-test.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('integration/pods/components/object/md-profile/form/component-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/pods/components/object/md-profile/form/component-test.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('integration/pods/components/object/md-profile/preview/component-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/pods/components/object/md-profile/preview/component-test.js should pass ESLint\n\n');
   });
 
   QUnit.test('integration/pods/components/object/md-repository-array/component-test.js', function (assert) {
@@ -17878,6 +18152,26 @@ define('mdeditor/tests/lint/tests.lint-test', [], function () {
     assert.ok(true, 'unit/pods/settings/main/route-test.js should pass ESLint\n\n');
   });
 
+  QUnit.test('unit/pods/settings/profile/index/controller-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/pods/settings/profile/index/controller-test.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('unit/pods/settings/profile/index/route-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/pods/settings/profile/index/route-test.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('unit/pods/settings/profile/manage/controller-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/pods/settings/profile/manage/controller-test.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('unit/pods/settings/profile/manage/route-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/pods/settings/profile/manage/route-test.js should pass ESLint\n\n');
+  });
+
   QUnit.test('unit/pods/settings/profile/route-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'unit/pods/settings/profile/route-test.js should pass ESLint\n\n');
@@ -17936,6 +18230,11 @@ define('mdeditor/tests/lint/tests.lint-test', [], function () {
   QUnit.test('unit/services/contacts-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'unit/services/contacts-test.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('unit/services/custom-profile-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/services/custom-profile-test.js should pass ESLint\n\n');
   });
 
   QUnit.test('unit/services/icon-test.js', function (assert) {
@@ -19766,6 +20065,56 @@ define('mdeditor/tests/unit/pods/settings/main/route-test', ['qunit', 'ember-qun
     });
   });
 });
+define('mdeditor/tests/unit/pods/settings/profile/index/controller-test', ['qunit', 'ember-qunit'], function (_qunit, _emberQunit) {
+  'use strict';
+
+  (0, _qunit.module)('Unit | Controller | settings/profile/index', function (hooks) {
+    (0, _emberQunit.setupTest)(hooks);
+
+    // Replace this with your real tests.
+    (0, _qunit.test)('it exists', function (assert) {
+      let controller = this.owner.lookup('controller:settings/profile/index');
+      assert.ok(controller);
+    });
+  });
+});
+define('mdeditor/tests/unit/pods/settings/profile/index/route-test', ['qunit', 'ember-qunit'], function (_qunit, _emberQunit) {
+  'use strict';
+
+  (0, _qunit.module)('Unit | Route | settings/profile/index', function (hooks) {
+    (0, _emberQunit.setupTest)(hooks);
+
+    (0, _qunit.test)('it exists', function (assert) {
+      let route = this.owner.lookup('route:settings/profile/index');
+      assert.ok(route);
+    });
+  });
+});
+define('mdeditor/tests/unit/pods/settings/profile/manage/controller-test', ['qunit', 'ember-qunit'], function (_qunit, _emberQunit) {
+  'use strict';
+
+  (0, _qunit.module)('Unit | Controller | settings/profile/manage', function (hooks) {
+    (0, _emberQunit.setupTest)(hooks);
+
+    // Replace this with your real tests.
+    (0, _qunit.test)('it exists', function (assert) {
+      let controller = this.owner.lookup('controller:settings/profile/manage');
+      assert.ok(controller);
+    });
+  });
+});
+define('mdeditor/tests/unit/pods/settings/profile/manage/route-test', ['qunit', 'ember-qunit'], function (_qunit, _emberQunit) {
+  'use strict';
+
+  (0, _qunit.module)('Unit | Route | settings/profile/manage', function (hooks) {
+    (0, _emberQunit.setupTest)(hooks);
+
+    (0, _qunit.test)('it exists', function (assert) {
+      let route = this.owner.lookup('route:settings/profile/manage');
+      assert.ok(route);
+    });
+  });
+});
 define('mdeditor/tests/unit/pods/settings/profile/route-test', ['qunit', 'ember-qunit'], function (_qunit, _emberQunit) {
   'use strict';
 
@@ -19949,6 +20298,19 @@ define('mdeditor/tests/unit/services/contacts-test', ['qunit', 'ember-qunit'], f
     // Replace this with your real tests.
     (0, _qunit.test)('it exists', function (assert) {
       let service = this.owner.lookup('service:contacts');
+      assert.ok(service);
+    });
+  });
+});
+define('mdeditor/tests/unit/services/custom-profile-test', ['qunit', 'ember-qunit'], function (_qunit, _emberQunit) {
+  'use strict';
+
+  (0, _qunit.module)('Unit | Service | custom-profile', function (hooks) {
+    (0, _emberQunit.setupTest)(hooks);
+
+    // Replace this with your real tests.
+    (0, _qunit.test)('it exists', function (assert) {
+      let service = this.owner.lookup('service:custom-profile');
       assert.ok(service);
     });
   });
