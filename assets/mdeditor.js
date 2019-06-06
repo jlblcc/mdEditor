@@ -7028,10 +7028,7 @@
     }),
 
     /* eslint-disable ember/no-observers */
-    updateSettings: Ember.observer('hasDirtyAttributes', //'title', 'uri', 'alias',
-    //'description',
-    'hasUpdate', 'schemas.[]', //'profileId',
-    function () {
+    updateSettings: Ember.observer('hasDirtyAttributes', 'title', 'uri', 'alias', 'description', 'hasUpdate', 'schemas.[]', 'profileId', function () {
       if (this.isNew || this.isEmpty || this.isDeleted) {
         return;
       }
@@ -7576,6 +7573,8 @@
       this.schemaValidator.addMetaSchema(_jsonSchemaDraft);
       this.updateSettings;
     },
+    flashMessages: Ember.inject.service(),
+
     title: _emberData.default.attr('string'),
     uri: _emberData.default.attr('string'),
     description: _emberData.default.attr('string'),
@@ -7632,7 +7631,15 @@
 
       this.schemaValidator.removeSchema();
 
-      return this.schemaValidator.addSchema(this.customSchemas.mapBy('schema'));
+      let valid = this.customSchemas.every(schema => {
+        return this.schemaValidator.validateSchema(schema.schema);
+      });
+
+      if (valid) {
+        return this.schemaValidator.addSchema(this.customSchemas.mapBy('schema'));
+      }
+
+      this.flashMessages.danger(`Could not load schemas for ${this.title}. Schemas provided did not validate.`);
     }),
 
     /* eslint-disable ember/no-observers */
@@ -17053,7 +17060,7 @@
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "Whuk9pqI", "block": "{\"symbols\":[\"&default\"],\"statements\":[[1,[27,\"input/md-input\",null,[[\"model\",\"valuePath\",\"label\",\"placeholder\",\"showValidations\"],[[23,[\"record\"]],\"title\",\"Title\",\"Enter title for schema.\",true]]],false],[0,\"\\n\\n\"],[1,[27,\"input/md-input\",null,[[\"model\",\"valuePath\",\"label\",\"placeholder\",\"showValidations\"],[[23,[\"record\"]],\"uri\",\"URL\",\"Enter URL of root schema.\",true]]],false],[0,\"\\n\\n\"],[7,\"div\"],[11,\"class\",\"form-group flex\"],[9],[0,\"\\n  \"],[7,\"label\"],[9],[0,\"Version\"],[10],[0,\"\\n  \"],[7,\"span\"],[9],[1,[27,\"if\",[[23,[\"record\",\"localVersion\"]],[23,[\"record\",\"localVersion\"]],\"--\"],null],false],[10],[0,\"\\n\"],[4,\"if\",[[23,[\"record\",\"hasUpdate\"]]],null,{\"statements\":[[0,\"    \"],[7,\"span\"],[11,\"class\",\"label label-pill label-info\"],[9],[0,\"Update Available (\"],[1,[23,[\"record\",\"remoteVersion\"]],false],[0,\")\"],[10],[0,\"\\n\"]],\"parameters\":[]},null],[10],[0,\"\\n\\n\"],[1,[27,\"input/md-textarea\",null,[[\"model\",\"valuePath\",\"label\",\"placeholder\",\"showValidations\"],[[23,[\"record\"]],\"description\",\"Description\",\"Enter a description of the schema.\",true]]],false],[0,\"\\n\\n\"],[1,[27,\"input/md-select\",null,[[\"model\",\"path\",\"label\",\"valuePath\",\"namePath\",\"placeholder\",\"objectArray\",\"searchEnabled\",\"showValidations\"],[[23,[\"record\"]],\"schemaType\",\"Type\",\"value\",\"name\",\"Select the record type for schema.\",[23,[\"typeOptions\"]],false,true]]],false],[0,\"\\n\\n\"],[7,\"div\"],[11,\"class\",\"form-group from-group-inlne\"],[9],[0,\"\\n    \"],[7,\"label\"],[9],[0,\"Apply Globally?\"],[10],[0,\"\\n    \"],[7,\"div\"],[11,\"class\",\"form-control\"],[9],[0,\"\\n        \"],[7,\"div\"],[11,\"class\",\"inline-block\"],[9],[0,\"\\n            \"],[1,[27,\"input/md-toggle\",null,[[\"value\",\"onToggle\",\"showLabels\",\"onLabel\",\"offLabel\",\"size\",\"theme\"],[[23,[\"record\",\"isGlobal\"]],[27,\"action\",[[22,0,[]],[27,\"mut\",[[23,[\"record\",\"isGlobal\"]]],null]],null],true,\"Yes\",\"No\",\"medium\",\"form\"]]],false],[0,\"\\n        \"],[10],[0,\"\\n    \"],[10],[0,\"\\n\"],[10],[0,\"\\n\"],[14,1],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/object/md-schema/form/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "PSxDlzZ7", "block": "{\"symbols\":[\"&default\"],\"statements\":[[1,[27,\"input/md-input\",null,[[\"model\",\"valuePath\",\"label\",\"placeholder\",\"showValidations\"],[[23,[\"record\"]],\"title\",\"Title\",\"Enter title for schema.\",true]]],false],[0,\"\\n\\n\"],[1,[27,\"input/md-input\",null,[[\"model\",\"valuePath\",\"label\",\"placeholder\",\"showValidations\"],[[23,[\"record\"]],\"uri\",\"URL\",\"Enter URL of root schema.\",true]]],false],[0,\"\\n\\n\"],[7,\"div\"],[11,\"class\",\"form-group flex\"],[9],[0,\"\\n  \"],[7,\"label\"],[9],[0,\"Version\"],[10],[0,\"\\n  \"],[7,\"span\"],[9],[1,[27,\"if\",[[23,[\"record\",\"localVersion\"]],[23,[\"record\",\"localVersion\"]],\"--\"],null],false],[10],[0,\"\\n\"],[4,\"if\",[[23,[\"record\",\"hasUpdate\"]]],null,{\"statements\":[[0,\"    \"],[7,\"span\"],[11,\"class\",\"label label-pill label-info\"],[9],[0,\"Update Available (\"],[1,[23,[\"record\",\"remoteVersion\"]],false],[0,\")\"],[10],[0,\"\\n\"]],\"parameters\":[]},null],[10],[0,\"\\n\\n\"],[1,[27,\"input/md-textarea\",null,[[\"model\",\"valuePath\",\"label\",\"placeholder\",\"showValidations\"],[[23,[\"record\"]],\"description\",\"Description\",\"Enter a description of the schema.\",true]]],false],[0,\"\\n\\n\"],[1,[27,\"input/md-select\",null,[[\"model\",\"path\",\"label\",\"valuePath\",\"namePath\",\"placeholder\",\"objectArray\",\"searchEnabled\",\"showValidations\"],[[23,[\"record\"]],\"schemaType\",\"Type\",\"value\",\"name\",\"Select the record type for schema.\",[23,[\"typeOptions\"]],false,true]]],false],[0,\"\\n\\n\"],[4,\"liquid-unless\",[[23,[\"record\",\"isNew\"]]],[[\"use\"],[\"toDown\"]],{\"statements\":[[0,\"  \"],[7,\"div\"],[11,\"class\",\"form-group from-group-inlne\"],[9],[0,\"\\n      \"],[7,\"label\"],[9],[0,\"Apply Globally?\"],[10],[0,\"\\n      \"],[7,\"div\"],[11,\"class\",\"form-control\"],[9],[0,\"\\n          \"],[7,\"div\"],[11,\"class\",\"inline-block\"],[9],[0,\"\\n              \"],[1,[27,\"input/md-toggle\",null,[[\"value\",\"onToggle\",\"showLabels\",\"onLabel\",\"offLabel\",\"size\",\"theme\"],[[23,[\"record\",\"isGlobal\"]],[27,\"action\",[[22,0,[]],[27,\"mut\",[[23,[\"record\",\"isGlobal\"]]],null]],null],true,\"Yes\",\"No\",\"medium\",\"form\"]]],false],[0,\"\\n          \"],[10],[0,\"\\n      \"],[10],[0,\"\\n  \"],[10],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[14,1],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/object/md-schema/form/template.hbs" } });
 });
 ;define("mdeditor/pods/components/object/md-schema/template", ["exports"], function (exports) {
   "use strict";
@@ -28691,7 +28698,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("mdeditor/app")["default"].create({"repository":"https://github.com/adiwg/mdEditor","name":"mdeditor","version":"0.9.0-dev+4e80e710"});
+            require("mdeditor/app")["default"].create({"repository":"https://github.com/adiwg/mdEditor","name":"mdeditor","version":"0.9.0-dev.1+30c99c57"});
           }
         
 //# sourceMappingURL=mdeditor.map
