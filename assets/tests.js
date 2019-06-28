@@ -6063,6 +6063,119 @@ define('mdeditor/tests/helpers/create-map-layer', ['exports'], function (exports
     return layers;
   }
 });
+define("mdeditor/tests/helpers/create-profile", ["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = createProfile;
+  function createProfile(total) {
+
+    const profiles = [];
+
+    for (let i = 0; i < total; i++) {
+
+      const profile = Ember.Object.create({
+        "uri": "https://jlblcc.github.io/test-profile/profiles/minimal.json",
+        "alias": 'My alias' + i,
+        "altDescription": 'alternate decscription' + i,
+        "remoteVersion": "0.0.1",
+        components: {
+          "record": {
+            "main": {
+              "recordId": false,
+              "purpose": false,
+              "environmentDescription": false,
+              "supplementalInfo": false,
+              "credit": false,
+              "timePeriod": {
+                "id": false,
+                "description": false,
+                "periodName": false,
+                "duration": false,
+                "interval": false
+              },
+              "citation": {
+                "edition": false,
+                "onlineResource": {
+                  "protocol": false
+                },
+                "presentationForm": false,
+                "otherCitationDetails": false,
+                "graphic": false,
+                "series": false,
+                "identifier": false,
+                "graphicOverview": false
+              },
+              "graphicOverview": false
+            },
+            "metadata": {
+              "identifier": {
+                "identifier": true,
+                "namespace": true,
+                "version": false,
+                "description": false,
+                "authority": false
+              },
+              "parentMetadata": false,
+              "alternateMetadataReference": false,
+              "defaultLocale": false,
+              "maintenance": false
+            }
+          }
+        },
+        description: "A Minimalist Profile" + i,
+        hasUpdate: true,
+        identifier: "minimal",
+        localVersion: "0.0.0",
+        namespace: "org.adiwg.profile",
+        nav: {
+          "record": [{
+            "title": "Basic Info",
+            "target": "record.show.edit.main",
+            "tip": "This is a customized tip."
+          }, {
+            "title": "About Metadata",
+            "target": "record.show.edit.metadata",
+            "tip": "Information about the metadata for the resource."
+          }, {
+            "title": "Keywords",
+            "target": "record.show.edit.keywords",
+            "tip": "Terms used to describe the resource."
+          }, {
+            "title": "Boundaries",
+            "target": "record.show.edit.extent",
+            "tip": "Information describing the bounds of the resource."
+          }, {
+            "title": "Distribution",
+            "target": "record.show.edit.distribution",
+            "tip": "Information about obtaining the resource."
+          }],
+          "dictionary": [{
+            "title": "Main",
+            "target": "dictionary.show.edit.index",
+            "tip": "Basic information about the dictionary."
+          }, {
+            "title": "Citation",
+            "target": "dictionary.show.edit.citation",
+            "tip": "The citation for the dictionary."
+          }, {
+            "title": "Tables",
+            "target": "dictionary.show.edit.entity",
+            "tip": "Information about entities(tables) and attributes(columns or fields)."
+          }]
+        },
+        title: "Minimal",
+        config: JSON.parse("{\"identifier\":\"minimal\",\"namespace\":\"org.adiwg.profile\",\"alternateId\":[],\"title\":\"Minimal\",\"description\":\"A Minimalist Profile\",\"version\":\"0.0.0\",\"components\":{\"record\":{\"main\":{\"recordId\":false,\"purpose\":false,\"environmentDescription\":false,\"supplementalInfo\":false,\"credit\":false,\"timePeriod\":{\"id\":false,\"description\":false,\"periodName\":false,\"duration\":false,\"interval\":false},\"citation\":{\"edition\":false,\"onlineResource\":{\"protocol\":false},\"presentationForm\":false,\"otherCitationDetails\":false,\"graphic\":false,\"series\":false,\"identifier\":false,\"graphicOverview\":false},\"graphicOverview\":false},\"metadata\":{\"identifier\":{\"identifier\":true,\"namespace\":true,\"version\":false,\"description\":false,\"authority\":false},\"parentMetadata\":false,\"alternateMetadataReference\":false,\"defaultLocale\":false,\"maintenance\":false}}},\"nav\":{\"record\":[{\"title\":\"Basic Info\",\"target\":\"record.show.edit.main\",\"tip\":\"This is a customized tip.\"},{\"title\":\"About Metadata\",\"target\":\"record.show.edit.metadata\",\"tip\":\"Information about the metadata for the resource.\"},{\"title\":\"Keywords\",\"target\":\"record.show.edit.keywords\",\"tip\":\"Terms used to describe the resource.\"},{\"title\":\"Boundaries\",\"target\":\"record.show.edit.extent\",\"tip\":\"Information describing the bounds of the resource.\"},{\"title\":\"Distribution\",\"target\":\"record.show.edit.distribution\",\"tip\":\"Information about obtaining the resource.\"}],\"dictionary\":[{\"title\":\"Main\",\"target\":\"dictionary.show.edit.index\",\"tip\":\"Basic information about the dictionary.\"},{\"title\":\"Citation\",\"target\":\"dictionary.show.edit.citation\",\"tip\":\"The citation for the dictionary.\"},{\"title\":\"Tables\",\"target\":\"dictionary.show.edit.entity\",\"tip\":\"Information about entities(tables) and attributes(columns or fields).\"}]}}")
+      });
+
+      profiles.push(profile);
+    }
+
+    return profiles;
+  }
+});
 define('mdeditor/tests/helpers/create-record', ['exports'], function (exports) {
   'use strict';
 
@@ -9455,7 +9568,7 @@ define('mdeditor/tests/integration/pods/components/input/md-select-contacts/comp
     });
   });
 });
-define('mdeditor/tests/integration/pods/components/input/md-select-profile/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit', 'ember-power-select/test-support/helpers'], function (_testHelpers, _qunit, _emberQunit, _helpers) {
+define('mdeditor/tests/integration/pods/components/input/md-select-profile/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit', 'ember-power-select/test-support/helpers', 'mdeditor/config/environment'], function (_testHelpers, _qunit, _emberQunit, _helpers, _environment) {
   'use strict';
 
   (0, _qunit.module)('Integration | Component | input/md select profile', function (hooks) {
@@ -9466,14 +9579,15 @@ define('mdeditor/tests/integration/pods/components/input/md-select-profile/compo
       // Set any properties with this.set('myProperty', 'value');
       // test dummy for the external profile action
       this.set('updateProfile', () => {});
+      this.set('profileId', _environment.default.APP.defaultProfileId);
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "xagWIKsv",
-        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"input/md-select-profile\",null,[[\"value\",\"updateProfile\",\"class\"],[\"full\",[23,[\"updateProfile\"]],\"testme\"]]],false]],\"hasEval\":false}",
+        "id": "wvUOt27+",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"input/md-select-profile\",null,[[\"value\",\"updateProfile\",\"class\"],[[23,[\"profileId\"]],[23,[\"updateProfile\"]],\"testme\"]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('.testme').textContent.replace(/[ \n]+/g, '|'), '|Profile|full|?|');
+      assert.equal((0, _testHelpers.find)('.testme').textContent.replace(/[ \n]+/g, '|'), '|Profile|Full|?|');
     });
 
     (0, _qunit.test)('should trigger external action on change', async function (assert) {
@@ -9483,18 +9597,18 @@ define('mdeditor/tests/integration/pods/components/input/md-select-profile/compo
 
       // test dummy for the external profile action
       this.set('updateProfile', actual => {
-        assert.equal(actual, 'basic', 'submitted value is passed to external action');
+        assert.equal(actual, _environment.default.APP.defaultProfileId, 'submitted value is passed to external action');
       });
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "rI8uOOUU",
-        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"input/md-select-profile\",null,[[\"value\",\"updateProfile\"],[[23,[\"full\"]],[27,\"action\",[[22,0,[]],[23,[\"updateProfile\"]]],null]]]],false]],\"hasEval\":false}",
+        "id": "fZEkVVb6",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"input/md-select-profile\",null,[[\"value\",\"updateProfile\"],[null,[27,\"action\",[[22,0,[]],[23,[\"updateProfile\"]]],null]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
       // select a value and force an onchange
       await (0, _helpers.clickTrigger)();
-      await (0, _testHelpers.triggerEvent)((0, _testHelpers.find)('.ember-power-select-option'), 'mouseup');
+      await (0, _testHelpers.triggerEvent)((0, _testHelpers.findAll)('.ember-power-select-option .select-value').findBy('innerText', 'Full'), 'mouseup');
     });
   });
 });
@@ -9820,10 +9934,11 @@ define('mdeditor/tests/integration/pods/components/layout/md-nav-secondary/compo
   'use strict';
 
   //Stub profile service
-  const profiles = {
-    full: {
-      profile: null,
-      secondaryNav: [{
+  const profiles = [{
+    identifier: "full",
+    namespace: "org.adiwg.profile",
+    nav: {
+      record: [{
         title: 'Foo',
         target: 'record.show.edit.index'
 
@@ -9832,10 +9947,12 @@ define('mdeditor/tests/integration/pods/components/layout/md-nav-secondary/compo
         target: 'record.show.edit.metadata'
 
       }]
-    },
-    basic: {
-      profile: null,
-      secondaryNav: [{
+    }
+  }, {
+    identifier: 'basic',
+    namespace: "org.adiwg.profile",
+    nav: {
+      record: [{
         title: 'FooBar',
         target: 'record.show.edit.index'
 
@@ -9845,17 +9962,10 @@ define('mdeditor/tests/integration/pods/components/layout/md-nav-secondary/compo
 
       }]
     }
-  };
+  }];
 
   const profileStub = Ember.Service.extend({
-    getActiveProfile() {
-      const active = this.get('active');
-      const profile = active && typeof active === 'string' ? active : 'full';
-      const profiles = this.get('profiles');
-
-      return profiles[profile];
-    },
-    profiles: profiles
+    coreProfiles: profiles
   });
 
   (0, _qunit.module)('Integration | Component | md nav secondary', function (hooks) {
@@ -9866,6 +9976,12 @@ define('mdeditor/tests/integration/pods/components/layout/md-nav-secondary/compo
       // Calling inject puts the service instance in the test's context,
       // making it accessible as "profileService" within each test
       this.profileService = this.owner.lookup('service:profile');
+      this.customService = this.owner.lookup('service:custom-profile');
+      this.model = {
+        constructor: {
+          modelName: 'record'
+        }
+      };
     });
 
     (0, _qunit.test)('it renders', async function (assert) {
@@ -9875,8 +9991,8 @@ define('mdeditor/tests/integration/pods/components/layout/md-nav-secondary/compo
       // Handle any actions with this.on('myAction', function(val) { ... });
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "JcLETuLV",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"layout/md-nav-secondary\"],false]],\"hasEval\":false}",
+        "id": "mWu/Vkcx",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"layout/md-nav-secondary\",null,[[\"model\"],[[23,[\"model\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
@@ -9886,8 +10002,8 @@ define('mdeditor/tests/integration/pods/components/layout/md-nav-secondary/compo
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "oQC+3+mm",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"layout/md-nav-secondary\",null,null,{\"statements\":[[0,\"        \"],[7,\"li\"],[9],[0,\"template block text\"],[10],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "o1n+DhLv",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"layout/md-nav-secondary\",null,[[\"model\"],[[23,[\"model\"]]]],{\"statements\":[[0,\"        \"],[7,\"li\"],[9],[0,\"template block text\"],[10],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
@@ -9902,11 +10018,11 @@ define('mdeditor/tests/integration/pods/components/layout/md-nav-secondary/compo
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.on('myAction', function(val) { ... });
 
-      this.set('profileService.active', 'basic');
+      this.set('customService.active', 'org.adiwg.profile.basic');
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "JcLETuLV",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"layout/md-nav-secondary\"],false]],\"hasEval\":false}",
+        "id": "mWu/Vkcx",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"layout/md-nav-secondary\",null,[[\"model\"],[[23,[\"model\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
@@ -10045,33 +10161,84 @@ define('mdeditor/tests/integration/pods/components/layout/md-wrap/component-test
 define('mdeditor/tests/integration/pods/components/layout/nav/dictionary/nav-main/component-test', ['qunit', 'ember-qunit', '@ember/test-helpers'], function (_qunit, _emberQunit, _testHelpers) {
   'use strict';
 
+  // import Service from '@ember/service';
+
+  //Stub profile service
+  // const profiles = [{
+  //     identifier: "full",
+  //     namespace: "org.adiwg.profile",
+  //     nav: {
+  //       dictionary: [{
+  //         title: 'Foo',
+  //         target: 'record.show.edit.index'
+  //
+  //       }, {
+  //         title: 'Bar',
+  //         target: 'record.show.edit.metadata'
+  //
+  //       }]
+  //     }
+  //   },
+  //   {
+  //     identifier: 'basic',
+  //     namespace: "org.adiwg.profile",
+  //     nav: {
+  //       dictionary: [{
+  //         title: 'FooBar',
+  //         target: 'record.show.edit.index'
+  //
+  //       }, {
+  //         title: 'BarFoo',
+  //         target: 'record.show.edit.metadata'
+  //
+  //       }]
+  //     }
+  //   }
+  // ];
+
+  // const profileStub = Service.extend({
+  //   coreProfiles: profiles
+  // });
+
   (0, _qunit.module)('Integration | Component | layout/nav/dictionary/nav-main', function (hooks) {
     (0, _emberQunit.setupRenderingTest)(hooks);
+
+    // hooks.beforeEach(function () {
+    //   this.owner.register('service:profile', profileStub);
+    //   // Calling inject puts the service instance in the test's context,
+    //   // making it accessible as "profileService" within each test
+    //   this.profileService = this.owner.lookup('service:profile');
+    //   this.customService = this.owner.lookup('service:custom-profile');
+    //   this.model = {
+    //     constructor: {
+    //       modelName: 'record'
+    //     }
+    //   }
+    // });
 
     (0, _qunit.test)('it renders', async function (assert) {
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.set('myAction', function(val) { ... });
-
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "k07xliw5",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"layout/nav/dictionary/nav-main\"],false]],\"hasEval\":false}",
+        "id": "t7zPplnd",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"layout/nav/dictionary/nav-main\",null,[[\"model\"],[[23,[\"model\"]]]]],false],[0,\"\\n      \"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"dictionary-nav\",[27,\"component\",[\"control/md-button\"],[[\"text\"],[\"testme\"]]]]]],false],[0,\"\\n      \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal(this.element.textContent.trim(), '');
+      assert.equal(this.element.textContent.trim(), 'testme');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "MdbB3cwn",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"layout/nav/dictionary/nav-main\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "9bX2QfBj",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"layout/nav/dictionary/nav-main\",null,[[\"model\"],[[23,[\"model\"]]]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"      \"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"dictionary-nav\",[27,\"component\",[\"control/md-button\"],[[\"text\"],[\"testme\"]]]]]],false],[0,\"\\n    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal(this.element.textContent.trim(), 'template block text');
+      assert.equal(this.element.textContent.trim(), 'testme');
     });
   });
 });
-define('mdeditor/tests/integration/pods/components/layout/nav/record/nav-main/component-test', ['qunit', 'ember-qunit', '@ember/test-helpers'], function (_qunit, _emberQunit, _testHelpers) {
+define('mdeditor/tests/integration/pods/components/layout/nav/record/nav-main/component-test', ['qunit', 'ember-qunit', '@ember/test-helpers', 'mdeditor/config/environment'], function (_qunit, _emberQunit, _testHelpers, _environment) {
   'use strict';
 
   (0, _qunit.module)('Integration | Component | layout/nav/record/nav-main', function (hooks) {
@@ -10081,14 +10248,15 @@ define('mdeditor/tests/integration/pods/components/layout/nav/record/nav-main/co
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.set('myAction', function(val) { ... });
       this.foo = function () {};
+      this.profileId = _environment.default.APP.defaultProfileId;
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "GWswVZYo",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"layout/nav/record/nav-main\"],false],[0,\"\\n    \"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"record-nav\",[27,\"component\",[\"input/md-select-profile\"],[[\"value\",\"updateProfile\"],[\"full\",[22,0,[\"foo\"]]]]]]]],false],[0,\"\\n    \"]],\"hasEval\":false}",
+        "id": "gTF5ibe9",
+        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"layout/nav/record/nav-main\"],false],[0,\"\\n    \"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"record-nav\",[27,\"component\",[\"input/md-select-profile\"],[[\"value\",\"updateProfile\"],[[23,[\"profileId\"]],[22,0,[\"foo\"]]]]]]]],false],[0,\"\\n    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Translate|Profile|full|?|');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Translate|Profile|Full|?|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
@@ -12506,7 +12674,7 @@ define('mdeditor/tests/integration/pods/components/object/md-process-step/compon
     });
   });
 });
-define('mdeditor/tests/integration/pods/components/object/md-profile/component-test', ['qunit', 'ember-qunit', '@ember/test-helpers'], function (_qunit, _emberQunit, _testHelpers) {
+define('mdeditor/tests/integration/pods/components/object/md-profile/component-test', ['qunit', 'ember-qunit', '@ember/test-helpers', 'mdeditor/tests/helpers/create-profile'], function (_qunit, _emberQunit, _testHelpers, _createProfile) {
   'use strict';
 
   (0, _qunit.module)('Integration | Component | object/md-profile', function (hooks) {
@@ -12515,23 +12683,24 @@ define('mdeditor/tests/integration/pods/components/object/md-profile/component-t
     (0, _qunit.test)('it renders', async function (assert) {
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.set('myAction', function(val) { ... });
+      this.model = (0, _createProfile.default)(1)[0];
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "Zf+NpTAo",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-profile\"],false]],\"hasEval\":false}",
+        "id": "NoF8bY3A",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-profile\",null,[[\"record\"],[[23,[\"model\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal(this.element.textContent.trim(), '');
+      assert.equal(this.element.textContent.replace(/[ \n]+/g, '|').trim(), '|URL|Alias|Version|0.0.0|Update|Available|(0.0.1)|Title|Minimal|Description|A|Minimalist|Profile|Identifier|minimal|Namespace|org.adiwg.profile|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "6X1mUgB+",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-profile\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "rpyqIzon",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-profile\",null,[[\"record\"],[[23,[\"model\"]]]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal(this.element.textContent.trim(), 'template block text');
+      assert.equal(this.element.textContent.replace(/[ \n]+/g, '|').trim(), '|URL|Alias|Version|0.0.0|Update|Available|(0.0.1)|Title|Minimal|Description|A|Minimalist|Profile|Identifier|minimal|Namespace|org.adiwg.profile|');
     });
   });
 });
@@ -12544,27 +12713,31 @@ define('mdeditor/tests/integration/pods/components/object/md-profile/custom/comp
     (0, _qunit.test)('it renders', async function (assert) {
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.set('myAction', function(val) { ... });
+      this.model = {
+        title: 'testme',
+        description: 'testing description'
+      };
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "6o6nyNLD",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-profile/custom\"],false]],\"hasEval\":false}",
+        "id": "DSL1Gm/7",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-profile/custom\",null,[[\"record\"],[[23,[\"model\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal(this.element.textContent.trim(), '');
+      assert.equal(this.element.textContent.replace(/[ \n]+/g, '|').trim(), 'Title|Description|Profile|Definition|Select|the|profile|definition.|Select|Schemas|No|schemas|avialable.|Schemas|Selected|Select|schemas|from|the|list.|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "jDqF1GCj",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-profile/custom\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "O69gCtG3",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-profile/custom\",null,[[\"record\"],[[23,[\"model\"]]]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal(this.element.textContent.trim(), 'template block text');
+      assert.equal(this.element.textContent.replace(/[ \n]+/g, '|').trim(), '|Title|Description|Profile|Definition|Select|the|profile|definition.|Select|Schemas|No|schemas|avialable.|Schemas|Selected|Select|schemas|from|the|list.|template|block|text|');
     });
   });
 });
-define('mdeditor/tests/integration/pods/components/object/md-profile/form/component-test', ['qunit', 'ember-qunit', '@ember/test-helpers'], function (_qunit, _emberQunit, _testHelpers) {
+define('mdeditor/tests/integration/pods/components/object/md-profile/form/component-test', ['qunit', 'ember-qunit', '@ember/test-helpers', 'mdeditor/tests/helpers/create-profile'], function (_qunit, _emberQunit, _testHelpers, _createProfile) {
   'use strict';
 
   (0, _qunit.module)('Integration | Component | object/md-profile/form', function (hooks) {
@@ -12573,27 +12746,28 @@ define('mdeditor/tests/integration/pods/components/object/md-profile/form/compon
     (0, _qunit.test)('it renders', async function (assert) {
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.set('myAction', function(val) { ... });
+      this.model = (0, _createProfile.default)(1)[0];
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "7KnlWmon",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-profile/form\"],false]],\"hasEval\":false}",
+        "id": "MqIDBXcQ",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-profile/form\",null,[[\"record\"],[[23,[\"model\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal(this.element.textContent.trim(), '');
+      assert.equal(this.element.textContent.replace(/[ \n]+/g, '|').trim(), 'URL|Alias|Version|0.0.0|Update|Available|(0.0.1)|Title|Minimal|Description|A|Minimalist|Profile|Identifier|minimal|Namespace|org.adiwg.profile|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "2rfCWb9k",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-profile/form\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "D53Goo1m",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-profile/form\",null,[[\"record\"],[[23,[\"model\"]]]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal(this.element.textContent.trim(), 'template block text');
+      assert.equal(this.element.textContent.replace(/[ \n]+/g, '|').trim(), '|URL|Alias|Version|0.0.0|Update|Available|(0.0.1)|Title|Minimal|Description|A|Minimalist|Profile|Identifier|minimal|Namespace|org.adiwg.profile|template|block|text|');
     });
   });
 });
-define('mdeditor/tests/integration/pods/components/object/md-profile/preview/component-test', ['qunit', 'ember-qunit', '@ember/test-helpers'], function (_qunit, _emberQunit, _testHelpers) {
+define('mdeditor/tests/integration/pods/components/object/md-profile/preview/component-test', ['qunit', 'ember-qunit', '@ember/test-helpers', 'mdeditor/tests/helpers/create-profile'], function (_qunit, _emberQunit, _testHelpers, _createProfile) {
   'use strict';
 
   (0, _qunit.module)('Integration | Component | object/md-profile/preview', function (hooks) {
@@ -12602,23 +12776,24 @@ define('mdeditor/tests/integration/pods/components/object/md-profile/preview/com
     (0, _qunit.test)('it renders', async function (assert) {
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.set('myAction', function(val) { ... });
+      this.model = (0, _createProfile.default)(1)[0];
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "OykxDAmn",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-profile/preview\"],false]],\"hasEval\":false}",
+        "id": "k0S5Ym6x",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-profile/preview\",null,[[\"record\"],[[23,[\"model\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal(this.element.textContent.trim(), '');
+      assert.equal(this.element.textContent.replace(/[ \n]+/g, '|').trim(), '|Title|Minimal|Description|A|Minimalist|Profile|Identifier|minimal|Namespace|org.adiwg.profile|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "V7xyW7zt",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-profile/preview\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "vyuJCmqt",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-profile/preview\",null,[[\"record\"],[[23,[\"model\"]]]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal(this.element.textContent.trim(), 'template block text');
+      assert.equal(this.element.textContent.replace(/[ \n]+/g, '|').trim(), '|Title|Minimal|Description|A|Minimalist|Profile|Identifier|minimal|Namespace|org.adiwg.profile|template|block|text|');
     });
   });
 });
@@ -13699,7 +13874,7 @@ define('mdeditor/tests/lint/app.lint-test', [], function () {
 
   QUnit.test('app.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'app.js should pass ESLint\n\n72:11 - Unexpected console statement. (no-console)');
+    assert.ok(true, 'app.js should pass ESLint\n\n');
   });
 
   QUnit.test('formats.js', function (assert) {
@@ -14774,7 +14949,7 @@ define('mdeditor/tests/lint/app.lint-test', [], function () {
 
   QUnit.test('pods/record/new/id/route.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'pods/record/new/id/route.js should pass ESLint\n\n1:20 - \'service\' is defined but never used. (no-unused-vars)');
+    assert.ok(true, 'pods/record/new/id/route.js should pass ESLint\n\n');
   });
 
   QUnit.test('pods/record/new/index/route.js', function (assert) {
@@ -15219,7 +15394,7 @@ define('mdeditor/tests/lint/app.lint-test', [], function () {
 
   QUnit.test('services/codelist.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'services/codelist.js should pass ESLint\n\n1:10 - \'get\' is defined but never used. (no-unused-vars)');
+    assert.ok(true, 'services/codelist.js should pass ESLint\n\n');
   });
 
   QUnit.test('services/contacts.js', function (assert) {
@@ -16675,6 +16850,11 @@ define('mdeditor/tests/lint/tests.lint-test', [], function () {
   QUnit.test('helpers/create-map-layer.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'helpers/create-map-layer.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('helpers/create-profile.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'helpers/create-profile.js should pass ESLint\n\n');
   });
 
   QUnit.test('helpers/create-record.js', function (assert) {
