@@ -16479,7 +16479,7 @@ define('mdeditor/tests/lint/templates.template.lint-test', [], function () {
 
   QUnit.test('mdeditor/pods/record/show/edit/funding/index/template.hbs', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'mdeditor/pods/record/show/edit/funding/index/template.hbs should pass TemplateLint.\n\nmdeditor/pods/record/show/edit/funding/index/template.hbs\n  8:18  error  you must use double quotes in templates  quotes\n');
+    assert.ok(false, 'mdeditor/pods/record/show/edit/funding/index/template.hbs should pass TemplateLint.\n\nmdeditor/pods/record/show/edit/funding/index/template.hbs\n  14:18  error  you must use double quotes in templates  quotes\n');
   });
 
   QUnit.test('mdeditor/pods/record/show/edit/funding/template.hbs', function (assert) {

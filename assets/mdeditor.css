@@ -9145,6 +9145,7 @@ label .x-toggle-form.x-toggle-btn::after {
 }
 .md-card .card-flex .btn-group-vertical {
   margin-left: 1em;
+  min-width: 150px;
 }
 .md-card .card-title {
   font-size: 1.2em;
