@@ -7508,6 +7508,14 @@ body.slider {
   display: table;
 }
 
+.d-flex {
+  display: flex;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
 #md-wrapper {
   -webkit-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
@@ -7736,6 +7744,9 @@ body.slider {
 }
 .md-object-table .md-row-actions.vertical .md-error {
   font-size: 1.5em;
+}
+.md-object-table .table {
+  margin-bottom: 0;
 }
 .md-object-table .table-hover > tbody > tr {
   transition: background-color 0.25s ease;
@@ -9124,6 +9135,17 @@ label .x-toggle-form.x-toggle-btn::after {
   content: "";
 }
 
+.md-card .card-flex {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+.md-card .card-flex.card-block::before, .md-card .card-flex.card-block::after {
+  content: none;
+}
+.md-card .card-flex .btn-group-vertical {
+  margin-left: 1em;
+}
 .md-card .card-title {
   font-size: 1.2em;
   margin-bottom: 0;
