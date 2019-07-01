@@ -21473,13 +21473,13 @@
   });
   exports.default = Ember.HTMLBars.template({ "id": "Aybz4DnD", "block": "{\"symbols\":[],\"statements\":[[1,[21,\"outlet\"],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/edit/distribution/distributor/template.hbs" } });
 });
-;define('mdeditor/pods/record/show/edit/distribution/index/route', ['exports'], function (exports) {
+;define('mdeditor/pods/record/show/edit/distribution/index/route', ['exports', 'mdeditor/mixins/scroll-to'], function (exports, _scrollTo) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.Route.extend({
+  exports.default = Ember.Route.extend(_scrollTo.default, {
     setupController: function setupController() {
       // Call _super for default behavior
       this._super(...arguments);
@@ -21514,7 +21514,7 @@
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "iCFfjXjP", "block": "{\"symbols\":[],\"statements\":[[7,\"h4\"],[11,\"class\",\"section-header\"],[9],[0,\"\\n  Editing Distribution\\n  \"],[1,[27,\"control/md-status\",null,[[\"model\"],[[23,[\"parentModel\"]]]]],false],[0,\"\\n\"],[10],[0,\"\\n\\n\"],[1,[27,\"object/md-distribution\",null,[[\"model\",\"profilePath\",\"addDistribution\",\"deleteDistribution\",\"editDistribution\"],[[23,[\"model\"]],\"record.distribution\",[27,\"route-action\",[\"addDistribution\"],null],[27,\"route-action\",[\"deleteDistribution\"],null],[27,\"route-action\",[\"editDistribution\"],null]]]],false],[0,\"\\n\\n\"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-subbar-extra\",[27,\"component\",[\"control/subbar-link\"],[[\"text\",\"icon\",\"btnType\",\"click\"],[\"Add Distribution Section\",\"plus\",\"success\",[27,\"route-action\",[\"addDistribution\"],null]]]]]]],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/edit/distribution/index/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "P/4MZyoU", "block": "{\"symbols\":[],\"statements\":[[7,\"h4\"],[11,\"class\",\"section-header\"],[9],[0,\"\\n  Editing Distribution\\n  \"],[1,[27,\"control/md-status\",null,[[\"model\"],[[23,[\"parentModel\"]]]]],false],[0,\"\\n\"],[10],[0,\"\\n\\n\"],[1,[27,\"object/md-distribution\",null,[[\"model\",\"profilePath\",\"addDistribution\",\"deleteDistribution\",\"editDistribution\"],[[23,[\"model\"]],\"record.distribution\",[27,\"route-action\",[\"addDistribution\"],null],[27,\"route-action\",[\"deleteDistribution\"],null],[27,\"route-action\",[\"editDistribution\"],null]]]],false],[0,\"\\n\\n\"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-subbar-extra\",[27,\"component\",[\"control/subbar-link\"],[[\"text\",\"icon\",\"btnType\",\"click\"],[\"Add Distribution Section\",\"plus\",\"success\",[27,\"route-action\",[\"addDistribution\"],null]]]]]]],false],[0,\"\\n\\n\"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-scroll-spy-record-edit\",[27,\"component\",[\"control/md-scroll-spy\"],[[\"refresh\",\"scrollInit\",\"setScrollTo\"],[[23,[\"refresh\"]],[23,[\"scrollTo\"]],[27,\"route-action\",[\"setScrollTo\"],null]]]]]]],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/edit/distribution/index/template.hbs" } });
 });
 ;define('mdeditor/pods/record/show/edit/distribution/route', ['exports'], function (exports) {
   'use strict';
@@ -28641,7 +28641,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("mdeditor/app")["default"].create({"repository":"https://github.com/adiwg/mdEditor","defaultProfileId":"org.adiwg.profile.full","name":"mdeditor","version":"0.9.0-dev.2+0b74da6a"});
+            require("mdeditor/app")["default"].create({"repository":"https://github.com/adiwg/mdEditor","defaultProfileId":"org.adiwg.profile.full","name":"mdeditor","version":"0.9.0-dev.2+cc8fb6b4"});
           }
         
 //# sourceMappingURL=mdeditor.map

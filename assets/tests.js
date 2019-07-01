@@ -11388,7 +11388,7 @@ define('mdeditor/tests/integration/pods/components/object/md-distribution/compon
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('section').textContent.replace(/[\s\n]+/g, '|').trim(), '|Distribution|Section|#0|Edit|Distributors|Delete|Section|Distributors|role|(|)|role|(|)|Description|', 'block and list');
+      assert.equal((0, _testHelpers.find)('section').textContent.replace(/[\s\n]+/g, '|').trim(), '|Distribution|Section|#0|Delete|Section|Description|Liablity|Statement|Distributors|role|(|)|role|(|)|Edit|Distributors|', 'block and list');
     });
 
     (0, _qunit.skip)('call actions', async function (assert) {
