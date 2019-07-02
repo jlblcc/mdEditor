@@ -15227,7 +15227,7 @@
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "WA3qDSuS", "block": "{\"symbols\":[\"model\",\"alloc\"],\"statements\":[[4,\"with\",[[23,[\"item\"]]],null,{\"statements\":[[0,\"  \"],[7,\"dl\"],[11,\"class\",\"dl-horizontal\"],[9],[0,\"\\n\"],[0,\"    \"],[7,\"div\"],[11,\"class\",\"row\"],[9],[0,\"\\n      \"],[7,\"div\"],[11,\"class\",\"col-sm-6\"],[9],[0,\"\\n        \"],[7,\"label\"],[9],[0,\"Start Date:\"],[10],[0,\"\\n        \"],[1,[27,\"if\",[[22,1,[\"timePeriod\",\"startDateTime\"]],[27,\"moment-format\",[[22,1,[\"timePeriod\",\"startDateTime\"]],\"MM-DD-YYYY\"],null],\"Not defined\"],null],false],[0,\"\\n      \"],[10],[0,\"\\n      \"],[7,\"div\"],[11,\"class\",\"col-sm-6\"],[9],[0,\"\\n        \"],[7,\"label\"],[9],[0,\"End Date:\"],[10],[0,\"\\n        \"],[1,[27,\"if\",[[22,1,[\"timePeriod\",\"endDateTime\"]],[27,\"moment-format\",[[22,1,[\"timePeriod\",\"endDateTime\"]],\"MM-DD-YYYY\"],null],\"Not defined\"],null],false],[0,\"\\n      \"],[10],[0,\"\\n    \"],[10],[0,\"\\n  \"],[10],[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"table-responsive\"],[9],[0,\"\\n    \"],[7,\"table\"],[11,\"class\",\"table table-condensed table-bordered\"],[9],[0,\"\\n      \"],[7,\"thead\"],[9],[0,\"\\n        \"],[7,\"tr\"],[9],[0,\"\\n          \"],[7,\"th\"],[9],[0,\"Amount\"],[10],[0,\"\\n          \"],[7,\"th\"],[9],[0,\"Currency\"],[10],[0,\"\\n          \"],[7,\"th\"],[9],[0,\"Source\"],[10],[0,\"\\n          \"],[7,\"th\"],[9],[0,\"Recipient\"],[10],[0,\"\\n          \"],[7,\"th\"],[9],[0,\"Match?\"],[10],[0,\"\\n        \"],[10],[0,\"\\n      \"],[10],[0,\"\\n      \"],[7,\"tbody\"],[9],[0,\"\\n\"],[4,\"each\",[[22,1,[\"allocation\"]]],null,{\"statements\":[[0,\"          \"],[7,\"tr\"],[9],[0,\"\\n            \"],[7,\"td\"],[9],[1,[27,\"get-dash\",[[22,2,[]],\"amount\"],null],false],[10],[0,\"\\n            \"],[7,\"td\"],[9],[1,[27,\"get-dash\",[[22,2,[]],\"currency\"],null],false],[10],[0,\"\\n            \"],[7,\"td\"],[9],[1,[27,\"control/md-contact-title\",null,[[\"contactId\",\"default\"],[[22,2,[\"sourceId\"]],\"--\"]]],false],[10],[0,\"\\n            \"],[7,\"td\"],[9],[1,[27,\"control/md-contact-title\",null,[[\"contactId\",\"default\"],[[22,2,[\"recipientId\"]],\"--\"]]],false],[10],[0,\"\\n            \"],[7,\"td\"],[9],[1,[27,\"get-dash\",[[22,2,[]],\"matching\"],null],false],[10],[0,\"\\n          \"],[10],[0,\"\\n\"]],\"parameters\":[2]},{\"statements\":[[0,\"          \"],[7,\"tr\"],[9],[0,\"\\n            \"],[7,\"td\"],[11,\"colspan\",\"5\"],[9],[0,\"No allocations found.\"],[10],[0,\"\\n          \"],[10],[0,\"\\n\"]],\"parameters\":[]}],[0,\"      \"],[10],[0,\"\\n    \"],[10],[0,\"\\n  \"],[10],[0,\"\\n\"]],\"parameters\":[1]},null]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/object/md-funding/preview/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "fW5X75kM", "block": "{\"symbols\":[\"model\",\"alloc\"],\"statements\":[[4,\"with\",[[23,[\"item\"]]],null,{\"statements\":[[0,\"  \"],[7,\"dl\"],[11,\"class\",\"dl-horizontal\"],[9],[0,\"\\n\"],[0,\"    \"],[7,\"div\"],[11,\"class\",\"row\"],[9],[0,\"\\n      \"],[7,\"div\"],[11,\"class\",\"col-sm-6\"],[9],[0,\"\\n        \"],[7,\"label\"],[9],[0,\"Start Date:\"],[10],[0,\"\\n        \"],[1,[27,\"if\",[[22,1,[\"timePeriod\",\"startDateTime\"]],[27,\"moment-format\",[[22,1,[\"timePeriod\",\"startDateTime\"]],\"MM-DD-YYYY\"],null],\"Not defined\"],null],false],[0,\"\\n      \"],[10],[0,\"\\n      \"],[7,\"div\"],[11,\"class\",\"col-sm-6\"],[9],[0,\"\\n        \"],[7,\"label\"],[9],[0,\"End Date:\"],[10],[0,\"\\n        \"],[1,[27,\"if\",[[22,1,[\"timePeriod\",\"endDateTime\"]],[27,\"moment-format\",[[22,1,[\"timePeriod\",\"endDateTime\"]],\"MM-DD-YYYY\"],null],\"Not defined\"],null],false],[0,\"\\n      \"],[10],[0,\"\\n    \"],[10],[0,\"\\n  \"],[10],[0,\"\\n\\n  \"],[7,\"h5\"],[11,\"class\",\"text-info\"],[9],[7,\"strong\"],[9],[0,\"Allocations\"],[10],[10],[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"table-responsive\"],[9],[0,\"\\n    \"],[7,\"table\"],[11,\"class\",\"table table-condensed table-bordered\"],[9],[0,\"\\n      \"],[7,\"thead\"],[9],[0,\"\\n        \"],[7,\"tr\"],[9],[0,\"\\n          \"],[7,\"th\"],[9],[0,\"Amount\"],[10],[0,\"\\n          \"],[7,\"th\"],[9],[0,\"Currency\"],[10],[0,\"\\n          \"],[7,\"th\"],[9],[0,\"Source\"],[10],[0,\"\\n          \"],[7,\"th\"],[9],[0,\"Recipient\"],[10],[0,\"\\n          \"],[7,\"th\"],[9],[0,\"Match?\"],[10],[0,\"\\n        \"],[10],[0,\"\\n      \"],[10],[0,\"\\n      \"],[7,\"tbody\"],[9],[0,\"\\n\"],[4,\"each\",[[22,1,[\"allocation\"]]],null,{\"statements\":[[0,\"          \"],[7,\"tr\"],[9],[0,\"\\n            \"],[7,\"td\"],[9],[1,[27,\"get-dash\",[[22,2,[]],\"amount\"],null],false],[10],[0,\"\\n            \"],[7,\"td\"],[9],[1,[27,\"get-dash\",[[22,2,[]],\"currency\"],null],false],[10],[0,\"\\n            \"],[7,\"td\"],[9],[1,[27,\"control/md-contact-title\",null,[[\"contactId\",\"default\"],[[22,2,[\"sourceId\"]],\"--\"]]],false],[10],[0,\"\\n            \"],[7,\"td\"],[9],[1,[27,\"control/md-contact-title\",null,[[\"contactId\",\"default\"],[[22,2,[\"recipientId\"]],\"--\"]]],false],[10],[0,\"\\n            \"],[7,\"td\"],[9],[1,[27,\"get-dash\",[[22,2,[]],\"matching\"],null],false],[10],[0,\"\\n          \"],[10],[0,\"\\n\"]],\"parameters\":[2]},{\"statements\":[[0,\"          \"],[7,\"tr\"],[9],[0,\"\\n            \"],[7,\"td\"],[11,\"colspan\",\"5\"],[9],[0,\"No allocations found.\"],[10],[0,\"\\n          \"],[10],[0,\"\\n\"]],\"parameters\":[]}],[0,\"      \"],[10],[0,\"\\n    \"],[10],[0,\"\\n  \"],[10],[0,\"\\n\"]],\"parameters\":[1]},null]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/object/md-funding/preview/template.hbs" } });
 });
 ;define("mdeditor/pods/components/object/md-funding/template", ["exports"], function (exports) {
   "use strict";
@@ -15235,7 +15235,7 @@
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "fYsUaAlA", "block": "{\"symbols\":[\"editing\"],\"statements\":[[4,\"object/md-object-table\",null,[[\"items\",\"header\",\"data-spy\",\"shadow\",\"buttonText\",\"ellipsis\",\"attributes\",\"profilePath\",\"collapsible\",\"isCollapsed\",\"verticalButtons\"],[[23,[\"model\",\"allocation\"]],\"Disbursement\",\"Disbursement\",true,\"Add Disbursement\",true,\"amount,currency,matching\",\"record.funding.allocation\",false,false,true]],{\"statements\":[[0,\"\\n  \"],[1,[27,\"object/md-allocation\",null,[[\"model\",\"profilePath\"],[[22,1,[]],\"record.funding.allocation\"]]],false],[0,\"\\n\\n\"]],\"parameters\":[1]},null],[0,\"\\n\\n\"],[4,\"if\",[[23,[\"model\",\"timePeriod\"]]],null,{\"statements\":[[0,\"\\n\"],[1,[27,\"object/md-timePeriod\",null,[[\"model\",\"profilePath\"],[[23,[\"model\",\"timePeriod\"]],\"record.funding.timePeriod\"]]],false],[0,\"\\n\\n\"],[1,[27,\"input/md-textarea\",null,[[\"maxlength\",\"value\",\"label\",\"data-spy\",\"placeholder\",\"profilePath\"],[500,[23,[\"model\",\"description\"]],\"Description\",\"Description\",\"Description: Less than 500 characters\",\"record.funding.timePeriod\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/object/md-funding/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "njnxVWpt", "block": "{\"symbols\":[\"editing\"],\"statements\":[[4,\"object/md-object-table\",null,[[\"items\",\"header\",\"data-spy\",\"shadow\",\"buttonText\",\"ellipsis\",\"attributes\",\"profilePath\",\"collapsible\",\"isCollapsed\",\"verticalButtons\"],[[23,[\"model\",\"allocation\"]],\"Allocation\",\"Allocation\",true,\"Add Allocation\",true,\"amount,currency,matching\",\"record.funding.allocation\",false,false,true]],{\"statements\":[[0,\"\\n  \"],[1,[27,\"object/md-allocation\",null,[[\"model\",\"profilePath\"],[[22,1,[]],\"record.funding.allocation\"]]],false],[0,\"\\n\\n\"]],\"parameters\":[1]},null],[0,\"\\n\\n\"],[4,\"if\",[[23,[\"model\",\"timePeriod\"]]],null,{\"statements\":[[0,\"\\n\"],[1,[27,\"object/md-timePeriod\",null,[[\"model\",\"profilePath\"],[[23,[\"model\",\"timePeriod\"]],\"record.funding.timePeriod\"]]],false],[0,\"\\n\\n\"],[1,[27,\"input/md-textarea\",null,[[\"maxlength\",\"value\",\"label\",\"data-spy\",\"placeholder\",\"profilePath\"],[500,[23,[\"model\",\"description\"]],\"Description\",\"Description\",\"Description: Less than 500 characters\",\"record.funding.timePeriod\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/object/md-funding/template.hbs" } });
 });
 ;define('mdeditor/pods/components/object/md-graphic-array/component', ['exports'], function (exports) {
   'use strict';
@@ -21977,7 +21977,7 @@
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "wHerX91h", "block": "{\"symbols\":[],\"statements\":[[7,\"h4\"],[11,\"class\",\"section-header\"],[9],[0,\"\\n  Editing Allocation #\"],[1,[21,\"allocationId\"],false],[0,\"\\n  \"],[1,[27,\"control/md-status\",null,[[\"model\"],[[23,[\"parentModel\"]]]]],false],[0,\"\\n\"],[10],[0,\"\\n\\n\"],[1,[27,\"object/md-funding\",null,[[\"model\",\"profilePath\"],[[23,[\"model\"]],\"record.funding\"]]],false],[0,\"\\n\\n\"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-subbar-extra\",[27,\"component\",[\"control/subbar-link\"],[[\"text\",\"icon\",\"route\"],[\"Back to Funding List\",\"arrow-left\",\"record.show.edit.funding\"]]]]]],false],[0,\"\\n\\n\"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-scroll-spy-record-edit\",[27,\"component\",[\"control/md-scroll-spy\"],[[\"scrollInit\",\"setScrollTo\"],[[23,[\"scrollTo\"]],[27,\"route-action\",[\"setScrollTo\"],null]]]]]]],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/edit/funding/allocation/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "d5pt7XR5", "block": "{\"symbols\":[],\"statements\":[[7,\"h4\"],[11,\"class\",\"section-header\"],[9],[0,\"\\n  Editing Funding Period #\"],[1,[21,\"allocationId\"],false],[0,\"\\n  \"],[1,[27,\"control/md-status\",null,[[\"model\"],[[23,[\"parentModel\"]]]]],false],[0,\"\\n\"],[10],[0,\"\\n\\n\"],[1,[27,\"object/md-funding\",null,[[\"model\",\"profilePath\"],[[23,[\"model\"]],\"record.funding\"]]],false],[0,\"\\n\\n\"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-subbar-extra\",[27,\"component\",[\"control/subbar-link\"],[[\"text\",\"icon\",\"route\"],[\"Back to Funding List\",\"arrow-left\",\"record.show.edit.funding\"]]]]]],false],[0,\"\\n\\n\"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-scroll-spy-record-edit\",[27,\"component\",[\"control/md-scroll-spy\"],[[\"scrollInit\",\"setScrollTo\"],[[23,[\"scrollTo\"]],[27,\"route-action\",[\"setScrollTo\"],null]]]]]]],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/edit/funding/allocation/template.hbs" } });
 });
 ;define('mdeditor/pods/record/show/edit/funding/index/route', ['exports', 'mdeditor/mixins/scroll-to'], function (exports, _scrollTo) {
   'use strict';
@@ -22033,7 +22033,7 @@
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "4wcK2G4G", "block": "{\"symbols\":[\"allocation\",\"index\"],\"statements\":[[7,\"h4\"],[11,\"class\",\"section-header\"],[9],[0,\"\\n  Editing Funding\\n  \"],[1,[27,\"control/md-status\",null,[[\"model\"],[[23,[\"parentModel\"]]]]],false],[0,\"\\n\"],[10],[0,\"\\n\"],[4,\"unless\",[[23,[\"model\",\"json\",\"metadata\",\"funding\"]]],null,{\"statements\":[[0,\"  \"],[7,\"h3\"],[11,\"class\",\"alert alert-info\"],[9],[0,\"No funding allocations found.\\n    \"],[7,\"button\"],[11,\"class\",\"btn btn-success\"],[11,\"type\",\"button\"],[3,\"action\",[[22,0,[]],\"addAllocation\"]],[9],[0,\"\\n      \"],[1,[27,\"fa-icon\",[\"plus\"],null],false],[0,\" Add Funding Allocation\"],[10],[0,\"\\n  \"],[10],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"each\",[[23,[\"model\",\"json\",\"metadata\",\"funding\"]]],null,{\"statements\":[[4,\"layout/md-card\",null,[[\"title\",\"collapsible\",\"collapsed\",\"profilePath\",\"data-spy\",\"shadow\",\"spotlightEnabled\",\"flex\"],[[27,\"concat\",[\"Allocation #\",[22,2,[]]],null],true,false,\"funding.allocation\",[27,\"concat\",[\"Allocation \",[22,2,[]]],null],true,false,false]],{\"statements\":[[0,\"      \"],[7,\"div\"],[11,\"class\",\"row card-buttons\"],[9],[0,\"\\n        \"],[7,\"div\"],[11,\"class\",\"col-sm-6\"],[9],[0,\"\\n          \"],[7,\"button\"],[11,\"class\",\"btn btn-md btn-success btn-block md-btn-responsive\"],[11,\"type\",\"button\"],[3,\"action\",[[22,0,[]],\"editAllocation\",[22,2,[]]]],[9],[0,\"\\n            \"],[1,[27,\"fa-icon\",[\"pencil\"],null],false],[0,\" Edit Allocation\"],[10],[0,\"\\n          \"],[10],[0,\"\\n          \"],[7,\"div\"],[11,\"class\",\"col-sm-6\"],[9],[0,\"\\n\"],[4,\"control/md-button-confirm\",null,[[\"class\",\"onConfirm\"],[\"btn btn-md btn-danger btn-block md-btn-responsive\",[27,\"route-action\",[\"deleteAllocation\",[22,2,[]]],null]]],{\"statements\":[[0,\"            \"],[1,[27,\"fa-icon\",[\"times\"],null],false],[0,\" Delete Allocation\\n\"]],\"parameters\":[]},null],[0,\"        \"],[10],[0,\"\\n      \"],[10],[0,\"\\n      \"],[1,[27,\"object/md-funding/preview\",null,[[\"item\"],[[22,1,[]]]]],false],[0,\"\\n\\n\"]],\"parameters\":[]},null],[0,\"\\n\"]],\"parameters\":[1,2]},null],[0,\"\\n\"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-subbar-extra\",[27,\"component\",[\"control/subbar-link\"],[[\"clickText\",\"clickIcon\",\"clickType\",\"click\"],[\"Add Funding Allocation\",\"plus\",\"success\",[27,\"route-action\",[\"addAllocation\"],null]]]]]]],false],[0,\"\\n\\n\"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-scroll-spy-record-edit\",[27,\"component\",[\"control/md-scroll-spy\"],[[\"scrollInit\",\"setScrollTo\"],[[23,[\"scrollTo\"]],[27,\"route-action\",[\"setScrollTo\"],null]]]]]]],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/edit/funding/index/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "M0zbX3rY", "block": "{\"symbols\":[\"allocation\",\"index\"],\"statements\":[[7,\"h4\"],[11,\"class\",\"section-header\"],[9],[0,\"\\n  Editing Funding\\n  \"],[1,[27,\"control/md-status\",null,[[\"model\"],[[23,[\"parentModel\"]]]]],false],[0,\"\\n\"],[10],[0,\"\\n\"],[4,\"unless\",[[23,[\"model\",\"json\",\"metadata\",\"funding\"]]],null,{\"statements\":[[0,\"  \"],[7,\"h3\"],[11,\"class\",\"alert alert-info\"],[9],[0,\"No Funding Periods found.\\n    \"],[7,\"button\"],[11,\"class\",\"btn btn-success\"],[11,\"type\",\"button\"],[3,\"action\",[[22,0,[]],\"addAllocation\"]],[9],[0,\"\\n      \"],[1,[27,\"fa-icon\",[\"plus\"],null],false],[0,\" Add Funding Period\"],[10],[0,\"\\n  \"],[10],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"each\",[[23,[\"model\",\"json\",\"metadata\",\"funding\"]]],null,{\"statements\":[[4,\"layout/md-card\",null,[[\"title\",\"collapsible\",\"collapsed\",\"profilePath\",\"data-spy\",\"shadow\",\"spotlightEnabled\",\"flex\"],[[27,\"concat\",[\"Funding Period #\",[22,2,[]]],null],true,false,\"funding.allocation\",[27,\"concat\",[\"Funding Period \",[22,2,[]]],null],true,false,false]],{\"statements\":[[0,\"      \"],[7,\"div\"],[11,\"class\",\"row card-buttons\"],[9],[0,\"\\n        \"],[7,\"div\"],[11,\"class\",\"col-sm-6\"],[9],[0,\"\\n          \"],[7,\"button\"],[11,\"class\",\"btn btn-md btn-success btn-block md-btn-responsive\"],[11,\"type\",\"button\"],[3,\"action\",[[22,0,[]],\"editAllocation\",[22,2,[]]]],[9],[0,\"\\n            \"],[1,[27,\"fa-icon\",[\"pencil\"],null],false],[0,\" Edit Funding Period\"],[10],[0,\"\\n          \"],[10],[0,\"\\n          \"],[7,\"div\"],[11,\"class\",\"col-sm-6\"],[9],[0,\"\\n\"],[4,\"control/md-button-confirm\",null,[[\"class\",\"onConfirm\"],[\"btn btn-md btn-danger btn-block md-btn-responsive\",[27,\"route-action\",[\"deleteAllocation\",[22,2,[]]],null]]],{\"statements\":[[0,\"            \"],[1,[27,\"fa-icon\",[\"times\"],null],false],[0,\" Delete Funding Period\\n\"]],\"parameters\":[]},null],[0,\"        \"],[10],[0,\"\\n      \"],[10],[0,\"\\n      \"],[1,[27,\"object/md-funding/preview\",null,[[\"item\"],[[22,1,[]]]]],false],[0,\"\\n\\n\"]],\"parameters\":[]},null],[0,\"\\n\"]],\"parameters\":[1,2]},null],[0,\"\\n\"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-subbar-extra\",[27,\"component\",[\"control/subbar-link\"],[[\"clickText\",\"clickIcon\",\"clickType\",\"click\"],[\"Add Funding Period\",\"plus\",\"success\",[27,\"route-action\",[\"addAllocation\"],null]]]]]]],false],[0,\"\\n\\n\"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-scroll-spy-record-edit\",[27,\"component\",[\"control/md-scroll-spy\"],[[\"scrollInit\",\"setScrollTo\"],[[23,[\"scrollTo\"]],[27,\"route-action\",[\"setScrollTo\"],null]]]]]]],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/edit/funding/index/template.hbs" } });
 });
 ;define('mdeditor/pods/record/show/edit/funding/route', ['exports'], function (exports) {
   'use strict';
@@ -24959,32 +24959,6 @@
     useCapture: gestures.useCapture
   });
 });
-;define('mdeditor/services/-observer-admin', ['exports', 'ember-in-viewport/services/-observer-admin'], function (exports, _observerAdmin) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(exports, 'default', {
-    enumerable: true,
-    get: function () {
-      return _observerAdmin.default;
-    }
-  });
-});
-;define('mdeditor/services/-raf-admin', ['exports', 'ember-in-viewport/services/-raf-admin'], function (exports, _rafAdmin) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(exports, 'default', {
-    enumerable: true,
-    get: function () {
-      return _rafAdmin.default;
-    }
-  });
-});
 ;define('mdeditor/services/ajax', ['exports', 'ember-ajax/services/ajax'], function (exports, _ajax) {
   'use strict';
 
@@ -25452,6 +25426,19 @@
     defaultList: 'caret-right',
     individuals: 'user',
     organizations: 'users'
+  });
+});
+;define('mdeditor/services/in-viewport', ['exports', 'ember-in-viewport/services/in-viewport'], function (exports, _inViewport) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _inViewport.default;
+    }
   });
 });
 ;define('mdeditor/services/itis', ['exports', 'ember-cli-string-helpers/utils/titleize', 'ember-ajax/errors'], function (exports, _titleize, _errors) {
@@ -28641,7 +28628,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("mdeditor/app")["default"].create({"repository":"https://github.com/adiwg/mdEditor","defaultProfileId":"org.adiwg.profile.full","name":"mdeditor","version":"0.9.0-dev.2+cc8fb6b4"});
+            require("mdeditor/app")["default"].create({"repository":"https://github.com/adiwg/mdEditor","defaultProfileId":"org.adiwg.profile.full","name":"mdeditor","version":"0.9.0-dev.2+29472651"});
           }
         
 //# sourceMappingURL=mdeditor.map

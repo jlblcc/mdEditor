@@ -3264,7 +3264,7 @@ define("ember-power-select/test-support/helpers", ["exports", "@ember/test-helpe
       scope = scopeOrText;
     }
 
-    let selectors = ['.ember-power-select-search-input', '.ember-power-select-search input', '.ember-power-select-trigger-multiple-input', 'input[type="search"]'].map(selector => `${scope} ${selector}`).join(', ');
+    let selectors = ['.ember-power-select-search-input', '.ember-power-select-search input', '.ember-power-select-trigger-multiple-input', 'input[type="search"]'].map(selector => "".concat(scope, " ").concat(selector)).join(', ');
     return (0, _testHelpers.fillIn)(selectors, text);
   }
 
@@ -3272,7 +3272,7 @@ define("ember-power-select/test-support/helpers", ["exports", "@ember/test-helpe
     let selector = '.ember-power-select-trigger';
 
     if (scope) {
-      selector = `${scope} ${selector}`;
+      selector = "".concat(scope, " ").concat(selector);
     }
 
     return (0, _testHelpers.click)(selector, options);
@@ -3347,13 +3347,13 @@ define("ember-power-select/test-support/index", ["exports", "@ember/test-helpers
   _exports.clearSelected = clearSelected;
 
   async function openIfClosedAndGetContentId(trigger) {
-    let contentId = trigger.attributes['aria-owns'] && `${trigger.attributes['aria-owns'].value}`;
-    let content = contentId ? document.querySelector(`#${contentId}`) : undefined; // If the dropdown is closed, open it
+    let contentId = trigger.attributes['aria-owns'] && "".concat(trigger.attributes['aria-owns'].value);
+    let content = contentId ? document.querySelector("#".concat(contentId)) : undefined; // If the dropdown is closed, open it
 
     if (!content || content.classList.contains('ember-basic-dropdown-content-placeholder')) {
       await (0, _testHelpers.click)(trigger);
       await (0, _testHelpers.settled)();
-      contentId = `${trigger.attributes['aria-owns'].value}`;
+      contentId = "".concat(trigger.attributes['aria-owns'].value);
     }
 
     return contentId;
@@ -3369,14 +3369,14 @@ define("ember-power-select/test-support/index", ["exports", "@ember/test-helpers
         trigger = cssPathOrTrigger.querySelector('.ember-power-select-trigger');
       }
     } else {
-      trigger = document.querySelector(`${cssPathOrTrigger} .ember-power-select-trigger`);
+      trigger = document.querySelector("".concat(cssPathOrTrigger, " .ember-power-select-trigger"));
 
       if (!trigger) {
         trigger = document.querySelector(cssPathOrTrigger);
       }
 
       if (!trigger) {
-        throw new Error(`You called "selectChoose('${cssPathOrTrigger}', '${valueOrSelector}')" but no select was found using selector "${cssPathOrTrigger}"`);
+        throw new Error("You called \"selectChoose('".concat(cssPathOrTrigger, "', '").concat(valueOrSelector, "')\" but no select was found using selector \"").concat(cssPathOrTrigger, "\""));
       }
     }
 
@@ -3386,11 +3386,11 @@ define("ember-power-select/test-support/index", ["exports", "@ember/test-helpers
 
     let contentId = await openIfClosedAndGetContentId(trigger); // Select the option with the given text
 
-    let options = document.querySelectorAll(`#${contentId} .ember-power-select-option`);
+    let options = document.querySelectorAll("#".concat(contentId, " .ember-power-select-option"));
     let potentialTargets = [].slice.apply(options).filter(opt => opt.textContent.indexOf(valueOrSelector) > -1);
 
     if (potentialTargets.length === 0) {
-      potentialTargets = document.querySelectorAll(`#${contentId} ${valueOrSelector}`);
+      potentialTargets = document.querySelectorAll("#".concat(contentId, " ").concat(valueOrSelector));
     }
 
     if (potentialTargets.length > 1) {
@@ -3406,7 +3406,7 @@ define("ember-power-select/test-support/index", ["exports", "@ember/test-helpers
     }
 
     if (!target) {
-      throw new Error(`You called "selectChoose('${cssPathOrTrigger}', '${valueOrSelector}')" but "${valueOrSelector}" didn't match any option`);
+      throw new Error("You called \"selectChoose('".concat(cssPathOrTrigger, "', '").concat(valueOrSelector, "')\" but \"").concat(valueOrSelector, "\" didn't match any option"));
     }
 
     await (0, _testHelpers.click)(target);
@@ -3419,7 +3419,7 @@ define("ember-power-select/test-support/index", ["exports", "@ember/test-helpers
     if (cssPathOrTrigger instanceof HTMLElement) {
       trigger = cssPathOrTrigger;
     } else {
-      let triggerPath = `${cssPathOrTrigger} .ember-power-select-trigger`;
+      let triggerPath = "".concat(cssPathOrTrigger, " .ember-power-select-trigger");
       trigger = document.querySelector(triggerPath);
 
       if (!trigger) {
@@ -3428,7 +3428,7 @@ define("ember-power-select/test-support/index", ["exports", "@ember/test-helpers
       }
 
       if (!trigger) {
-        throw new Error(`You called "selectSearch('${cssPathOrTrigger}', '${value}')" but no select was found using selector "${cssPathOrTrigger}"`);
+        throw new Error("You called \"selectSearch('".concat(cssPathOrTrigger, "', '").concat(value, "')\" but no select was found using selector \"").concat(cssPathOrTrigger, "\""));
       }
     }
 
@@ -3451,7 +3451,7 @@ define("ember-power-select/test-support/index", ["exports", "@ember/test-helpers
       if (inputIsInTrigger) {
         await (0, _testHelpers.fillIn)(trigger.querySelector('input[type=search]'), value);
       } else {
-        await (0, _testHelpers.fillIn)(`#${contentId} .ember-power-select-search-input[type=search]`, 'input');
+        await (0, _testHelpers.fillIn)("#".concat(contentId, " .ember-power-select-search-input[type=search]"), 'input');
       }
     }
 
@@ -3460,7 +3460,7 @@ define("ember-power-select/test-support/index", ["exports", "@ember/test-helpers
 
   async function removeMultipleOption(cssPath, value) {
     let elem;
-    let items = document.querySelectorAll(`${cssPath} .ember-power-select-multiple-options > li`);
+    let items = document.querySelectorAll("".concat(cssPath, " .ember-power-select-multiple-options > li"));
     let item = [].slice.apply(items).find(el => el.textContent.indexOf(value) > -1);
 
     if (item) {
@@ -3477,7 +3477,7 @@ define("ember-power-select/test-support/index", ["exports", "@ember/test-helpers
   }
 
   async function clearSelected(cssPath) {
-    let elem = document.querySelector(`${cssPath} .ember-power-select-clear-btn`);
+    let elem = document.querySelector("".concat(cssPath, " .ember-power-select-clear-btn"));
 
     try {
       await (0, _testHelpers.click)(elem);
@@ -5393,7 +5393,7 @@ define('ember-test-helpers/wait', ['exports', '@ember/test-helpers/settled', '@e
     }, { timeout: Infinity });
   }
 });
-define('ember-tooltips/test-support/assertions/assert-tooltip-content', ['exports', 'ember-tooltips/test-support'], function (exports, _testSupport) {
+define('ember-tooltips/test-support/dom/assertions/assert-tooltip-content', ['exports', 'ember-tooltips/test-support/dom'], function (exports, _dom) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -5409,13 +5409,13 @@ define('ember-tooltips/test-support/assertions/assert-tooltip-content', ['export
       (true && !(false) && Ember.emberAssert('You must specify a contentString property in the options parameter'));
     }
 
-    const $tooltip = (0, _testSupport.findTooltip)(selector);
-    const tooltipContent = $tooltip.text().trim();
+    const tooltip = (0, _dom.findTooltip)(selector, options);
+    const tooltipContent = tooltip.innerText.trim();
 
     assert.equal(tooltipContent, contentString, `Content of tooltip (${tooltipContent}) matched expected (${contentString})`);
   }
 });
-define('ember-tooltips/test-support/assertions/assert-tooltip-not-rendered', ['exports', 'ember-tooltips/test-support'], function (exports, _testSupport) {
+define('ember-tooltips/test-support/dom/assertions/assert-tooltip-not-rendered', ['exports', 'ember-tooltips/test-support/dom'], function (exports, _dom) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -5425,12 +5425,12 @@ define('ember-tooltips/test-support/assertions/assert-tooltip-not-rendered', ['e
   function assertTooltipNotRendered(assert, options = {}) {
     const selector = options.selector;
 
-    const $tooltip = (0, _testSupport.findTooltip)(selector);
+    const tooltip = (0, _dom.findTooltip)(selector, options);
 
-    assert.equal($tooltip.length, 0, 'assertTooltipNotRendered(): the ember-tooltip should not be rendered');
+    assert.notOk(tooltip, 'assertTooltipNotRendered(): the ember-tooltip should not be rendered');
   }
 });
-define('ember-tooltips/test-support/assertions/assert-tooltip-not-visible', ['exports', 'ember-tooltips/test-support'], function (exports, _testSupport) {
+define('ember-tooltips/test-support/dom/assertions/assert-tooltip-not-visible', ['exports', 'ember-tooltips/test-support/dom'], function (exports, _dom) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -5440,14 +5440,14 @@ define('ember-tooltips/test-support/assertions/assert-tooltip-not-visible', ['ex
   function assertTooltipNotVisible(assert, options = {}) {
     const selector = options.selector;
 
-    const $tooltip = (0, _testSupport.findTooltip)(selector);
-    const ariaHidden = $tooltip.attr('aria-hidden');
+    const tooltip = (0, _dom.findTooltip)(selector, options);
+    const ariaHidden = tooltip.getAttribute('aria-hidden');
 
     assert.ok(ariaHidden === 'true', `assertTooltipNotVisible(): the ember-tooltip shouldn't be visible:
       aria-hidden = ${ariaHidden}`);
   }
 });
-define('ember-tooltips/test-support/assertions/assert-tooltip-rendered', ['exports', 'ember-tooltips/test-support'], function (exports, _testSupport) {
+define('ember-tooltips/test-support/dom/assertions/assert-tooltip-rendered', ['exports', 'ember-tooltips/test-support/dom'], function (exports, _dom) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -5457,12 +5457,12 @@ define('ember-tooltips/test-support/assertions/assert-tooltip-rendered', ['expor
   function assertTooltipRendered(assert, options = {}) {
     const selector = options.selector;
 
-    const $tooltip = (0, _testSupport.findTooltip)(selector);
+    const tooltip = (0, _dom.findTooltip)(selector, options);
 
-    assert.equal($tooltip.length, 1, 'assertTooltipRendered(): the ember-tooltip should be rendered');
+    assert.ok(tooltip, 'assertTooltipRendered(): the ember-tooltip should be rendered');
   }
 });
-define('ember-tooltips/test-support/assertions/assert-tooltip-side', ['exports', 'ember-tooltips/test-support'], function (exports, _testSupport) {
+define('ember-tooltips/test-support/dom/assertions/assert-tooltip-side', ['exports', 'ember-tooltips/test-support/dom', 'ember-tooltips/test-support'], function (exports, _dom, _testSupport) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -5475,7 +5475,7 @@ define('ember-tooltips/test-support/assertions/assert-tooltip-side', ['exports',
 
     (0, _testSupport.validateSide)(side);
 
-    var _getPositionDifferenc = (0, _testSupport.getPositionDifferences)(options);
+    var _getPositionDifferenc = (0, _dom.getPositionDifferences)(options);
 
     const expectedGreaterDistance = _getPositionDifferenc.expectedGreaterDistance,
           expectedLesserDistance = _getPositionDifferenc.expectedLesserDistance;
@@ -5489,7 +5489,7 @@ define('ember-tooltips/test-support/assertions/assert-tooltip-side', ['exports',
     assert.ok(expectedGreaterDistance > expectedLesserDistance, `Tooltip should be on the ${side} side of the target`);
   }
 });
-define('ember-tooltips/test-support/assertions/assert-tooltip-spacing', ['exports', 'ember-tooltips/test-support'], function (exports, _testSupport) {
+define('ember-tooltips/test-support/dom/assertions/assert-tooltip-spacing', ['exports', 'ember-tooltips/test-support/dom', 'ember-tooltips/test-support'], function (exports, _dom, _testSupport) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -5507,7 +5507,7 @@ define('ember-tooltips/test-support/assertions/assert-tooltip-spacing', ['export
       (true && !(false) && Ember.emberAssert(`You must pass spacing as a number like assertTooltipSpacing(assert, { side: 'top', spacing: 10 });`));
     }
 
-    var _getPositionDifferenc = (0, _testSupport.getPositionDifferences)(options);
+    var _getPositionDifferenc = (0, _dom.getPositionDifferences)(options);
 
     const expectedGreaterDistance = _getPositionDifferenc.expectedGreaterDistance,
           expectedLesserDistance = _getPositionDifferenc.expectedLesserDistance;
@@ -5527,7 +5527,7 @@ define('ember-tooltips/test-support/assertions/assert-tooltip-spacing', ['export
         - On the ${side} side of the target, the tooltip should be ${spacing}px from the target but it was ${actualSpacing}px`);
   }
 });
-define('ember-tooltips/test-support/assertions/assert-tooltip-visible', ['exports', 'ember-tooltips/test-support'], function (exports, _testSupport) {
+define('ember-tooltips/test-support/dom/assertions/assert-tooltip-visible', ['exports', 'ember-tooltips/test-support/dom'], function (exports, _dom) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -5537,14 +5537,229 @@ define('ember-tooltips/test-support/assertions/assert-tooltip-visible', ['export
   function assertTooltipVisible(assert, options = {}) {
     const selector = options.selector;
 
-    const $tooltip = (0, _testSupport.findTooltip)(selector);
-    const ariaHidden = $tooltip.attr('aria-hidden');
+    const tooltip = (0, _dom.findTooltip)(selector, options);
+    const ariaHidden = tooltip.getAttribute('aria-hidden');
 
     assert.ok(ariaHidden === 'false', `assertTooltipVisible(): the ember-tooltip should be visible:
       aria-hidden = ${ariaHidden}`);
   }
 });
-define('ember-tooltips/test-support/index', ['exports', 'ember-tooltips/test-support/assertions/assert-tooltip-content', 'ember-tooltips/test-support/assertions/assert-tooltip-not-rendered', 'ember-tooltips/test-support/assertions/assert-tooltip-not-visible', 'ember-tooltips/test-support/assertions/assert-tooltip-rendered', 'ember-tooltips/test-support/assertions/assert-tooltip-side', 'ember-tooltips/test-support/assertions/assert-tooltip-spacing', 'ember-tooltips/test-support/assertions/assert-tooltip-visible', 'ember-tooltips/test-support/utils/find-tooltip-target', 'ember-tooltips/test-support/utils/find-tooltip', 'ember-tooltips/test-support/utils/get-opposite-side', 'ember-tooltips/test-support/utils/get-position-differences', 'ember-tooltips/test-support/utils/validate-side'], function (exports, _assertTooltipContent, _assertTooltipNotRendered, _assertTooltipNotVisible, _assertTooltipRendered, _assertTooltipSide, _assertTooltipSpacing, _assertTooltipVisible, _findTooltipTarget, _findTooltip, _getOppositeSide, _getPositionDifferences, _validateSide) {
+define('ember-tooltips/test-support/dom/assertions/index', ['exports', 'ember-tooltips/test-support/dom/assertions/assert-tooltip-content', 'ember-tooltips/test-support/dom/assertions/assert-tooltip-not-rendered', 'ember-tooltips/test-support/dom/assertions/assert-tooltip-not-visible', 'ember-tooltips/test-support/dom/assertions/assert-tooltip-rendered', 'ember-tooltips/test-support/dom/assertions/assert-tooltip-side', 'ember-tooltips/test-support/dom/assertions/assert-tooltip-spacing', 'ember-tooltips/test-support/dom/assertions/assert-tooltip-visible'], function (exports, _assertTooltipContent, _assertTooltipNotRendered, _assertTooltipNotVisible, _assertTooltipRendered, _assertTooltipSide, _assertTooltipSpacing, _assertTooltipVisible) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'assertTooltipContent', {
+    enumerable: true,
+    get: function () {
+      return _assertTooltipContent.default;
+    }
+  });
+  Object.defineProperty(exports, 'assertTooltipNotRendered', {
+    enumerable: true,
+    get: function () {
+      return _assertTooltipNotRendered.default;
+    }
+  });
+  Object.defineProperty(exports, 'assertTooltipNotVisible', {
+    enumerable: true,
+    get: function () {
+      return _assertTooltipNotVisible.default;
+    }
+  });
+  Object.defineProperty(exports, 'assertTooltipRendered', {
+    enumerable: true,
+    get: function () {
+      return _assertTooltipRendered.default;
+    }
+  });
+  Object.defineProperty(exports, 'assertTooltipSide', {
+    enumerable: true,
+    get: function () {
+      return _assertTooltipSide.default;
+    }
+  });
+  Object.defineProperty(exports, 'assertTooltipSpacing', {
+    enumerable: true,
+    get: function () {
+      return _assertTooltipSpacing.default;
+    }
+  });
+  Object.defineProperty(exports, 'assertTooltipVisible', {
+    enumerable: true,
+    get: function () {
+      return _assertTooltipVisible.default;
+    }
+  });
+});
+define('ember-tooltips/test-support/dom/find-tooltip-target', ['exports'], function (exports) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.findTooltipTarget = findTooltipTarget;
+  function findTooltipTarget(selector) {
+    if (!selector) {
+      // In case of passing null, undefined, etc
+      selector = '.ember-tooltip-target, .ember-popover-target';
+    }
+
+    var _document = document;
+    const body = _document.body;
+
+    const tooltipTarget = body.querySelectorAll(selector);
+
+    if (tooltipTarget.length === 0) {
+      throw new Error('ember-tooltips/test-support/dom/find-tooltip-target: No tooltip targets were found.');
+    } else if (tooltipTarget.length > 1) {
+      throw new Error('ember-tooltips/test-support/dom/find-tooltip-target: Multiple tooltip targets were found. Please provide an {option.targetSelector = ".specific-tooltip-target-class"}');
+    }
+
+    return tooltipTarget[0];
+  }
+
+  exports.default = findTooltipTarget;
+});
+define('ember-tooltips/test-support/dom/find-tooltip', ['exports'], function (exports) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.findTooltip = findTooltip;
+  function findTooltip(selectorOrElement, { targetSelector, multiple = false } = {}) {
+    if (!selectorOrElement) {
+      // In case of passing null, undefined, etc
+      selectorOrElement = '.ember-tooltip, .ember-popover';
+    }
+
+    /* We querySelect tooltips from body instead of using ember-test-helper's
+    find() method because tooltips and popovers are often rendered as
+    children of <body> instead of children of the targetElement */
+
+    var _document = document;
+    const body = _document.body;
+
+    let tooltips = typeof selectorOrElement === 'string' ? body.querySelectorAll(selectorOrElement) : [selectorOrElement];
+
+    tooltips = [].slice.call(tooltips).map(tooltip => getActualTooltip(tooltip, targetSelector)).filter(el => el);
+
+    if (tooltips.length > 1) {
+      console.warn(`ember-tooltips/test-support/dom/find-tooltip: Multiple tooltips were found. Consider passing a selector '.specific-tooltip-class'`);
+    }
+
+    if (multiple) {
+      return tooltips;
+    }
+
+    let tooltip = tooltips[0];
+
+    if (tooltip && !tooltip.classList.contains('ember-tooltip') && !tooltip.classList.contains('ember-popover')) {
+      throw new Error(`getTooltipFromBody(): returned an element that is not a tooltip`);
+    }
+
+    return tooltip;
+  }
+
+  exports.default = findTooltip;
+
+
+  function getActualTooltip(tooltip, targetSelector) {
+    if (tooltip && tooltip.classList.contains('ember-tooltip-base')) {
+      /* If what we find is the actually the tooltip component's element, we can
+       * look up the intended tooltip by the element referenced by its target
+       * element's aria-describedby attribute.
+       */
+      const target = tooltip.closest('.ember-tooltip-target, .ember-popover-target');
+
+      // If a targetSelector is specified, filter by it
+      if (!target || targetSelector && !target.matches(targetSelector)) {
+        return null;
+      }
+
+      tooltip = document.body.querySelector(`#${target.getAttribute('aria-describedby')}`);
+    }
+
+    return tooltip;
+  }
+});
+define('ember-tooltips/test-support/dom/get-position-differences', ['exports', 'ember-tooltips/test-support/utils', 'ember-tooltips/test-support/dom/find-tooltip', 'ember-tooltips/test-support/dom/find-tooltip-target'], function (exports, _utils, _findTooltip, _findTooltipTarget) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.getPositionDifferences = getPositionDifferences;
+  exports.getTooltipAndTargetPosition = getTooltipAndTargetPosition;
+
+
+  /**
+   @method getPositionDifferences
+   @param String side The side the tooltip should be on relative to the target
+  
+   Given a side, which represents the side of the target that
+   the tooltip should render, this method identifies whether
+   the tooltip or the target should be further away from the
+   top left of the window.
+  
+   For example, if the side is 'top' then the target should
+   be further away from the top left of the window than the
+   tooltip because the tooltip should render above the target.
+  
+   If the side is 'right' then the tooltip should be further
+   away from the top left of the window than the target
+   because the tooltip should render to the right of the
+   target.
+  
+   This method then returns an object with two numbers:
+  
+   - `expectedGreaterDistance` (expected greater number given the side)
+   - `expectedLesserDistance` (expected lesser number given the side)
+  
+   These numbers can be used for calculations like determining
+   whether a tooltip is on the correct side of the target or
+   determining whether a tooltip is the correct distance from
+   the target on the given side.
+   */
+
+  function getPositionDifferences(options = {}) {
+    var _getTooltipAndTargetP = getTooltipAndTargetPosition(options);
+
+    const targetPosition = _getTooltipAndTargetP.targetPosition,
+          tooltipPosition = _getTooltipAndTargetP.tooltipPosition;
+    const side = options.side;
+
+
+    const distanceToTarget = targetPosition[side];
+    const distanceToTooltip = tooltipPosition[(0, _utils.getOppositeSide)(side)];
+    const shouldTooltipBeCloserThanTarget = side === 'top' || side === 'left';
+    const expectedGreaterDistance = shouldTooltipBeCloserThanTarget ? distanceToTarget : distanceToTooltip;
+    const expectedLesserDistance = shouldTooltipBeCloserThanTarget ? distanceToTooltip : distanceToTarget;
+
+    return { expectedGreaterDistance, expectedLesserDistance };
+  }
+
+  function getTooltipAndTargetPosition(options = {}) {
+    const selector = options.selector,
+          targetSelector = options.targetSelector;
+
+    const target = (0, _findTooltipTarget.findTooltipTarget)(targetSelector);
+    const tooltip = (0, _findTooltip.findTooltip)(selector, { targetSelector });
+
+    const targetPosition = target.getBoundingClientRect();
+    const tooltipPosition = tooltip.getBoundingClientRect();
+
+    return {
+      targetPosition,
+      tooltipPosition
+    };
+  }
+
+  exports.default = getPositionDifferences;
+});
+define('ember-tooltips/test-support/dom/index', ['exports', 'ember-tooltips/test-support/dom/assertions/assert-tooltip-content', 'ember-tooltips/test-support/dom/assertions/assert-tooltip-not-rendered', 'ember-tooltips/test-support/dom/assertions/assert-tooltip-not-visible', 'ember-tooltips/test-support/dom/assertions/assert-tooltip-rendered', 'ember-tooltips/test-support/dom/assertions/assert-tooltip-side', 'ember-tooltips/test-support/dom/assertions/assert-tooltip-spacing', 'ember-tooltips/test-support/dom/assertions/assert-tooltip-visible', 'ember-tooltips/test-support/dom/find-tooltip-target', 'ember-tooltips/test-support/dom/find-tooltip', 'ember-tooltips/test-support/utils/get-opposite-side', 'ember-tooltips/test-support/dom/get-position-differences', 'ember-tooltips/test-support/utils/validate-side'], function (exports, _assertTooltipContent, _assertTooltipNotRendered, _assertTooltipNotVisible, _assertTooltipRendered, _assertTooltipSide, _assertTooltipSpacing, _assertTooltipVisible, _findTooltipTarget, _findTooltip, _getOppositeSide, _getPositionDifferences, _validateSide) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -5623,7 +5838,223 @@ define('ember-tooltips/test-support/index', ['exports', 'ember-tooltips/test-sup
     }
   });
 });
-define('ember-tooltips/test-support/utils/find-tooltip-target', ['exports'], function (exports) {
+define('ember-tooltips/test-support/index', ['exports', 'ember-tooltips/test-support/jquery'], function (exports, _jquery) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.keys(_jquery).forEach(function (key) {
+    if (key === "default" || key === "__esModule") return;
+    Object.defineProperty(exports, key, {
+      enumerable: true,
+      get: function () {
+        return _jquery[key];
+      }
+    });
+  });
+});
+define('ember-tooltips/test-support/jquery/assertions/assert-tooltip-content', ['exports', 'ember-tooltips/test-support'], function (exports, _testSupport) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = assertTooltipContent;
+  function assertTooltipContent(assert, options = {}) {
+    const contentString = options.contentString,
+          selector = options.selector;
+
+
+    if (Ember.isNone(contentString)) {
+      (true && !(false) && Ember.emberAssert('You must specify a contentString property in the options parameter'));
+    }
+
+    const $tooltip = (0, _testSupport.findTooltip)(selector, options);
+    const tooltipContent = $tooltip.text().trim();
+
+    assert.equal(tooltipContent, contentString, `Content of tooltip (${tooltipContent}) matched expected (${contentString})`);
+  }
+});
+define('ember-tooltips/test-support/jquery/assertions/assert-tooltip-not-rendered', ['exports', 'ember-tooltips/test-support'], function (exports, _testSupport) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = assertTooltipNotRendered;
+  function assertTooltipNotRendered(assert, options = {}) {
+    const selector = options.selector;
+
+    const $tooltip = (0, _testSupport.findTooltip)(selector, options);
+
+    assert.equal($tooltip.length, 0, 'assertTooltipNotRendered(): the ember-tooltip should not be rendered');
+  }
+});
+define('ember-tooltips/test-support/jquery/assertions/assert-tooltip-not-visible', ['exports', 'ember-tooltips/test-support'], function (exports, _testSupport) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = assertTooltipNotVisible;
+  function assertTooltipNotVisible(assert, options = {}) {
+    const selector = options.selector;
+
+    const $tooltip = (0, _testSupport.findTooltip)(selector, options);
+    const ariaHidden = $tooltip.attr('aria-hidden');
+
+    assert.ok(ariaHidden === 'true', `assertTooltipNotVisible(): the ember-tooltip shouldn't be visible:
+      aria-hidden = ${ariaHidden}`);
+  }
+});
+define('ember-tooltips/test-support/jquery/assertions/assert-tooltip-rendered', ['exports', 'ember-tooltips/test-support'], function (exports, _testSupport) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = assertTooltipRendered;
+  function assertTooltipRendered(assert, options = {}) {
+    const selector = options.selector;
+
+    const $tooltip = (0, _testSupport.findTooltip)(selector, options);
+
+    assert.equal($tooltip.length, 1, 'assertTooltipRendered(): the ember-tooltip should be rendered');
+  }
+});
+define('ember-tooltips/test-support/jquery/assertions/assert-tooltip-side', ['exports', 'ember-tooltips/test-support'], function (exports, _testSupport) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = assertTooltipSide;
+  function assertTooltipSide(assert, options = {}) {
+    const side = options.side;
+
+
+    (0, _testSupport.validateSide)(side);
+
+    var _getPositionDifferenc = (0, _testSupport.getPositionDifferences)(options);
+
+    const expectedGreaterDistance = _getPositionDifferenc.expectedGreaterDistance,
+          expectedLesserDistance = _getPositionDifferenc.expectedLesserDistance;
+
+
+    /* When the side is top or left, the greater number
+    is the target's position. Thus, we check that the
+    target's position is greater than the tooltip's
+    position. */
+
+    assert.ok(expectedGreaterDistance > expectedLesserDistance, `Tooltip should be on the ${side} side of the target`);
+  }
+});
+define('ember-tooltips/test-support/jquery/assertions/assert-tooltip-spacing', ['exports', 'ember-tooltips/test-support'], function (exports, _testSupport) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = assertTooltipSpacing;
+  function assertTooltipSpacing(assert, options) {
+    const side = options.side,
+          spacing = options.spacing;
+
+
+    (0, _testSupport.validateSide)(side, 'assertTooltipSpacing');
+
+    if (typeof spacing !== 'number') {
+      (true && !(false) && Ember.emberAssert(`You must pass spacing as a number like assertTooltipSpacing(assert, { side: 'top', spacing: 10 });`));
+    }
+
+    var _getPositionDifferenc = (0, _testSupport.getPositionDifferences)(options);
+
+    const expectedGreaterDistance = _getPositionDifferenc.expectedGreaterDistance,
+          expectedLesserDistance = _getPositionDifferenc.expectedLesserDistance;
+
+    const actualSpacing = Math.round(expectedGreaterDistance - expectedLesserDistance);
+
+    /* When the side is top or left, the greater number
+    is the target's position. Thus, we check that the
+    target's position is greater than the tooltip's
+    position. */
+
+    const isSideCorrect = expectedGreaterDistance > expectedLesserDistance;
+    const isSpacingCorrect = actualSpacing === spacing;
+
+    assert.ok(isSideCorrect && isSpacingCorrect, `assertTooltipSpacing(): the tooltip should be in the correct position:
+        - Tooltip should be on the ${side} side of the target: ${isSideCorrect}.
+        - On the ${side} side of the target, the tooltip should be ${spacing}px from the target but it was ${actualSpacing}px`);
+  }
+});
+define('ember-tooltips/test-support/jquery/assertions/assert-tooltip-visible', ['exports', 'ember-tooltips/test-support'], function (exports, _testSupport) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = assertTooltipVisible;
+  function assertTooltipVisible(assert, options = {}) {
+    const selector = options.selector;
+
+    const $tooltip = (0, _testSupport.findTooltip)(selector, options);
+    const ariaHidden = $tooltip.attr('aria-hidden');
+
+    assert.ok(ariaHidden === 'false', `assertTooltipVisible(): the ember-tooltip should be visible:
+      aria-hidden = ${ariaHidden}`);
+  }
+});
+define('ember-tooltips/test-support/jquery/assertions/index', ['exports', 'ember-tooltips/test-support/jquery/assertions/assert-tooltip-content', 'ember-tooltips/test-support/jquery/assertions/assert-tooltip-not-rendered', 'ember-tooltips/test-support/jquery/assertions/assert-tooltip-not-visible', 'ember-tooltips/test-support/jquery/assertions/assert-tooltip-rendered', 'ember-tooltips/test-support/jquery/assertions/assert-tooltip-side', 'ember-tooltips/test-support/jquery/assertions/assert-tooltip-spacing', 'ember-tooltips/test-support/jquery/assertions/assert-tooltip-visible'], function (exports, _assertTooltipContent, _assertTooltipNotRendered, _assertTooltipNotVisible, _assertTooltipRendered, _assertTooltipSide, _assertTooltipSpacing, _assertTooltipVisible) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'assertTooltipContent', {
+    enumerable: true,
+    get: function () {
+      return _assertTooltipContent.default;
+    }
+  });
+  Object.defineProperty(exports, 'assertTooltipNotRendered', {
+    enumerable: true,
+    get: function () {
+      return _assertTooltipNotRendered.default;
+    }
+  });
+  Object.defineProperty(exports, 'assertTooltipNotVisible', {
+    enumerable: true,
+    get: function () {
+      return _assertTooltipNotVisible.default;
+    }
+  });
+  Object.defineProperty(exports, 'assertTooltipRendered', {
+    enumerable: true,
+    get: function () {
+      return _assertTooltipRendered.default;
+    }
+  });
+  Object.defineProperty(exports, 'assertTooltipSide', {
+    enumerable: true,
+    get: function () {
+      return _assertTooltipSide.default;
+    }
+  });
+  Object.defineProperty(exports, 'assertTooltipSpacing', {
+    enumerable: true,
+    get: function () {
+      return _assertTooltipSpacing.default;
+    }
+  });
+  Object.defineProperty(exports, 'assertTooltipVisible', {
+    enumerable: true,
+    get: function () {
+      return _assertTooltipVisible.default;
+    }
+  });
+});
+define('ember-tooltips/test-support/jquery/find-tooltip-target', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -5649,14 +6080,14 @@ define('ember-tooltips/test-support/utils/find-tooltip-target', ['exports'], fun
     return $tooltipTarget;
   }
 });
-define('ember-tooltips/test-support/utils/find-tooltip', ['exports'], function (exports) {
+define('ember-tooltips/test-support/jquery/find-tooltip', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
   exports.default = findTooltip;
-  function findTooltip(selector) {
+  function findTooltip(selector, { targetSelector } = {}) {
 
     if (!selector) {
       // In case of passing null, undefined, etc
@@ -5666,49 +6097,41 @@ define('ember-tooltips/test-support/utils/find-tooltip', ['exports'], function (
     /* We .find() tooltips from $body instead of using ember-test-helper's
     find() method because tooltips and popovers are often rendered as
     children of <body> instead of children of the $targetElement */
+    let $tooltips = Ember.$(document.body).find(selector);
+    const tooltipElements = $tooltips.toArray().map(el => getActualTooltip(el, targetSelector)).filter(el => el);
+    $tooltips = Ember.$(tooltipElements);
 
-    const $body = Ember.$(document.body);
-    let $tooltip = $body.find(selector);
+    if ($tooltips.length && !$tooltips.hasClass('ember-tooltip') && !$tooltips.hasClass('ember-popover')) {
+      throw Error(`getTooltipFromBody(): returned an element that is not a tooltip`);
+    } else if ($tooltips.length > 1) {
+      console.warn(`getTooltipFromBody(): Multiple tooltips were found. Consider passing { selector: '.specific-tooltip-class' }`);
+    }
 
-    if ($tooltip.length && $tooltip.hasClass('ember-tooltip-base')) {
+    return $tooltips;
+  }
+
+  function getActualTooltip(tooltip, targetSelector) {
+    let $tooltip = Ember.$(tooltip);
+
+    if ($tooltip.hasClass('ember-tooltip-base')) {
       /* If what we find is the actually the tooltip component's element, we can
        * look up the intended tooltip by the element referenced by its target
        * element's aria-describedby attribute.
        */
-      const $target = $tooltip.parents('.ember-tooltip-target, .ember-popover-target');
-      $tooltip = $body.find(`#${$target.attr('aria-describedby')}`);
+      const $target = $tooltip.closest('.ember-tooltip-target, .ember-popover-target');
+
+      // If a targetSelector is specified, filter by it
+      if (!$target.length || targetSelector && !$target.is(targetSelector)) {
+        return null;
+      }
+
+      $tooltip = Ember.$(document.body).find(`#${$target.attr('aria-describedby')}`);
     }
 
-    if ($tooltip.length && !$tooltip.hasClass('ember-tooltip') && !$tooltip.hasClass('ember-popover')) {
-      throw Error(`getTooltipFromBody(): returned an element that is not a tooltip`);
-    } else if ($tooltip.length > 1) {
-      console.warn(`getTooltipFromBody(): Multiple tooltips were found. Consider passing { selector: '.specific-tooltip-class' }`);
-    }
-
-    return $tooltip;
+    return $tooltip[0];
   }
 });
-define('ember-tooltips/test-support/utils/get-opposite-side', ['exports'], function (exports) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = getOppositeSide;
-  function getOppositeSide(side) {
-    switch (side) {
-      case 'top':
-        return 'bottom';
-      case 'right':
-        return 'left';
-      case 'bottom':
-        return 'top';
-      case 'left':
-        return 'right';
-    }
-  }
-});
-define('ember-tooltips/test-support/utils/get-position-differences', ['exports', 'ember-tooltips/test-support'], function (exports, _testSupport) {
+define('ember-tooltips/test-support/jquery/get-position-differences', ['exports', 'ember-tooltips/test-support'], function (exports, _testSupport) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -5810,7 +6233,7 @@ define('ember-tooltips/test-support/utils/get-position-differences', ['exports',
 
     const target = _findTooltipTarget2[0];
 
-    var _findTooltip = (0, _testSupport.findTooltip)(selector),
+    var _findTooltip = (0, _testSupport.findTooltip)(selector, { targetSelector }),
         _findTooltip2 = _slicedToArray(_findTooltip, 1);
 
     const tooltip = _findTooltip2[0];
@@ -5825,13 +6248,133 @@ define('ember-tooltips/test-support/utils/get-position-differences', ['exports',
     };
   }
 });
+define('ember-tooltips/test-support/jquery/index', ['exports', 'ember-tooltips/test-support/jquery/assertions/assert-tooltip-content', 'ember-tooltips/test-support/jquery/assertions/assert-tooltip-not-rendered', 'ember-tooltips/test-support/jquery/assertions/assert-tooltip-not-visible', 'ember-tooltips/test-support/jquery/assertions/assert-tooltip-rendered', 'ember-tooltips/test-support/jquery/assertions/assert-tooltip-side', 'ember-tooltips/test-support/jquery/assertions/assert-tooltip-spacing', 'ember-tooltips/test-support/jquery/assertions/assert-tooltip-visible', 'ember-tooltips/test-support/jquery/find-tooltip-target', 'ember-tooltips/test-support/jquery/find-tooltip', 'ember-tooltips/test-support/utils/get-opposite-side', 'ember-tooltips/test-support/jquery/get-position-differences', 'ember-tooltips/test-support/utils/validate-side'], function (exports, _assertTooltipContent, _assertTooltipNotRendered, _assertTooltipNotVisible, _assertTooltipRendered, _assertTooltipSide, _assertTooltipSpacing, _assertTooltipVisible, _findTooltipTarget, _findTooltip, _getOppositeSide, _getPositionDifferences, _validateSide) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'assertTooltipContent', {
+    enumerable: true,
+    get: function () {
+      return _assertTooltipContent.default;
+    }
+  });
+  Object.defineProperty(exports, 'assertTooltipNotRendered', {
+    enumerable: true,
+    get: function () {
+      return _assertTooltipNotRendered.default;
+    }
+  });
+  Object.defineProperty(exports, 'assertTooltipNotVisible', {
+    enumerable: true,
+    get: function () {
+      return _assertTooltipNotVisible.default;
+    }
+  });
+  Object.defineProperty(exports, 'assertTooltipRendered', {
+    enumerable: true,
+    get: function () {
+      return _assertTooltipRendered.default;
+    }
+  });
+  Object.defineProperty(exports, 'assertTooltipSide', {
+    enumerable: true,
+    get: function () {
+      return _assertTooltipSide.default;
+    }
+  });
+  Object.defineProperty(exports, 'assertTooltipSpacing', {
+    enumerable: true,
+    get: function () {
+      return _assertTooltipSpacing.default;
+    }
+  });
+  Object.defineProperty(exports, 'assertTooltipVisible', {
+    enumerable: true,
+    get: function () {
+      return _assertTooltipVisible.default;
+    }
+  });
+  Object.defineProperty(exports, 'findTooltipTarget', {
+    enumerable: true,
+    get: function () {
+      return _findTooltipTarget.default;
+    }
+  });
+  Object.defineProperty(exports, 'findTooltip', {
+    enumerable: true,
+    get: function () {
+      return _findTooltip.default;
+    }
+  });
+  Object.defineProperty(exports, 'getOppositeSide', {
+    enumerable: true,
+    get: function () {
+      return _getOppositeSide.default;
+    }
+  });
+  Object.defineProperty(exports, 'getPositionDifferences', {
+    enumerable: true,
+    get: function () {
+      return _getPositionDifferences.default;
+    }
+  });
+  Object.defineProperty(exports, 'validateSide', {
+    enumerable: true,
+    get: function () {
+      return _validateSide.default;
+    }
+  });
+});
+define('ember-tooltips/test-support/utils/get-opposite-side', ['exports'], function (exports) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.getOppositeSide = getOppositeSide;
+  function getOppositeSide(side) {
+    switch (side) {
+      case 'top':
+        return 'bottom';
+      case 'right':
+        return 'left';
+      case 'bottom':
+        return 'top';
+      case 'left':
+        return 'right';
+    }
+  }
+
+  exports.default = getOppositeSide;
+});
+define('ember-tooltips/test-support/utils/index', ['exports', 'ember-tooltips/test-support/utils/validate-side', 'ember-tooltips/test-support/utils/get-opposite-side'], function (exports, _validateSide, _getOppositeSide) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'validateSide', {
+    enumerable: true,
+    get: function () {
+      return _validateSide.default;
+    }
+  });
+  Object.defineProperty(exports, 'getOppositeSide', {
+    enumerable: true,
+    get: function () {
+      return _getOppositeSide.default;
+    }
+  });
+});
 define('ember-tooltips/test-support/utils/validate-side', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = validateSide;
+  exports.validateSide = validateSide;
   function validateSide(side, testHelper = 'assertTooltipSide') {
     const sideIsValid = side === 'top' || side === 'right' || side === 'bottom' || side === 'left';
 
@@ -5842,6 +6385,8 @@ define('ember-tooltips/test-support/utils/validate-side', ['exports'], function 
       (true && !(false) && Ember.emberAssert(`You must pass side like ${testHelper}(assert, { side: 'top' }); Valid options for side are top, right, bottom, and left.`));
     }
   }
+
+  exports.default = validateSide;
 });
 define("mdeditor/tests/helpers/create-citation", ["exports"], function (exports) {
   "use strict";
@@ -11766,7 +12311,7 @@ define('mdeditor/tests/integration/pods/components/object/md-funding/component-t
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[\s\n]+/g, '|').trim(), "|Disbursement|1|Add|OK|#|Amount|Currency|Matching|0|9.9|currency|Not|Defined|Edit|Delete|Time|Period|Dates|Start|Date|End|Date|Pick|Fiscal|Year|Pick|a|Fiscal|Year|Identifier|Description|Time|Period|Names|0|Add|Time|Period|Name|Add|Time|Period|Name|Interval|Interval|Amount|Time|Unit|Choose|unit|of|time|Duration|Years|Months|Days|Hours|Minutes|Seconds|Description|");
+      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[\s\n]+/g, '|').trim(), "|Allocation|1|Add|OK|#|Amount|Currency|Matching|0|9.9|currency|Not|Defined|Edit|Delete|Time|Period|Dates|Start|Date|End|Date|Pick|Fiscal|Year|Pick|a|Fiscal|Year|Identifier|Description|Time|Period|Names|0|Add|Time|Period|Name|Add|Time|Period|Name|Interval|Interval|Amount|Time|Unit|Choose|unit|of|time|Duration|Years|Months|Days|Hours|Minutes|Seconds|Description|");
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
@@ -11775,7 +12320,7 @@ define('mdeditor/tests/integration/pods/components/object/md-funding/component-t
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[\s\n]+/g, '|').trim(), "|Disbursement|0|Add|OK|#|Amount|Currency|Matching|Add|Disbursement|Time|Period|Dates|Start|Date|End|Date|Pick|Fiscal|Year|Pick|a|Fiscal|Year|Identifier|Description|Time|Period|Names|0|Add|Time|Period|Name|Add|Time|Period|Name|Interval|Interval|Amount|Time|Unit|Choose|unit|of|time|Duration|Years|Months|Days|Hours|Minutes|Seconds|Description|", 'block');
+      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[\s\n]+/g, '|').trim(), "|Allocation|0|Add|OK|#|Amount|Currency|Matching|Add|Allocation|Time|Period|Dates|Start|Date|End|Date|Pick|Fiscal|Year|Pick|a|Fiscal|Year|Identifier|Description|Time|Period|Names|0|Add|Time|Period|Name|Add|Time|Period|Name|Interval|Interval|Amount|Time|Unit|Choose|unit|of|time|Duration|Years|Months|Days|Hours|Minutes|Seconds|Description|", 'block');
     });
   });
 });
@@ -11804,7 +12349,7 @@ define('mdeditor/tests/integration/pods/components/object/md-funding/preview/com
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('section').textContent.replace(/[\s\n]+/g, '|').trim(), '|Start|Date:|Not|defined|End|Date:|12-31-2016|Amount|Currency|Source|Recipient|Match?|9.9|currency|--|--|--|');
+      assert.equal((0, _testHelpers.find)('section').textContent.replace(/[\s\n]+/g, '|').trim(), '|Start|Date:|Not|defined|End|Date:|12-31-2016|Allocations|Amount|Currency|Source|Recipient|Match?|9.9|currency|--|--|--|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
@@ -11813,7 +12358,7 @@ define('mdeditor/tests/integration/pods/components/object/md-funding/preview/com
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('section').textContent.replace(/[\s\n]+/g, '|').trim(), '|Start|Date:|Not|defined|End|Date:|Not|defined|Amount|Currency|Source|Recipient|Match?|No|allocations|found.|', 'block');
+      assert.equal((0, _testHelpers.find)('section').textContent.replace(/[\s\n]+/g, '|').trim(), '|Start|Date:|Not|defined|End|Date:|Not|defined|Allocations|Amount|Currency|Source|Recipient|Match?|No|allocations|found.|', 'block');
     });
   });
 });
