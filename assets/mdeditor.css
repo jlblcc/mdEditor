@@ -7629,11 +7629,16 @@ body.slider {
 }
 @media (min-width: 768px) {
   .md-control-sidebar {
-    padding: 10px 10px 10px 0;
-    position: fixed;
+    padding: 15px;
+    position: sticky;
+    top: 135px;
+  }
+  .md-control-sidebar.no-nav {
+    top: 95px;
   }
   .md-control-sidebar .btn {
     display: inline-block;
+    min-width: 7em;
   }
 }
 @media (max-width: 1200px) {
@@ -7677,6 +7682,49 @@ body.slider {
 }
 .md-footer .btn-xs, .md-footer .btn-group-xs > .btn {
   line-height: 1.25em;
+}
+
+.md-object-container {
+  border: 1px solid #eeeeee;
+  padding: 15px;
+  transition: background-color 0.25s ease;
+}
+.md-object-container.odd {
+  background-color: inherit;
+}
+.md-object-container.even {
+  background-color: #fbfbfb;
+}
+.md-object-container:hover {
+  background-color: #f6fbfe;
+}
+.md-object-container .btn-collapse {
+  display: inline-block;
+  font-size: 24px;
+}
+.md-object-container .btn-collapse span::before {
+  content: "";
+  font-weight: 900;
+  padding: 10px;
+}
+.md-object-container .btn-collapse.collapsed span::before {
+  content: "";
+}
+.md-object-container hr {
+  margin: 15px 0;
+}
+.md-object-container table {
+  background-color: #fff;
+}
+.md-object-container .md-object-container-header {
+  align-items: center;
+  display: flex;
+}
+.md-object-container .md-object-container-header .btn-group {
+  margin-left: 1em;
+}
+.md-object-container .md-object-container-header .title {
+  margin: 0;
 }
 
 @media (min-width: 532px) {

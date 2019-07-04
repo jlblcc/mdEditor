@@ -10642,6 +10642,35 @@ define('mdeditor/tests/integration/pods/components/layout/md-nav-sidebar/compone
     });
   });
 });
+define('mdeditor/tests/integration/pods/components/layout/md-object-container/component-test', ['qunit', 'ember-qunit', '@ember/test-helpers'], function (_qunit, _emberQunit, _testHelpers) {
+  'use strict';
+
+  (0, _qunit.module)('Integration | Component | layout/md-object-container', function (hooks) {
+    (0, _emberQunit.setupRenderingTest)(hooks);
+
+    (0, _qunit.test)('it renders', async function (assert) {
+      // Set any properties with this.set('myProperty', 'value');
+      // Handle any actions with this.set('myAction', function(val) { ... });
+
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "HhuVfOt1",
+        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"layout/md-object-container\"],false]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      assert.equal(this.element.textContent.trim(), '');
+
+      // Template block usage:
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "oZCFfN2y",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"layout/md-object-container\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      assert.equal(this.element.textContent.trim(), 'template block text');
+    });
+  });
+});
 define('mdeditor/tests/integration/pods/components/layout/md-slider/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit'], function (_testHelpers, _qunit, _emberQunit) {
   'use strict';
 
@@ -14832,6 +14861,11 @@ define('mdeditor/tests/lint/app.lint-test', [], function () {
     assert.ok(true, 'pods/components/layout/md-nav-sidebar/component.js should pass ESLint\n\n');
   });
 
+  QUnit.test('pods/components/layout/md-object-container/component.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'pods/components/layout/md-object-container/component.js should pass ESLint\n\n');
+  });
+
   QUnit.test('pods/components/layout/md-slider/component.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'pods/components/layout/md-slider/component.js should pass ESLint\n\n');
@@ -16255,6 +16289,11 @@ define('mdeditor/tests/lint/templates.template.lint-test', [], function () {
   QUnit.test('mdeditor/pods/components/layout/md-nav-sidebar/template.hbs', function (assert) {
     assert.expect(1);
     assert.ok(true, 'mdeditor/pods/components/layout/md-nav-sidebar/template.hbs should pass TemplateLint.\n\n');
+  });
+
+  QUnit.test('mdeditor/pods/components/layout/md-object-container/template.hbs', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'mdeditor/pods/components/layout/md-object-container/template.hbs should pass TemplateLint.\n\n');
   });
 
   QUnit.test('mdeditor/pods/components/layout/md-slider/template.hbs', function (assert) {
@@ -17800,6 +17839,11 @@ define('mdeditor/tests/lint/tests.lint-test', [], function () {
   QUnit.test('integration/pods/components/layout/md-nav-sidebar/component-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'integration/pods/components/layout/md-nav-sidebar/component-test.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('integration/pods/components/layout/md-object-container/component-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/pods/components/layout/md-object-container/component-test.js should pass ESLint\n\n');
   });
 
   QUnit.test('integration/pods/components/layout/md-slider/component-test.js', function (assert) {
