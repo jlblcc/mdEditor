@@ -7687,7 +7687,7 @@ body.slider {
 .md-object-container {
   border: 1px solid #eeeeee;
   padding: 15px;
-  transition: background-color 0.25s ease;
+  transition: border-color 0.25s ease;
 }
 .md-object-container.odd {
   background-color: inherit;
@@ -7696,7 +7696,7 @@ body.slider {
   background-color: #fbfbfb;
 }
 .md-object-container:hover {
-  background-color: #f6fbfe;
+  border-color: #9fcb5e;
 }
 .md-object-container .btn-collapse {
   display: inline-block;
@@ -8121,6 +8121,13 @@ body.slider {
 .md-scroll-spy .nav .md-embedded > a {
   padding-bottom: 2.5px;
   padding-top: 2.5px;
+}
+.md-scroll-spy .nav li.active a {
+  background-color: inherit;
+  color: #325d88;
+}
+.md-scroll-spy .nav li.active a:hover, .md-scroll-spy .nav li.active a:focus {
+  background-color: #eeeeee;
 }
 
 .md-flash {
