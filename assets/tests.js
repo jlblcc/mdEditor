@@ -14436,6 +14436,35 @@ define('mdeditor/tests/integration/pods/components/object/md-transfer/component-
     });
   });
 });
+define('mdeditor/tests/integration/pods/components/object/md-transfer/preview/component-test', ['qunit', 'ember-qunit', '@ember/test-helpers'], function (_qunit, _emberQunit, _testHelpers) {
+  'use strict';
+
+  (0, _qunit.module)('Integration | Component | object/md-transfer/preview', function (hooks) {
+    (0, _emberQunit.setupRenderingTest)(hooks);
+
+    (0, _qunit.test)('it renders', async function (assert) {
+      // Set any properties with this.set('myProperty', 'value');
+      // Handle any actions with this.set('myAction', function(val) { ... });
+
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "ydCkPltx",
+        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-transfer/preview\"],false]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      assert.equal(this.element.textContent.trim(), '');
+
+      // Template block usage:
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "0a1WqNL0",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-transfer/preview\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      assert.equal(this.element.textContent.trim(), 'template block text');
+    });
+  });
+});
 define('mdeditor/tests/lint/app.lint-test', [], function () {
   'use strict';
 
@@ -15291,6 +15320,11 @@ define('mdeditor/tests/lint/app.lint-test', [], function () {
     assert.ok(true, 'pods/components/object/md-transfer/component.js should pass ESLint\n\n');
   });
 
+  QUnit.test('pods/components/object/md-transfer/preview/component.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'pods/components/object/md-transfer/preview/component.js should pass ESLint\n\n');
+  });
+
   QUnit.test('pods/contact/new/id/route.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'pods/contact/new/id/route.js should pass ESLint\n\n');
@@ -15594,6 +15628,11 @@ define('mdeditor/tests/lint/app.lint-test', [], function () {
   QUnit.test('pods/record/show/edit/distribution/distributor/route.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'pods/record/show/edit/distribution/distributor/route.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('pods/record/show/edit/distribution/distributor/transfer/route.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'pods/record/show/edit/distribution/distributor/transfer/route.js should pass ESLint\n\n');
   });
 
   QUnit.test('pods/record/show/edit/distribution/index/route.js', function (assert) {
@@ -16716,6 +16755,11 @@ define('mdeditor/tests/lint/templates.template.lint-test', [], function () {
     assert.ok(true, 'mdeditor/pods/components/object/md-time-period/template.hbs should pass TemplateLint.\n\n');
   });
 
+  QUnit.test('mdeditor/pods/components/object/md-transfer/preview/template.hbs', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'mdeditor/pods/components/object/md-transfer/preview/template.hbs should pass TemplateLint.\n\n');
+  });
+
   QUnit.test('mdeditor/pods/components/object/md-transfer/template.hbs', function (assert) {
     assert.expect(1);
     assert.ok(true, 'mdeditor/pods/components/object/md-transfer/template.hbs should pass TemplateLint.\n\n');
@@ -17009,6 +17053,11 @@ define('mdeditor/tests/lint/templates.template.lint-test', [], function () {
   QUnit.test('mdeditor/pods/record/show/edit/distribution/distributor/template.hbs', function (assert) {
     assert.expect(1);
     assert.ok(true, 'mdeditor/pods/record/show/edit/distribution/distributor/template.hbs should pass TemplateLint.\n\n');
+  });
+
+  QUnit.test('mdeditor/pods/record/show/edit/distribution/distributor/transfer/template.hbs', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'mdeditor/pods/record/show/edit/distribution/distributor/transfer/template.hbs should pass TemplateLint.\n\n');
   });
 
   QUnit.test('mdeditor/pods/record/show/edit/distribution/index/template.hbs', function (assert) {
@@ -18261,6 +18310,11 @@ define('mdeditor/tests/lint/tests.lint-test', [], function () {
     assert.ok(true, 'integration/pods/components/object/md-transfer/component-test.js should pass ESLint\n\n');
   });
 
+  QUnit.test('integration/pods/components/object/md-transfer/preview/component-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/pods/components/object/md-transfer/preview/component-test.js should pass ESLint\n\n');
+  });
+
   QUnit.test('test-helper.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'test-helper.js should pass ESLint\n\n');
@@ -18639,6 +18693,11 @@ define('mdeditor/tests/lint/tests.lint-test', [], function () {
   QUnit.test('unit/pods/record/show/edit/distribution/distributor/route-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'unit/pods/record/show/edit/distribution/distributor/route-test.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('unit/pods/record/show/edit/distribution/distributor/transfer/route-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/pods/record/show/edit/distribution/distributor/transfer/route-test.js should pass ESLint\n\n');
   });
 
   QUnit.test('unit/pods/record/show/edit/distribution/index/route-test.js', function (assert) {
@@ -20158,6 +20217,18 @@ define('mdeditor/tests/unit/pods/record/show/edit/distribution/distributor/route
 
     (0, _qunit.test)('it exists', function (assert) {
       let route = this.owner.lookup('route:record/show/edit/distribution/distributor');
+      assert.ok(route);
+    });
+  });
+});
+define('mdeditor/tests/unit/pods/record/show/edit/distribution/distributor/transfer/route-test', ['qunit', 'ember-qunit'], function (_qunit, _emberQunit) {
+  'use strict';
+
+  (0, _qunit.module)('Unit | Route | record/show/edit/distribution/distributor/transfer', function (hooks) {
+    (0, _emberQunit.setupTest)(hooks);
+
+    (0, _qunit.test)('it exists', function (assert) {
+      let route = this.owner.lookup('route:record/show/edit/distribution/distributor/transfer');
       assert.ok(route);
     });
   });

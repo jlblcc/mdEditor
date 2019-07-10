@@ -9598,8 +9598,7 @@
       Ember.$('html, body').scrollTop($anchor.offset().top - this.offset);
 
       if (hilite) {
-        Ember.$('[href="' + id + '"]').closest('li');
-        //.addClass('active');
+        Ember.$('[href="' + id + '"]').closest('li').addClass('active');
       }
 
       $anchor.removeClass('md-flash');
@@ -14600,8 +14599,8 @@
     attributeBindings: ['data-spy'],
     tagName: 'section',
     actions: {
-      editDistribution(index) {
-        this.editDistribution(index);
+      editDistributor(index) {
+        this.editDistributor(index);
       },
       deleteDistribution(index) {
         this.deleteDistribution(index);
@@ -14618,7 +14617,7 @@
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "69sD2C0r", "block": "{\"symbols\":[],\"statements\":[[4,\"layout/md-object-container\",null,[[\"title\",\"index\",\"profilePath\",\"deleteItem\"],[\"Distribution\",[23,[\"index\"]],[23,[\"profilePath\"]],[27,\"action\",[[22,0,[]],\"deleteDistribution\"],null]]],{\"statements\":[[0,\"    \"],[7,\"div\"],[11,\"class\",\"row\"],[9],[0,\"\\n      \"],[7,\"div\"],[11,\"class\",\"col-sm-6\"],[9],[0,\"\\n        \"],[1,[27,\"input/md-textarea\",null,[[\"value\",\"rows\",\"maxHeight\",\"placeholder\",\"label\",\"profilePath\"],[[23,[\"model\",\"description\"]],4,300,\"Describe the distribution of the resource\",\"Description\",[27,\"concat\",[[23,[\"profilePath\"]],\".description\"],null]]]],false],[0,\"\\n      \"],[10],[0,\"\\n      \"],[7,\"div\"],[11,\"class\",\"col-sm-6\"],[9],[0,\"\\n        \"],[1,[27,\"input/md-textarea\",null,[[\"value\",\"rows\",\"maxHeight\",\"placeholder\",\"label\",\"profilePath\"],[[23,[\"model\",\"liablityStatement\"]],4,300,\"Statement of the liability assumed by the provider of the resource\",\"Liablity Statement\",[27,\"concat\",[[23,[\"profilePath\"]],\".liablityStatement\"],null]]]],false],[0,\"\\n      \"],[10],[0,\"\\n    \"],[10],[0,\"\\n\"],[0,\"      \"],[1,[27,\"object/md-objectroute-table\",null,[[\"attributes\",\"items\",\"header\",\"shadow\",\"buttonText\",\"ellipsis\",\"previewTemplateTable\",\"editItem\",\"profilePath\",\"verticalButtons\",\"hideIndex\",\"condensed\",\"editOnAdd\",\"scrollToId\",\"data-spy\",\"routeParams\"],[\"Contacts\",[23,[\"model\",\"distributor\"]],\"Distributors\",false,\"Add Distributor\",true,\"object/md-distributor/preview\",[23,[\"editDistribution\"]],[27,\"concat\",[[23,[\"profilePath\"]],\".distributor\"],null],false,false,false,true,[27,\"concat\",[\"md-distributor-\",[23,[\"index\"]]],null],false,[23,[\"index\"]]]]],false],[0,\"\\n\"],[0,\"\\n\\n\\n\"]],\"parameters\":[]},null]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/object/md-distribution/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "BNH74IwS", "block": "{\"symbols\":[],\"statements\":[[4,\"layout/md-object-container\",null,[[\"title\",\"index\",\"profilePath\",\"deleteItem\"],[\"Distribution\",[23,[\"index\"]],[23,[\"profilePath\"]],[27,\"action\",[[22,0,[]],\"deleteDistribution\"],null]]],{\"statements\":[[0,\"    \"],[7,\"div\"],[11,\"class\",\"row\"],[9],[0,\"\\n      \"],[7,\"div\"],[11,\"class\",\"col-sm-6\"],[9],[0,\"\\n        \"],[1,[27,\"input/md-textarea\",null,[[\"value\",\"rows\",\"maxHeight\",\"placeholder\",\"label\",\"profilePath\"],[[23,[\"model\",\"description\"]],2,300,\"Describe the distribution of the resource\",\"Description\",[27,\"concat\",[[23,[\"profilePath\"]],\".description\"],null]]]],false],[0,\"\\n      \"],[10],[0,\"\\n      \"],[7,\"div\"],[11,\"class\",\"col-sm-6\"],[9],[0,\"\\n        \"],[1,[27,\"input/md-textarea\",null,[[\"value\",\"rows\",\"maxHeight\",\"placeholder\",\"label\",\"profilePath\"],[[23,[\"model\",\"liablityStatement\"]],2,300,\"Statement of the liability assumed by the provider of the resource\",\"Liablity Statement\",[27,\"concat\",[[23,[\"profilePath\"]],\".liablityStatement\"],null]]]],false],[0,\"\\n      \"],[10],[0,\"\\n    \"],[10],[0,\"\\n\"],[0,\"      \"],[1,[27,\"object/md-objectroute-table\",null,[[\"attributes\",\"items\",\"header\",\"shadow\",\"buttonText\",\"ellipsis\",\"previewTemplateTable\",\"editItem\",\"profilePath\",\"verticalButtons\",\"hideIndex\",\"condensed\",\"editOnAdd\",\"scrollToId\",\"data-spy\",\"routeParams\"],[\"Contacts\",[23,[\"model\",\"distributor\"]],\"Distributors\",false,\"Add Distributor\",true,\"object/md-distributor/preview\",[23,[\"editDistributor\"]],[27,\"concat\",[[23,[\"profilePath\"]],\".distributor\"],null],false,false,false,true,[27,\"concat\",[\"md-distributor-\",[23,[\"index\"]]],null],false,[23,[\"index\"]]]]],false],[0,\"\\n\"],[0,\"\\n\\n\\n\"]],\"parameters\":[]},null]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/object/md-distribution/template.hbs" } });
 });
 ;define('mdeditor/pods/components/object/md-distributor/component', ['exports', 'ember-cp-validations'], function (exports, _emberCpValidations) {
   'use strict';
@@ -14689,7 +14688,13 @@
         Ember.set(this, 'model.contact.party', map);
         return value;
       }
-    })
+    }),
+
+    actions: {
+      editTransferOption(index) {
+        this.editTransferOption(index);
+      }
+    }
   });
 });
 ;define('mdeditor/pods/components/object/md-distributor/preview/component', ['exports'], function (exports) {
@@ -14722,7 +14727,7 @@
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "67rcGq4t", "block": "{\"symbols\":[\"order\",\"opt\",\"&default\"],\"statements\":[[7,\"div\"],[11,\"data-spy\",\"Contacts\"],[12,\"id\",[27,\"concat\",[[23,[\"elementId\"]],\"-contacts\"],null]],[9],[0,\"\\n\"],[4,\"if\",[[23,[\"model\",\"contact\"]]],null,{\"statements\":[[0,\"    \"],[1,[27,\"input/md-select-contacts\",null,[[\"label\",\"placeholder\",\"model\",\"path\",\"icon\",\"tooltip\",\"showValidations\",\"class\"],[\"Contacts\",\"Select one or more contacts\",[22,0,[]],\"contacts\",true,true,true,\"required\"]]],false],[0,\"\\n    \"],[1,[27,\"input/md-codelist\",null,[[\"label\",\"path\",\"model\",\"create\",\"tooltip\",\"icon\",\"disabled\",\"mdCodeName\",\"showValidations\",\"placeholder\"],[\"Role\",\"role\",[22,0,[]],true,true,false,[23,[\"disabled\"]],\"role\",true,\"Select or enter a role\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[10],[0,\"\\n\\n\"],[4,\"with\",[[23,[\"model\",\"transferOption\",\"firstObject\"]]],null,{\"statements\":[[4,\"layout/md-card\",null,[[\"shadow\",\"muted\",\"title\",\"plain\",\"collapsible\",\"collapsed\",\"bodyIsRow\"],[false,false,\"Transfer Options\",true,true,false,false]],{\"statements\":[[0,\"    \"],[1,[27,\"object/md-transfer\",null,[[\"model\",\"profilePath\"],[[22,2,[]],[27,\"concat\",[[23,[\"profilePath\"]],\".transferOption\"],null]]]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[2]},null],[0,\"\\n\"],[4,\"with\",[[23,[\"model\",\"orderProcess\",\"firstObject\"]]],null,{\"statements\":[[4,\"layout/md-card\",null,[[\"shadow\",\"muted\",\"title\",\"plain\",\"collapsible\",\"collapsed\",\"bodyIsRow\",\"profilePath\"],[false,false,\"Order Process\",true,true,true,false,[27,\"concat\",[[23,[\"profilePath\"]],\".orderProcess\"],null]]],{\"statements\":[[0,\"    \"],[1,[27,\"input/md-textarea\",null,[[\"value\",\"placeholder\",\"label\",\"autoresize\",\"profilePath\",\"class\",\"data-spy\"],[[22,1,[\"fees\"]],\"Describe the fees and terms for retrieving the resource, including monetary units.\",\"Fees\",false,[27,\"concat\",[[23,[\"profilePath\"]],\".orderProcess.fees\"],null],\"md-embedded\",\"Fees\"]]],false],[0,\"\\n    \"],[1,[27,\"input/md-datetime\",null,[[\"date\",\"placeholder\",\"label\",\"profilePath\"],[[22,1,[\"plannedAvailability\"]],\"Date when the resource will be avialable\",\"Planned Availability\",[27,\"concat\",[[23,[\"profilePath\"]],\".orderProcess.plannedAvailability\"],null]]]],false],[0,\"\\n    \"],[1,[27,\"input/md-textarea\",null,[[\"value\",\"maxheight\",\"placeholder\",\"label\",\"profilePath\"],[[22,1,[\"orderingInstructions\"]],100,\"Describe general instructions for obtaining the resource\",\"Ordering Instructions\",[27,\"concat\",[[23,[\"profilePath\"]],\".orderProcess.orderingInstructions\"],null]]]],false],[0,\"\\n    \"],[1,[27,\"input/md-textarea\",null,[[\"value\",\"autoresize\",\"placeholder\",\"label\",\"profilePath\"],[[22,1,[\"turnaround\"]],false,\"Describe the typical turnaround time for the filling of an order\",\"Turnaround\",[27,\"concat\",[[23,[\"profilePath\"]],\".orderProcess.turnaround\"],null]]]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[1]},null],[14,3],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/object/md-distributor/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "E3ISNnYH", "block": "{\"symbols\":[\"order\",\"&default\"],\"statements\":[[7,\"div\"],[11,\"data-spy\",\"Contacts\"],[12,\"id\",[27,\"concat\",[[23,[\"elementId\"]],\"-contacts\"],null]],[9],[0,\"\\n\"],[4,\"if\",[[23,[\"model\",\"contact\"]]],null,{\"statements\":[[0,\"    \"],[1,[27,\"input/md-select-contacts\",null,[[\"label\",\"placeholder\",\"model\",\"path\",\"icon\",\"tooltip\",\"showValidations\",\"class\"],[\"Contacts\",\"Select one or more contacts\",[22,0,[]],\"contacts\",true,true,true,\"required\"]]],false],[0,\"\\n    \"],[1,[27,\"input/md-codelist\",null,[[\"label\",\"path\",\"model\",\"create\",\"tooltip\",\"icon\",\"disabled\",\"mdCodeName\",\"showValidations\",\"placeholder\"],[\"Role\",\"role\",[22,0,[]],true,true,false,[23,[\"disabled\"]],\"role\",true,\"Select or enter a role\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[10],[0,\"\\n\\n\"],[0,\"\\n\"],[1,[27,\"object/md-objectroute-table\",null,[[\"attributes\",\"items\",\"header\",\"shadow\",\"buttonText\",\"ellipsis\",\"editItem\",\"previewTemplateTable\",\"profilePath\",\"verticalButtons\",\"hideIndex\",\"condensed\",\"editOnAdd\",\"scrollToId\",\"routeParams\",\"data-spy\"],[\"Size(MB),online?,offline?,format?\",[23,[\"model\",\"transferOption\"]],\"Transfer Options\",false,\"Add Transfer Options\",true,[23,[\"editTransferOption\"]],\"object/md-transfer/preview\",[27,\"concat\",[[23,[\"profilePath\"]],\".transferOption\"],null],false,false,false,true,[27,\"concat\",[\"md-transfer-\",[23,[\"distributorId\"]]],null],[23,[\"index\"]],\"Transfer Options\"]]],false],[0,\"\\n\\n\"],[4,\"with\",[[23,[\"model\",\"orderProcess\",\"firstObject\"]]],null,{\"statements\":[[4,\"layout/md-card\",null,[[\"shadow\",\"muted\",\"title\",\"plain\",\"collapsible\",\"collapsed\",\"bodyIsRow\",\"profilePath\"],[false,false,\"Order Process\",true,true,false,false,[27,\"concat\",[[23,[\"profilePath\"]],\".orderProcess\"],null]]],{\"statements\":[[0,\"    \"],[1,[27,\"input/md-textarea\",null,[[\"value\",\"placeholder\",\"label\",\"autoresize\",\"profilePath\",\"class\",\"data-spy\"],[[22,1,[\"fees\"]],\"Describe the fees and terms for retrieving the resource, including monetary units.\",\"Fees\",false,[27,\"concat\",[[23,[\"profilePath\"]],\".orderProcess.fees\"],null],\"md-embedded\",\"Fees\"]]],false],[0,\"\\n    \"],[1,[27,\"input/md-datetime\",null,[[\"date\",\"placeholder\",\"label\",\"profilePath\"],[[22,1,[\"plannedAvailability\"]],\"Date when the resource will be avialable\",\"Planned Availability\",[27,\"concat\",[[23,[\"profilePath\"]],\".orderProcess.plannedAvailability\"],null]]]],false],[0,\"\\n    \"],[1,[27,\"input/md-textarea\",null,[[\"value\",\"maxheight\",\"placeholder\",\"label\",\"profilePath\"],[[22,1,[\"orderingInstructions\"]],100,\"Describe general instructions for obtaining the resource\",\"Ordering Instructions\",[27,\"concat\",[[23,[\"profilePath\"]],\".orderProcess.orderingInstructions\"],null]]]],false],[0,\"\\n    \"],[1,[27,\"input/md-textarea\",null,[[\"value\",\"autoresize\",\"placeholder\",\"label\",\"profilePath\"],[[22,1,[\"turnaround\"]],false,\"Describe the typical turnaround time for the filling of an order\",\"Turnaround\",[27,\"concat\",[[23,[\"profilePath\"]],\".orderProcess.turnaround\"],null]]]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[1]},null],[14,2],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/object/md-distributor/template.hbs" } });
 });
 ;define('mdeditor/pods/components/object/md-documentation/component', ['exports', 'ember-cp-validations'], function (exports, _emberCpValidations) {
   'use strict';
@@ -18274,13 +18279,37 @@
     })
   });
 });
+;define('mdeditor/pods/components/object/md-transfer/preview/component', ['exports'], function (exports) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.Component.extend({
+    init() {
+      this.tagName = this.isTable ? '' : 'div';
+      this._super(...arguments);
+    },
+
+    classNames: ['property'],
+    isTable: true
+  });
+});
+;define("mdeditor/pods/components/object/md-transfer/preview/template", ["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.HTMLBars.template({ "id": "Kk7lPwuA", "block": "{\"symbols\":[\"t\"],\"statements\":[[4,\"with\",[[23,[\"item\"]]],null,{\"statements\":[[4,\"if\",[[23,[\"isTable\"]]],null,{\"statements\":[[0,\"    \"],[7,\"td\"],[9],[1,[22,1,[\"transferSize\"]],false],[10],[0,\"\\n    \"],[7,\"td\"],[9],[1,[27,\"if\",[[22,1,[\"onlineOption\",\"length\"]],[27,\"concat\",[\"yes(\",[22,1,[\"onlineOption\",\"length\"]],\")\"],null],\"no\"],null],false],[10],[0,\"\\n    \"],[7,\"td\"],[9],[1,[27,\"if\",[[22,1,[\"offlineOption\",\"length\"]],[27,\"concat\",[\"yes(\",[22,1,[\"offlineOption\",\"length\"]],\")\"],null],\"no\"],null],false],[10],[0,\"\\n    \"],[7,\"td\"],[9],[1,[27,\"if\",[[22,1,[\"distributionFormat\",\"length\"]],[27,\"concat\",[\"yes(\",[22,1,[\"distributionFormat\",\"length\"]],\")\"],null],\"no\"],null],false],[10],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[1]},null]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/object/md-transfer/preview/template.hbs" } });
+});
 ;define("mdeditor/pods/components/object/md-transfer/template", ["exports"], function (exports) {
   "use strict";
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "FEWk65kF", "block": "{\"symbols\":[\"unit\",\"format\",\"editing\",\"&default\"],\"statements\":[[0,\"  \"],[1,[27,\"input/md-input\",null,[[\"type\",\"valuePath\",\"model\",\"step\",\"label\",\"placeholder\",\"profilePath\"],[\"number\",\"transferSize\",[23,[\"model\"]],\"0.01\",\"Transfer Size (MB)\",\"Estimated size of a unit in the specified transfer format, expressed in megabytes.\",[27,\"concat\",[[23,[\"profilePath\"]],\".transferSize\"],null]]]],false],[0,\"\\n  \"],[1,[27,\"input/md-input\",null,[[\"value\",\"label\",\"placeholder\",\"profilePath\"],[[23,[\"model\",\"unitsOfDistribution\"]],\"Distribution units\",\"Description of the tiles, layers, geographic areas, etc., in which data are available.\",[27,\"concat\",[[23,[\"profilePath\"]],\".distributionUnit\"],null]]]],false],[0,\"\\n\\n  \"],[1,[27,\"object/md-online-resource-array\",null,[[\"model\",\"label\",\"profilePath\",\"data-spy\",\"class\",\"shadow\"],[[23,[\"model\",\"onlineOption\"]],\"Online Option\",[27,\"concat\",[[23,[\"profilePath\"]],\".onlineOption\"],null],\"Online\",\"md-embedded\",false]]],false],[0,\"\\n\\n\"],[4,\"object/md-object-table\",null,[[\"items\",\"header\",\"class\",\"data-spy\",\"buttonText\",\"templateClass\",\"ellipsis\",\"shadow\",\"attributes\"],[[23,[\"model\",\"offlineOption\"]],\"Offline Option\",\"md-embedded\",\"Offline\",\"Add Offline Option\",[23,[\"templateClass\"]],false,false,\"title\"]],{\"statements\":[[0,\"    \"],[1,[27,\"object/md-medium\",null,[[\"model\",\"profilePath\"],[[22,3,[]],[27,\"concat\",[[23,[\"profilePath\"]],\".offlineOption\"],null]]]],false],[0,\"\\n\"]],\"parameters\":[3]},null],[0,\"\\n\"],[4,\"object/md-array-table\",null,[[\"columns\",\"plain\",\"responsive\",\"title\",\"class\",\"value\",\"validation\",\"templateClass\",\"profilePath\"],[\"Format Name,Version,Compression Method,URL\",false,true,\"Distribution Format\",\"md-embedded\",[23,[\"model\",\"distributionFormat\"]],[23,[\"formatValidation\"]],[23,[\"formatTemplate\"]],[27,\"concat\",[[23,[\"profilePath\"]],\".distributionFormat\"],null]]],{\"statements\":[[0,\"\\n    \"],[7,\"td\"],[9],[0,\"\\n        \"],[1,[27,\"input/md-input\",null,[[\"value\",\"placeholder\"],[[22,2,[\"item\",\"formatSpecification\",\"title\"]],\"Name of the format\"]]],false],[0,\"\\n    \"],[10],[0,\"\\n    \"],[7,\"td\"],[9],[0,\"\\n        \"],[1,[27,\"input/md-input\",null,[[\"value\",\"placeholder\"],[[22,2,[\"item\",\"formatSpecification\",\"edition\"]],\"Format version\"]]],false],[0,\"\\n    \"],[10],[0,\"\\n    \"],[7,\"td\"],[9],[0,\"\\n        \"],[1,[27,\"input/md-input\",null,[[\"value\",\"placeholder\"],[[22,2,[\"item\",\"compressionMethod\"]],\"Compression Method\"]]],false],[0,\"\\n    \"],[10],[0,\"\\n    \"],[7,\"td\"],[9],[0,\"\\n      \"],[1,[27,\"input/md-input\",null,[[\"value\",\"placeholder\"],[[22,2,[\"item\",\"formatSpecification\",\"onlineResource\",\"firstObject\",\"uri\"]],\"On-line information about the format\"]]],false],[0,\"\\n    \"],[10],[0,\"\\n\"]],\"parameters\":[2]},null],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"shadow\",\"profilePath\",\"class\",\"data-spy\",\"muted\",\"plain\",\"bodyIsRow\"],[false,[27,\"concat\",[[23,[\"profilePath\"]],\".transferFrequency\"],null],\"md-embedded\",\"Transfer Frequency\",false,true,true]],{\"statements\":[[0,\"    \"],[7,\"label\"],[11,\"class\",\"text-info col-sm-2\"],[9],[0,\"Transfer Frequency\"],[10],[0,\"\\n    \"],[7,\"div\"],[11,\"class\",\"col-sm-10\"],[9],[0,\"\\n      \"],[7,\"div\"],[11,\"class\",\"row\"],[9],[0,\"\\n\"],[4,\"each\",[[27,\"array\",[\"years\",\"months\",\"days\",\"hours\",\"minutes\",\"seconds\"],null]],null,{\"statements\":[[0,\"          \"],[1,[27,\"input/md-input\",null,[[\"class\",\"valuePath\",\"model\",\"type\",\"label\",\"placeholder\",\"profilePath\"],[\"col-sm-6 col-md-4 col-lg-2\",[27,\"concat\",[\"transferFrequency.\",[22,1,[]]],null],[23,[\"model\"]],\"number\",[27,\"uc-words\",[[22,1,[]]],null],[27,\"concat\",[\"Enter \",[22,1,[]]],null],[27,\"concat\",[[23,[\"profilePath\"]],\".transferFrequency.\",[22,1,[]]],null]]]],false],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"      \"],[10],[0,\"\\n    \"],[10],[0,\"\\n\"]],\"parameters\":[]},null],[14,4],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/object/md-transfer/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "fXjsgSmp", "block": "{\"symbols\":[\"unit\",\"format\",\"editing\",\"&default\"],\"statements\":[[0,\"  \"],[1,[27,\"input/md-input\",null,[[\"type\",\"valuePath\",\"model\",\"step\",\"label\",\"placeholder\",\"profilePath\"],[\"number\",\"transferSize\",[23,[\"model\"]],\"0.01\",\"Transfer Size (MB)\",\"Estimated size of a unit in the specified transfer format, expressed in megabytes.\",[27,\"concat\",[[23,[\"profilePath\"]],\".transferSize\"],null]]]],false],[0,\"\\n  \"],[1,[27,\"input/md-input\",null,[[\"value\",\"label\",\"placeholder\",\"profilePath\"],[[23,[\"model\",\"unitsOfDistribution\"]],\"Distribution units\",\"Description of the tiles, layers, geographic areas, etc., in which data are available.\",[27,\"concat\",[[23,[\"profilePath\"]],\".distributionUnit\"],null]]]],false],[0,\"\\n\\n  \"],[1,[27,\"object/md-online-resource-array\",null,[[\"model\",\"label\",\"profilePath\",\"data-spy\",\"class\",\"shadow\"],[[23,[\"model\",\"onlineOption\"]],\"Online Option\",[27,\"concat\",[[23,[\"profilePath\"]],\".onlineOption\"],null],\"Online\",\"md-embedded\",false]]],false],[0,\"\\n\\n\"],[4,\"object/md-object-table\",null,[[\"items\",\"header\",\"class\",\"data-spy\",\"buttonText\",\"templateClass\",\"ellipsis\",\"shadow\",\"attributes\"],[[23,[\"model\",\"offlineOption\"]],\"Offline Option\",\"md-embedded\",\"Offline\",\"Add Offline Option\",[23,[\"templateClass\"]],false,false,\"mediumSpecification.title\"]],{\"statements\":[[0,\"    \"],[1,[27,\"object/md-medium\",null,[[\"model\",\"profilePath\"],[[22,3,[]],[27,\"concat\",[[23,[\"profilePath\"]],\".offlineOption\"],null]]]],false],[0,\"\\n\"]],\"parameters\":[3]},null],[0,\"\\n\"],[4,\"object/md-array-table\",null,[[\"columns\",\"plain\",\"responsive\",\"title\",\"class\",\"value\",\"validation\",\"templateClass\",\"profilePath\"],[\"Format Name,Version,Compression Method,URL\",false,true,\"Distribution Format\",\"md-embedded\",[23,[\"model\",\"distributionFormat\"]],[23,[\"formatValidation\"]],[23,[\"formatTemplate\"]],[27,\"concat\",[[23,[\"profilePath\"]],\".distributionFormat\"],null]]],{\"statements\":[[0,\"\\n    \"],[7,\"td\"],[9],[0,\"\\n        \"],[1,[27,\"input/md-input\",null,[[\"value\",\"placeholder\"],[[22,2,[\"item\",\"formatSpecification\",\"title\"]],\"Name of the format\"]]],false],[0,\"\\n    \"],[10],[0,\"\\n    \"],[7,\"td\"],[9],[0,\"\\n        \"],[1,[27,\"input/md-input\",null,[[\"value\",\"placeholder\"],[[22,2,[\"item\",\"formatSpecification\",\"edition\"]],\"Format version\"]]],false],[0,\"\\n    \"],[10],[0,\"\\n    \"],[7,\"td\"],[9],[0,\"\\n        \"],[1,[27,\"input/md-input\",null,[[\"value\",\"placeholder\"],[[22,2,[\"item\",\"compressionMethod\"]],\"Compression Method\"]]],false],[0,\"\\n    \"],[10],[0,\"\\n    \"],[7,\"td\"],[9],[0,\"\\n      \"],[1,[27,\"input/md-input\",null,[[\"value\",\"placeholder\"],[[22,2,[\"item\",\"formatSpecification\",\"onlineResource\",\"firstObject\",\"uri\"]],\"On-line information about the format\"]]],false],[0,\"\\n    \"],[10],[0,\"\\n\"]],\"parameters\":[2]},null],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"shadow\",\"profilePath\",\"class\",\"data-spy\",\"muted\",\"plain\",\"bodyIsRow\"],[false,[27,\"concat\",[[23,[\"profilePath\"]],\".transferFrequency\"],null],\"md-embedded\",\"Transfer Frequency\",false,true,true]],{\"statements\":[[0,\"    \"],[7,\"label\"],[11,\"class\",\"text-info col-sm-2\"],[9],[0,\"Transfer Frequency\"],[10],[0,\"\\n    \"],[7,\"div\"],[11,\"class\",\"col-sm-10\"],[9],[0,\"\\n      \"],[7,\"div\"],[11,\"class\",\"row\"],[9],[0,\"\\n\"],[4,\"each\",[[27,\"array\",[\"years\",\"months\",\"days\",\"hours\",\"minutes\",\"seconds\"],null]],null,{\"statements\":[[0,\"          \"],[1,[27,\"input/md-input\",null,[[\"class\",\"valuePath\",\"model\",\"type\",\"label\",\"placeholder\",\"profilePath\"],[\"col-sm-6 col-md-4 col-lg-2\",[27,\"concat\",[\"transferFrequency.\",[22,1,[]]],null],[23,[\"model\"]],\"number\",[27,\"uc-words\",[[22,1,[]]],null],[27,\"concat\",[\"Enter \",[22,1,[]]],null],[27,\"concat\",[[23,[\"profilePath\"]],\".transferFrequency.\",[22,1,[]]],null]]]],false],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"      \"],[10],[0,\"\\n    \"],[10],[0,\"\\n\"]],\"parameters\":[]},null],[14,4],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/object/md-transfer/template.hbs" } });
 });
 ;define('mdeditor/pods/contact/new/id/route', ['exports', 'ember-data'], function (exports, _emberData) {
   'use strict';
@@ -21428,6 +21457,13 @@
     value: true
   });
   exports.default = Ember.Route.extend(_scrollTo.default, {
+    // breadCrumb: computed('controller.distributorId', function () {
+    //   return {
+    //     title: `Distributor ${this.controller.distributorId}`
+    //     //title: `${get(this, 'distributionId')}: Distributors`
+    //   };
+    // }),
+
     setupController: function setupController() {
       // Call _super for default behavior
       this._super(...arguments);
@@ -21436,6 +21472,7 @@
       this.controller.set('distributionId', Ember.get(this.controllerFor('record.show.edit.distribution.distributor'), 'distributionId'));
       this.controller.set('distributorId', Ember.get(this.controllerFor('record.show.edit.distribution.distributor'), 'distributorId'));
     },
+
     actions: {
       // addDistributor() {
       //   let model = this.currentRouteModel();
@@ -21457,11 +21494,18 @@
       //   return id;
       // },
       deleteDistributor(id) {
-        let model = this.currentRouteModel();
-        let dists = Ember.get(model, 'distributor');
+        let model = this.controller.parentModel.get('json.metadata.resourceDistribution')[this.controller.distributionId].distributor;
 
-        dists.removeAt(id);
-        this.controller.set('refresh', Ember.get(model, 'distributor.length'));
+        model.removeAt(id || parseInt(this.controller.distributorId, 10));
+        this.transitionTo('record.show.edit.distribution', {
+          queryParams: {
+            scrollTo: `distribution-${this.controller.distributionId}`
+          }
+        });
+      },
+      editTransferOption(id, routeParams, scrollToId) {
+        this.setScrollTo(scrollToId);
+        this.transitionTo('record.show.edit.distribution.distributor.transfer', this.controller.distributorId, this.controller.distributionId, id);
       }
     }
   });
@@ -21472,7 +21516,7 @@
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "lRoF8s6n", "block": "{\"symbols\":[],\"statements\":[[7,\"h4\"],[11,\"class\",\"section-header\"],[9],[0,\"\\n  Editing Distributor #\"],[1,[21,\"distributorId\"],false],[0,\" for Distribution #\"],[1,[21,\"distributionId\"],false],[0,\"\\n  \"],[1,[27,\"control/md-status\",null,[[\"model\"],[[23,[\"parentModel\"]]]]],false],[0,\"\\n\"],[10],[0,\"\\n\\n\"],[0,\"    \"],[1,[27,\"object/md-distributor\",null,[[\"model\",\"profilePath\"],[[23,[\"model\"]],\"record.distribution.distributor\"]]],false],[0,\"\\n\"],[0,\"\\n\"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-subbar-extra\",[27,\"component\",[\"control/subbar-link\"],[[\"text\",\"icon\",\"type\",\"route\"],[\"Back to Distribution List\",\"arrow-left\",\"primary\",\"record.show.edit.distribution\"]]]]]],false],[0,\"\\n\\n\"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-scroll-spy-record-edit\",[27,\"component\",[\"control/md-scroll-spy\"],[[\"refresh\",\"scrollInit\",\"setScrollTo\"],[[23,[\"refresh\"]],[23,[\"scrollTo\"]],[27,\"route-action\",[\"setScrollTo\"],null]]]]]]],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/edit/distribution/distributor/index/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "kRdWjt+A", "block": "{\"symbols\":[],\"statements\":[[7,\"h4\"],[11,\"class\",\"section-header\"],[9],[0,\"\\n  Editing Distributor #\"],[1,[21,\"distributorId\"],false],[0,\" in \"],[7,\"span\"],[11,\"class\",\"text-success\"],[9],[0,\"Distribution #\"],[1,[21,\"distributionId\"],false],[10],[0,\"\\n\"],[4,\"control/md-button-confirm\",null,[[\"class\",\"onConfirm\",\"tooltip\",\"tipClass\",\"tipSide\"],[\"btn btn-xs btn-danger\",[27,\"route-action\",[\"deleteDistributor\"],null],\"Delete Distributor?\",\"danger\",\"bottom\"]],{\"statements\":[[0,\"    \"],[1,[27,\"fa-icon\",[\"times\"],null],false],[0,\" Delete\\n\"]],\"parameters\":[]},null],[0,\"  \"],[1,[27,\"control/md-status\",null,[[\"model\"],[[23,[\"parentModel\"]]]]],false],[0,\"\\n\"],[10],[0,\"\\n\\n\"],[0,\"    \"],[1,[27,\"object/md-distributor\",null,[[\"model\",\"distributorId\",\"profilePath\",\"editTransferOption\"],[[23,[\"model\"]],[23,[\"distributorId\"]],\"record.distribution.distributor\",[27,\"route-action\",[\"editTransferOption\"],null]]]],false],[0,\"\\n\"],[0,\"\\n\"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-subbar-extra\",[27,\"component\",[\"control/subbar-link\"],[[\"text\",\"icon\",\"type\",\"route\"],[\"Back to Distribution List\",\"arrow-left\",\"primary\",\"record.show.edit.distribution\"]]]]]],false],[0,\"\\n\\n\"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-scroll-spy-record-edit\",[27,\"component\",[\"control/md-scroll-spy\"],[[\"refresh\",\"scrollInit\",\"setScrollTo\"],[[23,[\"refresh\"]],[23,[\"scrollTo\"]],[27,\"route-action\",[\"setScrollTo\"],null]]]]]]],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/edit/distribution/distributor/index/template.hbs" } });
 });
 ;define('mdeditor/pods/record/show/edit/distribution/distributor/route', ['exports'], function (exports) {
   'use strict';
@@ -21488,12 +21532,12 @@
       return this.setupModel();
     },
 
-    breadCrumb: Ember.computed('distributionId', function () {
-      return {
-        title: 'Distributors'
-        //title: `${get(this, 'distributionId')}: Distributors`
-      };
-    }),
+    // breadCrumb: computed('distributionId', function () {
+    //   return {
+    //     title: this.distributionId
+    //     //title: `${get(this, 'distributionId')}: Distributors`
+    //   };
+    // }),
 
     setupController: function setupController() {
       // Call _super for default behavior
@@ -21536,6 +21580,81 @@
   });
   exports.default = Ember.HTMLBars.template({ "id": "Aybz4DnD", "block": "{\"symbols\":[],\"statements\":[[1,[21,\"outlet\"],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/edit/distribution/distributor/template.hbs" } });
 });
+;define('mdeditor/pods/record/show/edit/distribution/distributor/transfer/route', ['exports', 'mdeditor/mixins/scroll-to'], function (exports, _scrollTo) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.Route.extend(_scrollTo.default, {
+    // breadCrumb: computed('controller.distributorId', function () {
+    //   return {
+    //     title: `Distributor ${this.controller.distributorId}`
+    //     //title: `${get(this, 'distributionId')}: Distributors`
+    //   };
+    // }),
+    model(params, transition) {
+      let tparams = transition.params['record.show.edit.distribution.distributor'];
+
+      this.set('transferId', params.transfer_id);
+      this.set('distributionId', tparams.distribution_id);
+      this.set('distributorId', tparams.distributor_id);
+
+      return this.setupModel();
+    },
+
+    setupController: function setupController() {
+      // Call _super for default behavior
+      this._super(...arguments);
+
+      this.controller.set('parentModel', this.modelFor('record.show.edit'));
+      this.controller.set('transferId', this.transferId);
+      this.controller.set('distributionId', this.distributionId);
+      this.controller.set('distributorId', this.distributorId);
+    },
+
+    setupModel() {
+      let transferId = this.transferId;
+      let distributionId = this.distributionId;
+      let distributorId = this.distributorId;
+      let model = this.modelFor('record.show.edit');
+      let objects = model.get('json.metadata.resourceDistribution');
+      let distribution = distributionId && Ember.isArray(objects) ? Ember.A(objects).objectAt(distributionId) : undefined;
+      let distributor = distribution && distributorId && Ember.isArray(distribution.distributor) ? Ember.A(distribution.distributor).objectAt(distributorId) : undefined;
+      let transfer = distributor && transferId && Ember.isArray(distributor.transferOption) ? Ember.A(distributor.transferOption).objectAt(transferId) : undefined;
+
+      if (Ember.isEmpty(transfer)) {
+        Ember.get(this, 'flashMessages').warning('No Transfer Option object found! Re-directing to Distributor...');
+        this.replaceWith('record.show.edit.distribution.distributor');
+
+        return;
+      }
+
+      return transfer;
+    },
+
+    actions: {
+      deleteTransfer(id) {
+        let model = this.controller.parentModel.get('json.metadata.resourceDistribution')[this.controller.distributionId].distributor[this.controller.distributorId].transferOption;
+
+        model.removeAt(id || parseInt(this.transferId, 0));
+        this.transitionTo('record.show.edit.distribution.distributor', {
+          queryParams: {
+            scrollTo: 'transfer-options'
+          }
+        });
+      }
+    }
+  });
+});
+;define("mdeditor/pods/record/show/edit/distribution/distributor/transfer/template", ["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.HTMLBars.template({ "id": "gyq1zM94", "block": "{\"symbols\":[],\"statements\":[[7,\"h4\"],[11,\"class\",\"section-header\"],[9],[0,\"\\n  Editing Transfer Options for\\n  \"],[7,\"span\"],[11,\"class\",\"text-success\"],[9],[0,\"Distributor #\"],[1,[21,\"distributorId\"],false],[10],[0,\" in\\n  \"],[7,\"span\"],[11,\"class\",\"text-primary\"],[9],[0,\"Distribution #\"],[1,[21,\"distributionId\"],false],[10],[0,\"\\n\"],[4,\"control/md-button-confirm\",null,[[\"class\",\"onConfirm\",\"tooltip\",\"tipClass\",\"tipSide\"],[\"btn btn-xs btn-danger\",[27,\"route-action\",[\"deleteTransfer\"],null],\"Delete Transfer Option?\",\"danger\",\"bottom\"]],{\"statements\":[[0,\"    \"],[1,[27,\"fa-icon\",[\"times\"],null],false],[0,\" Delete\\n\"]],\"parameters\":[]},null],[0,\"  \"],[1,[27,\"control/md-status\",null,[[\"model\"],[[23,[\"parentModel\"]]]]],false],[0,\"\\n\"],[10],[0,\"\\n\\n\"],[1,[27,\"object/md-transfer\",null,[[\"model\",\"profilePath\"],[[23,[\"model\"]],\"record.distribution.distributor.transferOption\"]]],false],[0,\"\\n\\n\"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-subbar-buttons\",[27,\"component\",[\"control/subbar-link\"],[[\"text\",\"icon\",\"type\",\"route\"],[\"Back to Distributor\",\"arrow-left\",\"primary\",\"record.show.edit.distribution.distributor\"]]]]]],false],[0,\"\\n\\n\"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-scroll-spy-record-edit\",[27,\"component\",[\"control/md-scroll-spy\"],[[\"refresh\",\"scrollInit\",\"setScrollTo\"],[[23,[\"refresh\"]],[23,[\"scrollTo\"]],[27,\"route-action\",[\"setScrollTo\"],null]]]]]]],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/edit/distribution/distributor/transfer/template.hbs" } });
+});
 ;define('mdeditor/pods/record/show/edit/distribution/index/route', ['exports', 'mdeditor/mixins/scroll-to'], function (exports, _scrollTo) {
   'use strict';
 
@@ -21548,6 +21667,7 @@
       this._super(...arguments);
 
       this.controller.set('parentModel', this.modelFor('record.show.edit'));
+      Ember.defineProperty(this.controller, 'refreshSpy', Ember.computed.alias('model.json.metadata.resourceDistribution.length'));
     },
 
     actions: {
@@ -21578,7 +21698,7 @@
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "jxr2v6NZ", "block": "{\"symbols\":[\"dist\",\"index\"],\"statements\":[[7,\"h4\"],[11,\"class\",\"section-header\"],[9],[0,\"\\n  Editing Distribution\\n  \"],[1,[27,\"control/md-status\",null,[[\"model\"],[[23,[\"parentModel\"]]]]],false],[0,\"\\n\"],[10],[0,\"\\n\\n\"],[4,\"each\",[[23,[\"model\",\"json\",\"metadata\",\"resourceDistribution\"]]],null,{\"statements\":[[0,\"  \"],[1,[27,\"object/md-distribution\",null,[[\"model\",\"index\",\"profilePath\",\"addDistribution\",\"deleteDistribution\",\"editDistribution\"],[[22,1,[]],[22,2,[]],\"record.distribution\",[27,\"route-action\",[\"addDistribution\"],null],[27,\"route-action\",[\"deleteDistribution\"],null],[27,\"route-action\",[\"editDistributor\"],null]]]],false],[0,\"\\n\"]],\"parameters\":[1,2]},{\"statements\":[[0,\"  \"],[7,\"h3\"],[11,\"class\",\"alert alert-info\"],[9],[0,\"No distribution sections found.\\n    \"],[7,\"button\"],[11,\"class\",\"btn btn-success\"],[11,\"type\",\"button\"],[3,\"action\",[[22,0,[]],\"addDistribution\"]],[9],[0,\"\\n      \"],[1,[27,\"fa-icon\",[\"plus\"],null],false],[0,\" Add Distribution Section\"],[10],[0,\"\\n  \"],[10],[0,\"\\n\"]],\"parameters\":[]}],[0,\"\\n\"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-subbar-extra\",[27,\"component\",[\"control/subbar-link\"],[[\"text\",\"icon\",\"btnType\",\"click\"],[\"Add Distribution Section\",\"plus\",\"success\",[27,\"route-action\",[\"addDistribution\"],null]]]]]]],false],[0,\"\\n\\n\"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-scroll-spy-record-edit\",[27,\"component\",[\"control/md-scroll-spy\"],[[\"refresh\",\"scrollInit\",\"setScrollTo\"],[[23,[\"refresh\"]],[23,[\"scrollTo\"]],[27,\"route-action\",[\"setScrollTo\"],null]]]]]]],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/edit/distribution/index/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "AgVs5NfF", "block": "{\"symbols\":[\"dist\",\"index\"],\"statements\":[[7,\"h4\"],[11,\"class\",\"section-header\"],[9],[0,\"\\n  Editing Distribution\\n  \"],[1,[27,\"control/md-status\",null,[[\"model\"],[[23,[\"parentModel\"]]]]],false],[0,\"\\n\"],[10],[0,\"\\n\\n\"],[4,\"each\",[[23,[\"model\",\"json\",\"metadata\",\"resourceDistribution\"]]],null,{\"statements\":[[0,\"  \"],[1,[27,\"object/md-distribution\",null,[[\"model\",\"index\",\"profilePath\",\"addDistribution\",\"deleteDistribution\",\"editDistributor\"],[[22,1,[]],[22,2,[]],\"record.distribution\",[27,\"route-action\",[\"addDistribution\"],null],[27,\"route-action\",[\"deleteDistribution\"],null],[27,\"route-action\",[\"editDistributor\"],null]]]],false],[0,\"\\n\"]],\"parameters\":[1,2]},{\"statements\":[[0,\"  \"],[7,\"h3\"],[11,\"class\",\"alert alert-info\"],[9],[0,\"No distribution sections found.\\n    \"],[7,\"button\"],[11,\"class\",\"btn btn-success\"],[11,\"type\",\"button\"],[3,\"action\",[[22,0,[]],\"addDistribution\"]],[9],[0,\"\\n      \"],[1,[27,\"fa-icon\",[\"plus\"],null],false],[0,\" Add Distribution Section\"],[10],[0,\"\\n  \"],[10],[0,\"\\n\"]],\"parameters\":[]}],[0,\"\\n\"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-subbar-buttons\",[27,\"component\",[\"control/md-button\"],[[\"text\",\"icon\",\"class\",\"click\"],[\"Add Distribution\",\"plus\",\"btn-success btn-lg\",[27,\"route-action\",[\"addDistribution\"],null]]]]]]],false],[0,\"\\n\\n\"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-scroll-spy-record-edit\",[27,\"component\",[\"control/md-scroll-spy\"],[[\"refresh\",\"scrollInit\",\"setScrollTo\"],[[23,[\"refreshSpy\"]],[23,[\"scrollTo\"]],[27,\"route-action\",[\"setScrollTo\"],null]]]]]]],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/edit/distribution/index/template.hbs" } });
 });
 ;define('mdeditor/pods/record/show/edit/distribution/route', ['exports'], function (exports) {
   'use strict';
@@ -24725,7 +24845,11 @@
           this.route('distribution', function () {
             this.route('distributor', {
               path: ':distribution_id/distributor/:distributor_id'
-            }, function () {});
+            }, function () {
+              this.route('transfer', {
+                path: 'transfer/:transfer_id'
+              });
+            });
           });
           this.route('associated', function () {
             this.route('resource', {
