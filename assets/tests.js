@@ -8128,6 +8128,35 @@ define('mdeditor/tests/integration/helpers/word-limit-test', ['@ember/test-helpe
     });
   });
 });
+define('mdeditor/tests/integration/pods/components/control/md-alert-table/component-test', ['qunit', 'ember-qunit', '@ember/test-helpers'], function (_qunit, _emberQunit, _testHelpers) {
+  'use strict';
+
+  (0, _qunit.module)('Integration | Component | control/md-alert-table', function (hooks) {
+    (0, _emberQunit.setupRenderingTest)(hooks);
+
+    (0, _qunit.test)('it renders', async function (assert) {
+      // Set any properties with this.set('myProperty', 'value');
+      // Handle any actions with this.set('myAction', function(val) { ... });
+
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "I6+61R+Z",
+        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"control/md-alert-table\"],false]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      assert.equal(this.element.textContent.trim(), '');
+
+      // Template block usage:
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "YhmjBVTr",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"control/md-alert-table\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      assert.equal(this.element.textContent.trim(), 'template block text');
+    });
+  });
+});
 define('mdeditor/tests/integration/pods/components/control/md-button-confirm/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit'], function (_testHelpers, _qunit, _emberQunit) {
   'use strict';
 
@@ -9066,6 +9095,35 @@ define('mdeditor/tests/integration/pods/components/control/md-repo-link/componen
       }));
 
       assert.equal((0, _testHelpers.find)('a').textContent.trim(), 'template block text', 'block ok');
+    });
+  });
+});
+define('mdeditor/tests/integration/pods/components/control/md-scroll-into-view/component-test', ['qunit', 'ember-qunit', '@ember/test-helpers'], function (_qunit, _emberQunit, _testHelpers) {
+  'use strict';
+
+  (0, _qunit.module)('Integration | Component | control/md-scroll-into-view', function (hooks) {
+    (0, _emberQunit.setupRenderingTest)(hooks);
+
+    (0, _qunit.test)('it renders', async function (assert) {
+      // Set any properties with this.set('myProperty', 'value');
+      // Handle any actions with this.set('myAction', function(val) { ... });
+
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "fswp8sLG",
+        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"control/md-scroll-into-view\"],false]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      assert.equal(this.element.textContent.trim(), '');
+
+      // Template block usage:
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "7z4D/Vlt",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"control/md-scroll-into-view\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      assert.equal(this.element.textContent.trim(), 'template block text');
     });
   });
 });
@@ -14610,6 +14668,11 @@ define('mdeditor/tests/lint/app.lint-test', [], function () {
     assert.ok(true, 'models/setting.js should pass ESLint\n\n76:19 - Don\'t use observers if possible (ember/no-observers)');
   });
 
+  QUnit.test('pods/components/control/md-alert-table/component.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'pods/components/control/md-alert-table/component.js should pass ESLint\n\n');
+  });
+
   QUnit.test('pods/components/control/md-button-confirm/component.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'pods/components/control/md-button-confirm/component.js should pass ESLint\n\n');
@@ -14713,6 +14776,11 @@ define('mdeditor/tests/lint/app.lint-test', [], function () {
   QUnit.test('pods/components/control/md-repo-link/component.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'pods/components/control/md-repo-link/component.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('pods/components/control/md-scroll-into-view/component.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'pods/components/control/md-scroll-into-view/component.js should pass ESLint\n\n');
   });
 
   QUnit.test('pods/components/control/md-scroll-spy/component.js', function (assert) {
@@ -15162,7 +15230,7 @@ define('mdeditor/tests/lint/app.lint-test', [], function () {
 
   QUnit.test('pods/components/object/md-object-table/component.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'pods/components/object/md-object-table/component.js should pass ESLint\n\n324:19 - Don\'t use observers if possible (ember/no-observers)');
+    assert.ok(true, 'pods/components/object/md-object-table/component.js should pass ESLint\n\n');
   });
 
   QUnit.test('pods/components/object/md-objectroute-table/component.js', function (assert) {
@@ -15242,7 +15310,7 @@ define('mdeditor/tests/lint/app.lint-test', [], function () {
 
   QUnit.test('pods/components/object/md-simple-array-table/component.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'pods/components/object/md-simple-array-table/component.js should pass ESLint\n\n73:19 - Don\'t use observers if possible (ember/no-observers)');
+    assert.ok(true, 'pods/components/object/md-simple-array-table/component.js should pass ESLint\n\n74:19 - Don\'t use observers if possible (ember/no-observers)');
   });
 
   QUnit.test('pods/components/object/md-source/component.js', function (assert) {
@@ -16110,6 +16178,11 @@ define('mdeditor/tests/lint/templates.template.lint-test', [], function () {
 
   QUnit.module('TemplateLint');
 
+  QUnit.test('mdeditor/pods/components/control/md-alert-table/template.hbs', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'mdeditor/pods/components/control/md-alert-table/template.hbs should pass TemplateLint.\n\n');
+  });
+
   QUnit.test('mdeditor/pods/components/control/md-button-confirm/template.hbs', function (assert) {
     assert.expect(1);
     assert.ok(true, 'mdeditor/pods/components/control/md-button-confirm/template.hbs should pass TemplateLint.\n\n');
@@ -16198,6 +16271,11 @@ define('mdeditor/tests/lint/templates.template.lint-test', [], function () {
   QUnit.test('mdeditor/pods/components/control/md-repo-link/template.hbs', function (assert) {
     assert.expect(1);
     assert.ok(true, 'mdeditor/pods/components/control/md-repo-link/template.hbs should pass TemplateLint.\n\n');
+  });
+
+  QUnit.test('mdeditor/pods/components/control/md-scroll-into-view/template.hbs', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'mdeditor/pods/components/control/md-scroll-into-view/template.hbs should pass TemplateLint.\n\n');
   });
 
   QUnit.test('mdeditor/pods/components/control/md-scroll-spy/template.hbs', function (assert) {
@@ -17615,6 +17693,11 @@ define('mdeditor/tests/lint/tests.lint-test', [], function () {
     assert.ok(true, 'integration/helpers/word-limit-test.js should pass ESLint\n\n');
   });
 
+  QUnit.test('integration/pods/components/control/md-alert-table/component-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/pods/components/control/md-alert-table/component-test.js should pass ESLint\n\n');
+  });
+
   QUnit.test('integration/pods/components/control/md-button-confirm/component-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'integration/pods/components/control/md-button-confirm/component-test.js should pass ESLint\n\n');
@@ -17718,6 +17801,11 @@ define('mdeditor/tests/lint/tests.lint-test', [], function () {
   QUnit.test('integration/pods/components/control/md-repo-link/component-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'integration/pods/components/control/md-repo-link/component-test.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('integration/pods/components/control/md-scroll-into-view/component-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/pods/components/control/md-scroll-into-view/component-test.js should pass ESLint\n\n');
   });
 
   QUnit.test('integration/pods/components/control/md-scroll-spy/component-test.js', function (assert) {
