@@ -14613,6 +14613,11 @@ define('mdeditor/tests/lint/app.lint-test', [], function () {
     assert.ok(true, 'instance-initializers/settings.js should pass ESLint\n\n');
   });
 
+  QUnit.test('mixins/cancel.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'mixins/cancel.js should pass ESLint\n\n');
+  });
+
   QUnit.test('mixins/hash-poll.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'mixins/hash-poll.js should pass ESLint\n\n');
@@ -17300,7 +17305,7 @@ define('mdeditor/tests/lint/templates.template.lint-test', [], function () {
 
   QUnit.test('mdeditor/pods/record/show/edit/main/index/template.hbs', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'mdeditor/pods/record/show/edit/main/index/template.hbs should pass TemplateLint.\n\n');
+    assert.ok(false, 'mdeditor/pods/record/show/edit/main/index/template.hbs should pass TemplateLint.\n\nmdeditor/pods/record/show/edit/main/index/template.hbs\n  97:18  error  you must use double quotes in templates  quotes\n');
   });
 
   QUnit.test('mdeditor/pods/record/show/edit/main/template.hbs', function (assert) {
@@ -18468,6 +18473,11 @@ define('mdeditor/tests/lint/tests.lint-test', [], function () {
     assert.ok(true, 'unit/instance-initializers/settings-test.js should pass ESLint\n\n');
   });
 
+  QUnit.test('unit/mixins/cancel-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/mixins/cancel-test.js should pass ESLint\n\n');
+  });
+
   QUnit.test('unit/mixins/hash-poll-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'unit/mixins/hash-poll-test.js should pass ESLint\n\n');
@@ -19496,6 +19506,18 @@ define('mdeditor/tests/unit/instance-initializers/settings-test', ['mdeditor/ins
 
       // you would normally confirm the results of the initializer here
       assert.ok(true);
+    });
+  });
+});
+define('mdeditor/tests/unit/mixins/cancel-test', ['mdeditor/mixins/cancel', 'qunit'], function (_cancel, _qunit) {
+  'use strict';
+
+  (0, _qunit.module)('Unit | Mixin | cancel', function () {
+    // Replace this with your real tests.
+    (0, _qunit.test)('it works', function (assert) {
+      let CancelObject = Ember.Object.extend(_cancel.default);
+      let subject = CancelObject.create();
+      assert.ok(subject);
     });
   });
 });

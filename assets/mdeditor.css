@@ -9471,6 +9471,11 @@ label .x-toggle-form.x-toggle-btn::after {
   max-height: 100vh;
 }
 
+.alert.md-alert-table {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
 .alert.md-alert-table h3,
 .alert.md-alert-table h4 {
   margin-bottom: 0;
