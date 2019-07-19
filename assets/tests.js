@@ -12372,6 +12372,106 @@ define('mdeditor/tests/integration/pods/components/object/md-entity/component-te
     });
   });
 });
+define('mdeditor/tests/integration/pods/components/object/md-extent/component-test', ['qunit', 'ember-qunit', '@ember/test-helpers'], function (_qunit, _emberQunit, _testHelpers) {
+  'use strict';
+
+  (0, _qunit.module)('Integration | Component | object/md-extent', function (hooks) {
+    (0, _emberQunit.setupRenderingTest)(hooks);
+
+    (0, _qunit.test)('it renders', async function (assert) {
+      // Set any properties with this.set('myProperty', 'value');
+      // Handle any actions with this.set('myAction', function(val) { ... });
+
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "2rZhy3n6",
+        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"object/md-extent\"],false]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      assert.equal(this.element.textContent.trim(), '');
+
+      // Template block usage:
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "pKDSVpLH",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-extent\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      assert.equal(this.element.textContent.trim(), 'template block text');
+    });
+  });
+});
+define('mdeditor/tests/integration/pods/components/object/md-extent/spatial/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit'], function (_testHelpers, _qunit, _emberQunit) {
+  'use strict';
+
+  (0, _qunit.module)('Integration | Component | object/md spatial extent', function (hooks) {
+    (0, _emberQunit.setupRenderingTest)(hooks);
+
+    (0, _qunit.test)('it renders', async function (assert) {
+      assert.expect(5);
+      // Set any properties with this.set('myProperty', 'value');
+      // Handle any actions with this.on('myAction', function(val) { ... });
+      this.deleteExtent = function (val) {
+        assert.equal(val, 9, 'call delete');
+      };
+      this.editExtent = function (val) {
+        assert.equal(val, 9, 'call edit');
+      };
+
+      this.extent = {
+        "geographicExtent": [{
+          // "boundingBox": {
+          //   "northLatitude": 34.741612,
+          //   "southLatitude": 32.472695,
+          //   "eastLongitude": -116.542054,
+          //   "westLongitude": -117.729264
+          // },
+          "geographicElement": [{
+            "type": "Feature",
+            "id": "3843b29f-bec7-418d-919a-4f794ce749cf",
+            "geometry": {
+              "type": "Polygon",
+              "coordinates": [[[-116.542054, 32.472695], [-117.596742, 34.741612], [-117.596742, 34.741612], [-117.729264, 32.805745], [-117.729264, 32.805745], [-116.542054, 32.472695]]]
+            },
+            "properties": {
+              "name": "New Feature"
+            }
+          }]
+        }]
+      };
+
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "E5Kedgmg",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-extent/spatial\",null,[[\"extent\",\"index\",\"deleteExtent\",\"editExtent\"],[[23,[\"extent\"]],9,[23,[\"deleteExtent\"]],[23,[\"editExtent\"]]]]],false]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Geographic|Extent|#9|Edit|Extent|Features|Delete|Extent|Bounding|Box|North|East|South|West|Calculate|Description|+−|Terrain|FeaturesLeaflet|');
+
+      await (0, _testHelpers.click)('.btn-primary');
+
+      assert.equal(JSON.stringify(this.extent.geographicExtent[0].boundingBox), JSON.stringify({
+        "northLatitude": 34.741612,
+        "southLatitude": 32.472695,
+        "eastLongitude": -116.542054,
+        "westLongitude": -117.729264
+      }), 'calculateBox');
+
+      await (0, _testHelpers.click)('.btn-success');
+      await (0, _testHelpers.doubleClick)('.btn-danger');
+
+      this.empty = { geographicExtent: [{}] };
+      // Template block usage:
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "/tBI0lly",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-extent/spatial\",null,[[\"extent\"],[[23,[\"empty\"]]]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Geographic|Extent|#|Edit|Extent|Features|Delete|Extent|Bounding|Box|North|East|South|West|Description|No|Features|to|display.|', 'block');
+    });
+  });
+});
 define('mdeditor/tests/integration/pods/components/object/md-funding/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit'], function (_testHelpers, _qunit, _emberQunit) {
   'use strict';
 
@@ -15163,6 +15263,16 @@ define('mdeditor/tests/lint/app.lint-test', [], function () {
     assert.ok(true, 'pods/components/object/md-entity/component.js should pass ESLint\n\n');
   });
 
+  QUnit.test('pods/components/object/md-extent/component.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'pods/components/object/md-extent/component.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('pods/components/object/md-extent/spatial/component.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'pods/components/object/md-extent/spatial/component.js should pass ESLint\n\n50:21 - Don\'t use observers if possible (ember/no-observers)');
+  });
+
   QUnit.test('pods/components/object/md-funding/component.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'pods/components/object/md-funding/component.js should pass ESLint\n\n');
@@ -16613,6 +16723,16 @@ define('mdeditor/tests/lint/templates.template.lint-test', [], function () {
     assert.ok(true, 'mdeditor/pods/components/object/md-entity/template.hbs should pass TemplateLint.\n\n');
   });
 
+  QUnit.test('mdeditor/pods/components/object/md-extent/spatial/template.hbs', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'mdeditor/pods/components/object/md-extent/spatial/template.hbs should pass TemplateLint.\n\n');
+  });
+
+  QUnit.test('mdeditor/pods/components/object/md-extent/template.hbs', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'mdeditor/pods/components/object/md-extent/template.hbs should pass TemplateLint.\n\n');
+  });
+
   QUnit.test('mdeditor/pods/components/object/md-funding/preview/template.hbs', function (assert) {
     assert.expect(1);
     assert.ok(true, 'mdeditor/pods/components/object/md-funding/preview/template.hbs should pass TemplateLint.\n\n');
@@ -17305,7 +17425,7 @@ define('mdeditor/tests/lint/templates.template.lint-test', [], function () {
 
   QUnit.test('mdeditor/pods/record/show/edit/main/index/template.hbs', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'mdeditor/pods/record/show/edit/main/index/template.hbs should pass TemplateLint.\n\nmdeditor/pods/record/show/edit/main/index/template.hbs\n  97:18  error  you must use double quotes in templates  quotes\n');
+    assert.ok(true, 'mdeditor/pods/record/show/edit/main/index/template.hbs should pass TemplateLint.\n\n');
   });
 
   QUnit.test('mdeditor/pods/record/show/edit/main/template.hbs', function (assert) {
@@ -18181,6 +18301,16 @@ define('mdeditor/tests/lint/tests.lint-test', [], function () {
   QUnit.test('integration/pods/components/object/md-entity/component-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'integration/pods/components/object/md-entity/component-test.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('integration/pods/components/object/md-extent/component-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/pods/components/object/md-extent/component-test.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('integration/pods/components/object/md-extent/spatial/component-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/pods/components/object/md-extent/spatial/component-test.js should pass ESLint\n\n');
   });
 
   QUnit.test('integration/pods/components/object/md-funding/component-test.js', function (assert) {

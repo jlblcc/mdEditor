@@ -5985,6 +5985,14 @@ td.visible-print {
     display: none !important;
   }
 }
+.bg-white {
+  background-color: #fff !important;
+}
+
+.bg-transparent {
+  background-color: transparent !important;
+}
+
 @media (min-width: 1440px) {
   .container {
     width: 1560px;
@@ -9295,6 +9303,15 @@ label .x-toggle-form.x-toggle-btn::after {
   background-color: #f1fafd;
 }
 
+.card-lighter {
+  background-color: #f6f6f6;
+  border-color: #ddd;
+}
+.card-lighter .card-header,
+.card-lighter .card-footer {
+  background-color: transparent;
+}
+
 .dashboard {
   padding: 20px;
 }
@@ -9479,6 +9496,122 @@ label .x-toggle-form.x-toggle-btn::after {
 .alert.md-alert-table h3,
 .alert.md-alert-table h4 {
   margin-bottom: 0;
+}
+
+.border {
+  border: 1px solid #eeeeee !important;
+}
+
+.border-top {
+  border-top: 1px solid #eeeeee !important;
+}
+
+.border-right {
+  border-right: 1px solid #eeeeee !important;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #eeeeee !important;
+}
+
+.border-left {
+  border-left: 1px solid #eeeeee !important;
+}
+
+.border-0 {
+  border: 0 !important;
+}
+
+.border-top-0 {
+  border-top: 0 !important;
+}
+
+.border-right-0 {
+  border-right: 0 !important;
+}
+
+.border-bottom-0 {
+  border-bottom: 0 !important;
+}
+
+.border-left-0 {
+  border-left: 0 !important;
+}
+
+.border-primary {
+  border-color: #325d88 !important;
+}
+
+.border-success {
+  border-color: #93c54b !important;
+}
+
+.border-info {
+  border-color: #29abe0 !important;
+}
+
+.border-warning {
+  border-color: #f47c3c !important;
+}
+
+.border-danger {
+  border-color: #d9534f !important;
+}
+
+.border-light {
+  border-color: #eeeeee !important;
+}
+
+.border-dark {
+  border-color: #333333 !important;
+}
+
+.border-white {
+  border-color: #fff !important;
+}
+
+.rounded-sm {
+  border-radius: 0.2rem !important;
+}
+
+.rounded {
+  border-radius: 0.25rem !important;
+}
+
+.rounded-top {
+  border-top-left-radius: 0.25rem !important;
+  border-top-right-radius: 0.25rem !important;
+}
+
+.rounded-right {
+  border-top-right-radius: 0.25rem !important;
+  border-bottom-right-radius: 0.25rem !important;
+}
+
+.rounded-bottom {
+  border-bottom-right-radius: 0.25rem !important;
+  border-bottom-left-radius: 0.25rem !important;
+}
+
+.rounded-left {
+  border-top-left-radius: 0.25rem !important;
+  border-bottom-left-radius: 0.25rem !important;
+}
+
+.rounded-lg {
+  border-radius: 0.3rem !important;
+}
+
+.rounded-circle {
+  border-radius: 50% !important;
+}
+
+.rounded-pill {
+  border-radius: 50rem !important;
+}
+
+.rounded-0 {
+  border-radius: 0 !important;
 }
 
 .ember-modal-dialog {
