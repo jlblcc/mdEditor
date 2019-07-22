@@ -10010,7 +10010,7 @@
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "bLrXzjuc", "block": "{\"symbols\":[\"&default\"],\"statements\":[[7,\"hr\"],[9],[10],[0,\"\\n\"],[7,\"button\"],[11,\"class\",\"btn btn-lg btn-success btn-block md-btn-responsive\"],[11,\"type\",\"button\"],[3,\"action\",[[22,0,[]],\"addExtent\"],[[\"target\"],[[23,[\"actionContext\"]]]]],[9],[0,\"\\n  \"],[1,[27,\"fa-icon\",[\"plus\"],null],false],[0,\" Add Geographic Extent\"],[10],[0,\"\\n\"],[14,1],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/control/subbar-extent/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "iRwBG0lO", "block": "{\"symbols\":[\"&default\"],\"statements\":[[7,\"hr\"],[9],[10],[0,\"\\n\"],[7,\"button\"],[11,\"class\",\"btn btn-lg btn-success btn-block md-btn-responsive\"],[11,\"type\",\"button\"],[3,\"action\",[[22,0,[]],\"addExtent\"],[[\"target\"],[[23,[\"actionContext\"]]]]],[9],[0,\"\\n  \"],[1,[27,\"fa-icon\",[\"plus\"],null],false],[0,\" Add Extent\"],[10],[0,\"\\n\"],[14,1],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/control/subbar-extent/template.hbs" } });
 });
 ;define('mdeditor/pods/components/control/subbar-importcsv/component', ['exports'], function (exports) {
   'use strict';
@@ -22136,7 +22136,7 @@
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "sxjsYsKz", "block": "{\"symbols\":[\"extent\",\"index\"],\"statements\":[[7,\"h4\"],[11,\"class\",\"section-header\"],[9],[0,\"\\n  Editing Extents\\n  \"],[1,[27,\"control/md-status\",null,[[\"model\"],[[23,[\"model\"]]]]],false],[0,\"\\n\"],[10],[0,\"\\n\\n\"],[7,\"section\"],[9],[0,\"\\n\"],[4,\"each\",[[23,[\"model\",\"json\",\"metadata\",\"resourceInfo\",\"extent\"]]],null,{\"statements\":[[0,\"    \"],[1,[27,\"object/md-extent\",null,[[\"title\",\"extent\",\"index\",\"deleteExtent\",\"editFeatures\"],[\"Extent\",[22,1,[]],[22,2,[]],[27,\"route-action\",[\"deleteExtent\"],null],[27,\"route-action\",[\"editFeatures\"],null]]]],false],[0,\"\\n\"]],\"parameters\":[1,2]},{\"statements\":[[0,\"    \"],[7,\"h3\"],[11,\"class\",\"alert alert-info\"],[9],[0,\"No geographic extents found.\\n      \"],[7,\"button\"],[11,\"class\",\"btn btn-lg btn-success\"],[11,\"type\",\"button\"],[3,\"action\",[[22,0,[]],[27,\"route-action\",[\"addExtent\"],null]]],[9],[0,\"\\n        \"],[1,[27,\"fa-icon\",[\"plus\"],null],false],[0,\" Add Geographic Extent\"],[10],[0,\"\\n    \"],[10],[0,\"\\n\"]],\"parameters\":[]}],[10],[0,\"\\n\\n\"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-scroll-spy-record-edit\",[27,\"component\",[\"control/md-scroll-spy\"],[[\"refresh\",\"scrollInit\",\"setScrollTo\"],[[23,[\"refreshSpy\"]],[23,[\"scrollTo\"]],[27,\"route-action\",[\"setScrollTo\"],null]]]]]]],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/edit/extent/index/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "+eqcZ5q1", "block": "{\"symbols\":[\"extent\",\"index\"],\"statements\":[[7,\"h4\"],[11,\"class\",\"section-header\"],[9],[0,\"\\n  Editing Extents\\n  \"],[1,[27,\"control/md-status\",null,[[\"model\"],[[23,[\"model\"]]]]],false],[0,\"\\n\"],[10],[0,\"\\n\\n\"],[7,\"section\"],[9],[0,\"\\n\"],[4,\"each\",[[23,[\"model\",\"json\",\"metadata\",\"resourceInfo\",\"extent\"]]],null,{\"statements\":[[0,\"    \"],[1,[27,\"object/md-extent\",null,[[\"title\",\"extent\",\"index\",\"deleteExtent\",\"editFeatures\"],[\"Extent\",[22,1,[]],[22,2,[]],[27,\"route-action\",[\"deleteExtent\"],null],[27,\"route-action\",[\"editFeatures\"],null]]]],false],[0,\"\\n\"]],\"parameters\":[1,2]},{\"statements\":[[0,\"    \"],[7,\"h3\"],[11,\"class\",\"alert alert-info\"],[9],[0,\"No Extents found.\\n      \"],[7,\"button\"],[11,\"class\",\"btn btn-lg btn-success\"],[11,\"type\",\"button\"],[3,\"action\",[[22,0,[]],[27,\"route-action\",[\"addExtent\"],null]]],[9],[0,\"\\n        \"],[1,[27,\"fa-icon\",[\"plus\"],null],false],[0,\" Add Extent\"],[10],[0,\"\\n    \"],[10],[0,\"\\n\"]],\"parameters\":[]}],[10],[0,\"\\n\\n\"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-scroll-spy-record-edit\",[27,\"component\",[\"control/md-scroll-spy\"],[[\"refresh\",\"scrollInit\",\"setScrollTo\"],[[23,[\"refreshSpy\"]],[23,[\"scrollTo\"]],[27,\"route-action\",[\"setScrollTo\"],null]]]]]]],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/edit/extent/index/template.hbs" } });
 });
 ;define('mdeditor/pods/record/show/edit/extent/route', ['exports'], function (exports) {
   'use strict';
@@ -22202,8 +22202,9 @@
       },
       deleteExtent(id) {
         let extents = this.currentRouteModel().get('json.metadata.resourceInfo.extent');
+        let extent = extents[id];
 
-        extents.removeAt(id);
+        extents.removeObject(extent);
       },
       editFeatures(id) {
         this.transitionTo({ queryParams: { scrollTo: 'extent-' + id } });
