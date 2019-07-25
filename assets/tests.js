@@ -14770,7 +14770,7 @@ define('mdeditor/tests/lint/app.lint-test', [], function () {
 
   QUnit.test('models/setting.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'models/setting.js should pass ESLint\n\n76:19 - Don\'t use observers if possible (ember/no-observers)');
+    assert.ok(true, 'models/setting.js should pass ESLint\n\n82:19 - Don\'t use observers if possible (ember/no-observers)');
   });
 
   QUnit.test('pods/components/control/md-alert-table/component.js', function (assert) {
