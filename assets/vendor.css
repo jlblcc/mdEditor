@@ -4173,6 +4173,9 @@ input.bs-disable[readonly] {
   margin: 0;
   padding: 0;
 }
+.tree-trunk.list-group .tree-branch:last-of-type .tree-leaf {
+  margin-bottom: 0;
+}
 .tree-trunk.list-group .is-dragging-object .badge,
 .tree-trunk.list-group .is-dragging-object .tree-icon {
   opacity: 0;

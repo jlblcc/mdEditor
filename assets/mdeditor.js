@@ -10025,26 +10025,6 @@
   });
   exports.default = Ember.HTMLBars.template({ "id": "C8Ycm3Kw", "block": "{\"symbols\":[\"&default\"],\"statements\":[[7,\"div\"],[11,\"class\",\"btn-group-vertical center-block\"],[11,\"role\",\"group\"],[11,\"aria-label\",\"Citation Button Controls\"],[9],[0,\"\\n  \"],[7,\"button\"],[11,\"class\",\"btn btn-lg btn-info btn-block md-btn-responsive\"],[11,\"type\",\"button\"],[3,\"action\",[[22,0,[]],[23,[\"selectResource\"]]]],[9],[0,\"\\n    \"],[1,[27,\"fa-icon\",[\"check\"],null],false],[0,\" Select a Record\\n    \"],[1,[27,\"ember-tooltip\",null,[[\"text\",\"tooltipClass\",\"side\"],[\"Select a record to copy into the association.\\n        Note: This will only copy information.\",\"ember-tooltip md-tooltip primary\",\"left\"]]],false],[0,\"\\n  \"],[10],[0,\"\\n  \"],[4,\"link-to\",[[23,[\"route\"]]],[[\"class\"],[\"btn btn-lg btn-primary btn-block md-btn-responsive\"]],{\"statements\":[[0,\" \"],[1,[27,\"fa-icon\",[[23,[\"icon\"]]],null],false],[0,\" \"],[1,[21,\"text\"],false]],\"parameters\":[]},null],[0,\"\\n  \"],[14,1],[0,\"\\n\"],[10],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/control/subbar-citation/template.hbs" } });
 });
-;define('mdeditor/pods/components/control/subbar-extent/component', ['exports'], function (exports) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = Ember.Component.extend({
-    actionContext: Ember.computed('context', function () {
-      return this.context();
-    })
-  });
-});
-;define("mdeditor/pods/components/control/subbar-extent/template", ["exports"], function (exports) {
-  "use strict";
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = Ember.HTMLBars.template({ "id": "iRwBG0lO", "block": "{\"symbols\":[\"&default\"],\"statements\":[[7,\"hr\"],[9],[10],[0,\"\\n\"],[7,\"button\"],[11,\"class\",\"btn btn-lg btn-success btn-block md-btn-responsive\"],[11,\"type\",\"button\"],[3,\"action\",[[22,0,[]],\"addExtent\"],[[\"target\"],[[23,[\"actionContext\"]]]]],[9],[0,\"\\n  \"],[1,[27,\"fa-icon\",[\"plus\"],null],false],[0,\" Add Extent\"],[10],[0,\"\\n\"],[14,1],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/control/subbar-extent/template.hbs" } });
-});
 ;define('mdeditor/pods/components/control/subbar-importcsv/component', ['exports'], function (exports) {
   'use strict';
 
@@ -10060,26 +10040,6 @@
     value: true
   });
   exports.default = Ember.HTMLBars.template({ "id": "W+Nf5E8Q", "block": "{\"symbols\":[\"&default\"],\"statements\":[[7,\"button\"],[11,\"class\",\"btn btn-lg btn-info btn-block md-btn-responsive\"],[11,\"type\",\"button\"],[3,\"action\",[[22,0,[]],\"doImport\"],[[\"target\"],[[23,[\"actionContext\"]]]]],[9],[0,\"\\n  \"],[1,[27,\"fa-icon\",[\"sign-in\"],null],false],[0,\" Do Import\"],[10],[0,\"\\n\"],[7,\"button\"],[11,\"class\",\"btn btn-lg btn-danger btn-block md-btn-responsive\"],[11,\"type\",\"button\"],[3,\"action\",[[22,0,[]],\"cancelImport\"],[[\"target\"],[[23,[\"actionContext\"]]]]],[9],[0,\"\\n  \"],[1,[27,\"fa-icon\",[\"times\"],null],false],[0,\" Cancel Import\"],[10],[0,\"\\n\"],[14,1],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/control/subbar-importcsv/template.hbs" } });
-});
-;define('mdeditor/pods/components/control/subbar-keywords/component', ['exports'], function (exports) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = Ember.Component.extend({
-    actionContext: Ember.computed('context', function () {
-      return this.context();
-    })
-  });
-});
-;define("mdeditor/pods/components/control/subbar-keywords/template", ["exports"], function (exports) {
-  "use strict";
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = Ember.HTMLBars.template({ "id": "vzKQ/Kmb", "block": "{\"symbols\":[\"&default\"],\"statements\":[[7,\"hr\"],[9],[10],[0,\"\\n\"],[7,\"button\"],[11,\"class\",\"btn btn-lg btn-success btn-block md-btn-responsive\"],[11,\"type\",\"button\"],[3,\"action\",[[22,0,[]],\"addThesaurus\"],[[\"target\"],[[23,[\"actionContext\"]]]]],[9],[0,\"\\n  \"],[1,[27,\"fa-icon\",[\"plus\"],null],false],[0,\" Add Thesaurus\"],[10],[0,\"\\n\"],[14,1],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/control/subbar-keywords/template.hbs" } });
 });
 ;define('mdeditor/pods/components/control/subbar-link/component', ['exports'], function (exports) {
   'use strict';
@@ -10181,9 +10141,23 @@
     value: true
   });
   exports.default = Ember.Component.extend({
-    actionContext: Ember.computed('context', function () {
-      return this.context();
-    })
+    actions: {
+      zoomAll() {
+        this.zoomAll();
+      },
+      deleteAllFeatures() {
+        this.deleteAllFeatures();
+      },
+      exportGeoJSON() {
+        this.exportGeoJSON();
+      },
+      uploadData() {
+        this.uploadData();
+      },
+      toList() {
+        this.toList();
+      }
+    }
   });
 });
 ;define("mdeditor/pods/components/control/subbar-spatial/template", ["exports"], function (exports) {
@@ -10192,27 +10166,7 @@
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "4PK9+ioi", "block": "{\"symbols\":[\"&default\"],\"statements\":[[7,\"hr\"],[9],[10],[0,\"\\n\"],[7,\"div\"],[11,\"class\",\"btn-group-vertical center-block\"],[11,\"role\",\"group\"],[11,\"aria-label\",\"Geographic Extent Button Controls\"],[9],[0,\"\\n\"],[7,\"button\"],[11,\"class\",\"btn btn-lg btn-success btn-block md-btn-responsive\"],[11,\"type\",\"button\"],[3,\"action\",[[22,0,[]],\"zoomAll\"],[[\"target\"],[[23,[\"actionContext\"]]]]],[9],[0,\"\\n  \"],[1,[27,\"fa-icon\",[\"search\"],null],false],[0,\" Zoom All\"],[10],[0,\"\\n\"],[7,\"button\"],[11,\"class\",\"btn btn-lg btn-warning btn-block md-btn-responsive\"],[11,\"type\",\"button\"],[3,\"action\",[[22,0,[]],\"uploadData\"],[[\"target\"],[[23,[\"actionContext\"]]]]],[9],[1,[27,\"fa-icon\",[\"upload\"],null],false],[0,\" Import Features\"],[10],[0,\"\\n\"],[7,\"button\"],[11,\"class\",\"btn btn-lg btn-info btn-block md-btn-responsive\"],[11,\"type\",\"button\"],[3,\"action\",[[22,0,[]],\"exportGeoJSON\"],[[\"target\"],[[23,[\"actionContext\"]]]]],[9],[1,[27,\"fa-icon\",[\"download\"],null],false],[0,\" Export Features\"],[10],[0,\"\\n\"],[4,\"control/md-button-confirm\",null,[[\"class\",\"onConfirm\"],[\"btn btn-lg btn-danger btn-block md-btn-responsive\",[27,\"action\",[[22,0,[]],\"deleteAllFeatures\"],[[\"target\"],[[23,[\"actionContext\"]]]]]]],{\"statements\":[[0,\" \"],[1,[27,\"fa-icon\",[\"times\"],null],false],[0,\" Delete All\"]],\"parameters\":[]},null],[0,\"\\n\"],[10],[0,\"\\n\"],[7,\"hr\"],[9],[10],[0,\"\\n\"],[7,\"button\"],[11,\"class\",\"btn btn-lg btn-primary btn-block md-btn-responsive\"],[11,\"type\",\"button\"],[3,\"action\",[[22,0,[]],\"toList\"],[[\"target\"],[[23,[\"actionContext\"]]]]],[9],[0,\"\\n  \"],[1,[27,\"fa-icon\",[\"list\"],null],false],[0,\" Back to List\\n\"],[10],[0,\"\\n\"],[14,1],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/control/subbar-spatial/template.hbs" } });
-});
-;define('mdeditor/pods/components/control/subbar-thesaurus/component', ['exports'], function (exports) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = Ember.Component.extend({
-    actionContext: Ember.computed('context', function () {
-      return this.context();
-    })
-  });
-});
-;define("mdeditor/pods/components/control/subbar-thesaurus/template", ["exports"], function (exports) {
-  "use strict";
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = Ember.HTMLBars.template({ "id": "RE1hmF3q", "block": "{\"symbols\":[\"&default\"],\"statements\":[[7,\"hr\"],[9],[10],[0,\"\\n\"],[7,\"button\"],[11,\"class\",\"btn btn-lg btn-primary btn-block md-btn-responsive\"],[11,\"type\",\"button\"],[3,\"action\",[[22,0,[]],\"toList\"],[[\"target\"],[[23,[\"actionContext\"]]]]],[9],[0,\"\\n  \"],[1,[27,\"fa-icon\",[\"list\"],null],false],[0,\" Back to List\"],[10],[0,\"\\n\"],[14,1],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/control/subbar-thesaurus/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "+tPzVZcZ", "block": "{\"symbols\":[\"&default\"],\"statements\":[[7,\"hr\"],[9],[10],[0,\"\\n\"],[7,\"div\"],[11,\"class\",\"btn-group-vertical center-block\"],[11,\"role\",\"group\"],[11,\"aria-label\",\"Geographic Extent Button Controls\"],[9],[0,\"\\n\"],[7,\"button\"],[11,\"class\",\"btn btn-lg btn-success btn-block md-btn-responsive\"],[11,\"type\",\"button\"],[3,\"action\",[[22,0,[]],\"zoomAll\"]],[9],[0,\"\\n  \"],[1,[27,\"fa-icon\",[\"search\"],null],false],[0,\" Zoom All\"],[10],[0,\"\\n\"],[7,\"button\"],[11,\"class\",\"btn btn-lg btn-warning btn-block md-btn-responsive\"],[11,\"type\",\"button\"],[3,\"action\",[[22,0,[]],\"uploadData\"]],[9],[1,[27,\"fa-icon\",[\"upload\"],null],false],[0,\" Import Features\"],[10],[0,\"\\n\"],[7,\"button\"],[11,\"class\",\"btn btn-lg btn-info btn-block md-btn-responsive\"],[11,\"type\",\"button\"],[3,\"action\",[[22,0,[]],\"exportGeoJSON\"]],[9],[1,[27,\"fa-icon\",[\"download\"],null],false],[0,\" Export Features\"],[10],[0,\"\\n\"],[4,\"control/md-button-confirm\",null,[[\"class\",\"onConfirm\"],[\"btn btn-lg btn-danger btn-block md-btn-responsive\",[27,\"action\",[[22,0,[]],\"deleteAllFeatures\"],null]]],{\"statements\":[[0,\" \"],[1,[27,\"fa-icon\",[\"times\"],null],false],[0,\" Delete All\"]],\"parameters\":[]},null],[0,\"\\n\"],[10],[0,\"\\n\"],[7,\"hr\"],[9],[10],[0,\"\\n\"],[7,\"button\"],[11,\"class\",\"btn btn-lg btn-primary btn-block md-btn-responsive\"],[11,\"type\",\"button\"],[3,\"action\",[[22,0,[]],\"toList\"]],[9],[0,\"\\n  \"],[1,[27,\"fa-icon\",[\"list\"],null],false],[0,\" Back to List\\n\"],[10],[0,\"\\n\"],[14,1],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/control/subbar-spatial/template.hbs" } });
 });
 ;define('mdeditor/pods/components/ember-tooltip/component', ['exports', 'ember-tooltips/components/ember-tooltip'], function (exports, _emberTooltip) {
   'use strict';
@@ -15561,7 +15515,7 @@
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "23UR1JmU", "block": "{\"symbols\":[],\"statements\":[[4,\"layout/md-object-container\",null,[[\"title\",\"index\",\"deleteItem\",\"profilePath\"],[[23,[\"title\"]],[23,[\"index\"]],[23,[\"deleteExtent\"]],[23,[\"profilePath\"]]]],{\"statements\":[[0,\"\\n  \"],[1,[27,\"input/md-textarea\",null,[[\"value\",\"rows\",\"maxHeight\",\"placeholder\",\"label\",\"isCollapsible\"],[[23,[\"extent\",\"description\"]],3,300,\"Description of extent\",\"Extent Description\",true]]],false],[0,\"\\n\\n  \"],[1,[27,\"object/md-extent/spatial\",null,[[\"extent\",\"index\",\"editFeatures\",\"profilePath\"],[[23,[\"extent\"]],[23,[\"index\"]],[23,[\"editFeatures\"]],[27,\"concat\",[[23,[\"profilePath\"]],\".geographic\"],null]]]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/object/md-extent/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "q+WZMlCe", "block": "{\"symbols\":[],\"statements\":[[4,\"layout/md-object-container\",null,[[\"title\",\"index\",\"deleteItem\",\"profilePath\"],[[23,[\"title\"]],[23,[\"index\"]],[23,[\"deleteExtent\"]],[23,[\"profilePath\"]]]],{\"statements\":[[0,\"\\n  \"],[1,[27,\"input/md-textarea\",null,[[\"value\",\"rows\",\"maxHeight\",\"placeholder\",\"label\",\"isCollapsible\",\"profilePath\"],[[23,[\"extent\",\"description\"]],3,300,\"Description of extent\",\"Extent Description\",true,[27,\"concat\",[[23,[\"profilePath\"]],\".description\"],null]]]],false],[0,\"\\n\\n  \"],[1,[27,\"object/md-extent/spatial\",null,[[\"extent\",\"index\",\"editFeatures\",\"profilePath\"],[[23,[\"extent\"]],[23,[\"index\"]],[23,[\"editFeatures\"]],[27,\"concat\",[[23,[\"profilePath\"]],\".geographic\"],null]]]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/object/md-extent/template.hbs" } });
 });
 ;define('mdeditor/pods/components/object/md-funding/component', ['exports', 'ember-cp-validations'], function (exports, _emberCpValidations) {
   'use strict';
@@ -22170,7 +22124,7 @@
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "Dx3nGFrq", "block": "{\"symbols\":[\"extent\",\"index\"],\"statements\":[[7,\"h4\"],[11,\"class\",\"section-header\"],[9],[0,\"\\n  Editing Extents\\n  \"],[1,[27,\"control/md-status\",null,[[\"model\"],[[23,[\"model\"]]]]],false],[0,\"\\n\"],[10],[0,\"\\n\\n\"],[7,\"section\"],[9],[0,\"\\n\"],[4,\"each\",[[23,[\"model\",\"json\",\"metadata\",\"resourceInfo\",\"extent\"]]],null,{\"statements\":[[0,\"    \"],[1,[27,\"object/md-extent\",null,[[\"title\",\"extent\",\"index\",\"profilePath\",\"deleteExtent\",\"editFeatures\"],[\"Extent\",[22,1,[]],[22,2,[]],\"record.extent\",[27,\"route-action\",[\"deleteExtent\"],null],[27,\"route-action\",[\"editFeatures\"],null]]]],false],[0,\"\\n\"]],\"parameters\":[1,2]},{\"statements\":[[0,\"    \"],[7,\"h3\"],[11,\"class\",\"alert alert-info\"],[9],[0,\"No Extents found.\\n      \"],[7,\"button\"],[11,\"class\",\"btn btn-lg btn-success\"],[11,\"type\",\"button\"],[3,\"action\",[[22,0,[]],[27,\"route-action\",[\"addExtent\"],null]]],[9],[0,\"\\n        \"],[1,[27,\"fa-icon\",[\"plus\"],null],false],[0,\" Add Extent\"],[10],[0,\"\\n    \"],[10],[0,\"\\n\"]],\"parameters\":[]}],[10],[0,\"\\n\\n\"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-scroll-spy-record-edit\",[27,\"component\",[\"control/md-scroll-spy\"],[[\"refresh\",\"scrollInit\",\"setScrollTo\"],[[23,[\"refreshSpy\"]],[23,[\"scrollTo\"]],[27,\"route-action\",[\"setScrollTo\"],null]]]]]]],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/edit/extent/index/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "OU1QQE62", "block": "{\"symbols\":[\"extent\",\"index\"],\"statements\":[[7,\"h4\"],[11,\"class\",\"section-header\"],[9],[0,\"\\n  Editing Extents\\n  \"],[1,[27,\"control/md-status\",null,[[\"model\"],[[23,[\"model\"]]]]],false],[0,\"\\n\"],[10],[0,\"\\n\\n\"],[7,\"section\"],[9],[0,\"\\n\"],[4,\"each\",[[23,[\"model\",\"json\",\"metadata\",\"resourceInfo\",\"extent\"]]],null,{\"statements\":[[0,\"    \"],[1,[27,\"object/md-extent\",null,[[\"title\",\"extent\",\"index\",\"profilePath\",\"deleteExtent\",\"editFeatures\",\"addExtent\"],[\"Extent\",[22,1,[]],[22,2,[]],\"record.extent\",[27,\"route-action\",[\"deleteExtent\"],null],[27,\"route-action\",[\"editFeatures\"],null],[27,\"route-action\",[\"addExtent\"],null]]]],false],[0,\"\\n\"]],\"parameters\":[1,2]},{\"statements\":[[0,\"    \"],[7,\"h3\"],[11,\"class\",\"alert alert-info\"],[9],[0,\"No Extents found.\\n      \"],[7,\"button\"],[11,\"class\",\"btn btn-lg btn-success\"],[11,\"type\",\"button\"],[3,\"action\",[[22,0,[]],[27,\"route-action\",[\"addExtent\"],null]]],[9],[0,\"\\n        \"],[1,[27,\"fa-icon\",[\"plus\"],null],false],[0,\" Add Extent\"],[10],[0,\"\\n    \"],[10],[0,\"\\n\"]],\"parameters\":[]}],[10],[0,\"\\n\\n\"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-subbar-extra\",[27,\"component\",[\"control/md-button\"],[[\"text\",\"icon\",\"class\",\"click\"],[\"Add Extent\",\"plus\",\"btn-lg btn-success\",[27,\"route-action\",[\"addExtent\"],null]]]]]]],false],[0,\"\\n\\n\"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-scroll-spy-record-edit\",[27,\"component\",[\"control/md-scroll-spy\"],[[\"refresh\",\"scrollInit\",\"setScrollTo\"],[[23,[\"refreshSpy\"]],[23,[\"scrollTo\"]],[27,\"route-action\",[\"setScrollTo\"],null]]]]]]],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/edit/extent/index/template.hbs" } });
 });
 ;define('mdeditor/pods/record/show/edit/extent/route', ['exports'], function (exports) {
   'use strict';
@@ -22197,23 +22151,7 @@
       return model;
     },
 
-    subbar: 'control/subbar-extent',
-
-    clearSubbar: Ember.on('deactivate', function () {
-      this.controllerFor('record.show.edit').set('subbar', null);
-    }),
-
-    setupController: function setupController() {
-      // Call _super for default behavior
-      this._super(...arguments);
-
-      this.controllerFor('record.show.edit').set('subbar', this.subbar);
-    },
-
     actions: {
-      didTransition() {
-        this.controllerFor('record.show.edit').set('subbar', this.subbar);
-      },
       addExtent() {
         let extents = this.currentRouteModel().get('json.metadata.resourceInfo.extent');
 
@@ -22245,11 +22183,7 @@
         this.transitionTo('record.show.edit.extent.spatial', id);
       },
       toList() {
-        let me = this;
-
-        me.transitionTo(me.get('routeName')).then(function () {
-          me.setupController();
-        });
+        this.transitionTo(this.get('routeName'));
       }
     }
   });
@@ -22267,19 +22201,11 @@
       return this.setupModel();
     },
 
-    subbar: 'control/subbar-spatial',
-
-    // clearSubbar: function() {
-    //   this.controllerFor('record.show.edit')
-    //     .set('subbar', null);
-    // }.on('deactivate'),
-
     setupController: function setupController(controller) {
       // Call _super for default behavior
       this._super(...arguments);
 
       this.controllerFor('record.show.edit').setProperties({
-        subbar: this.subbar,
         onCancel: this.setupModel,
         cancelScope: this,
         extentId: this.extentId
@@ -22322,9 +22248,6 @@
     actions: {
       getContext() {
         return this;
-      },
-      didTransition() {
-        this.controllerFor('record.show.edit').set('subbar', this.subbar);
       },
       handleResize() {
         Ember.$('.map-file-picker .leaflet-container').height((Ember.$(window).height() - Ember.$('#md-navbars').outerHeight() - 15) / 2);
@@ -22410,7 +22333,7 @@
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "uFIht3kX", "block": "{\"symbols\":[],\"statements\":[[7,\"section\"],[9],[0,\"\\n    \"],[1,[27,\"leaflet-table\",null,[[\"layers\",\"setFeatureGroup\",\"handleResize\"],[[27,\"get\",[[23,[\"model\"]],[27,\"concat\",[\"json.metadata.resourceInfo.extent.\",[23,[\"extentId\"]],\".geographicExtent.0.geographicElement\"],null]],null],[27,\"route-action\",[\"setFeatureGroup\"],null],[27,\"route-action\",[\"handleResize\"],null]]]],false],[0,\"\\n\"],[10],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/edit/extent/spatial/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "G46FrRN9", "block": "{\"symbols\":[],\"statements\":[[7,\"section\"],[9],[0,\"\\n    \"],[1,[27,\"leaflet-table\",null,[[\"layers\",\"setFeatureGroup\",\"handleResize\"],[[27,\"get\",[[23,[\"model\"]],[27,\"concat\",[\"json.metadata.resourceInfo.extent.\",[23,[\"extentId\"]],\".geographicExtent.0.geographicElement\"],null]],null],[27,\"route-action\",[\"setFeatureGroup\"],null],[27,\"route-action\",[\"handleResize\"],null]]]],false],[0,\"\\n\"],[10],[0,\"\\n\\n\\n\"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-subbar-extra\",[27,\"component\",[\"control/subbar-spatial\"],[[\"actionContext\",\"zoomAll\",\"deleteAllFeatures\",\"exportGeoJSON\",\"uploadData\",\"toList\"],[[22,0,[]],[27,\"route-action\",[\"zoomAll\"],null],[27,\"route-action\",[\"deleteAllFeatures\"],null],[27,\"route-action\",[\"exportGeoJSON\"],null],[27,\"route-action\",[\"uploadData\"],null],[27,\"route-action\",[\"toList\"],null]]]]]]],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/edit/extent/spatial/template.hbs" } });
 });
 ;define("mdeditor/pods/record/show/edit/extent/template", ["exports"], function (exports) {
   "use strict";
@@ -22616,41 +22539,9 @@
         }]));
         Ember.set(k, 'thesaurus.date', Ember.getWithDefault(k, 'thesaurus.date', [{}]));
         Ember.set(k, 'thesaurus.onlineResource', Ember.getWithDefault(k, 'thesaurus.onlineResource', [{}]));
-
-        // if(!has(k, 'thesaurus')) {
-        //   set(k, 'thesaurus', {});
-        // }
-        // if(!has(k, 'thesaurus.identifier')) {
-        //   set(k, 'thesaurus.identifier', [{
-        //     identifier: 'custom'
-        //   }]);
-        // }
-        // if(!has(k, 'thesaurus.date')) {
-        //   set(k, 'thesaurus.date', [{}]);
-        // }
-        // if(!has(k, 'thesaurus.onlineResource')) {
-        //   set(k, 'thesaurus.onlineResource', [{}]);
-        // }
-
-        //let obj = arr.objectAt(idx);
-        //assign(obj, EmObject.create(k));
       });
 
       return model;
-    },
-
-    subbar: 'control/subbar-keywords',
-
-    clearSubbar: Ember.on('deactivate', function () {
-      this.controllerFor('record.show.edit').set('subbar', null);
-    }),
-
-    setupController: function setupController() {
-      // Call _super for default behavior
-      this._super(...arguments);
-
-      this.controllerFor('record.show.edit').set('subbar', this.subbar);
-      this.controller.set('subbar', this.subbar);
     },
 
     actions: {
@@ -22703,7 +22594,7 @@
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "KsaZ9xzs", "block": "{\"symbols\":[\"thesaurus\",\"index\"],\"statements\":[[7,\"h4\"],[11,\"class\",\"section-header\"],[9],[0,\"\\n  Editing Keywords\\n  \"],[1,[27,\"control/md-status\",null,[[\"model\"],[[23,[\"model\"]]]]],false],[0,\"\\n\"],[10],[0,\"\\n  \"],[7,\"section\"],[9],[0,\"\\n\"],[4,\"each\",[[23,[\"model\",\"json\",\"metadata\",\"resourceInfo\",\"keyword\"]]],null,{\"statements\":[[0,\"      \"],[7,\"div\"],[11,\"class\",\"md-keywords-container\"],[12,\"data-spy\",[27,\"concat\",[\"Thesaurus \",[22,2,[]]],null]],[12,\"id\",[27,\"concat\",[\"thesaurus-container-\",[22,2,[]]],null]],[9],[0,\"\\n        \"],[7,\"div\"],[11,\"class\",\"md-keywords-header\"],[9],[0,\"\\n\"],[4,\"if\",[[22,1,[\"thesaurus\",\"identifier\",\"0\",\"identifier\"]]],null,{\"statements\":[[0,\"          \"],[7,\"a\"],[11,\"class\",\"md-keywords-collapse inline-block\"],[11,\"data-toggle\",\"collapse\"],[11,\"aria-expanded\",\"true\"],[12,\"href\",[28,[\"#thesaurus-\",[22,2,[]]]]],[12,\"aria-controls\",[28,[\"thesaurus-\",[22,2,[]]]]],[9],[0,\"\\n            \"],[7,\"span\"],[11,\"class\",\"fa\"],[9],[10],[0,\"\\n          \"],[10],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"          \"],[7,\"h4\"],[11,\"class\",\"inline-block text-primary\"],[11,\"code\",\"\"],[9],[0,\"\\n            \"],[7,\"strong\"],[9],[1,[27,\"concat\",[\"Thesaurus #\",[22,2,[]]],null],false],[10],[0,\"\\n          \"],[10],[0,\"\\n          \"],[1,[27,\"input/md-select-thesaurus\",null,[[\"class\",\"thesaurus\",\"selectThesaurus\",\"value\",\"disabled\"],[\"md-keywords-select\",[22,1,[]],[27,\"route-action\",[\"selectThesaurus\"],null],[22,1,[\"thesaurus\",\"identifier\",\"0\",\"identifier\"]],[22,1,[\"keyword\",\"length\"]]]]],false],[0,\"\\n\"],[4,\"control/md-button-confirm\",null,[[\"class\",\"onConfirm\"],[\"btn btn-sm btn-danger\",[27,\"route-action\",[\"deleteThesaurus\",[22,2,[]]],null]]],{\"statements\":[[0,\"            \"],[1,[27,\"fa-icon\",[\"times\"],null],false],[0,\" Delete\\n\"]],\"parameters\":[]},null],[0,\"        \"],[10],[0,\"\\n        \"],[7,\"div\"],[12,\"id\",[28,[\"thesaurus-\",[22,2,[]]]]],[11,\"class\",\"md-keywords-body collapse in\"],[9],[0,\"\\n\\n\"],[4,\"with\",[[22,1,[\"thesaurus\",\"identifier\",\"0\",\"identifier\"]]],null,{\"statements\":[[0,\"          \"],[7,\"hr\"],[9],[10],[0,\"\\n          \"],[7,\"div\"],[11,\"class\",\"row\"],[9],[0,\"\\n            \"],[7,\"div\"],[11,\"class\",\"md-keywords-thesaurus col-md-6 col-lg-7\"],[9],[0,\"\\n              \"],[1,[27,\"object/md-keyword-citation\",null,[[\"model\"],[[22,1,[]]]]],false],[0,\"\\n            \"],[10],[0,\"\\n            \"],[7,\"div\"],[11,\"class\",\"md-keywords-list col-md-6 col-lg-5\"],[9],[0,\"\\n              \"],[1,[27,\"object/md-keyword-list\",null,[[\"model\",\"listId\",\"addKeyword\",\"deleteKeyword\",\"editThesaurus\"],[[22,1,[]],[22,2,[]],[27,\"route-action\",[\"addKeyword\"],null],[27,\"route-action\",[\"deleteKeyword\"],null],[27,\"route-action\",[\"editThesaurus\"],null]]]],false],[0,\"\\n            \"],[10],[0,\"\\n          \"],[10],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"        \"],[10],[0,\"\\n      \"],[10],[0,\"\\n\"]],\"parameters\":[1,2]},{\"statements\":[[0,\"          \"],[7,\"h3\"],[11,\"class\",\"alert alert-info\"],[9],[0,\"No keywords found.\\n            \"],[7,\"button\"],[11,\"class\",\"btn btn-success\"],[11,\"type\",\"button\"],[3,\"action\",[[22,0,[]],[27,\"route-action\",[\"addThesaurus\"],null]]],[9],[0,\"\\n              \"],[1,[27,\"fa-icon\",[\"plus\"],null],false],[0,\" Add Thesaurus\"],[10],[0,\"\\n          \"],[10],[0,\"\\n\"]],\"parameters\":[]}],[0,\"  \"],[10],[0,\"\\n\\n  \"],[1,[21,\"outlet\"],false],[0,\"\\n\\n  \"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-scroll-spy-record-edit\",[27,\"component\",[\"control/md-scroll-spy\"],[[\"refresh\",\"scrollInit\",\"setScrollTo\"],[[23,[\"refresh\"]],[23,[\"scrollTo\"]],[27,\"route-action\",[\"setScrollTo\"],null]]]]]]],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/edit/keywords/index/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "Nb3kSFQI", "block": "{\"symbols\":[\"thesaurus\",\"index\"],\"statements\":[[7,\"h4\"],[11,\"class\",\"section-header\"],[9],[0,\"\\n  Editing Keywords\\n  \"],[1,[27,\"control/md-status\",null,[[\"model\"],[[23,[\"model\"]]]]],false],[0,\"\\n\"],[10],[0,\"\\n  \"],[7,\"section\"],[9],[0,\"\\n\"],[4,\"each\",[[23,[\"model\",\"json\",\"metadata\",\"resourceInfo\",\"keyword\"]]],null,{\"statements\":[[0,\"      \"],[7,\"div\"],[11,\"class\",\"md-keywords-container md-object-container\"],[12,\"data-spy\",[27,\"concat\",[\"Thesaurus \",[22,2,[]]],null]],[12,\"id\",[27,\"concat\",[\"thesaurus-container-\",[22,2,[]]],null]],[9],[0,\"\\n        \"],[7,\"div\"],[11,\"class\",\"md-keywords-header\"],[9],[0,\"\\n\"],[4,\"if\",[[22,1,[\"thesaurus\",\"identifier\",\"0\",\"identifier\"]]],null,{\"statements\":[[0,\"          \"],[7,\"a\"],[11,\"class\",\"md-keywords-collapse inline-block\"],[11,\"data-toggle\",\"collapse\"],[11,\"aria-expanded\",\"true\"],[12,\"href\",[28,[\"#thesaurus-\",[22,2,[]]]]],[12,\"aria-controls\",[28,[\"thesaurus-\",[22,2,[]]]]],[9],[0,\"\\n            \"],[7,\"span\"],[11,\"class\",\"fa\"],[9],[10],[0,\"\\n          \"],[10],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"          \"],[7,\"h4\"],[11,\"class\",\"inline-block text-primary\"],[11,\"code\",\"\"],[9],[0,\"\\n            \"],[7,\"strong\"],[9],[1,[27,\"concat\",[\"Thesaurus #\",[22,2,[]]],null],false],[10],[0,\"\\n          \"],[10],[0,\"\\n          \"],[1,[27,\"input/md-select-thesaurus\",null,[[\"class\",\"thesaurus\",\"selectThesaurus\",\"value\",\"disabled\"],[\"md-keywords-select\",[22,1,[]],[27,\"route-action\",[\"selectThesaurus\"],null],[22,1,[\"thesaurus\",\"identifier\",\"0\",\"identifier\"]],[22,1,[\"keyword\",\"length\"]]]]],false],[0,\"\\n\"],[4,\"control/md-button-confirm\",null,[[\"class\",\"onConfirm\"],[\"btn btn-sm btn-danger\",[27,\"route-action\",[\"deleteThesaurus\",[22,2,[]]],null]]],{\"statements\":[[0,\"            \"],[1,[27,\"fa-icon\",[\"times\"],null],false],[0,\" Delete\\n\"]],\"parameters\":[]},null],[0,\"        \"],[10],[0,\"\\n        \"],[7,\"div\"],[12,\"id\",[28,[\"thesaurus-\",[22,2,[]]]]],[11,\"class\",\"md-keywords-body collapse in\"],[9],[0,\"\\n\\n\"],[4,\"with\",[[22,1,[\"thesaurus\",\"identifier\",\"0\",\"identifier\"]]],null,{\"statements\":[[0,\"          \"],[7,\"hr\"],[9],[10],[0,\"\\n          \"],[7,\"div\"],[11,\"class\",\"row\"],[9],[0,\"\\n            \"],[7,\"div\"],[11,\"class\",\"md-keywords-thesaurus col-md-6 col-lg-7\"],[9],[0,\"\\n              \"],[1,[27,\"object/md-keyword-citation\",null,[[\"model\"],[[22,1,[]]]]],false],[0,\"\\n            \"],[10],[0,\"\\n            \"],[7,\"div\"],[11,\"class\",\"md-keywords-list col-md-6 col-lg-5\"],[9],[0,\"\\n              \"],[1,[27,\"object/md-keyword-list\",null,[[\"model\",\"listId\",\"addKeyword\",\"deleteKeyword\",\"editThesaurus\"],[[22,1,[]],[22,2,[]],[27,\"route-action\",[\"addKeyword\"],null],[27,\"route-action\",[\"deleteKeyword\"],null],[27,\"route-action\",[\"editThesaurus\"],null]]]],false],[0,\"\\n            \"],[10],[0,\"\\n          \"],[10],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"        \"],[10],[0,\"\\n      \"],[10],[0,\"\\n\"]],\"parameters\":[1,2]},{\"statements\":[[0,\"          \"],[7,\"h3\"],[11,\"class\",\"alert alert-info\"],[9],[0,\"No keywords found.\\n            \"],[7,\"button\"],[11,\"class\",\"btn btn-success\"],[11,\"type\",\"button\"],[3,\"action\",[[22,0,[]],[27,\"route-action\",[\"addThesaurus\"],null]]],[9],[0,\"\\n              \"],[1,[27,\"fa-icon\",[\"plus\"],null],false],[0,\" Add Thesaurus\"],[10],[0,\"\\n          \"],[10],[0,\"\\n\"]],\"parameters\":[]}],[0,\"  \"],[10],[0,\"\\n\\n  \"],[1,[21,\"outlet\"],false],[0,\"\\n\\n  \"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-subbar-extra\",[27,\"component\",[\"control/md-button\"],[[\"text\",\"icon\",\"class\",\"click\"],[\"Add Thesaurus\",\"plus\",\"btn-lg btn-success\",[27,\"route-action\",[\"addThesaurus\"],null]]]]]]],false],[0,\"\\n\\n  \"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-scroll-spy-record-edit\",[27,\"component\",[\"control/md-scroll-spy\"],[[\"refresh\",\"scrollInit\",\"setScrollTo\"],[[23,[\"refresh\"]],[23,[\"scrollTo\"]],[27,\"route-action\",[\"setScrollTo\"],null]]]]]]],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/edit/keywords/index/template.hbs" } });
 });
 ;define('mdeditor/pods/record/show/edit/keywords/route', ['exports'], function (exports) {
   'use strict';
@@ -22724,16 +22615,6 @@
         } else {
           model.removeObject(obj);
         }
-      },
-      // hideThesaurus(el) {
-      //   $(el).closest('.md-keywords-container').toggleClass('hide-thesaurus');
-      // },
-      toList() {
-        let me = this;
-
-        me.transitionTo(me.get('routeName')).then(function () {
-          me.setupController();
-        });
       }
     }
   });
@@ -22786,19 +22667,11 @@
       });
     },
 
-    subbar: 'control/subbar-thesaurus',
-
-    // clearSubbar: function() {
-    //   this.controllerFor('record.show.edit')
-    //     .set('subbar', null);
-    // }.on('deactivate'),
-
     setupController: function setupController() {
       // Call _super for default behavior
       this._super(...arguments);
 
       this.controllerFor('record.show.edit').setProperties({
-        subbar: this.subbar,
         onCancel: this.setupModel,
         cancelScope: this,
         thesaurusId: this.thesaurusId
@@ -22806,13 +22679,6 @@
     },
 
     actions: {
-      willTransition: function willTransition(transition) {
-        let parent = this.routeName.substring(0, this.routeName.lastIndexOf('.'));
-
-        let subbar = transition.targetName === parent + '.index' ? this.controllerFor(parent).get('subbar') : null;
-
-        this.controllerFor('record.show.edit').set('subbar', subbar);
-      },
       selectKeyword(node, path) {
         let model = this.currentRouteModel();
         let keywords = model.get('model').get(model.get('path'));
@@ -22868,7 +22734,7 @@
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "mG8cZdVY", "block": "{\"symbols\":[],\"statements\":[[7,\"div\"],[11,\"class\",\"lead\"],[9],[0,\"Editing Thesaurus #\"],[1,[23,[\"model\",\"id\"]],false],[0,\"\\n  \"],[7,\"small\"],[11,\"class\",\"text-muted\"],[9],[1,[23,[\"model\",\"thesaurus\",\"citation\",\"title\"]],false],[10],[0,\"\\n\"],[10],[0,\"\\n\"],[7,\"div\"],[11,\"class\",\"row\"],[9],[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"col-md-6\"],[9],[0,\"\\n    \"],[7,\"ul\"],[11,\"class\",\"nav nav-tabs\"],[11,\"role\",\"tablist\"],[9],[0,\"\\n      \"],[7,\"li\"],[11,\"role\",\"presentation\"],[11,\"class\",\"active\"],[9],[0,\"\\n        \"],[7,\"a\"],[11,\"href\",\"#md-keyword-tree\"],[11,\"aria-controls\",\"md-keyword-tree\"],[11,\"role\",\"tab\"],[11,\"data-toggle\",\"tab\"],[9],[0,\"Tree\"],[10],[0,\"\\n      \"],[10],[0,\"\\n      \"],[7,\"li\"],[11,\"role\",\"presentation\"],[9],[0,\"\\n        \"],[7,\"a\"],[11,\"href\",\"#md-keyword-search\"],[11,\"aria-controls\",\"md-keyword-search\"],[11,\"role\",\"tab\"],[11,\"data-toggle\",\"tab\"],[9],[0,\"Search\"],[10],[0,\"\\n      \"],[10],[0,\"\\n    \"],[10],[0,\"\\n    \"],[7,\"div\"],[11,\"class\",\"tab-content\"],[9],[0,\"\\n      \"],[7,\"div\"],[11,\"role\",\"tabpanel\"],[11,\"class\",\"md-keyword-tree tab-pane fade in active\"],[11,\"id\",\"md-keyword-tree\"],[9],[0,\"\\n        \"],[1,[27,\"tree-view\",null,[[\"model\",\"selected\",\"select\",\"disableCheck\"],[[23,[\"model\",\"thesaurus\",\"keywords\"]],[27,\"get\",[[23,[\"model\",\"model\"]],[27,\"concat\",[[23,[\"model\",\"path\"]],\".keyword\"],null]],null],[27,\"route-action\",[\"selectKeyword\"],null],true]]],false],[0,\"\\n      \"],[10],[0,\"\\n      \"],[7,\"div\"],[11,\"role\",\"tabpanel\"],[11,\"class\",\"tab-pane fade\"],[11,\"id\",\"md-keyword-search\"],[9],[0,\"\\n        \"],[1,[27,\"tree-search\",null,[[\"model\",\"selected\",\"select\"],[[23,[\"model\",\"thesaurus\",\"keywords\"]],[27,\"get\",[[23,[\"model\",\"model\"]],[27,\"concat\",[[23,[\"model\",\"path\"]],\".keyword\"],null]],null],[27,\"route-action\",[\"selectKeyword\"],null]]]],false],[0,\"\\n      \"],[10],[0,\"\\n    \"],[10],[0,\"\\n  \"],[10],[0,\"\\n\\n  \"],[7,\"div\"],[11,\"class\",\"col-md-6\"],[9],[0,\"\\n    \"],[7,\"div\"],[9],[0,\"\\n      \"],[7,\"h4\"],[11,\"class\",\"inline-block\"],[9],[0,\"Selected Keywords\"],[10],[0,\"\\n      \"],[7,\"div\"],[11,\"class\",\"checkbox pull-right\"],[9],[0,\"\\n        \"],[7,\"label\"],[9],[0,\"\\n          \"],[7,\"input\"],[11,\"name\",\"fullPath\"],[12,\"checked\",[23,[\"model\",\"keywords\",\"fullPath\"]]],[12,\"onChange\",[27,\"route-action\",[\"changeFullPath\"],null]],[11,\"type\",\"checkbox\"],[9],[10],[0,\"\\n            Full Path\\n        \"],[10],[0,\"\\n      \"],[10],[0,\"\\n    \"],[10],[0,\"\\n    \"],[1,[27,\"object/md-keyword-list\",null,[[\"model\",\"deleteKeyword\",\"editThesaurus\"],[[27,\"get\",[[23,[\"model\",\"model\"]],[23,[\"model\",\"path\"]]],null],[27,\"route-action\",[\"removeKeyword\"],null],false]]],false],[0,\"\\n  \"],[10],[0,\"\\n\"],[10],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/edit/keywords/thesaurus/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "GTumW3du", "block": "{\"symbols\":[],\"statements\":[[7,\"div\"],[11,\"class\",\"lead\"],[9],[0,\"Editing Thesaurus #\"],[1,[23,[\"model\",\"id\"]],false],[0,\"\\n  \"],[7,\"small\"],[11,\"class\",\"text-muted\"],[9],[1,[23,[\"model\",\"thesaurus\",\"citation\",\"title\"]],false],[10],[0,\"\\n\"],[10],[0,\"\\n\"],[7,\"div\"],[11,\"class\",\"row\"],[9],[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"col-md-6\"],[9],[0,\"\\n    \"],[7,\"ul\"],[11,\"class\",\"nav nav-tabs\"],[11,\"role\",\"tablist\"],[9],[0,\"\\n      \"],[7,\"li\"],[11,\"role\",\"presentation\"],[11,\"class\",\"active\"],[9],[0,\"\\n        \"],[7,\"a\"],[11,\"href\",\"#md-keyword-tree\"],[11,\"aria-controls\",\"md-keyword-tree\"],[11,\"role\",\"tab\"],[11,\"data-toggle\",\"tab\"],[9],[0,\"Tree\"],[10],[0,\"\\n      \"],[10],[0,\"\\n      \"],[7,\"li\"],[11,\"role\",\"presentation\"],[9],[0,\"\\n        \"],[7,\"a\"],[11,\"href\",\"#md-keyword-search\"],[11,\"aria-controls\",\"md-keyword-search\"],[11,\"role\",\"tab\"],[11,\"data-toggle\",\"tab\"],[9],[0,\"Search\"],[10],[0,\"\\n      \"],[10],[0,\"\\n    \"],[10],[0,\"\\n    \"],[7,\"div\"],[11,\"class\",\"tab-content\"],[9],[0,\"\\n      \"],[7,\"div\"],[11,\"role\",\"tabpanel\"],[11,\"class\",\"md-keyword-tree tab-pane fade in active\"],[11,\"id\",\"md-keyword-tree\"],[9],[0,\"\\n        \"],[1,[27,\"tree-view\",null,[[\"model\",\"selected\",\"select\",\"disableCheck\"],[[23,[\"model\",\"thesaurus\",\"keywords\"]],[27,\"get\",[[23,[\"model\",\"model\"]],[27,\"concat\",[[23,[\"model\",\"path\"]],\".keyword\"],null]],null],[27,\"route-action\",[\"selectKeyword\"],null],true]]],false],[0,\"\\n      \"],[10],[0,\"\\n      \"],[7,\"div\"],[11,\"role\",\"tabpanel\"],[11,\"class\",\"tab-pane fade\"],[11,\"id\",\"md-keyword-search\"],[9],[0,\"\\n        \"],[1,[27,\"tree-search\",null,[[\"model\",\"selected\",\"select\"],[[23,[\"model\",\"thesaurus\",\"keywords\"]],[27,\"get\",[[23,[\"model\",\"model\"]],[27,\"concat\",[[23,[\"model\",\"path\"]],\".keyword\"],null]],null],[27,\"route-action\",[\"selectKeyword\"],null]]]],false],[0,\"\\n      \"],[10],[0,\"\\n    \"],[10],[0,\"\\n  \"],[10],[0,\"\\n\\n  \"],[7,\"div\"],[11,\"class\",\"col-md-6\"],[9],[0,\"\\n    \"],[7,\"div\"],[9],[0,\"\\n      \"],[7,\"h4\"],[11,\"class\",\"inline-block\"],[9],[0,\"Selected Keywords\"],[10],[0,\"\\n      \"],[7,\"div\"],[11,\"class\",\"checkbox pull-right\"],[9],[0,\"\\n        \"],[7,\"label\"],[9],[0,\"\\n          \"],[7,\"input\"],[11,\"name\",\"fullPath\"],[12,\"checked\",[23,[\"model\",\"keywords\",\"fullPath\"]]],[12,\"onChange\",[27,\"route-action\",[\"changeFullPath\"],null]],[11,\"type\",\"checkbox\"],[9],[10],[0,\"\\n            Full Path\\n        \"],[10],[0,\"\\n      \"],[10],[0,\"\\n    \"],[10],[0,\"\\n    \"],[1,[27,\"object/md-keyword-list\",null,[[\"model\",\"deleteKeyword\",\"editThesaurus\"],[[27,\"get\",[[23,[\"model\",\"model\"]],[23,[\"model\",\"path\"]]],null],[27,\"route-action\",[\"removeKeyword\"],null],false]]],false],[0,\"\\n  \"],[10],[0,\"\\n\"],[10],[0,\"\\n\\n\"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-subbar-extra\",[27,\"component\",[\"control/subbar-link\"],[[\"text\",\"icon\",\"type\",\"route\"],[\"Back to List\",\"list\",\"primary\",\"record.show.edit.keywords\"]]]]]],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/edit/keywords/thesaurus/template.hbs" } });
 });
 ;define('mdeditor/pods/record/show/edit/lineage/index/route', ['exports'], function (exports) {
   'use strict';
@@ -24404,7 +24270,7 @@
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "TbHrXwQ3", "block": "{\"symbols\":[\"spy\"],\"statements\":[[7,\"div\"],[11,\"class\",\"row md-section-secondary\"],[9],[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"md-record-content col-sm-10\"],[9],[0,\"\\n    \"],[1,[21,\"liquid-outlet\"],false],[0,\"\\n  \"],[10],[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"md-control-sidebar col-sm-2 hidden-print\"],[9],[0,\"\\n      \"],[1,[27,\"control/md-crud-buttons\",null,[[\"model\",\"doSave\",\"doCancel\",\"doDelete\",\"doCopy\"],[[23,[\"model\"]],[27,\"route-action\",[\"saveRecord\"],null],[27,\"route-action\",[\"cancelRecord\"],null],[27,\"route-action\",[\"destroyRecord\"],null],[27,\"route-action\",[\"copyRecord\"],null]]]],false],[0,\"\\n\"],[0,\"      \"],[1,[27,\"component\",[[23,[\"subbar\"]]],[[\"context\"],[[27,\"route-action\",[\"getContext\"],null]]]],false],[0,\"\\n      \"],[7,\"hr\"],[9],[10],[0,\"\\n      \"],[1,[27,\"from-elsewhere\",null,[[\"name\"],[\"md-subbar-extra\"]]],false],[0,\"\\n\\n      \"],[7,\"div\"],[11,\"class\",\"btn-group-vertical center-block\"],[11,\"role\",\"group\"],[11,\"aria-label\",\"Action Button Controls\"],[9],[0,\"\\n        \"],[1,[27,\"multiple-from-elsewhere\",null,[[\"name\"],[\"md-subbar-buttons\"]]],false],[0,\"\\n      \"],[10],[0,\"\\n\\n\"],[4,\"from-elsewhere\",null,[[\"name\"],[\"md-scroll-spy-record-edit\"]],{\"statements\":[[0,\"          \"],[1,[27,\"component\",[[22,1,[]]],[[\"offset\"],[145]]],false],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"  \"],[10],[0,\"\\n\"],[10],[0,\"\\n\\n\"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"record-nav\",[27,\"component\",[\"input/md-select-profile\"],[[\"value\",\"record\"],[[23,[\"model\",\"profile\"]],[23,[\"model\"]]]]]]]],false],[0,\"\\n\\n\"],[4,\"if\",[[23,[\"model\"]]],null,{\"statements\":[[0,\"  \"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"nav-secondary\",[27,\"component\",[\"layout/md-nav-secondary\"],[[\"model\"],[[23,[\"model\"]]]]]]]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/edit/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "IbLgSJMM", "block": "{\"symbols\":[\"spy\"],\"statements\":[[7,\"div\"],[11,\"class\",\"row md-section-secondary\"],[9],[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"md-record-content col-sm-10\"],[9],[0,\"\\n    \"],[1,[21,\"liquid-outlet\"],false],[0,\"\\n  \"],[10],[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"md-control-sidebar col-sm-2 hidden-print\"],[9],[0,\"\\n      \"],[1,[27,\"control/md-crud-buttons\",null,[[\"model\",\"doSave\",\"doCancel\",\"doDelete\",\"doCopy\"],[[23,[\"model\"]],[27,\"route-action\",[\"saveRecord\"],null],[27,\"route-action\",[\"cancelRecord\"],null],[27,\"route-action\",[\"destroyRecord\"],null],[27,\"route-action\",[\"copyRecord\"],null]]]],false],[0,\"\\n\"],[0,\"      \"],[7,\"hr\"],[9],[10],[0,\"\\n      \"],[1,[27,\"from-elsewhere\",null,[[\"name\"],[\"md-subbar-extra\"]]],false],[0,\"\\n\\n      \"],[7,\"div\"],[11,\"class\",\"btn-group-vertical center-block\"],[11,\"role\",\"group\"],[11,\"aria-label\",\"Action Button Controls\"],[9],[0,\"\\n        \"],[1,[27,\"multiple-from-elsewhere\",null,[[\"name\"],[\"md-subbar-buttons\"]]],false],[0,\"\\n      \"],[10],[0,\"\\n\\n\"],[4,\"from-elsewhere\",null,[[\"name\"],[\"md-scroll-spy-record-edit\"]],{\"statements\":[[0,\"          \"],[1,[27,\"component\",[[22,1,[]]],[[\"offset\"],[145]]],false],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"  \"],[10],[0,\"\\n\"],[10],[0,\"\\n\\n\"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"record-nav\",[27,\"component\",[\"input/md-select-profile\"],[[\"value\",\"record\"],[[23,[\"model\",\"profile\"]],[23,[\"model\"]]]]]]]],false],[0,\"\\n\\n\"],[4,\"if\",[[23,[\"model\"]]],null,{\"statements\":[[0,\"  \"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"nav-secondary\",[27,\"component\",[\"layout/md-nav-secondary\"],[[\"model\"],[[23,[\"model\"]]]]]]]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/record/show/edit/template.hbs" } });
 });
 ;define('mdeditor/pods/record/show/index/route', ['exports', 'mdeditor/mixins/scroll-to'], function (exports, _scrollTo) {
   'use strict';
@@ -29133,7 +28999,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("mdeditor/app")["default"].create({"repository":"https://github.com/adiwg/mdEditor","defaultProfileId":"org.adiwg.profile.full","name":"mdeditor","version":"0.9.0-dev.6+2e88aea9"});
+            require("mdeditor/app")["default"].create({"repository":"https://github.com/adiwg/mdEditor","defaultProfileId":"org.adiwg.profile.full","name":"mdeditor","version":"0.9.0-dev.5+1bd4e3a9"});
           }
         
 //# sourceMappingURL=mdeditor.map

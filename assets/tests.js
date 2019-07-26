@@ -7517,7 +7517,7 @@ define('mdeditor/tests/integration/components/feature-group-test', ['@ember/test
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('.leaflet-container').innerText.trim().replace(/\n/g, '|'), '+|−|Draw a polyline|Draw a polygon|Draw a rectangle|Draw a marker|Draw a circlemarker|3000 km|2000 mi|Leaflet');
+      assert.equal((0, _testHelpers.find)('.leaflet-container').innerText.trim().replace(/\n/g, '|'), '+|−|Draw a polyline|Draw a polygon|Draw a rectangle|Draw a marker|3000 km|2000 mi|Leaflet');
     });
   });
 });
@@ -7564,7 +7564,7 @@ define('mdeditor/tests/integration/components/geojson-layer-test', ['@ember/test
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('.leaflet-container').innerText.trim().replace(/\n/g, '|'), '+|−|Draw a polyline|Draw a polygon|Draw a rectangle|Draw a marker|Draw a circlemarker|3000 km|2000 mi|Leaflet');
+      assert.equal((0, _testHelpers.find)('.leaflet-container').innerText.trim().replace(/\n/g, '|'), '+|−|Draw a polyline|Draw a polygon|Draw a rectangle|Draw a marker|3000 km|2000 mi|Leaflet');
     });
   });
 });
@@ -7587,7 +7587,7 @@ define('mdeditor/tests/integration/components/leaflet-draw-test', ['@ember/test-
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('.leaflet-container').innerText.trim().replace(/\n/g, '|'), '+|−|Draw a polyline|Draw a polygon|Draw a rectangle|Draw a marker|Draw a circlemarker|3000 km|2000 mi|Leaflet');
+      assert.equal((0, _testHelpers.find)('.leaflet-container').innerText.trim().replace(/\n/g, '|'), '+|−|Draw a polyline|Draw a polygon|Draw a rectangle|Draw a marker|3000 km|2000 mi|Leaflet');
     });
   });
 });
@@ -8423,8 +8423,8 @@ define('mdeditor/tests/integration/pods/components/control/md-crud-buttons/compo
       // Handle any actions with this.on('myAction', function(val) { ... });" + EOL + EOL +
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "yDDx1O1a",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"control/md-crud-buttons\"],false]],\"hasEval\":false}",
+        "id": "GzqztLrr",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"control/md-crud-buttons\",null,[[\"allowCopy\",\"allowDelete\"],[true,true]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
       await (0, _testHelpers.triggerEvent)('.md-crud-buttons', 'mouseenter');
@@ -8433,12 +8433,12 @@ define('mdeditor/tests/integration/pods/components/control/md-crud-buttons/compo
 
       // Template block usage:" + EOL +
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "rkTZxo9o",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"control/md-crud-buttons\",null,[[\"doSave\"],[true]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "ADZvkhqU",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"control/md-crud-buttons\",null,[[\"doSave\",\"allowCopy\"],[true,true]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('.md-crud-buttons').textContent.replace(/[ \n]+/g, '|'), '|Save|Cancel|Copy|Delete|template|block|text|', 'block, doSave');
+      assert.equal((0, _testHelpers.find)('.md-crud-buttons').textContent.replace(/[ \n]+/g, '|'), '|Save|Cancel|Copy|template|block|text|', 'block, doSave');
 
       assert.equal((0, _testHelpers.find)('.md-crud-buttons .btn-success').disabled, true, 'save disabled');
     });
@@ -8451,15 +8451,15 @@ define('mdeditor/tests/integration/pods/components/control/md-crud-buttons/compo
         assert.ok(type, `${type} called`);
       });
 
-      //enable save and delet
+      //enable save and delete
       this.set('model', {
         hasDirtyHash: true,
         canRevert: true
       });
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "1kj3Tkwl",
-        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"control/md-crud-buttons\",null,[[\"model\",\"doSave\",\"doCancel\",\"doCopy\",\"doDelete\"],[[23,[\"model\"]],[27,\"action\",[[22,0,[]],[23,[\"externalAction\"]],\"doSave\"],null],[27,\"action\",[[22,0,[]],[23,[\"externalAction\"]],\"doCancel\"],null],[27,\"action\",[[22,0,[]],[23,[\"externalAction\"]],\"doCopy\"],null],[27,\"action\",[[22,0,[]],[23,[\"externalAction\"]],\"doDelete\"],null]]]],false]],\"hasEval\":false}",
+        "id": "KFhyQDEU",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"control/md-crud-buttons\",null,[[\"model\",\"doSave\",\"doCancel\",\"doCopy\",\"doDelete\",\"allowCopy\",\"allowDelete\"],[[23,[\"model\"]],[27,\"action\",[[22,0,[]],[23,[\"externalAction\"]],\"doSave\"],null],[27,\"action\",[[22,0,[]],[23,[\"externalAction\"]],\"doCancel\"],null],[27,\"action\",[[22,0,[]],[23,[\"externalAction\"]],\"doCopy\"],null],[27,\"action\",[[22,0,[]],[23,[\"externalAction\"]],\"doDelete\"],null],true,true]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
@@ -9347,62 +9347,6 @@ define('mdeditor/tests/integration/pods/components/control/subbar-citation/compo
     });
   });
 });
-define('mdeditor/tests/integration/pods/components/control/subbar-extent/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit'], function (_testHelpers, _qunit, _emberQunit) {
-  'use strict';
-
-  (0, _qunit.module)('Integration | Component | control/subbar extent', function (hooks) {
-    (0, _emberQunit.setupRenderingTest)(hooks);
-
-    (0, _qunit.test)('it renders', async function (assert) {
-      // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
-
-      await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "ay34BRP0",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"control/subbar-extent\"],false]],\"hasEval\":false}",
-        "meta": {}
-      }));
-
-      assert.equal((0, _testHelpers.find)('.btn-success').textContent.replace(/[ \n]+/g, '|').trim(), '|Add|Geographic|Extent');
-
-      // Template block usage:
-      await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "tfS9gvEp",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"control/subbar-extent\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
-        "meta": {}
-      }));
-
-      assert.equal((0, _testHelpers.find)('.ember-view').textContent.replace(/[ \n]+/g, '|').trim(), '|Add|Geographic|Extent|template|block|text|');
-    });
-
-    (0, _qunit.test)('fire actions', async function (assert) {
-      // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
-
-      assert.expect(1);
-
-      var FakeRoute = Ember.Route.extend({
-        actions: {
-          addExtent: function addExtent() {
-            assert.ok(true, 'calls addExtent action');
-          }
-        }
-      });
-
-      this.set('context', function () {
-        return new FakeRoute();
-      });
-
-      await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "bq8WoVwy",
-        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"control/subbar-extent\",null,[[\"context\"],[[23,[\"context\"]]]]],false]],\"hasEval\":false}",
-        "meta": {}
-      }));
-
-      await (0, _testHelpers.click)('button');
-    });
-  });
-});
 define('mdeditor/tests/integration/pods/components/control/subbar-importcsv/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit'], function (_testHelpers, _qunit, _emberQunit) {
   'use strict';
 
@@ -9442,63 +9386,6 @@ define('mdeditor/tests/integration/pods/components/control/subbar-importcsv/comp
       }));
 
       assert.equal((0, _testHelpers.find)('.importcsv').textContent.replace(/[ \n]+/g, '|').trim(), '|Do|Import|Cancel|Import|template|block|text|', 'block');
-    });
-  });
-});
-define('mdeditor/tests/integration/pods/components/control/subbar-keywords/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit'], function (_testHelpers, _qunit, _emberQunit) {
-  'use strict';
-
-  (0, _qunit.module)('Integration | Component | control/subbar keywords', function (hooks) {
-    (0, _emberQunit.setupRenderingTest)(hooks);
-
-    (0, _qunit.test)('it renders', async function (assert) {
-      // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
-
-      await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "bSo3Zbkv",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"control/subbar-keywords\"],false]],\"hasEval\":false}",
-        "meta": {}
-      }));
-
-      assert.equal((0, _testHelpers.find)('button').textContent.replace(/[ \n]+/g, '|').trim(), '|Add|Thesaurus');
-
-      // Template block usage:
-      await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "KG3R6F8F",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"control/subbar-keywords\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
-        "meta": {}
-      }));
-
-      assert.equal((0, _testHelpers.find)('.ember-view').textContent.replace(/[ \n]+/g, '|').trim(), '|Add|Thesaurus|template|block|text|');
-    });
-
-    (0, _qunit.test)('fire actions', async function (assert) {
-      // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
-
-      assert.expect(1);
-
-      var FakeRoute = Ember.Route.extend({
-        actions: {
-          addThesaurus: function addThesaurus() {
-            assert.ok(true, 'calls addThesaurus action');
-            return false;
-          }
-        }
-      });
-
-      this.set('context', function () {
-        return new FakeRoute();
-      });
-
-      await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "sg86LZnR",
-        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"control/subbar-keywords\",null,[[\"context\"],[[23,[\"context\"]]]]],false]],\"hasEval\":false}",
-        "meta": {}
-      }));
-
-      await (0, _testHelpers.click)('button');
     });
   });
 });
@@ -9548,8 +9435,8 @@ define('mdeditor/tests/integration/pods/components/control/subbar-spatial/compon
       // Handle any actions with this.on('myAction', function(val) { ... });
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "ay34BRP0",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"control/subbar-extent\"],false]],\"hasEval\":false}",
+        "id": "a/wH2KyF",
+        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"control/subbar-Spatial\"],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
@@ -9557,8 +9444,8 @@ define('mdeditor/tests/integration/pods/components/control/subbar-spatial/compon
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "EXzIM6UU",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"control/subbar-extent\",null,[[\"class\"],[\"testme\"]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "eJwarYF7",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"control/subbar-Spatial\",null,[[\"class\"],[\"testme\"]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
@@ -9584,64 +9471,8 @@ define('mdeditor/tests/integration/pods/components/control/subbar-spatial/compon
       });
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "bq8WoVwy",
-        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"control/subbar-extent\",null,[[\"context\"],[[23,[\"context\"]]]]],false]],\"hasEval\":false}",
-        "meta": {}
-      }));
-
-      await (0, _testHelpers.click)('button');
-    });
-  });
-});
-define('mdeditor/tests/integration/pods/components/control/subbar-thesaurus/component-test', ['@ember/test-helpers', 'qunit', 'ember-qunit'], function (_testHelpers, _qunit, _emberQunit) {
-  'use strict';
-
-  (0, _qunit.module)('Integration | Component | control/subbar thesaurus', function (hooks) {
-    (0, _emberQunit.setupRenderingTest)(hooks);
-
-    (0, _qunit.test)('it renders', async function (assert) {
-      // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
-
-      await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "QNQ+BwwN",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"control/subbar-thesaurus\"],false]],\"hasEval\":false}",
-        "meta": {}
-      }));
-
-      assert.equal((0, _testHelpers.find)('button').textContent.replace(/[ \n]+/g, '|'), '|Back|to|List');
-
-      // Template block usage:
-      await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "p3xMoKv9",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"control/subbar-thesaurus\",null,[[\"class\"],[\"testme\"]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
-        "meta": {}
-      }));
-
-      assert.equal((0, _testHelpers.find)('.testme').textContent.replace(/[ \n]+/g, '|'), '|Back|to|List|template|block|text|', 'block');
-    });
-
-    (0, _qunit.test)('fire actions', async function (assert) {
-      // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
-
-      assert.expect(1);
-
-      var FakeRoute = Ember.Route.extend({
-        actions: {
-          toList: function toList() {
-            assert.ok(true, 'calls toList action');
-          }
-        }
-      });
-
-      this.set('context', function () {
-        return new FakeRoute();
-      });
-
-      await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "bX+wuGGd",
-        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"control/subbar-thesaurus\",null,[[\"context\"],[[23,[\"context\"]]]]],false]],\"hasEval\":false}",
+        "id": "dMHtslw7",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"control/subbar-Spatial\",null,[[\"context\"],[[23,[\"context\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
@@ -14918,19 +14749,9 @@ define('mdeditor/tests/lint/app.lint-test', [], function () {
     assert.ok(true, 'pods/components/control/subbar-citation/component.js should pass ESLint\n\n');
   });
 
-  QUnit.test('pods/components/control/subbar-extent/component.js', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'pods/components/control/subbar-extent/component.js should pass ESLint\n\n');
-  });
-
   QUnit.test('pods/components/control/subbar-importcsv/component.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'pods/components/control/subbar-importcsv/component.js should pass ESLint\n\n');
-  });
-
-  QUnit.test('pods/components/control/subbar-keywords/component.js', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'pods/components/control/subbar-keywords/component.js should pass ESLint\n\n');
   });
 
   QUnit.test('pods/components/control/subbar-link/component.js', function (assert) {
@@ -14941,11 +14762,6 @@ define('mdeditor/tests/lint/app.lint-test', [], function () {
   QUnit.test('pods/components/control/subbar-spatial/component.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'pods/components/control/subbar-spatial/component.js should pass ESLint\n\n');
-  });
-
-  QUnit.test('pods/components/control/subbar-thesaurus/component.js', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'pods/components/control/subbar-thesaurus/component.js should pass ESLint\n\n');
   });
 
   QUnit.test('pods/components/ember-tooltip/component.js', function (assert) {
@@ -16413,19 +16229,9 @@ define('mdeditor/tests/lint/templates.template.lint-test', [], function () {
     assert.ok(true, 'mdeditor/pods/components/control/subbar-citation/template.hbs should pass TemplateLint.\n\n');
   });
 
-  QUnit.test('mdeditor/pods/components/control/subbar-extent/template.hbs', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'mdeditor/pods/components/control/subbar-extent/template.hbs should pass TemplateLint.\n\n');
-  });
-
   QUnit.test('mdeditor/pods/components/control/subbar-importcsv/template.hbs', function (assert) {
     assert.expect(1);
     assert.ok(true, 'mdeditor/pods/components/control/subbar-importcsv/template.hbs should pass TemplateLint.\n\n');
-  });
-
-  QUnit.test('mdeditor/pods/components/control/subbar-keywords/template.hbs', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'mdeditor/pods/components/control/subbar-keywords/template.hbs should pass TemplateLint.\n\n');
   });
 
   QUnit.test('mdeditor/pods/components/control/subbar-link/template.hbs', function (assert) {
@@ -16436,11 +16242,6 @@ define('mdeditor/tests/lint/templates.template.lint-test', [], function () {
   QUnit.test('mdeditor/pods/components/control/subbar-spatial/template.hbs', function (assert) {
     assert.expect(1);
     assert.ok(true, 'mdeditor/pods/components/control/subbar-spatial/template.hbs should pass TemplateLint.\n\n');
-  });
-
-  QUnit.test('mdeditor/pods/components/control/subbar-thesaurus/template.hbs', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'mdeditor/pods/components/control/subbar-thesaurus/template.hbs should pass TemplateLint.\n\n');
   });
 
   QUnit.test('mdeditor/pods/components/input/md-boolean/template.hbs', function (assert) {
@@ -17963,19 +17764,9 @@ define('mdeditor/tests/lint/tests.lint-test', [], function () {
     assert.ok(true, 'integration/pods/components/control/subbar-citation/component-test.js should pass ESLint\n\n');
   });
 
-  QUnit.test('integration/pods/components/control/subbar-extent/component-test.js', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'integration/pods/components/control/subbar-extent/component-test.js should pass ESLint\n\n');
-  });
-
   QUnit.test('integration/pods/components/control/subbar-importcsv/component-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'integration/pods/components/control/subbar-importcsv/component-test.js should pass ESLint\n\n');
-  });
-
-  QUnit.test('integration/pods/components/control/subbar-keywords/component-test.js', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'integration/pods/components/control/subbar-keywords/component-test.js should pass ESLint\n\n');
   });
 
   QUnit.test('integration/pods/components/control/subbar-link/component-test.js', function (assert) {
@@ -17986,11 +17777,6 @@ define('mdeditor/tests/lint/tests.lint-test', [], function () {
   QUnit.test('integration/pods/components/control/subbar-spatial/component-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'integration/pods/components/control/subbar-spatial/component-test.js should pass ESLint\n\n');
-  });
-
-  QUnit.test('integration/pods/components/control/subbar-thesaurus/component-test.js', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'integration/pods/components/control/subbar-thesaurus/component-test.js should pass ESLint\n\n');
   });
 
   QUnit.test('integration/pods/components/ember-tooltip/component-test.js', function (assert) {
