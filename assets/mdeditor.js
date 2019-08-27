@@ -11583,7 +11583,7 @@
     })
   });
 });
-;define('mdeditor/pods/components/input/md-select-profile/component', ['exports'], function (exports) {
+;define('mdeditor/pods/components/input/md-select-profile/component', ['exports', 'ember-basic-dropdown/utils/calculate-position'], function (exports, _calculatePosition) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -11596,6 +11596,15 @@
       this.profile.set('active', profile);
       this.record.save();
     },
+
+    calculatePosition() {
+      let originalValue = (0, _calculatePosition.default)(...arguments);
+      originalValue.style['min-width'] = originalValue.style.width + 'px';
+      originalValue.style.width = 'auto';
+      originalValue.style['max-width'] = '250px';
+      return originalValue;
+    },
+
     actions: {
       /**
        * Update the record profile
@@ -11615,7 +11624,7 @@
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "V8hcq6om", "block": "{\"symbols\":[],\"statements\":[[7,\"form\"],[11,\"class\",\"navbar-form form-inline\"],[9],[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"form-group-sm\"],[9],[0,\"\\n    \"],[7,\"label\"],[11,\"class\",\"navbar-text control-label\"],[9],[0,\"Profile\"],[10],[0,\"\\n    \"],[1,[27,\"input/md-codelist\",null,[[\"change\",\"class\",\"create\",\"tooltip\",\"icon\",\"allowClear\",\"mdCodeName\",\"valuePath\",\"value\",\"placeholder\",\"searchEnabled\",\"label\"],[[27,\"action\",[[22,0,[]],\"updateProfile\",[23,[\"value\"]]],null],\"select-profile\",false,true,true,false,\"profile\",\"code\",[23,[\"value\"]],\"Choose profile\",false,false]]],false],[0,\"\\n  \"],[10],[0,\"\\n\"],[10],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/input/md-select-profile/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "EvkZ9wW2", "block": "{\"symbols\":[],\"statements\":[[7,\"form\"],[11,\"class\",\"navbar-form form-inline\"],[9],[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"form-group-sm\"],[9],[0,\"\\n    \"],[7,\"label\"],[11,\"class\",\"navbar-text control-label\"],[9],[0,\"Profile\"],[10],[0,\"\\n    \"],[1,[27,\"input/md-codelist\",null,[[\"change\",\"class\",\"create\",\"tooltip\",\"icon\",\"allowClear\",\"mdCodeName\",\"valuePath\",\"value\",\"placeholder\",\"searchEnabled\",\"matchTriggerWidth\",\"calculatePosition\",\"label\"],[[27,\"action\",[[22,0,[]],\"updateProfile\",[23,[\"value\"]]],null],\"select-profile\",false,true,true,false,\"profile\",\"code\",[23,[\"value\"]],\"Choose profile\",false,true,[23,[\"calculatePosition\"]],false]]],false],[0,\"\\n  \"],[10],[0,\"\\n\"],[10],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/input/md-select-profile/template.hbs" } });
 });
 ;define('mdeditor/pods/components/input/md-select-thesaurus/component', ['exports'], function (exports) {
   'use strict';
@@ -12079,7 +12088,7 @@
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "qIQh1qy7", "block": "{\"symbols\":[\"code\"],\"statements\":[[4,\"if\",[[23,[\"label\"]]],null,{\"statements\":[[0,\"      \"],[7,\"label\"],[9],[1,[21,\"label\"],false],[10],[0,\"\\n\"]],\"parameters\":[]},null],[7,\"div\"],[11,\"class\",\"md-input-input\"],[9],[0,\"\\n\"],[4,\"component\",[[23,[\"theComponent\"]]],[[\"selected\",\"multiple\",\"options\",\"disabled\",\"placeholder\",\"searchField\",\"searchEnabled\",\"allowClear\",\"closeOnSelect\",\"onchange\",\"oncreate\",\"ariaLabel\"],[[23,[\"selectedItem\"]],[23,[\"multiple\"]],[23,[\"codelist\"]],[23,[\"disabled\"]],[23,[\"placeholder\"]],\"codeName\",[23,[\"searchEnabled\"]],[23,[\"allowClear\"]],[23,[\"closeOnSelect\"]],[27,\"action\",[[22,0,[]],\"setValue\"],null],[27,\"action\",[[22,0,[]],\"create\"],null],[23,[\"ariaLabel\"]]]],{\"statements\":[[4,\"unless\",[[23,[\"filter\"]]],null,{\"statements\":[[0,\"        \"],[7,\"span\"],[12,\"class\",[28,[\"md-select-option \",[27,\"if\",[[22,1,[\"tooltip\"]],\"with-tip\"],null]]]],[9],[0,\"\\n\"],[4,\"if\",[[23,[\"icon\"]]],null,{\"statements\":[[4,\"if\",[[22,1,[\"icon\"]]],null,{\"statements\":[[0,\"              \"],[7,\"span\"],[12,\"class\",[28,[\"fa fa-\",[22,1,[\"icon\"]]]]],[9],[0,\" \"],[10],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null],[0,\"          \"],[7,\"span\"],[11,\"class\",\"select-value\"],[9],[1,[22,1,[\"codeName\"]],false],[10],[0,\"\\n\"],[4,\"if\",[[23,[\"tooltip\"]]],null,{\"statements\":[[4,\"if\",[[22,1,[\"tooltip\"]]],null,{\"statements\":[[0,\"            \"],[7,\"span\"],[11,\"class\",\"select-tip\"],[9],[0,\"\\n              \"],[7,\"span\"],[11,\"class\",\"badge tooltip\"],[9],[0,\"?\\n                \"],[1,[27,\"ember-tooltip\",null,[[\"text\",\"side\"],[[22,1,[\"tooltip\"]],\"right\"]]],false],[0,\"\\n              \"],[10],[0,\"\\n            \"],[10],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null],[0,\"        \"],[10],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[1]},null],[0,\"      \"],[7,\"span\"],[11,\"class\",\"md-input-error\"],[9],[0,\"\\n\"],[4,\"if\",[[23,[\"showErrorMessage\"]]],null,{\"statements\":[[0,\"          \"],[7,\"span\"],[11,\"class\",\"md-error\"],[9],[0,\"\\n            \"],[1,[27,\"fa-icon\",[\"exclamation-circle\"],null],false],[0,\"\\n\"],[4,\"ember-tooltip\",null,[[\"side\",\"tooltipClass\"],[\"right\",\"ember-tooltip md-tooltip danger\"]],{\"statements\":[[0,\"                \"],[1,[27,\"get\",[[27,\"get\",[[27,\"get\",[[27,\"get\",[[23,[\"model\"]],\"validations\"],null],\"attrs\"],null],[23,[\"path\"]]],null],\"message\"],null],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"          \"],[10],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[23,[\"showWarningMessage\"]]],null,{\"statements\":[[0,\"          \"],[7,\"span\"],[11,\"class\",\"md-warning\"],[9],[0,\"\\n            \"],[1,[27,\"fa-icon\",[\"exclamation-triangle\"],null],false],[0,\"\\n\"],[4,\"ember-tooltip\",null,[[\"side\",\"tooltipClass\"],[\"right\",\"ember-tooltip md-tooltip warning\"]],{\"statements\":[[0,\"            \"],[1,[27,\"get\",[[27,\"get\",[[27,\"get\",[[27,\"get\",[[23,[\"model\"]],\"validations\"],null],\"attrs\"],null],[23,[\"path\"]]],null],\"warningMessage\"],null],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"          \"],[10],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"      \"],[10],[0,\"\\n    \"],[10],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/input/md-select/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "dRtBiKrJ", "block": "{\"symbols\":[\"code\"],\"statements\":[[4,\"if\",[[23,[\"label\"]]],null,{\"statements\":[[0,\"      \"],[7,\"label\"],[9],[1,[21,\"label\"],false],[10],[0,\"\\n\"]],\"parameters\":[]},null],[7,\"div\"],[11,\"class\",\"md-input-input\"],[9],[0,\"\\n\"],[4,\"component\",[[23,[\"theComponent\"]]],[[\"selected\",\"multiple\",\"options\",\"disabled\",\"placeholder\",\"searchField\",\"searchEnabled\",\"matchTriggerWidth\",\"calculatePosition\",\"allowClear\",\"closeOnSelect\",\"onchange\",\"oncreate\",\"ariaLabel\"],[[23,[\"selectedItem\"]],[23,[\"multiple\"]],[23,[\"codelist\"]],[23,[\"disabled\"]],[23,[\"placeholder\"]],\"codeName\",[23,[\"searchEnabled\"]],[23,[\"matchTriggerWidth\"]],[23,[\"calculatePosition\"]],[23,[\"allowClear\"]],[23,[\"closeOnSelect\"]],[27,\"action\",[[22,0,[]],\"setValue\"],null],[27,\"action\",[[22,0,[]],\"create\"],null],[23,[\"ariaLabel\"]]]],{\"statements\":[[4,\"unless\",[[23,[\"filter\"]]],null,{\"statements\":[[0,\"        \"],[7,\"span\"],[12,\"class\",[28,[\"md-select-option \",[27,\"if\",[[22,1,[\"tooltip\"]],\"with-tip\"],null]]]],[9],[0,\"\\n\"],[4,\"if\",[[23,[\"icon\"]]],null,{\"statements\":[[4,\"if\",[[22,1,[\"icon\"]]],null,{\"statements\":[[0,\"              \"],[7,\"span\"],[12,\"class\",[28,[\"fa fa-\",[22,1,[\"icon\"]]]]],[9],[0,\" \"],[10],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null],[0,\"          \"],[7,\"span\"],[11,\"class\",\"select-value\"],[9],[1,[22,1,[\"codeName\"]],false],[10],[0,\"\\n\"],[4,\"if\",[[23,[\"tooltip\"]]],null,{\"statements\":[[4,\"if\",[[22,1,[\"tooltip\"]]],null,{\"statements\":[[0,\"            \"],[7,\"span\"],[11,\"class\",\"select-tip\"],[9],[0,\"\\n              \"],[7,\"span\"],[11,\"class\",\"badge tooltip\"],[9],[0,\"?\\n                \"],[1,[27,\"ember-tooltip\",null,[[\"text\",\"side\"],[[22,1,[\"tooltip\"]],\"right\"]]],false],[0,\"\\n              \"],[10],[0,\"\\n            \"],[10],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null],[0,\"        \"],[10],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[1]},null],[0,\"      \"],[7,\"span\"],[11,\"class\",\"md-input-error\"],[9],[0,\"\\n\"],[4,\"if\",[[23,[\"showErrorMessage\"]]],null,{\"statements\":[[0,\"          \"],[7,\"span\"],[11,\"class\",\"md-error\"],[9],[0,\"\\n            \"],[1,[27,\"fa-icon\",[\"exclamation-circle\"],null],false],[0,\"\\n\"],[4,\"ember-tooltip\",null,[[\"side\",\"tooltipClass\"],[\"right\",\"ember-tooltip md-tooltip danger\"]],{\"statements\":[[0,\"                \"],[1,[27,\"get\",[[27,\"get\",[[27,\"get\",[[27,\"get\",[[23,[\"model\"]],\"validations\"],null],\"attrs\"],null],[23,[\"path\"]]],null],\"message\"],null],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"          \"],[10],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[23,[\"showWarningMessage\"]]],null,{\"statements\":[[0,\"          \"],[7,\"span\"],[11,\"class\",\"md-warning\"],[9],[0,\"\\n            \"],[1,[27,\"fa-icon\",[\"exclamation-triangle\"],null],false],[0,\"\\n\"],[4,\"ember-tooltip\",null,[[\"side\",\"tooltipClass\"],[\"right\",\"ember-tooltip md-tooltip warning\"]],{\"statements\":[[0,\"            \"],[1,[27,\"get\",[[27,\"get\",[[27,\"get\",[[27,\"get\",[[23,[\"model\"]],\"validations\"],null],\"attrs\"],null],[23,[\"path\"]]],null],\"warningMessage\"],null],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"          \"],[10],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"      \"],[10],[0,\"\\n    \"],[10],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/input/md-select/template.hbs" } });
 });
 ;define('mdeditor/pods/components/input/md-textarea/component', ['exports'], function (exports) {
   'use strict';
@@ -12681,18 +12690,11 @@
   exports.default = Ember.Component.extend(_resizeAware.default, {
     customProfile: Ember.inject.service('custom-profile'),
     resizeService: Ember.inject.service('resize'),
-    links: Ember.computed('customProfile.active', 'model', function () {
-      const active = this.customProfile.getActiveProfile();
-      const modelName = this.model.constructor.modelName;
-
-      this.debouncedDidResize();
-
-      return Ember.get(active, 'definition.nav.' + modelName) || this.customProfile.defaultProfile.definition.nav[modelName];
-    }),
 
     resizeWidthSensitive: true,
     resizeHeightSensitive: true,
-
+    navPadding: 5,
+    navWidth: 0,
     /**
      * translated "more" text
      *
@@ -12701,119 +12703,92 @@
      */
     more: 'More',
 
-    /**
-     * selector for the navbar container
-     *
-     * @name parent
-     * @type {String}
-     */
-    parent: '#md-navbars',
+    links: Ember.computed('customProfile.active', 'model', 'navWidth', function () {
+      const active = this.customProfile.getActiveProfile();
+      const modelName = this.model.constructor.modelName;
+      const nav = this;
+
+      let links = Ember.get(active, 'definition.nav.' + modelName) || this.customProfile.defaultProfile.definition.nav[modelName];
+
+      return links.map((lnk, index) => {
+        let link = Ember.Object.create(lnk);
+
+        link.setProperties({ nav: nav, index: index });
+        Ember.defineProperty(link, 'navWidth', Ember.computed.alias('nav.navWidth'));
+        Ember.defineProperty(link, 'isOverflow', Ember.computed('navWidth', 'width', function () {
+          return this.navWidth < this.linkWidth + this.nav.offset;
+        }));
+
+        return link;
+      });
+    }),
+
+    sortedLinks: Ember.computed('links', function () {
+      let sorted = this.links.sortBy('index');
+      return sorted;
+    }),
+
+    hasOverflow: Ember.computed('navWidth', 'linkWidth', function () {
+      return this.navWidth < this.linkWidth;
+    }),
+    linkWidth: Ember.computed('links.@each.width', function () {
+      return this.links.reduce((a, b) => a + b.width, this.navPadding);
+    }),
 
     /**
-     * width that needs to be subtracted from the parent div width
+     * width that needs to be a from the parent div width
      *
      * @name offset
      * @type {Number}
      */
-    offset: 0,
-
-    init() {
-      this._super(...arguments);
-
-      // jQuery plugin adapted from https://github.com/tomiford/bootstrap-overflow-navs
-      Ember.$.fn.overflowNavs = function (options) {
-        // Create a handle to our ul menu
-        // @TODO Implement some kind of check to make sure there is only one?  If we accidentally get more than one
-        // then strange things happen
-        let ul = Ember.$(this);
-
-        // This should work with all navs, not just the navbar, so you should be able to pass a parent in
-        let parent = options.parent ? options.parent : ul.parents('.navbar');
-
-        // Get width of the navbar parent so we know how much room we have to work with
-        let parent_width = Ember.$(parent).width() - (options.offset ? parseInt(Ember.$(options.offset).width()) : 0);
-
-        // Find an already existing .overflow-nav dropdown
-        let dropdown = Ember.$('li.overflow-nav', ul);
-
-        // Create one if none exists
-        if (!dropdown.length) {
-          dropdown = Ember.$('<li class="overflow-nav dropdown"></li>');
-          dropdown.append(Ember.$('<a class="dropdown-toggle" data-toggle="dropdown" href="#">' + options.more + '<b class="caret"></b></a>'));
-          dropdown.append(Ember.$('<ul class="dropdown-menu"></ul>'));
-        }
-
-        // Get the width of the navbar, need to add together <li>s as the ul wraps in bootstrap
-        let width = 100;
-        // Allow for padding
-        ul.children('li').each(function () {
-          let $this = Ember.$(this);
-          width += $this.outerWidth();
-        });
-
-        // Window is shrinking
-        if (width >= parent_width) {
-          // Loop through each non-dropdown li in the ul menu from right to left (using .get().reverse())
-          Ember.$(Ember.$('li', ul).not('.dropdown').not('.dropdown li').get().reverse()).each(function () {
-            let $this = Ember.$(this);
-            // Get the width of the navbar
-            let width = 100;
-            // Allow for padding
-            ul.children('li').each(function () {
-              let $this = Ember.$(this);
-              width += $this.outerWidth();
-            });
-            if (width >= parent_width) {
-              // Remember the original width so that we can restore as the window grows
-              $this.attr('data-original-width', $this.outerWidth());
-              // Move the rightmost item to top of dropdown menu if we are running out of space
-              dropdown.children('ul.dropdown-menu').prepend(this);
-            }
-            // @todo on shrinking resize some menu items are still in drop down when bootstrap mobile navigation is displaying
-          });
-        }
-        // Window is growing
-        else {
-            // We used to just look at the first one, but this doesn't work when the window is maximized
-            //let dropdownFirstItem = dropdown.children('ul.dropdown-menu').children().first();
-            dropdown.children('ul.dropdown-menu').children().each(function () {
-              if ((width += parseInt(Ember.$(this).attr('data-original-width'))) < parent_width) {
-                // Restore the topmost dropdown item to the main menu
-                dropdown.before(this);
-              } else {
-                // If the topmost item can't be restored, don't look any further
-                return false;
-              }
-            });
-          }
-
-        // Remove or add dropdown depending on whether or not it contains menu items
-        if (!dropdown.children('ul.dropdown-menu').children().length) {
-          dropdown.remove();
-        } else {
-          // Append new dropdown menu to main menu iff it doesn't already exist
-          if (!ul.children('li.overflow-nav').length) {
-            ul.append(dropdown);
-          }
-        }
-      };
-    },
+    offset: Ember.computed('links.@each.width', function () {
+      return Math.min(Math.max(...this.links.mapBy('width'), 1), 150);
+    }),
 
     didInsertElement: function didInsertElement() {
       this._super.apply(this, arguments);
-      this.debouncedDidResize();
+      this._handleDebouncedResizeEvent();
     },
 
-    debouncedDidResize() {
-      let options = {
-        more: this.more,
-        parent: this.parent,
-        offset: this.offset
-      };
-
-      Ember.$('#md-navbar-secondary').overflowNavs(options);
+    debouncedDidResize(width) {
+      this.set('navWidth', width || this.navWidth);
     }
   });
+});
+;define('mdeditor/pods/components/layout/md-nav-secondary/link/component', ['exports', 'liquid-fire/components/liquid-measured'], function (exports, _liquidMeasured) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.Component.extend({
+    tagName: 'li',
+    didInsertElement() {
+      this._super(...arguments);
+      let width = (0, _liquidMeasured.measure)(this.$()).width;
+
+      if (width === this.link.width || this.link.isOverflow) return;
+
+      Ember.run.scheduleOnce('afterRender', () => {
+        //next(this, () => {
+        let sliced = this.nav.links.slice(0, this.index + 1);
+        this.set('link.width', width);
+
+        this.link.set('linkWidth', sliced.reduce((a, b) => {
+          return a + b.width;
+        }, this.nav.navPadding));
+        //});
+      });
+    }
+  });
+});
+;define("mdeditor/pods/components/layout/md-nav-secondary/link/template", ["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.HTMLBars.template({ "id": "sBKEEyBA", "block": "{\"symbols\":[],\"statements\":[[4,\"if\",[[23,[\"isStaticLinks\"]]],null,{\"statements\":[[0,\"    \"],[4,\"link-to\",[[23,[\"link\",\"target\"]]],[[\"class\"],[\"link.class\"]],{\"statements\":[[1,[23,[\"link\",\"title\"]],false],[0,\"\\n\"],[4,\"if\",[[23,[\"link\",\"tip\"]]],null,{\"statements\":[[4,\"ember-tooltip\",null,[[\"effect\",\"side\",\"delay\",\"tooltipClass\"],[\"slide\",\"bottom\",500,\"ember-tooltip md-tooltip info\"]],{\"statements\":[[0,\"      \"],[1,[23,[\"link\",\"tip\"]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null]],\"parameters\":[]},null]],\"parameters\":[]},{\"statements\":[[0,\"    \"],[4,\"link-to\",[[23,[\"link\",\"target\"]],[23,[\"model\"]]],[[\"class\"],[\"link.class\"]],{\"statements\":[[1,[23,[\"link\",\"title\"]],false],[0,\"\\n\"],[4,\"if\",[[23,[\"link\",\"tip\"]]],null,{\"statements\":[[4,\"ember-tooltip\",null,[[\"effect\",\"side\",\"delay\",\"tooltipClass\"],[\"slide\",\"bottom\",500,\"ember-tooltip md-tooltip info\"]],{\"statements\":[[0,\"          \"],[1,[23,[\"link\",\"tip\"]],false],[0,\"\\n          \"],[1,[23,[\"link\",\"isOverflow\"]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null]],\"parameters\":[]},null]],\"parameters\":[]}]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/layout/md-nav-secondary/link/template.hbs" } });
 });
 ;define("mdeditor/pods/components/layout/md-nav-secondary/template", ["exports"], function (exports) {
   "use strict";
@@ -12821,7 +12796,7 @@
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "UV6DYHyP", "block": "{\"symbols\":[\"link\",\"&default\"],\"statements\":[[7,\"ul\"],[11,\"id\",\"md-navbar-secondary\"],[11,\"class\",\"nav nav-pills\"],[11,\"role\",\"navigation\"],[9],[0,\"\\n\"],[4,\"each\",[[23,[\"links\"]]],null,{\"statements\":[[0,\"    \"],[7,\"li\"],[9],[0,\"\\n\"],[4,\"if\",[[23,[\"isStaticLinks\"]]],null,{\"statements\":[[0,\"        \"],[4,\"link-to\",[[22,1,[\"target\"]]],[[\"class\"],[\"link.class\"]],{\"statements\":[[1,[22,1,[\"title\"]],false],[0,\"\\n\"],[4,\"if\",[[22,1,[\"tip\"]]],null,{\"statements\":[[4,\"ember-tooltip\",null,[[\"effect\",\"side\",\"delay\",\"tooltipClass\"],[\"slide\",\"bottom\",500,\"ember-tooltip md-tooltip info\"]],{\"statements\":[[0,\"              \"],[1,[22,1,[\"tip\"]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null]],\"parameters\":[]},null]],\"parameters\":[]},{\"statements\":[[0,\"        \"],[4,\"link-to\",[[22,1,[\"target\"]],[23,[\"model\"]]],[[\"class\"],[\"link.class\"]],{\"statements\":[[1,[22,1,[\"title\"]],false],[0,\"\\n\"],[4,\"if\",[[22,1,[\"tip\"]]],null,{\"statements\":[[4,\"ember-tooltip\",null,[[\"effect\",\"side\",\"delay\",\"tooltipClass\"],[\"slide\",\"bottom\",500,\"ember-tooltip md-tooltip info\"]],{\"statements\":[[0,\"              \"],[1,[22,1,[\"tip\"]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null]],\"parameters\":[]},null]],\"parameters\":[]}],[0,\"    \"],[10],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"\\n  \"],[14,2],[0,\"\\n\"],[10],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/layout/md-nav-secondary/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "fyhGFdAm", "block": "{\"symbols\":[\"link\",\"index\"],\"statements\":[[7,\"ul\"],[11,\"id\",\"md-navbar-secondary\"],[11,\"class\",\"nav nav-pills\"],[11,\"role\",\"navigation\"],[9],[0,\"\\n\"],[4,\"each\",[[23,[\"sortedLinks\"]]],null,{\"statements\":[[4,\"if\",[[27,\"and\",[[23,[\"hasOverflow\"]],[22,1,[\"isOverflow\"]]],null]],null,{\"statements\":[[0,\"      \"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"secondary-nav-menu\",[27,\"component\",[\"layout/md-nav-secondary/link\"],[[\"isStaticLinks\",\"link\",\"index\",\"model\",\"nav\",\"navWidth\"],[[23,[\"isStaticLinks\"]],[22,1,[]],[22,2,[]],[23,[\"model\"]],[22,0,[]],[23,[\"navWidth\"]]]]]]]],false],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"      \"],[1,[27,\"layout/md-nav-secondary/link\",null,[[\"isStaticLinks\",\"link\",\"index\",\"model\",\"nav\",\"navWidth\"],[[23,[\"isStaticLinks\"]],[22,1,[]],[22,2,[]],[23,[\"model\"]],[22,0,[]],[23,[\"navWidth\"]]]]],false],[0,\"\\n\"]],\"parameters\":[]}]],\"parameters\":[1,2]},null],[0,\"\\n\"],[4,\"if\",[[23,[\"hasOverflow\"]]],null,{\"statements\":[[0,\"    \"],[7,\"li\"],[11,\"class\",\"dropdown\"],[9],[0,\"\\n      \"],[7,\"a\"],[11,\"href\",\"#\"],[11,\"class\",\"dropdown-toggle\"],[11,\"data-toggle\",\"dropdown\"],[11,\"role\",\"button\"],[11,\"aria-haspopup\",\"true\"],[11,\"aria-expanded\",\"false\"],[9],[0,\"More \"],[7,\"span\"],[11,\"class\",\"caret\"],[9],[10],[10],[0,\"\\n      \"],[7,\"ul\"],[11,\"class\",\"dropdown-menu\"],[9],[0,\"\\n        \"],[1,[27,\"multiple-from-elsewhere\",null,[[\"name\"],[\"secondary-nav-menu\"]]],false],[0,\"\\n      \"],[10],[0,\"\\n    \"],[10],[0,\"\\n\"]],\"parameters\":[]},null],[10],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/layout/md-nav-secondary/template.hbs" } });
 });
 ;define('mdeditor/pods/components/layout/md-nav-sidebar/component', ['exports', 'mdeditor/config/environment'], function (exports, _environment) {
   'use strict';
@@ -29055,7 +29030,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("mdeditor/app")["default"].create({"repository":"https://github.com/adiwg/mdEditor","defaultProfileId":"org.adiwg.profile.full","name":"mdeditor","version":"0.9.0-dev.5+f8d4e3fd"});
+            require("mdeditor/app")["default"].create({"repository":"https://github.com/adiwg/mdEditor","defaultProfileId":"org.adiwg.profile.full","name":"mdeditor","version":"0.9.0-dev.5+88158608"});
           }
         
 //# sourceMappingURL=mdeditor.map
