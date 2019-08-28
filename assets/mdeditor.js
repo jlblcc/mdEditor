@@ -40,9 +40,9 @@
     customEvents: events
   });
 
-  window.mdProfile = {
-    record: {}, contact: {}, dictionary: {}
-  };
+  // window.mdProfile = {
+  //   // record:{},contact:{},dictionary:{}
+  // };
 
   (0, _emberLoadInitializers.default)(App, _environment.default.modulePrefix);
 
@@ -72,16 +72,16 @@
 
 
         // generate profile definition
-        path.split('.').reduce((acc, curr, idx) => {
-          let pp = idx ? `${acc}.${curr}` : curr;
-          window.console.log(pp);
-          if (!Ember.get(window.mdProfile, pp)) {
-            Ember.set(window.mdProfile, pp, {
-              //visible: true
-            });
-          }
-          return pp;
-        }, '');
+        // path.split('.').reduce((acc, curr, idx) => {
+        //   let pp = idx ? `${acc}.${curr}` : curr;
+        //   window.console.log(pp);
+        //   if(!get(window.mdProfile, pp)) {
+        //     set(window.mdProfile, pp, {
+        //       //visible: true
+        //     });
+        //   }
+        //   return pp;
+        // }, '');
 
         Ember.defineProperty(this, 'isVisible', Ember.computed('profile.active', function () {
           if (!profile.activeComponents) {
@@ -29030,7 +29030,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("mdeditor/app")["default"].create({"repository":"https://github.com/adiwg/mdEditor","defaultProfileId":"org.adiwg.profile.full","name":"mdeditor","version":"0.9.0-dev.5+88158608"});
+            require("mdeditor/app")["default"].create({"repository":"https://github.com/adiwg/mdEditor","defaultProfileId":"org.adiwg.profile.full","name":"mdeditor","version":"0.9.0-dev.6+f73f43cf"});
           }
         
 //# sourceMappingURL=mdeditor.map

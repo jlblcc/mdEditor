@@ -10483,6 +10483,14 @@ define('mdeditor/tests/integration/pods/components/layout/md-nav-secondary/compo
         title: 'BarFoo',
         target: 'record.show.edit.metadata'
 
+      }, {
+        title: 'FooBar1',
+        target: 'record.show.edit.index'
+
+      }, {
+        title: 'BarFoo2',
+        target: 'record.show.edit.metadata'
+
       }]
     }
   }];
@@ -10532,11 +10540,11 @@ define('mdeditor/tests/integration/pods/components/layout/md-nav-secondary/compo
 
       more = (0, _testHelpers.findAll)('.overflow-nav').length ? '|More' : '';
 
-      assert.equal((0, _testHelpers.find)('.nav').textContent.replace(/[ \n]+/g, '|'), more + '|Foo|Bar|template|block|text|');
+      assert.equal((0, _testHelpers.find)('.nav').textContent.replace(/[ \n]+/g, '|'), more + '|Foo|Bar|');
     });
 
     (0, _qunit.test)('render after setting profile', async function (assert) {
-      assert.expect(1);
+      assert.expect(2);
 
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.on('myAction', function(val) { ... });
@@ -10551,7 +10559,15 @@ define('mdeditor/tests/integration/pods/components/layout/md-nav-secondary/compo
 
       var more = (0, _testHelpers.findAll)('.overflow-nav').length ? '|More' : '';
 
-      assert.equal((0, _testHelpers.find)('.nav').textContent.replace(/[ \n]+/g, '|'), more + '|FooBar|BarFoo|');
+      assert.equal((0, _testHelpers.find)('.nav').textContent.replace(/[ \n]+/g, '|'), more + '|FooBar|BarFoo|FooBar1|BarFoo2|');
+
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "o/RnopqL",
+        "block": "{\"symbols\":[],\"statements\":[[7,\"div\"],[11,\"style\",\"width:100px;\"],[9],[1,[27,\"layout/md-nav-secondary\",null,[[\"model\"],[[23,[\"model\"]]]]],false],[10]],\"hasEval\":false}",
+        "meta": {}
+      }));
+
+      assert.ok((0, _testHelpers.findAll)('.dropdown .dropdown-menu').length, 'render more dropdown');
     });
   });
 });
@@ -10564,23 +10580,36 @@ define('mdeditor/tests/integration/pods/components/layout/md-nav-secondary/link/
     (0, _qunit.test)('it renders', async function (assert) {
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.set('myAction', function(val) { ... });
+      this.links = [Ember.Object.create({
+        title: 'Foo',
+        target: 'record.show.edit.index',
+        tip: 'Foo not bar'
+      }), Ember.Object.create({
+        title: 'Bar',
+        target: 'record.show.edit.metadata'
+
+      })];
+
+      this.nav = {
+        links: this.links
+      };
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "jpfnp5jd",
-        "block": "{\"symbols\":[],\"statements\":[[1,[21,\"layout/md-nav-secondary/link\"],false]],\"hasEval\":false}",
+        "id": "zK2WEPlw",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"layout/md-nav-secondary/link\",null,[[\"link\",\"nav\"],[[23,[\"links\",\"firstObject\"]],[23,[\"nav\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal(this.element.textContent.trim(), '');
+      assert.equal(this.element.textContent.trim(), 'Foo');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "/wTmIDkL",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"layout/md-nav-secondary/link\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "8Z+mcUdC",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"layout/md-nav-secondary/link\",null,[[\"link\",\"nav\"],[[23,[\"links\",\"lastObject\"]],[23,[\"nav\"]]]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
-      assert.equal(this.element.textContent.trim(), 'template block text');
+      assert.equal(this.element.textContent.trim(), 'Bar');
     });
   });
 });
