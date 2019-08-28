@@ -12693,8 +12693,20 @@
 
     resizeWidthSensitive: true,
     resizeHeightSensitive: true,
+
     navPadding: 5,
     navWidth: 0,
+
+    /**
+    * Array of nav links. If not supplied, the links will be pulled from the
+    * active profile.
+    *
+    * @property navLinks
+    * @type {Array}
+    * @default "undefined"
+    * @optional
+    */
+
     /**
      * translated "more" text
      *
@@ -12705,10 +12717,10 @@
 
     links: Ember.computed('customProfile.active', 'model', 'navWidth', function () {
       const active = this.customProfile.getActiveProfile();
-      const modelName = this.model.constructor.modelName;
+      const modelName = this.get('model.constructor.modelName');
       const nav = this;
 
-      let links = Ember.get(active, 'definition.nav.' + modelName) || this.customProfile.defaultProfile.definition.nav[modelName];
+      let links = this.navLinks || Ember.get(active, 'definition.nav.' + modelName) || this.customProfile.defaultProfile.definition.nav[modelName];
 
       return links.map((lnk, index) => {
         let link = Ember.Object.create(lnk);
@@ -12736,7 +12748,8 @@
     }),
 
     /**
-     * width that needs to be a from the parent div width
+     * Width to be added to linkWidth to make sure the last link will fit.
+     * Calcuated as the smaller of the maximum link width or 150.
      *
      * @name offset
      * @type {Number}
@@ -24756,7 +24769,7 @@
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "y6fl6dgQ", "block": "{\"symbols\":[\"spy\"],\"statements\":[[7,\"div\"],[11,\"class\",\"row md-section-secondary\"],[9],[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"col-sm-9 col-md-offset-1\"],[9],[0,\"\\n    \"],[1,[21,\"outlet\"],false],[0,\"\\n  \"],[10],[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"md-control-sidebar col-sm-3 col-md-2 hidden-print\"],[9],[0,\"\\n    \"],[7,\"div\"],[11,\"class\",\"btn-group-vertical center-block\"],[11,\"role\",\"group\"],[11,\"aria-label\",\"Action Button Controls\"],[9],[0,\"\\n      \"],[1,[27,\"multiple-from-elsewhere\",null,[[\"name\"],[\"md-subbar-settings\"]]],false],[0,\"\\n    \"],[10],[0,\"\\n\"],[4,\"from-elsewhere\",null,[[\"name\"],[\"md-scroll-spy-settings\"]],{\"statements\":[[0,\"        \"],[1,[27,\"component\",[[22,1,[]]],[[\"offset\"],[145]]],false],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"  \"],[10],[0,\"\\n\"],[10],[0,\"\\n\\n\"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"nav-secondary\",[27,\"component\",[\"layout/md-nav-secondary\"],[[\"links\",\"isStaticLinks\"],[[23,[\"links\"]],true]]]]]],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/settings/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "5DvrangP", "block": "{\"symbols\":[\"spy\"],\"statements\":[[7,\"div\"],[11,\"class\",\"row md-section-secondary\"],[9],[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"col-sm-9 col-md-offset-1\"],[9],[0,\"\\n    \"],[1,[21,\"outlet\"],false],[0,\"\\n  \"],[10],[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"md-control-sidebar col-sm-3 col-md-2 hidden-print\"],[9],[0,\"\\n    \"],[7,\"div\"],[11,\"class\",\"btn-group-vertical center-block\"],[11,\"role\",\"group\"],[11,\"aria-label\",\"Action Button Controls\"],[9],[0,\"\\n      \"],[1,[27,\"multiple-from-elsewhere\",null,[[\"name\"],[\"md-subbar-settings\"]]],false],[0,\"\\n    \"],[10],[0,\"\\n\"],[4,\"from-elsewhere\",null,[[\"name\"],[\"md-scroll-spy-settings\"]],{\"statements\":[[0,\"        \"],[1,[27,\"component\",[[22,1,[]]],[[\"offset\"],[145]]],false],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"  \"],[10],[0,\"\\n\"],[10],[0,\"\\n\\n\"],[1,[27,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"nav-secondary\",[27,\"component\",[\"layout/md-nav-secondary\"],[[\"navLinks\",\"isStaticLinks\"],[[23,[\"links\"]],true]]]]]],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/settings/template.hbs" } });
 });
 ;define('mdeditor/pods/settings/validation/controller', ['exports', 'ember-concurrency'], function (exports, _emberConcurrency) {
   'use strict';
@@ -29030,7 +29043,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("mdeditor/app")["default"].create({"repository":"https://github.com/adiwg/mdEditor","defaultProfileId":"org.adiwg.profile.full","name":"mdeditor","version":"0.9.0-dev.6+f73f43cf"});
+            require("mdeditor/app")["default"].create({"repository":"https://github.com/adiwg/mdEditor","defaultProfileId":"org.adiwg.profile.full","name":"mdeditor","version":"0.9.0-dev.6+93a50ada"});
           }
         
 //# sourceMappingURL=mdeditor.map
