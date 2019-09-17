@@ -2578,25 +2578,6 @@
   exports.geojsonCoords = undefined;
   exports.geojsonCoords = _geojsonCoords.default;
 });
-;define('mdeditor/helpers/-clear-element', ['exports', 'ember-in-element-polyfill/helpers/-clear-element'], function (exports, _clearElement) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(exports, 'default', {
-    enumerable: true,
-    get: function () {
-      return _clearElement.default;
-    }
-  });
-  Object.defineProperty(exports, 'clearElement', {
-    enumerable: true,
-    get: function () {
-      return _clearElement.clearElement;
-    }
-  });
-});
 ;define('mdeditor/helpers/abs', ['exports', 'ember-math-helpers/helpers/abs'], function (exports, _abs) {
   'use strict';
 
@@ -29062,7 +29043,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("mdeditor/app")["default"].create({"repository":"https://github.com/adiwg/mdEditor","defaultProfileId":"org.adiwg.profile.full","name":"mdeditor","version":"0.9.0-dev.5+ff7cfc85"});
+            require("mdeditor/app")["default"].create({"repository":"https://github.com/adiwg/mdEditor","defaultProfileId":"org.adiwg.profile.full","name":"mdeditor","version":"0.10.0-dev.1+42311046"});
           }
         
 //# sourceMappingURL=mdeditor.map
