@@ -40,9 +40,9 @@
     customEvents: events
   });
 
-  // window.mdProfile = {
-  //   // record:{},contact:{},dictionary:{}
-  // };
+  window.mdProfile = {
+    record: {}, contact: {}, dictionary: {}
+  };
 
   (0, _emberLoadInitializers.default)(App, _environment.default.modulePrefix);
 
@@ -72,16 +72,16 @@
 
 
         // generate profile definition
-        // path.split('.').reduce((acc, curr, idx) => {
-        //   let pp = idx ? `${acc}.${curr}` : curr;
-        //   window.console.log(pp);
-        //   if(!get(window.mdProfile, pp)) {
-        //     set(window.mdProfile, pp, {
-        //       //visible: true
-        //     });
-        //   }
-        //   return pp;
-        // }, '');
+        path.split('.').reduce((acc, curr, idx) => {
+          let pp = idx ? `${acc}.${curr}` : curr;
+          window.console.log(pp);
+          if (!Ember.get(window.mdProfile, pp)) {
+            Ember.set(window.mdProfile, pp, {
+              //visible: true
+            });
+          }
+          return pp;
+        }, '');
 
         Ember.defineProperty(this, 'isVisible', Ember.computed('profile.active', function () {
           if (!profile.activeComponents) {
@@ -7095,6 +7095,10 @@
 
 
   const Validations = (0, _emberCpValidations.buildValidations)({
+    'json.dictionaryId': (0, _emberCpValidations.validator)('presence', {
+      presence: true,
+      ignoreBlank: true
+    }),
     'json.dataDictionary.citation.title': (0, _emberCpValidations.validator)('presence', {
       presence: true,
       ignoreBlank: true
@@ -7131,6 +7135,12 @@
   });
 
   exports.default = _base.default.extend(Validations, _emberCopy.Copyable, {
+    init() {
+      this._super(...arguments);
+
+      this.on('didLoad', this, this.assignId);
+    },
+
     profile: _emberData.default.attr('string', {
       defaultValue: defaultProfileId
     }),
@@ -7187,12 +7197,19 @@
       return errors;
     }),
 
+    assignId(force) {
+      if (force || !this.dictionaryId) {
+        this.set('json.dictionaryId', (0, _v.default)());
+      }
+    },
+
     copy() {
       let current = this.cleanJson;
       let json = Ember.Object.create(current);
       let name = current.dataDictionary.citation.title;
 
       json.set('dataDictionary.citation.title', `Copy of ${name}`);
+      this.assignId(true);
 
       return this.store.createRecord('dictionary', {
         json: json
@@ -12801,7 +12818,7 @@
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "7KOWJ7GI", "block": "{\"symbols\":[],\"statements\":[[4,\"if\",[[23,[\"isStaticLinks\"]]],null,{\"statements\":[[0,\"    \"],[4,\"link-to\",[[23,[\"link\",\"target\"]]],[[\"class\"],[\"link.class\"]],{\"statements\":[[1,[23,[\"link\",\"title\"]],false],[0,\"\\n\"],[4,\"if\",[[23,[\"link\",\"tip\"]]],null,{\"statements\":[[4,\"ember-tooltip\",null,[[\"effect\",\"side\",\"delay\",\"tooltipClass\"],[\"slide\",\"bottom\",500,\"ember-tooltip md-tooltip info\"]],{\"statements\":[[0,\"      \"],[1,[23,[\"link\",\"tip\"]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null]],\"parameters\":[]},null]],\"parameters\":[]},{\"statements\":[[0,\"    \"],[4,\"link-to\",[[23,[\"link\",\"target\"]],[23,[\"model\"]]],[[\"class\"],[\"link.class\"]],{\"statements\":[[1,[23,[\"link\",\"title\"]],false],[0,\"\\n\"],[4,\"if\",[[23,[\"link\",\"tip\"]]],null,{\"statements\":[[4,\"ember-tooltip\",null,[[\"effect\",\"side\",\"delay\",\"tooltipClass\"],[\"slide\",\"bottom\",500,\"ember-tooltip md-tooltip info\"]],{\"statements\":[[0,\"          \"],[1,[23,[\"link\",\"tip\"]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null]],\"parameters\":[]},null]],\"parameters\":[]}]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/layout/md-nav-secondary/link/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "sBKEEyBA", "block": "{\"symbols\":[],\"statements\":[[4,\"if\",[[23,[\"isStaticLinks\"]]],null,{\"statements\":[[0,\"    \"],[4,\"link-to\",[[23,[\"link\",\"target\"]]],[[\"class\"],[\"link.class\"]],{\"statements\":[[1,[23,[\"link\",\"title\"]],false],[0,\"\\n\"],[4,\"if\",[[23,[\"link\",\"tip\"]]],null,{\"statements\":[[4,\"ember-tooltip\",null,[[\"effect\",\"side\",\"delay\",\"tooltipClass\"],[\"slide\",\"bottom\",500,\"ember-tooltip md-tooltip info\"]],{\"statements\":[[0,\"      \"],[1,[23,[\"link\",\"tip\"]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null]],\"parameters\":[]},null]],\"parameters\":[]},{\"statements\":[[0,\"    \"],[4,\"link-to\",[[23,[\"link\",\"target\"]],[23,[\"model\"]]],[[\"class\"],[\"link.class\"]],{\"statements\":[[1,[23,[\"link\",\"title\"]],false],[0,\"\\n\"],[4,\"if\",[[23,[\"link\",\"tip\"]]],null,{\"statements\":[[4,\"ember-tooltip\",null,[[\"effect\",\"side\",\"delay\",\"tooltipClass\"],[\"slide\",\"bottom\",500,\"ember-tooltip md-tooltip info\"]],{\"statements\":[[0,\"          \"],[1,[23,[\"link\",\"tip\"]],false],[0,\"\\n          \"],[1,[23,[\"link\",\"isOverflow\"]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null]],\"parameters\":[]},null]],\"parameters\":[]}]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/layout/md-nav-secondary/link/template.hbs" } });
 });
 ;define("mdeditor/pods/components/layout/md-nav-secondary/template", ["exports"], function (exports) {
   "use strict";
@@ -17035,7 +17052,7 @@
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "BOV3pd+m", "block": "{\"symbols\":[\"&default\"],\"statements\":[[1,[27,\"input/md-input\",null,[[\"value\",\"label\",\"placeholder\",\"profilePath\"],[[23,[\"model\",\"name\"]],\"Name\",\"Online Resource Name\",[27,\"concat\",[[23,[\"profilePath\"]],\".name\"],null]]]],false],[0,\"\\n\\n\"],[1,[27,\"input/md-input\",null,[[\"type\",\"valuePath\",\"model\",\"profilePath\",\"label\",\"placeholder\"],[\"url\",\"uri\",[23,[\"model\"]],[27,\"concat\",[[23,[\"profilePath\"]],\".url\"],null],\"URI\",\"Online Resource URI\"]]],false],[0,\"\\n\\n\"],[4,\"if\",[[23,[\"imagePicker\"]]],null,{\"statements\":[[0,\"  \"],[7,\"div\"],[11,\"class\",\"row\"],[9],[0,\"\\n    \"],[7,\"div\"],[11,\"class\",\"col-sm-6\"],[9],[0,\"\\n\"],[4,\"file-picker\",null,[[\"class\",\"fileLoaded\",\"preview\",\"accept\",\"readAs\"],[\"md-file-picker text-center\",\"handleFile\",false,\".jpeg,.jpg,.png,.gif,.svg\",\"readAsDataURL\"]],{\"statements\":[[0,\"        \"],[7,\"button\"],[11,\"class\",\"btn btn-lg btn-info\"],[11,\"type\",\"button\"],[9],[0,\"\\n          \"],[1,[27,\"fa-icon\",[\"bullseye\"],null],false],[0,\" Click to Select or Drop Image\\n        \"],[10],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"    \"],[10],[0,\"\\n    \"],[7,\"div\"],[11,\"class\",\"col-md-6\"],[9],[0,\"\\n      \"],[7,\"div\"],[11,\"class\",\"md-preview-image text-center\"],[9],[0,\"\\n\"],[4,\"if\",[[23,[\"model\",\"uri\"]]],null,{\"statements\":[[0,\"            \"],[7,\"img\"],[12,\"src\",[23,[\"model\",\"uri\"]]],[11,\"class\",\"img-responsive img-thumbnail\"],[11,\"alt\",\"Image Preview\"],[9],[10],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"            Enter URI or select file to preview.\\n\"]],\"parameters\":[]}],[0,\"    \"],[10],[0,\"\\n    \"],[10],[0,\"\\n  \"],[10],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[1,[27,\"input/md-input\",null,[[\"value\",\"profilePath\",\"label\",\"placeholder\"],[[23,[\"model\",\"protocol\"]],[27,\"concat\",[[23,[\"profilePath\"]],\".protocol\"],null],\"Protocol\",\"Protocol for accessing the Online Resource\"]]],false],[0,\"\\n\\n\"],[1,[27,\"input/md-textarea\",null,[[\"maxlength\",\"value\",\"label\",\"profilePath\",\"placeholder\"],[500,[23,[\"model\",\"description\"]],\"Description\",[27,\"concat\",[[23,[\"profilePath\"]],\".description\"],null],\"Description of the Online Resource: Less than 500 characters\"]]],false],[0,\"\\n\\n\"],[1,[27,\"input/md-codelist\",null,[[\"value\",\"mdCodeName\",\"label\",\"placeholder\",\"profilePath\",\"tooltip\",\"allowClear\",\"width\"],[[23,[\"model\",\"function\"]],\"onlineFunction\",\"Function\",\"Select function of the Online Resource\",[27,\"concat\",[[23,[\"profilePath\"]],\".onlineFunction\"],null],true,true,\"70%\"]]],false],[0,\"\\n\\n\"],[14,1],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/object/md-online-resource/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "xGcdauoj", "block": "{\"symbols\":[\"&default\"],\"statements\":[[1,[27,\"input/md-input\",null,[[\"value\",\"label\",\"placeholder\",\"profilePath\"],[[23,[\"model\",\"name\"]],\"Name\",\"Online Resource Name\",[27,\"concat\",[[23,[\"profilePath\"]],\".name\"],null]]]],false],[0,\"\\n\\n\"],[1,[27,\"input/md-input\",null,[[\"type\",\"valuePath\",\"model\",\"profilePath\",\"label\",\"placeholder\"],[\"url\",\"uri\",[23,[\"model\"]],[27,\"concat\",[[23,[\"profilePath\"]],\".url\"],null],\"URI\",\"Online Resource URI\"]]],false],[0,\"\\n\\n\"],[4,\"if\",[[23,[\"imagePicker\"]]],null,{\"statements\":[[0,\"  \"],[7,\"div\"],[11,\"class\",\"row\"],[9],[0,\"\\n    \"],[7,\"div\"],[11,\"class\",\"col-sm-6\"],[9],[0,\"\\n\"],[4,\"file-picker\",null,[[\"class\",\"fileLoaded\",\"preview\",\"accept\",\"readAs\"],[\"md-file-picker text-center\",\"handleFile\",false,\".jpeg,.jpg,.png,.gif,.svg\",\"readAsDataURL\"]],{\"statements\":[[0,\"        \"],[7,\"button\"],[11,\"class\",\"btn btn-lg btn-info\"],[11,\"type\",\"button\"],[9],[0,\"\\n          \"],[1,[27,\"fa-icon\",[\"bullseye\"],null],false],[0,\" Click to Select or Drop Image\\n        \"],[10],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"    \"],[10],[0,\"\\n    \"],[7,\"div\"],[11,\"class\",\"col-md-6\"],[9],[0,\"\\n      \"],[7,\"div\"],[11,\"class\",\"md-preview-image text-center\"],[9],[0,\"\\n\"],[4,\"if\",[[23,[\"model\",\"uri\"]]],null,{\"statements\":[[0,\"            \"],[7,\"img\"],[12,\"src\",[23,[\"model\",\"uri\"]]],[11,\"class\",\"img-responsive img-thumbnail\"],[11,\"alt\",\"Image Preview\"],[9],[10],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"            Enter URI or select file to preview.\\n\"]],\"parameters\":[]}],[0,\"    \"],[10],[0,\"\\n    \"],[10],[0,\"\\n  \"],[10],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[1,[27,\"input/md-input\",null,[[\"value\",\"profilePath\",\"label\",\"placeholder\"],[[23,[\"model\",\"protocol\"]],[27,\"concat\",[[23,[\"profilePath\"]],\".protocol\"],null],\"Protocol\",\"Protocol for accessing the Online Resource\"]]],false],[0,\"\\n\\n\"],[1,[27,\"input/md-textarea\",null,[[\"maxlength\",\"value\",\"label\",\"profilePath\",\"placeholder\"],[500,[23,[\"model\",\"description\"]],\"Description\",[27,\"concat\",[[23,[\"profilePath\"]],\".description\"],null],\"Description of the Online Resource: Less than 500 characters\"]]],false],[0,\"\\n\\n\"],[1,[27,\"input/md-codelist\",null,[[\"value\",\"mdCodeName\",\"label\",\"placeholder\",\"profilePath\",\"tooltip\",\"allowClear\",\"width\"],[[23,[\"model\",\"function\"]],\"onlineFunction\",\"Function\",\"Select function of the Online Resource\",[27,\"concat\",[[23,[\"profilePath\"]],\".onlineFunction\"],null],true,true,\"70%\"]]],false],[0,\"\\n\\n\"],[1,[27,\"input/md-codelist\",null,[[\"value\",\"mdCodeName\",\"label\",\"placeholder\",\"profilePath\",\"tooltip\",\"allowClear\",\"width\",\"create\"],[[23,[\"model\",\"applicationProfile\"]],\"applicationProfile\",\"Application Profile\",\"Name of an application profile for the Online Resource\",[27,\"concat\",[[23,[\"profilePath\"]],\".applicationProfile\"],null],true,true,\"70%\",true]]],false],[0,\"\\n\\n\"],[1,[27,\"input/md-textarea\",null,[[\"value\",\"label\",\"profilePath\",\"placeholder\"],[[23,[\"model\",\"protocolRequest\"]],\"Protocol Request\",[27,\"concat\",[[23,[\"profilePath\"]],\".protocolRequest\"],null],\"Request used to access the resource depending on the protocol, e.g. body of POST(http)_ request.\"]]],false],[0,\"\\n\"],[14,1],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/object/md-online-resource/template.hbs" } });
 });
 ;define('mdeditor/pods/components/object/md-party-array/component', ['exports', 'mdeditor/pods/components/object/md-party/component'], function (exports, _component) {
   'use strict';
@@ -18992,6 +19009,10 @@
   const columns = [{
     propertyName: 'title',
     title: 'Title'
+  }, {
+    propertyName: 'dictionaryId',
+    title: 'ID',
+    isHidden: true
   }, {
     propertyName: 'json.dataDictionary.subject',
     title: 'Subject'
@@ -29043,7 +29064,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("mdeditor/app")["default"].create({"repository":"https://github.com/adiwg/mdEditor","defaultProfileId":"org.adiwg.profile.full","name":"mdeditor","version":"0.10.0-dev.1+42311046"});
+            require("mdeditor/app")["default"].create({"repository":"https://github.com/adiwg/mdEditor","defaultProfileId":"org.adiwg.profile.full","name":"mdeditor","version":"0.9.0-dev.6+a95dbdf5"});
           }
         
 //# sourceMappingURL=mdeditor.map

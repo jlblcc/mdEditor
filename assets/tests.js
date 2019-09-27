@@ -13218,7 +13218,9 @@ define('mdeditor/tests/integration/pods/components/object/md-online-resource/com
         "protocol": "protocol",
         "name": "name",
         "description": "description",
-        "function": "download"
+        "function": "download",
+        "applicationProfile": "applicationProfile",
+        "protocolRequest": "protocolRequest"
       };
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
@@ -13227,7 +13229,7 @@ define('mdeditor/tests/integration/pods/components/object/md-online-resource/com
         "meta": {}
       }));
 
-      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), 'Name|URI|Protocol|Description|Function|download|?|×|');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), 'Name|URI|Protocol|Description|Function|download|?|×|Application|Profile|applicationProfile|×|Protocol|Request|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
@@ -13236,7 +13238,7 @@ define('mdeditor/tests/integration/pods/components/object/md-online-resource/com
         "meta": {}
       }));
 
-      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Name|URI|Protocol|Description|Function|download|?|×|template|block|text|', 'block');
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Name|URI|Protocol|Description|Function|download|?|×|Application|Profile|applicationProfile|×|Protocol|Request|template|block|text|', 'block');
     });
   });
 });
