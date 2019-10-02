@@ -40,9 +40,9 @@
     customEvents: events
   });
 
-  window.mdProfile = {
-    record: {}, contact: {}, dictionary: {}
-  };
+  // window.mdProfile = {
+  //   // record:{},contact:{},dictionary:{}
+  // };
 
   (0, _emberLoadInitializers.default)(App, _environment.default.modulePrefix);
 
@@ -72,16 +72,16 @@
 
 
         // generate profile definition
-        path.split('.').reduce((acc, curr, idx) => {
-          let pp = idx ? `${acc}.${curr}` : curr;
-          window.console.log(pp);
-          if (!Ember.get(window.mdProfile, pp)) {
-            Ember.set(window.mdProfile, pp, {
-              //visible: true
-            });
-          }
-          return pp;
-        }, '');
+        // path.split('.').reduce((acc, curr, idx) => {
+        //   let pp = idx ? `${acc}.${curr}` : curr;
+        //   window.console.log(pp);
+        //   if(!get(window.mdProfile, pp)) {
+        //     set(window.mdProfile, pp, {
+        //       //visible: true
+        //     });
+        //   }
+        //   return pp;
+        // }, '');
 
         Ember.defineProperty(this, 'isVisible', Ember.computed('profile.active', function () {
           if (!profile.activeComponents) {
@@ -12818,7 +12818,7 @@
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "sBKEEyBA", "block": "{\"symbols\":[],\"statements\":[[4,\"if\",[[23,[\"isStaticLinks\"]]],null,{\"statements\":[[0,\"    \"],[4,\"link-to\",[[23,[\"link\",\"target\"]]],[[\"class\"],[\"link.class\"]],{\"statements\":[[1,[23,[\"link\",\"title\"]],false],[0,\"\\n\"],[4,\"if\",[[23,[\"link\",\"tip\"]]],null,{\"statements\":[[4,\"ember-tooltip\",null,[[\"effect\",\"side\",\"delay\",\"tooltipClass\"],[\"slide\",\"bottom\",500,\"ember-tooltip md-tooltip info\"]],{\"statements\":[[0,\"      \"],[1,[23,[\"link\",\"tip\"]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null]],\"parameters\":[]},null]],\"parameters\":[]},{\"statements\":[[0,\"    \"],[4,\"link-to\",[[23,[\"link\",\"target\"]],[23,[\"model\"]]],[[\"class\"],[\"link.class\"]],{\"statements\":[[1,[23,[\"link\",\"title\"]],false],[0,\"\\n\"],[4,\"if\",[[23,[\"link\",\"tip\"]]],null,{\"statements\":[[4,\"ember-tooltip\",null,[[\"effect\",\"side\",\"delay\",\"tooltipClass\"],[\"slide\",\"bottom\",500,\"ember-tooltip md-tooltip info\"]],{\"statements\":[[0,\"          \"],[1,[23,[\"link\",\"tip\"]],false],[0,\"\\n          \"],[1,[23,[\"link\",\"isOverflow\"]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null]],\"parameters\":[]},null]],\"parameters\":[]}]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/layout/md-nav-secondary/link/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "7KOWJ7GI", "block": "{\"symbols\":[],\"statements\":[[4,\"if\",[[23,[\"isStaticLinks\"]]],null,{\"statements\":[[0,\"    \"],[4,\"link-to\",[[23,[\"link\",\"target\"]]],[[\"class\"],[\"link.class\"]],{\"statements\":[[1,[23,[\"link\",\"title\"]],false],[0,\"\\n\"],[4,\"if\",[[23,[\"link\",\"tip\"]]],null,{\"statements\":[[4,\"ember-tooltip\",null,[[\"effect\",\"side\",\"delay\",\"tooltipClass\"],[\"slide\",\"bottom\",500,\"ember-tooltip md-tooltip info\"]],{\"statements\":[[0,\"      \"],[1,[23,[\"link\",\"tip\"]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null]],\"parameters\":[]},null]],\"parameters\":[]},{\"statements\":[[0,\"    \"],[4,\"link-to\",[[23,[\"link\",\"target\"]],[23,[\"model\"]]],[[\"class\"],[\"link.class\"]],{\"statements\":[[1,[23,[\"link\",\"title\"]],false],[0,\"\\n\"],[4,\"if\",[[23,[\"link\",\"tip\"]]],null,{\"statements\":[[4,\"ember-tooltip\",null,[[\"effect\",\"side\",\"delay\",\"tooltipClass\"],[\"slide\",\"bottom\",500,\"ember-tooltip md-tooltip info\"]],{\"statements\":[[0,\"          \"],[1,[23,[\"link\",\"tip\"]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null]],\"parameters\":[]},null]],\"parameters\":[]}]],\"hasEval\":false}", "meta": { "moduleName": "mdeditor/pods/components/layout/md-nav-secondary/link/template.hbs" } });
 });
 ;define("mdeditor/pods/components/layout/md-nav-secondary/template", ["exports"], function (exports) {
   "use strict";
@@ -29067,7 +29067,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("mdeditor/app")["default"].create({"repository":"https://github.com/adiwg/mdEditor","defaultProfileId":"org.adiwg.profile.full","name":"mdeditor","version":"0.9.0-dev.6+68de6a53"});
+            require("mdeditor/app")["default"].create({"repository":"https://github.com/adiwg/mdEditor","defaultProfileId":"org.adiwg.profile.full","name":"mdeditor","version":"0.9.0-dev.6+d8c79924"});
           }
         
 //# sourceMappingURL=mdeditor.map
