@@ -12256,7 +12256,7 @@ define('mdeditor/tests/integration/pods/components/object/md-domainitem/componen
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[\s\n]+/g, '|').trim(), '|Name|Value|Definition|Item|Reference|Content|Basic|Information|Title|No|Alternate|Title|found.|Add|Alternate|Title|No|Date|found.|Add|Date|No|Responsible|Party|found.|Add|Responsible|Party|No|Online|Resource|found.|Add|Online|Resource|No|Identifier|found.|Add|Identifier|No|Identifier|found.|Add|Identifier|No|Identifier|found.|Add|Identifier|');
+      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[\s\n]+/g, '|').trim(), '|Name|Value|Definition|Item|Reference|Basic|Information|Title|No|Alternate|Title|found.|Add|Alternate|Title|No|Date|found.|Add|Date|No|Responsible|Party|found.|Add|Responsible|Party|No|Online|Resource|found.|Add|Online|Resource|No|Identifier|found.|Add|Identifier|No|Identifier|found.|Add|Identifier|No|Identifier|found.|Add|Identifier|');
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
@@ -12265,7 +12265,7 @@ define('mdeditor/tests/integration/pods/components/object/md-domainitem/componen
         "meta": {}
       }));
 
-      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[\s\n]+/g, '|').trim(), '|Name|Value|Definition|Item|Reference|Content|Basic|Information|Title|No|Alternate|Title|found.|Add|Alternate|Title|No|Date|found.|Add|Date|No|Responsible|Party|found.|Add|Responsible|Party|No|Online|Resource|found.|Add|Online|Resource|No|Identifier|found.|Add|Identifier|No|Identifier|found.|Add|Identifier|No|Identifier|found.|Add|Identifier|', 'block');
+      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[\s\n]+/g, '|').trim(), '|Name|Value|Definition|Item|Reference|Basic|Information|Title|No|Alternate|Title|found.|Add|Alternate|Title|No|Date|found.|Add|Date|No|Responsible|Party|found.|Add|Responsible|Party|No|Online|Resource|found.|Add|Online|Resource|No|Identifier|found.|Add|Identifier|No|Identifier|found.|Add|Identifier|No|Identifier|found.|Add|Identifier|', 'block');
     });
   });
 });
@@ -13663,8 +13663,8 @@ define('mdeditor/tests/integration/pods/components/object/md-repository-array/co
       }];
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "PO/BkJxi",
-        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-repository-array\",null,[[\"value\"],[[23,[\"repo\"]]]]],false]],\"hasEval\":false}",
+        "id": "A/Udo03D",
+        "block": "{\"symbols\":[],\"statements\":[[1,[27,\"object/md-repository-array\",null,[[\"value\",\"profilePath\"],[[23,[\"repo\"]],\"foo\"]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
 
@@ -13672,8 +13672,8 @@ define('mdeditor/tests/integration/pods/components/object/md-repository-array/co
 
       // Template block usage:
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "dxowweel",
-        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-repository-array\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
+        "id": "l4pQMrgv",
+        "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-repository-array\",null,[[\"profilePath\"],[\"foo\"]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
 
