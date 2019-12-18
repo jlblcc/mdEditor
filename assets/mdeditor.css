@@ -9642,6 +9642,7 @@ label .x-toggle-form.x-toggle-btn::after {
   z-index: 51;
   position: fixed;
 }
+
 .ember-modal-dialog.emd-in-place {
   position: static;
 }
@@ -9663,11 +9664,13 @@ label .x-toggle-form.x-toggle-btn::after {
   align-items: center;
   justify-content: center;
 }
+
 .ember-modal-wrapper.emd-animatable.emd-wrapper-target-attachment-center .ember-modal-overlay {
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .ember-modal-wrapper.emd-animatable .ember-modal-dialog {
   position: relative;
 }

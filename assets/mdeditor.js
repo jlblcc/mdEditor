@@ -959,19 +959,6 @@
     }
   });
 });
-;define("mdeditor/components/modal-dialog-overlay", ["exports", "ember-modal-dialog/components/modal-dialog-overlay"], function (_exports, _modalDialogOverlay) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(_exports, "default", {
-    enumerable: true,
-    get: function get() {
-      return _modalDialogOverlay.default;
-    }
-  });
-});
 ;define("mdeditor/components/modal-dialog", ["exports", "ember-modal-dialog/components/modal-dialog"], function (_exports, _modalDialog) {
   "use strict";
 
@@ -2184,19 +2171,6 @@
   _exports.default = void 0;
   var _default = _sortableObjects.default;
   _exports.default = _default;
-});
-;define("mdeditor/components/tether-dialog", ["exports", "ember-modal-dialog/components/deprecated-tether-dialog"], function (_exports, _deprecatedTetherDialog) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(_exports, "default", {
-    enumerable: true,
-    get: function get() {
-      return _deprecatedTetherDialog.default;
-    }
-  });
 });
 ;define("mdeditor/components/tile-layer", ["exports", "ember-leaflet/components/tile-layer"], function (_exports, _tileLayer) {
   "use strict";
@@ -9560,8 +9534,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "6Rvhp3fK",
-    "block": "{\"symbols\":[],\"statements\":[[4,\"if\",[[24,[\"modal\"]]],null,{\"statements\":[[4,\"modal-dialog\",null,[[\"onClose\",\"translucentOverlay\",\"containerClass\",\"overlayClass\",\"attachment\",\"targetAttachment\",\"tetherTarget\"],[\"closeModal\",true,\"md-jsmodal-container\",\"md-modal-overlay\",\"top center\",\"top center\",\"html\"]],{\"statements\":[[0,\"    \"],[7,\"button\",false],[12,\"class\",\"md-modal-close\"],[12,\"aria-label\",\"Close\"],[12,\"type\",\"button\"],[3,\"action\",[[23,0,[]],\"closeModal\"]],[8],[0,\"\\n      \"],[7,\"span\",true],[10,\"class\",\"fa-stack\"],[8],[0,\"\\n          \"],[7,\"i\",true],[10,\"class\",\"fa fa-circle fa-stack-2x\"],[8],[9],[0,\"\\n          \"],[7,\"i\",true],[10,\"class\",\"fa fa-times fa-stack-1x fa-inverse\"],[8],[9],[0,\"\\n      \"],[9],[0,\"\\n    \"],[9],[0,\"\\n    \"],[7,\"div\",true],[10,\"class\",\"md-viewer-body\"],[8],[9],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},{\"statements\":[[0,\"  \"],[7,\"div\",true],[10,\"class\",\"well\"],[8],[0,\"\\n    \"],[7,\"div\",true],[10,\"class\",\"btn-toolbar md-viewer-controls pull-right\"],[8],[0,\"\\n      \"],[7,\"div\",true],[10,\"class\",\"btn-group-vertical\"],[10,\"role\",\"group\"],[10,\"aria-label\",\"JSON viewer controls\"],[8],[0,\"\\n        \"],[7,\"button\",false],[12,\"class\",\"btn btn-primary\"],[12,\"title\",\"Expand All\"],[12,\"type\",\"button\"],[3,\"action\",[[23,0,[]],\"expand\"]],[8],[1,[28,\"fa-icon\",[\"plus\"],null],false],[9],[0,\"\\n        \"],[7,\"button\",false],[12,\"class\",\"btn btn-default\"],[12,\"title\",\"Collapse All\"],[12,\"type\",\"button\"],[3,\"action\",[[23,0,[]],\"collapse\"]],[8],[1,[28,\"fa-icon\",[\"minus\"],null],false],[9],[0,\"\\n      \"],[9],[0,\"\\n      \"],[7,\"div\",true],[10,\"class\",\"btn-group-vertical\"],[10,\"role\",\"group\"],[10,\"aria-label\",\"JSON viewer controls\"],[8],[0,\"\\n        \"],[7,\"button\",false],[12,\"class\",\"btn btn-primary\"],[12,\"title\",\"Zoom in\"],[12,\"type\",\"button\"],[3,\"action\",[[23,0,[]],\"zoomin\"]],[8],[1,[28,\"fa-icon\",[\"search\"],null],false],[9],[0,\"\\n        \"],[7,\"button\",false],[12,\"class\",\"btn btn-default\"],[12,\"title\",\"Zoom Out\"],[12,\"type\",\"button\"],[3,\"action\",[[23,0,[]],\"zoomout\"]],[8],[1,[28,\"fa-icon\",[\"search-minus\"],null],false],[9],[0,\"\\n      \"],[9],[0,\"\\n    \"],[9],[0,\"\\n    \"],[7,\"div\",true],[10,\"class\",\"md-viewer-body\"],[8],[0,\"\\n    \"],[9],[0,\"\\n  \"],[9],[0,\"\\n\"]],\"parameters\":[]}]],\"hasEval\":false}",
+    "id": "RWAuna7C",
+    "block": "{\"symbols\":[],\"statements\":[[4,\"if\",[[24,[\"modal\"]]],null,{\"statements\":[[4,\"modal-dialog\",null,[[\"onClose\",\"translucentOverlay\",\"containerClass\",\"overlayClass\",\"attachment\",\"targetAttachment\",\"tetherTarget\"],[[28,\"action\",[[23,0,[]],\"closeModal\"],null],true,\"md-jsmodal-container\",\"md-modal-overlay\",\"top center\",\"top center\",\"html\"]],{\"statements\":[[0,\"    \"],[7,\"button\",false],[12,\"class\",\"md-modal-close\"],[12,\"aria-label\",\"Close\"],[12,\"type\",\"button\"],[3,\"action\",[[23,0,[]],\"closeModal\"]],[8],[0,\"\\n      \"],[7,\"span\",true],[10,\"class\",\"fa-stack\"],[8],[0,\"\\n          \"],[7,\"i\",true],[10,\"class\",\"fa fa-circle fa-stack-2x\"],[8],[9],[0,\"\\n          \"],[7,\"i\",true],[10,\"class\",\"fa fa-times fa-stack-1x fa-inverse\"],[8],[9],[0,\"\\n      \"],[9],[0,\"\\n    \"],[9],[0,\"\\n    \"],[7,\"div\",true],[10,\"class\",\"md-viewer-body\"],[8],[9],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},{\"statements\":[[0,\"  \"],[7,\"div\",true],[10,\"class\",\"well\"],[8],[0,\"\\n    \"],[7,\"div\",true],[10,\"class\",\"btn-toolbar md-viewer-controls pull-right\"],[8],[0,\"\\n      \"],[7,\"div\",true],[10,\"class\",\"btn-group-vertical\"],[10,\"role\",\"group\"],[10,\"aria-label\",\"JSON viewer controls\"],[8],[0,\"\\n        \"],[7,\"button\",false],[12,\"class\",\"btn btn-primary\"],[12,\"title\",\"Expand All\"],[12,\"type\",\"button\"],[3,\"action\",[[23,0,[]],\"expand\"]],[8],[1,[28,\"fa-icon\",[\"plus\"],null],false],[9],[0,\"\\n        \"],[7,\"button\",false],[12,\"class\",\"btn btn-default\"],[12,\"title\",\"Collapse All\"],[12,\"type\",\"button\"],[3,\"action\",[[23,0,[]],\"collapse\"]],[8],[1,[28,\"fa-icon\",[\"minus\"],null],false],[9],[0,\"\\n      \"],[9],[0,\"\\n      \"],[7,\"div\",true],[10,\"class\",\"btn-group-vertical\"],[10,\"role\",\"group\"],[10,\"aria-label\",\"JSON viewer controls\"],[8],[0,\"\\n        \"],[7,\"button\",false],[12,\"class\",\"btn btn-primary\"],[12,\"title\",\"Zoom in\"],[12,\"type\",\"button\"],[3,\"action\",[[23,0,[]],\"zoomin\"]],[8],[1,[28,\"fa-icon\",[\"search\"],null],false],[9],[0,\"\\n        \"],[7,\"button\",false],[12,\"class\",\"btn btn-default\"],[12,\"title\",\"Zoom Out\"],[12,\"type\",\"button\"],[3,\"action\",[[23,0,[]],\"zoomout\"]],[8],[1,[28,\"fa-icon\",[\"search-minus\"],null],false],[9],[0,\"\\n      \"],[9],[0,\"\\n    \"],[9],[0,\"\\n    \"],[7,\"div\",true],[10,\"class\",\"md-viewer-body\"],[8],[0,\"\\n    \"],[9],[0,\"\\n  \"],[9],[0,\"\\n\"]],\"parameters\":[]}]],\"hasEval\":false}",
     "meta": {
       "moduleName": "mdeditor/pods/components/control/md-json-viewer/template.hbs"
     }
@@ -9682,8 +9656,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "xPsGShgc",
-    "block": "{\"symbols\":[\"&default\"],\"statements\":[[4,\"if\",[[24,[\"isShowing\"]]],null,{\"statements\":[[4,\"modal-dialog\",null,[[\"onClose\",\"targetAttachment\",\"attachment\",\"translucentOverlay\",\"containerClass\",\"overlayClass\",\"tetherTarget\",\"renderInPlace\"],[\"closeModal\",\"middle center\",\"middle center\",true,\"md-modal-container\",\"md-modal-overlay\",[24,[\"target\"]],[24,[\"renderInPlace\"]]]],{\"statements\":[[0,\"    \"],[7,\"button\",false],[12,\"class\",\"md-modal-close\"],[12,\"aria-label\",\"Close\"],[12,\"type\",\"button\"],[3,\"action\",[[23,0,[]],\"closeModal\"]],[8],[0,\"\\n      \"],[7,\"span\",true],[10,\"class\",\"fa-stack\"],[8],[0,\"\\n            \"],[7,\"i\",true],[10,\"class\",\"fa fa-circle fa-stack-2x\"],[8],[9],[0,\"\\n            \"],[7,\"i\",true],[10,\"class\",\"fa fa-times fa-stack-1x fa-inverse\"],[8],[9],[0,\"\\n        \"],[9],[0,\"\\n    \"],[9],[0,\"\\n    \"],[7,\"div\",true],[10,\"class\",\"md-modal-body\"],[8],[0,\"\\n      \"],[14,1],[0,\" \"],[1,[28,\"html-safe\",[[24,[\"message\"]]],null],false],[0,\"\\n    \"],[9],[0,\"\\n    \"],[7,\"div\",true],[10,\"class\",\"md-modal-buttons pull-right\"],[8],[0,\"\\n\"],[4,\"if\",[[24,[\"showConfirm\"]]],null,{\"statements\":[[0,\"        \"],[7,\"button\",false],[12,\"class\",\"btn btn-success\"],[12,\"type\",\"button\"],[3,\"action\",[[23,0,[]],\"confirm\"]],[8],[1,[22,\"confirmLabel\"],false],[9],[0,\"\\n\"]],\"parameters\":[]},null],[4,\"if\",[[24,[\"showCancel\"]]],null,{\"statements\":[[0,\"        \"],[7,\"button\",false],[12,\"class\",\"btn btn-warning\"],[12,\"type\",\"button\"],[3,\"action\",[[23,0,[]],\"cancel\"]],[8],[0,\"Cancel\"],[9],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"    \"],[9],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null]],\"hasEval\":false}",
+    "id": "EtuohUT4",
+    "block": "{\"symbols\":[\"&default\"],\"statements\":[[4,\"if\",[[24,[\"isShowing\"]]],null,{\"statements\":[[4,\"modal-dialog\",null,[[\"onClose\",\"targetAttachment\",\"attachment\",\"translucentOverlay\",\"containerClass\",\"overlayClass\",\"tetherTarget\",\"renderInPlace\"],[[28,\"action\",[[23,0,[]],\"closeModal\"],null],\"middle center\",\"middle center\",true,\"md-modal-container\",\"md-modal-overlay\",[24,[\"target\"]],[24,[\"renderInPlace\"]]]],{\"statements\":[[0,\"    \"],[7,\"button\",false],[12,\"class\",\"md-modal-close\"],[12,\"aria-label\",\"Close\"],[12,\"type\",\"button\"],[3,\"action\",[[23,0,[]],\"closeModal\"]],[8],[0,\"\\n      \"],[7,\"span\",true],[10,\"class\",\"fa-stack\"],[8],[0,\"\\n            \"],[7,\"i\",true],[10,\"class\",\"fa fa-circle fa-stack-2x\"],[8],[9],[0,\"\\n            \"],[7,\"i\",true],[10,\"class\",\"fa fa-times fa-stack-1x fa-inverse\"],[8],[9],[0,\"\\n        \"],[9],[0,\"\\n    \"],[9],[0,\"\\n    \"],[7,\"div\",true],[10,\"class\",\"md-modal-body\"],[8],[0,\"\\n      \"],[14,1],[0,\" \"],[1,[28,\"html-safe\",[[24,[\"message\"]]],null],false],[0,\"\\n    \"],[9],[0,\"\\n    \"],[7,\"div\",true],[10,\"class\",\"md-modal-buttons pull-right\"],[8],[0,\"\\n\"],[4,\"if\",[[24,[\"showConfirm\"]]],null,{\"statements\":[[0,\"        \"],[7,\"button\",false],[12,\"class\",\"btn btn-success\"],[12,\"type\",\"button\"],[3,\"action\",[[23,0,[]],\"confirm\"]],[8],[1,[22,\"confirmLabel\"],false],[9],[0,\"\\n\"]],\"parameters\":[]},null],[4,\"if\",[[24,[\"showCancel\"]]],null,{\"statements\":[[0,\"        \"],[7,\"button\",false],[12,\"class\",\"btn btn-warning\"],[12,\"type\",\"button\"],[3,\"action\",[[23,0,[]],\"cancel\"]],[8],[0,\"Cancel\"],[9],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"    \"],[9],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null]],\"hasEval\":false}",
     "meta": {
       "moduleName": "mdeditor/pods/components/control/md-modal/template.hbs"
     }
@@ -21531,8 +21505,8 @@
   _exports.default = void 0;
 
   var _default = Ember.Route.extend(_scrollTo.default, {
-    beforeModel(transition) {
-      this.set('domainId', transition.params['dictionary.show.edit.domain.edit'].domain_id);
+    beforeModel() {
+      this.set('domainId', this.paramsFor('dictionary.show.edit.domain.edit').domain_id);
     },
 
     model(params) {
@@ -22064,8 +22038,8 @@
   _exports.default = void 0;
 
   var _default = Ember.Route.extend({
-    beforeModel(transition) {
-      this.set('entityId', transition.params['dictionary.show.edit.entity.edit'].entity_id);
+    beforeModel() {
+      this.set('entityId', this.paramsFor('dictionary.show.edit.entity.edit').entity_id);
     },
 
     model(params) {
@@ -22145,9 +22119,9 @@
   _exports.default = void 0;
 
   var _default = Ember.Route.extend(_scrollTo.default, {
-    beforeModel(transition) {
-      this.set('entityId', transition.params['dictionary.show.edit.entity.edit'].entity_id);
-      this.set('citationId', transition.params['dictionary.show.edit.entity.edit.citation'].citation_id);
+    beforeModel() {
+      this.set('entityId', this.paramsFor('dictionary.show.edit.entity.edit').entity_id);
+      this.set('citationId', this.paramsFor('dictionary.show.edit.entity.edit.citation').citation_id);
     },
 
     model(params) {
@@ -22272,8 +22246,8 @@
       };
     },
 
-    beforeModel(transition) {
-      this.set('entityId', transition.params['dictionary.show.edit.entity.edit'].entity_id);
+    beforeModel() {
+      this.set('entityId', this.paramsFor('dictionary.show.edit.entity.edit').entity_id);
     },
 
     model(params) {
@@ -22344,8 +22318,8 @@
   _exports.default = void 0;
 
   var _default = Ember.Route.extend(_scrollTo.default, {
-    beforeModel(transition) {
-      this.set('entityId', transition.params['dictionary.show.edit.entity.edit'].entity_id);
+    beforeModel() {
+      this.set('entityId', this.paramsFor('dictionary.show.edit.entity.edit').entity_id);
     },
 
     setupController: function setupController() {
@@ -24642,8 +24616,8 @@
     //     //title: `${get(this, 'distributionId')}: Distributors`
     //   };
     // }),
-    model(params, transition) {
-      let tparams = transition.params['record.show.edit.distribution.distributor'];
+    model(params) {
+      let tparams = this.paramsFor('record.show.edit.distribution.distributor');
       this.set('transferId', params.transfer_id);
       this.set('distributionId', tparams.distribution_id);
       this.set('distributorId', tparams.distributor_id);
@@ -25970,9 +25944,9 @@
   _exports.default = void 0;
 
   var _default = Ember.Route.extend({
-    model(params, transition) {
+    model(params) {
       this.set('citationId', params.citation_id);
-      this.set('lineageId', transition.params['record.show.edit.lineage.lineageobject'].lineage_id);
+      this.set('lineageId', this.paramsFor('record.show.edit.lineage.lineageobject').lineage_id);
       return this.setupModel();
     },
 
@@ -26195,9 +26169,9 @@
   _exports.default = void 0;
 
   var _default = Ember.Route.extend({
-    model(params, transition) {
+    model(params) {
       this.set('sourceId', params.source_id);
-      this.set('lineageId', transition.params['record.show.edit.lineage.lineageobject'].lineage_id);
+      this.set('lineageId', this.paramsFor('record.show.edit.lineage.lineageobject').lineage_id);
       return this.setupModel();
     },
 
@@ -26265,10 +26239,10 @@
   _exports.default = void 0;
 
   var _default = Ember.Route.extend(_scrollTo.default, {
-    model(params, transition) {
+    model(params) {
       this.set('citationId', params.citation_id);
-      this.set('stepId', transition.params['record.show.edit.lineage.lineageobject.step'].step_id);
-      this.set('lineageId', transition.params['record.show.edit.lineage.lineageobject'].lineage_id);
+      this.set('stepId', this.paramsFor('record.show.edit.lineage.lineageobject.step').step_id);
+      this.set('lineageId', this.paramsFor('record.show.edit.lineage.lineageobject').lineage_id);
       return this.setupModel();
     },
 
@@ -26392,9 +26366,9 @@
   _exports.default = void 0;
 
   var _default = Ember.Route.extend({
-    model(params, transition) {
+    model(params) {
       this.set('stepId', params.step_id);
-      this.set('lineageId', transition.params['record.show.edit.lineage.lineageobject'].lineage_id);
+      this.set('lineageId', this.paramsFor('record.show.edit.lineage.lineageobject').lineage_id);
       return this.setupModel();
     },
 
@@ -27628,9 +27602,9 @@
   _exports.default = void 0;
 
   var _default = Ember.Route.extend({
-    model(params, transition) {
+    model(params) {
       this.set('systemId', params.system_id);
-      this.set('collectionId', transition.params['record.show.edit.taxonomy.collection'].collection_id);
+      this.set('collectionId', this.paramsFor('record.show.edit.taxonomy.collection').collection_id);
       return this.setupModel();
     },
 
@@ -28141,9 +28115,6 @@
 
   var _default = Ember.Route.extend(_scrollTo.default, {
     model() {
-      // this.get('store').findAll('settings').then(function(settings) {
-      //   return settings.get("firstObject");
-      // });
       return this.settings.get('data');
     }
 
@@ -28469,7 +28440,7 @@
       },
 
       save() {
-        this.currentRouteModel().save();
+        this.settings.data.save();
       },
 
       catalogs() {
@@ -30454,32 +30425,19 @@
     value: true
   });
   _exports.default = void 0;
-  const {
-    computed,
-    Service
-  } = Ember;
 
   function computedFromConfig(prop) {
-    return computed(function () {
+    return Ember.computed(function () {
       return _environment.default['ember-modal-dialog'] && _environment.default['ember-modal-dialog'][prop];
     });
   }
 
-  var _default = Service.extend({
+  var _default = Ember.Service.extend({
     hasEmberTether: computedFromConfig('hasEmberTether'),
     hasLiquidWormhole: computedFromConfig('hasLiquidWormhole'),
     hasLiquidTether: computedFromConfig('hasLiquidTether'),
-    destinationElementId: computed(function () {
-      /*
-        everywhere except test, this property will be overwritten
-        by the initializer that appends the modal container div
-        to the DOM. because initializers don't run in unit/integration
-        tests, this is a nice fallback.
-      */
-      if (_environment.default.environment === 'test') {
-        return 'ember-testing';
-      }
-    })
+    destinationElementId: null // injected by initializer
+
   });
 
   _exports.default = _default;
@@ -32180,7 +32138,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("mdeditor/app")["default"].create({"repository":"https://github.com/adiwg/mdEditor","defaultProfileId":"org.adiwg.profile.full","name":"mdeditor","version":"0.10.0.rc1+84a3a30c"});
+            require("mdeditor/app")["default"].create({"repository":"https://github.com/adiwg/mdEditor","defaultProfileId":"org.adiwg.profile.full","name":"mdeditor","version":"0.10.0.rc2+752354d3"});
           }
         
 //# sourceMappingURL=mdeditor.map
