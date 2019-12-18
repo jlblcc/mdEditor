@@ -21679,8 +21679,8 @@
   _exports.default = void 0;
 
   var _default = Ember.Route.extend(_scrollTo.default, {
-    beforeModel(transition) {
-      this.set('domainId', transition.params['dictionary.show.edit.domain.edit'].domain_id);
+    beforeModel() {
+      this.set('domainId', this.paramsFor('dictionary.show.edit.domain.edit').domain_id);
     },
 
     setupController: function setupController() {
@@ -21740,8 +21740,8 @@
   _exports.default = void 0;
 
   var _default = Ember.Route.extend(_scrollTo.default, {
-    beforeModel(transition) {
-      this.set('domainId', transition.params['dictionary.show.edit.domain.edit'].domain_id);
+    beforeModel() {
+      this.set('domainId', this.paramsFor('dictionary.show.edit.domain.edit').domain_id);
     },
 
     model(params) {
@@ -21977,9 +21977,9 @@
   _exports.default = void 0;
 
   var _default = Ember.Route.extend(_scrollTo.default, {
-    beforeModel(transition) {
-      this.set('entityId', transition.params['dictionary.show.edit.entity.edit'].entity_id);
-      this.set('attributeId', transition.params['dictionary.show.edit.entity.edit.attribute'].attribute_id);
+    beforeModel() {
+      this.set('entityId', this.paramsFor('dictionary.show.edit.entity.edit').entity_id);
+      this.set('attributeId', this.paramsFor('dictionary.show.edit.entity.edit.attribute').attribute_id);
     },
 
     setupController: function setupController() {
@@ -32138,7 +32138,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("mdeditor/app")["default"].create({"repository":"https://github.com/adiwg/mdEditor","defaultProfileId":"org.adiwg.profile.full","name":"mdeditor","version":"0.10.0.rc2+752354d3"});
+            require("mdeditor/app")["default"].create({"repository":"https://github.com/adiwg/mdEditor","defaultProfileId":"org.adiwg.profile.full","name":"mdeditor","version":"0.10.0.rc2+a0ef5956"});
           }
         
 //# sourceMappingURL=mdeditor.map
