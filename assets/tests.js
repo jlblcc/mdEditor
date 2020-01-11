@@ -3743,13 +3743,14 @@ define("mdeditor/tests/integration/pods/components/input/md-toggle/component-tes
     (0, _emberQunit.setupRenderingTest)(hooks);
     (0, _qunit.test)('it renders', async function (assert) {
       // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
+      this.set('value', false); // Handle any actions with this.on('myAction', function(val) { ... });
+
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "94CJvERU",
-        "block": "{\"symbols\":[],\"statements\":[[1,[28,\"input/md-toggle\",null,[[\"value\",\"onToggle\"],[[23,0,[\"value\"]],[28,\"action\",[[23,0,[]],[28,\"mut\",[[23,0,[\"value\"]]],null]],null]]]],false]],\"hasEval\":false}",
+        "id": "fcKCbwmF",
+        "block": "{\"symbols\":[],\"statements\":[[1,[28,\"input/md-toggle\",null,[[\"value\",\"showLabels\",\"onToggle\",\"offLabel\",\"onLabel\"],[[23,0,[\"value\"]],true,[28,\"action\",[[23,0,[]],[28,\"mut\",[[23,0,[\"value\"]]],null]],null],\"No\",\"Yes\"]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
-      assert.equal((0, _testHelpers.find)('.x-toggle-component').textContent.replace(/[ \n]+/g, '|').trim(), '|Off|On|');
+      assert.equal((0, _testHelpers.find)('.x-toggle-component').textContent.replace(/[ \n]+/g, '|').trim(), '|No|Yes|');
       await (0, _testHelpers.click)('.x-toggle-btn');
       assert.ok((0, _testHelpers.find)('.toggle-on'), 'toggle on'); // Template block usage:
 
@@ -6600,7 +6601,9 @@ define("mdeditor/tests/integration/pods/components/object/md-repository-array/co
         "block": "{\"symbols\":[],\"statements\":[[1,[28,\"object/md-repository-array\",null,[[\"value\",\"profilePath\"],[[24,[\"repo\"]],\"foo\"]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
-      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Metadata|Repositories|2|Add|#|Repository|Collection|Title|0|data.gov|?|×|Delete|1|data.gov|?|×|Delete|'); // Template block usage:
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Metadata|Repositories|2|Add|#|Repository|Collection|Title|0|data.gov|?|×|Delete|1|data.gov|?|×|Delete|');
+      assert.dom('.md-input input').hasValue('Arctic LCC data.gov');
+      assert.dom('.select-value').hasText('data.gov'); // Template block usage:
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
         "id": "l4pQMrgv",
@@ -7995,7 +7998,7 @@ define("mdeditor/tests/lint/app.lint-test", [], function () {
   });
   QUnit.test('pods/components/object/md-extent/spatial/component.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'pods/components/object/md-extent/spatial/component.js should pass ESLint\n\n50:21 - Don\'t use observers if possible (ember/no-observers)');
+    assert.ok(true, 'pods/components/object/md-extent/spatial/component.js should pass ESLint\n\n57:21 - Don\'t use observers if possible (ember/no-observers)');
   });
   QUnit.test('pods/components/object/md-funding/component.js', function (assert) {
     assert.expect(1);
