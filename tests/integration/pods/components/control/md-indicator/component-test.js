@@ -6,21 +6,16 @@ import hbs from 'htmlbars-inline-precompile';
 module('Integration | Component | control/md-indicator', function(hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
+  test('should render the icon', async function(assert) {
+    assert.expect(1)
 
-    await render(hbs`{{control/md-indicator}}`);
+    await render(hbs`{{control/md-indicator
+      icon="sticky-note"
+      title="Hello"
+      note="This is a warning"
+      type="danger"}}
+      `);
 
     assert.equal(this.element.textContent.trim(), '');
-
-    // Template block usage:
-    await render(hbs`
-      {{#control/md-indicator}}
-        template block text
-      {{/control/md-indicator}}
-    `);
-
-    assert.equal(this.element.textContent.trim(), 'template block text');
   });
 });
