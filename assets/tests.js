@@ -128,7 +128,7 @@ define("mdeditor/tests/acceptance/pods/dictionary/copy-test", ["qunit", "@ember/
       assert.expect(2);
       var store = this.owner.lookup('service:store'); //make sure there's at least one record visible
 
-      var dictionary = store.createRecord('dictionary', (0, _createDictionary.default)(1)[0]); //await visit('/contacts/');
+      var dictionary = store.createRecord('dictionary', (0, _createDictionary.createDictionary)(1)[0]); //await visit('/contacts/');
       //await click('button.md-button-.btn-danger');
 
       await (0, _testHelpers.visit)('/dictionary/' + dictionary.id); //await settled();
@@ -381,9 +381,9 @@ define("mdeditor/tests/helpers/create-dictionary", ["exports"], function (_expor
   Object.defineProperty(_exports, "__esModule", {
     value: true
   });
-  _exports.default = createDictionary;
+  _exports.createDictionary = _exports.createAttribute = _exports.createEntity = _exports.createDomain = void 0;
 
-  function createDictionary(total) {
+  let createDictionary = function createDictionary(total) {
     const dictionaries = [];
 
     for (let i = 0; i < total; i++) {
@@ -391,17 +391,17 @@ define("mdeditor/tests/helpers/create-dictionary", ["exports"], function (_expor
         json: {
           "dataDictionary": {
             "citation": {
-              "title": "My Dictionary",
+              "title": "My Dictionary" + i,
               "date": [{
                 "date": new Date().toISOString(),
                 "dateType": "creation"
               }]
             },
-            "description": "Data dictionary.",
+            "description": "Data dictionary." + i,
             subject: [],
             responsibleParty: {},
-            domain: [],
-            entity: []
+            domain: createDomain(2),
+            entity: createEntity(2)
           }
         },
         title: 'My Dictionary' + i,
@@ -411,7 +411,90 @@ define("mdeditor/tests/helpers/create-dictionary", ["exports"], function (_expor
     }
 
     return dictionaries;
-  }
+  };
+
+  _exports.createDictionary = createDictionary;
+
+  let createDomain = function createDomain(total) {
+    const domains = [];
+
+    for (let i = 0; i < total; i++) {
+      const domain = Ember.Object.create({
+        "domainId": "domainId" + i,
+        "commonName": "commonName" + i,
+        "codeName": "codeName" + i,
+        "description": "description" + i,
+        "domainItem": [{
+          "name": "name" + i,
+          "value": "value" + i,
+          "definition": "definition" + i
+        }]
+      });
+      domains.push(domain);
+    }
+
+    return domains;
+  };
+
+  _exports.createDomain = createDomain;
+
+  let createAttribute = function createAttribute(total) {
+    const attributes = [];
+
+    for (let i = 0; i < total; i++) {
+      const attribute = Ember.Object.create({
+        "commonName": "attributeCommonName" + i,
+        "codeName": "attributeCodeName0-" + i,
+        "alias": ["attributeAlias0-" + i],
+        "definition": "definition" + i,
+        "dataType": "dataType" + i,
+        "allowNull": true,
+        "units": "units" + i,
+        "domainId": "domainId" + i,
+        "minValue": "0" + i,
+        "maxValue": "99"
+      });
+      attributes.push(attribute);
+    }
+
+    return attributes;
+  };
+
+  _exports.createAttribute = createAttribute;
+
+  let createEntity = function createEntity(total) {
+    const entities = [];
+
+    for (let i = 0; i < total; i++) {
+      const entity = Ember.Object.create({
+        "entityId": "entityId" + i,
+        "commonName": "commonName" + i,
+        "codeName": "codeName" + i,
+        "alias": ["alias0-" + i, "alias1-" + i],
+        "definition": "definition" + i,
+        "primaryKeyAttributeCodeName": ["primaryKeyAttributeCodeName0-" + i, "primaryKeyAttributeCodeName1-" + i],
+        "index": [{
+          "codeName": "attributeIndex0-" + i,
+          "allowDuplicates": false,
+          "attributeCodeName": ["attributeCodeName0-" + i]
+        }],
+        "attribute": createAttribute(3),
+        "foreignKey": [{
+          "localAttributeCodeName": ["attributeCommonName0-" + i],
+          "referencedEntityCodeName": "referencedEntityCodeName0" + i,
+          "referencedAttributeCodeName": ["referencedAttributeCodeName0-" + i]
+        }],
+        "fieldSeparatorCharacter": ",",
+        "numberOfHeaderLines": 9,
+        "quoteCharacter": "\""
+      });
+      entities.push(entity);
+    }
+
+    return entities;
+  };
+
+  _exports.createEntity = createEntity;
 });
 define("mdeditor/tests/helpers/create-extent", ["exports"], function (_exports) {
   "use strict";
@@ -2461,6 +2544,80 @@ define("mdeditor/tests/integration/pods/components/control/md-import-csv/compone
     });
   });
 });
+define("mdeditor/tests/integration/pods/components/control/md-indicator/component-test", ["qunit", "ember-qunit", "@ember/test-helpers", "ember-tooltips/test-support/dom"], function (_qunit, _emberQunit, _testHelpers, _dom) {
+  "use strict";
+
+  (0, _qunit.module)('Integration | Component | control/md-indicator', function (hooks) {
+    (0, _emberQunit.setupRenderingTest)(hooks);
+    (0, _qunit.test)('it renders', async function (assert) {
+      assert.expect(2); // Set any properties with this.set('myProperty', 'value');
+      // Handle any actions with this.set('myAction', function(val) { ... });
+
+      this.set('values', {
+        foo: 'This',
+        bar: 'warning'
+      });
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "Dl4Oe9ox",
+        "block": "{\"symbols\":[],\"statements\":[[1,[28,\"control/md-indicator\",null,[[\"icon\",\"title\",\"note\",\"values\",\"type\"],[\"sticky-note\",\"Hello\",\"${foo} is a ${bar}\",[24,[\"values\"]],\"danger\"]]],false],[0,\"\\n      \"]],\"hasEval\":false}",
+        "meta": {}
+      }));
+      assert.dom('.md-indicator').isVisible({
+        count: 1
+      });
+      await (0, _testHelpers.triggerEvent)('.md-indicator', 'mouseenter');
+      (0, _dom.assertTooltipContent)(assert, {
+        contentString: 'Hello\nThis is a warning'
+      });
+    });
+  });
+});
+define("mdeditor/tests/integration/pods/components/control/md-indicator/related/component-test", ["qunit", "ember-qunit", "@ember/test-helpers", "mdeditor/tests/helpers/create-dictionary", "ember-tooltips/test-support/dom"], function (_qunit, _emberQunit, _testHelpers, _createDictionary, _dom) {
+  "use strict";
+
+  (0, _qunit.module)('Integration | Component | control/md-indicator/related', function (hooks) {
+    (0, _emberQunit.setupRenderingTest)(hooks);
+    hooks.beforeEach(function (assert) {
+      let router = Ember.Service.extend({
+        transitionTo() {
+          assert.ok(true, 'Transition started');
+        },
+
+        generateURL(route, models) {
+          assert.equal(route, 'dictionary.show.edit.entity', 'route OK');
+          assert.deepEqual(models, ['attribute1'], 'model ids OK');
+        }
+
+      });
+      this.owner.register('service:-routing', router); //this.router=router;
+
+      this.owner.setupRouter();
+    });
+    (0, _qunit.test)('it renders', async function (assert) {
+      assert.expect(6);
+      this.set('values', {
+        foo: 'attribute1',
+        bar: 'codeName0'
+      });
+      this.set('dictionary', (0, _createDictionary.createDictionary)(1)[0].json.dataDictionary);
+      this.set('model', this.dictionary.entity[0].attribute[0]);
+      await (0, _testHelpers.render)(Ember.HTMLBars.template({
+        "id": "a1Hq5omP",
+        "block": "{\"symbols\":[],\"statements\":[[1,[28,\"control/md-indicator/related\",null,[[\"model\",\"route\",\"icon\",\"note\",\"route\",\"values\",\"parent\",\"relatedId\",\"path\",\"title\",\"linkText\",\"type\",\"popperContainer\",\"routeIdPaths\"],[[24,[\"model\"]],true,\"cog\",\"The attribute ${foo} has an associated domain: ${bar}.\",\"dictionary.show.edit.entity\",[24,[\"values\"]],[24,[\"dictionary\"]],\"domainId\",\"domain\",\"Related Indicator Test\",\"Go to Domain\",\"warning\",\"#ember-testing\",[28,\"array\",[\"values.foo\"],null]]]],false]],\"hasEval\":false}",
+        "meta": {}
+      }));
+      assert.dom('.md-indicator-related .md-indicator').isVisible({
+        count: 1
+      });
+      assert.dom('.md-indicator .fa').hasClass('fa-cog');
+      await (0, _testHelpers.triggerEvent)('.md-indicator-related .md-indicator', 'mouseenter');
+      (0, _dom.assertTooltipContent)(assert, {
+        contentString: "Related Indicator Test\nThe attribute attribute1 has an associated domain: codeName0.\nGo to Domain"
+      });
+      await (0, _testHelpers.click)('.btn');
+    });
+  });
+});
 define("mdeditor/tests/integration/pods/components/control/md-itis/component-test", ["@ember/test-helpers", "qunit", "ember-qunit"], function (_testHelpers, _qunit, _emberQunit) {
   "use strict";
 
@@ -3998,7 +4155,7 @@ define("mdeditor/tests/integration/pods/components/layout/md-nav-sidebar/compone
         list: 'records',
         title: 'Records'
       };
-      const dicts = (0, _createDictionary.default)(2);
+      const dicts = (0, _createDictionary.createDictionary)(2);
       dicts.meta = {
         type: 'dictionary',
         list: 'dictionaries',
@@ -4223,14 +4380,14 @@ define("mdeditor/tests/integration/pods/components/md-help/component-test", ["@e
         "block": "{\"symbols\":[],\"statements\":[[1,[22,\"md-help\"],false]],\"hasEval\":false}",
         "meta": {}
       }));
-      assert.ok((0, _testHelpers.find)('*').textContent.indexOf('Lorem ipsum' > 0)); // Template block usage:
+      assert.equal(this.element.textContent.replace(/[\s\n]+/g, '|').trim(), '|Help|Main|Tour|The|mdEditor|is|a|web|application|that|allows|users|to|author|and|edit|metadata|for|projects|and|datasets.|The|primary|design|goal|is|to|develop|an|editor|that|will|allow|creation|and|management|of|archival|quality|metadata|without|requiring|extensive|knowledge|of|metadata|standards.|A|comprehensive|User|Manual|is|available.|The|manual|includes|a|tutorial,|reference,|and|best|practices.|View|User|Manual|If|you|would|like|to|receive|announcements|regarding|the|mdEditor,|join|our|email|list!|Join|Email|list|'); // Template block usage:
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
         "id": "mDCBuwo3",
         "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"md-help\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
-      assert.ok((0, _testHelpers.find)('*').textContent.trim().indexOf('template block text' > 0));
+      assert.ok(this.element.textContent.trim().indexOf('template block text') > 0);
     });
   });
 });
@@ -4806,80 +4963,44 @@ define("mdeditor/tests/integration/pods/components/object/md-associated/preview/
     });
   });
 });
-define("mdeditor/tests/integration/pods/components/object/md-attribute/component-test", ["@ember/test-helpers", "qunit", "ember-qunit"], function (_testHelpers, _qunit, _emberQunit) {
+define("mdeditor/tests/integration/pods/components/object/md-attribute/component-test", ["@ember/test-helpers", "qunit", "ember-qunit", "mdeditor/tests/helpers/create-dictionary"], function (_testHelpers, _qunit, _emberQunit, _createDictionary) {
   "use strict";
 
   (0, _qunit.module)('Integration | Component | object/md attribute', function (hooks) {
     (0, _emberQunit.setupRenderingTest)(hooks);
     (0, _qunit.test)('it renders', async function (assert) {
       // Set any properties with this.set('myProperty', 'value');
-      this.set('model', {
-        "allowNull": false,
-        "attributeReference": {
-          "title": "Producer defined"
-        },
-        "valueRange": [{
-          "minRangeValue": "0",
-          "maxRangeValue": "0.XXXXXX"
-        }],
-        "commonName": "20XX_pyes.tif",
-        "codeName": "20XX_pyes.tif",
-        "definition": "The predicted annual probability that beach mice presence is Yes in 20XX.",
-        "mustBeUnique": true,
-        "units": "annual probability that beach mice presence is Yes",
-        "isCaseSensitive": false,
-        "minValue": "0",
-        "maxValue": "0.XXXXXX",
-        "dataType": "float"
-      });
+      this.set('model', (0, _createDictionary.createAttribute)(1)[0]);
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
         "id": "NlKKzA/m",
         "block": "{\"symbols\":[],\"statements\":[[1,[28,\"object/md-attribute\",null,[[\"model\",\"profilePath\"],[[24,[\"model\"]],\"foobar\"]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
-      assert.equal((0, _testHelpers.find)('.md-card').textContent.replace(/[ \n]+/g, '|').trim(), '|Attribute|Information|Code|Name|Definition|Data|Type|float|?|×|Allow|Null?|Allow|null|values|Common|Name|Domain|Select|or|enter|the|domain|for|this|attribute.|No|Alias|found.|Add|Alias|Units|Units|Resolution|Case|Sensitive?|Is|the|attribute|content|case|sensitive?|Field|Width|Missing|Value|Minimum|Value|Maximum|Value|'); // Template block usage:
+      assert.equal((0, _testHelpers.find)('.md-card').textContent.replace(/[ \n]+/g, '|').trim(), '|Attribute|Information|Code|Name|Definition|Data|Type|dataType0|×|Allow|Null?|Allow|null|values|Common|Name|Domain|Select|or|enter|the|domain|for|this|attribute.|Aliases|1|Add|Alias|0|Delete|Units|Units|Resolution|Case|Sensitive?|Is|the|attribute|content|case|sensitive?|Field|Width|Missing|Value|Minimum|Value|Maximum|Value|'); // Template block usage:
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
         "id": "3jDPPN+X",
         "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"object/md-attribute\",null,[[\"model\",\"profilePath\"],[[24,[\"model\"]],\"foobar\"]],{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
-      assert.equal((0, _testHelpers.find)('.md-card').textContent.replace(/[ \n]+/g, '|').trim(), '|Attribute|Information|Code|Name|Definition|Data|Type|float|?|×|Allow|Null?|Allow|null|values|Common|Name|Domain|Select|or|enter|the|domain|for|this|attribute.|No|Alias|found.|Add|Alias|Units|Units|Resolution|Case|Sensitive?|Is|the|attribute|content|case|sensitive?|Field|Width|Missing|Value|Minimum|Value|Maximum|Value|', 'block');
+      assert.equal((0, _testHelpers.find)('.md-card').textContent.replace(/[ \n]+/g, '|').trim(), '|Attribute|Information|Code|Name|Definition|Data|Type|dataType0|×|Allow|Null?|Allow|null|values|Common|Name|Domain|Select|or|enter|the|domain|for|this|attribute.|Aliases|1|Add|Alias|0|Delete|Units|Units|Resolution|Case|Sensitive?|Is|the|attribute|content|case|sensitive?|Field|Width|Missing|Value|Minimum|Value|Maximum|Value|', 'block');
     });
   });
 });
-define("mdeditor/tests/integration/pods/components/object/md-attribute/preview/component-test", ["@ember/test-helpers", "qunit", "ember-qunit"], function (_testHelpers, _qunit, _emberQunit) {
+define("mdeditor/tests/integration/pods/components/object/md-attribute/preview/component-test", ["@ember/test-helpers", "qunit", "ember-qunit", "mdeditor/tests/helpers/create-dictionary"], function (_testHelpers, _qunit, _emberQunit, _createDictionary) {
   "use strict";
 
   (0, _qunit.module)('Integration | Component | object/md attribute/preview', function (hooks) {
     (0, _emberQunit.setupRenderingTest)(hooks);
     (0, _qunit.test)('it renders', async function (assert) {
       // Set any properties with this.set('myProperty', 'value');
-      this.set('model', {
-        "allowNull": false,
-        "attributeReference": {
-          "title": "Producer defined"
-        },
-        "valueRange": [{
-          "minRangeValue": "0",
-          "maxRangeValue": "0.XXXXXX"
-        }],
-        "commonName": "20XX_pyes.tif",
-        "codeName": "20XX_pyes.tif",
-        "definition": "The predicted annual probability that beach mice presence is Yes in 20XX.",
-        "mustBeUnique": true,
-        "units": "annual probability that beach mice presence is Yes",
-        "isCaseSensitive": false,
-        "minValue": "0",
-        "maxValue": "0.XXXXXX",
-        "dataType": "float"
-      });
+      this.set('model', (0, _createDictionary.createAttribute)(1)[0]);
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
         "id": "BgEXHkYj",
         "block": "{\"symbols\":[],\"statements\":[[7,\"div\",true],[10,\"class\",\"testme\"],[8],[1,[28,\"object/md-attribute/preview\",null,[[\"model\",\"profilePath\"],[[24,[\"model\"]],\"foobar\"]]],false],[9]],\"hasEval\":false}",
         "meta": {}
       }));
-      assert.equal((0, _testHelpers.find)('.testme').textContent.replace(/[ \n]+/g, '|').trim(), '|float|?|×|');
+      assert.equal((0, _testHelpers.find)('.testme').textContent.replace(/[ \n]+/g, '|').trim(), '|dataType0|×|');
       assert.equal((0, _testHelpers.findAll)('.testme input').length, 3, 'render inputs');
       assert.ok((0, _testHelpers.find)('.testme .md-select'), 'render select');
     });
@@ -5320,24 +5441,14 @@ define("mdeditor/tests/integration/pods/components/object/md-documentation/previ
     });
   });
 });
-define("mdeditor/tests/integration/pods/components/object/md-domain/component-test", ["@ember/test-helpers", "qunit", "ember-qunit"], function (_testHelpers, _qunit, _emberQunit) {
+define("mdeditor/tests/integration/pods/components/object/md-domain/component-test", ["@ember/test-helpers", "qunit", "ember-qunit", "mdeditor/tests/helpers/create-dictionary"], function (_testHelpers, _qunit, _emberQunit, _createDictionary) {
   "use strict";
 
   (0, _qunit.module)('Integration | Component | object/md domain', function (hooks) {
     (0, _emberQunit.setupRenderingTest)(hooks);
     (0, _qunit.test)('it renders', async function (assert) {
       // Set any properties with this.set('myProperty', 'value');
-      this.set('domain', {
-        "domainId": "domainId0",
-        "commonName": "commonName",
-        "codeName": "codeName",
-        "description": "description",
-        "domainItem": [{
-          "name": "name0",
-          "value": "value0",
-          "definition": "definition0"
-        }]
-      });
+      this.set('domain', (0, _createDictionary.createDomain)(1)[0]);
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
         "id": "iBmZeHij",
         "block": "{\"symbols\":[],\"statements\":[[1,[28,\"object/md-domain\",null,[[\"profilePath\",\"model\"],[\"foobar\",[24,[\"domain\"]]]]],false]],\"hasEval\":false}",
@@ -5426,59 +5537,17 @@ define("mdeditor/tests/integration/pods/components/object/md-entity/component-te
     (0, _emberQunit.setupRenderingTest)(hooks);
     (0, _qunit.test)('it renders', async function (assert) {
       // Set any properties with this.set('myProperty', 'value');
-      this.set('dictionary', (0, _createDictionary.default)(1)[0]);
-      this.set('entity', {
-        "entityId": "entityId",
-        "commonName": "commonName",
-        "codeName": "codeName",
-        "alias": ["alias0", "alias1"],
-        "definition": "definition",
-        "primaryKeyAttributeCodeName": ["primaryKeyAttributeCodeName0", "primaryKeyAttributeCodeName1"],
-        "index": [],
-        "attribute": [],
-        "foreignKey": []
-      }, {
-        "entityId": "",
-        "commonName": "",
-        "codeName": "",
-        "alias": [""],
-        "definition": "",
-        "entityReference": [{
-          "title": "entityReference"
-        }],
-        "primaryKeyAttributeCodeName": [""],
-        "index": [{
-          "codeName": "",
-          "allowDuplicates": false,
-          "attributeCodeName": [""]
-        }],
-        "attribute": [{
-          "commonName": "",
-          "codeName": "",
-          "alias": [""],
-          "definition": "",
-          "dataType": "",
-          "allowNull": true,
-          "units": "",
-          "domainId": "",
-          "minValue": "",
-          "maxValue": ""
-        }],
-        "foreignKey": [{
-          "localAttributeCodeName": [""],
-          "referencedEntityCodeName": "",
-          "referencedAttributeCodeName": [""]
-        }],
-        "fieldSeparatorCharacter": ",",
-        "numberOfHeaderLines": 9,
-        "quoteCharacter": "\""
-      });
+      this.set('dictionary', (0, _createDictionary.createDictionary)(1)[0].json.dataDictionary);
+      this.set('entity', this.dictionary.entity[0]);
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
         "id": "VfNF51Hq",
         "block": "{\"symbols\":[],\"statements\":[[1,[28,\"object/md-entity\",null,[[\"dictionary\",\"profilePath\",\"model\"],[[24,[\"dictionary\"]],\"foobar\",[24,[\"entity\"]]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
-      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[\s\n]+/g, '|').trim(), '|Entity|Information|Entity|Identifier|Code|Name|Definition|Common|Name|Aliases|2|Add|Alias|0|Delete|1|Delete|No|Attributes|found.|Add|Attribute|Entity|Structure|Field|Separator|Character|#|Header|Lines|Quote|Character|Entity|Keys|Primary|Key|Attributes|×|primaryKeyAttributeCodeName0|×|primaryKeyAttributeCodeName1|No|Foreign|Key|found.|Add|Foreign|Key|No|Entity|Index|found.|Add|Entity|Index|No|Entity|Reference|found.|Add|Entity|Reference|'); // Template block usage:
+      assert.equal((0, _testHelpers.find)('form').textContent.replace(/[\s\n]+/g, '|').trim(), '|Entity|Information|Entity|Identifier|Code|Name|Definition|Common|Name|Aliases|2|Add|Alias|0|Delete|1|Delete|Attributes|3|Add|OK|#|Attribute|Name|Data|Type|Definition|Allow|Null?|0|dataType0|×|More...|Delete|1|dataType1|×|More...|Delete|2|dataType2|×|More...|Delete|Entity|Structure|Field|Separator|Character|#|Header|Lines|Quote|Character|Entity|Keys|Primary|Key|Attributes|×|primaryKeyAttributeCodeName0-0|×|primaryKeyAttributeCodeName1-0|Foreign|Keys|1|Add|Foreign|Key|#|Local|Attributes|Referenced|Entity|Referenced|Attributes|0|×|attributeCommonName0-0|referencedEntityCodeName00|×|×|referencedAttributeCodeName0-0|Delete|Entity|Indices|1|Add|#|Name|Attributes|Duplicates?|0|×|attributeCodeName0-0|?|Delete|No|Entity|Reference|found.|Add|Entity|Reference|');
+      assert.dom('.md-indicator-related').isVisible({
+        count: 2
+      }); // Template block usage:
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
         "id": "Lw1Zxth9",
@@ -7578,7 +7647,7 @@ define("mdeditor/tests/lint/app.lint-test", [], function () {
   });
   QUnit.test('models/base.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'models/base.js should pass ESLint\n\n41:18 - Don\'t use observers if possible (ember/no-observers)\n49:20 - Don\'t use observers if possible (ember/no-observers)');
+    assert.ok(true, 'models/base.js should pass ESLint\n\n51:18 - Don\'t use observers if possible (ember/no-observers)\n59:20 - Don\'t use observers if possible (ember/no-observers)');
   });
   QUnit.test('models/contact.js', function (assert) {
     assert.expect(1);
@@ -7606,7 +7675,7 @@ define("mdeditor/tests/lint/app.lint-test", [], function () {
   });
   QUnit.test('models/setting.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'models/setting.js should pass ESLint\n\n82:19 - Don\'t use observers if possible (ember/no-observers)');
+    assert.ok(true, 'models/setting.js should pass ESLint\n\n92:19 - Don\'t use observers if possible (ember/no-observers)');
   });
   QUnit.test('pods/components/control/md-alert-table/component.js', function (assert) {
     assert.expect(1);
@@ -7655,6 +7724,14 @@ define("mdeditor/tests/lint/app.lint-test", [], function () {
   QUnit.test('pods/components/control/md-import-csv/component.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'pods/components/control/md-import-csv/component.js should pass ESLint\n\n');
+  });
+  QUnit.test('pods/components/control/md-indicator/component.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'pods/components/control/md-indicator/component.js should pass ESLint\n\n');
+  });
+  QUnit.test('pods/components/control/md-indicator/related/component.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'pods/components/control/md-indicator/related/component.js should pass ESLint\n\n');
   });
   QUnit.test('pods/components/control/md-itis/component.js', function (assert) {
     assert.expect(1);
@@ -8804,6 +8881,10 @@ define("mdeditor/tests/lint/app.lint-test", [], function () {
     assert.expect(1);
     assert.ok(true, 'transitions.js should pass ESLint\n\n');
   });
+  QUnit.test('utils/md-interpolate.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'utils/md-interpolate.js should pass ESLint\n\n');
+  });
   QUnit.test('validators/array-required.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'validators/array-required.js should pass ESLint\n\n');
@@ -8860,6 +8941,14 @@ define("mdeditor/tests/lint/templates.template.lint-test", [], function () {
   QUnit.test('mdeditor/pods/components/control/md-import-csv/template.hbs', function (assert) {
     assert.expect(1);
     assert.ok(true, 'mdeditor/pods/components/control/md-import-csv/template.hbs should pass TemplateLint.\n\n');
+  });
+  QUnit.test('mdeditor/pods/components/control/md-indicator/related/template.hbs', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'mdeditor/pods/components/control/md-indicator/related/template.hbs should pass TemplateLint.\n\n');
+  });
+  QUnit.test('mdeditor/pods/components/control/md-indicator/template.hbs', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'mdeditor/pods/components/control/md-indicator/template.hbs should pass TemplateLint.\n\n');
   });
   QUnit.test('mdeditor/pods/components/control/md-itis/template.hbs', function (assert) {
     assert.expect(1);
@@ -10086,6 +10175,14 @@ define("mdeditor/tests/lint/tests.lint-test", [], function () {
     assert.expect(1);
     assert.ok(true, 'integration/pods/components/control/md-import-csv/component-test.js should pass ESLint\n\n');
   });
+  QUnit.test('integration/pods/components/control/md-indicator/component-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/pods/components/control/md-indicator/component-test.js should pass ESLint\n\n');
+  });
+  QUnit.test('integration/pods/components/control/md-indicator/related/component-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/pods/components/control/md-indicator/related/component-test.js should pass ESLint\n\n');
+  });
   QUnit.test('integration/pods/components/control/md-itis/component-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'integration/pods/components/control/md-itis/component-test.js should pass ESLint\n\n');
@@ -11265,6 +11362,10 @@ define("mdeditor/tests/lint/tests.lint-test", [], function () {
   QUnit.test('unit/utils/config-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'unit/utils/config-test.js should pass ESLint\n\n');
+  });
+  QUnit.test('unit/utils/md-interpolate-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/utils/md-interpolate-test.js should pass ESLint\n\n');
   });
   QUnit.test('unit/utils/sb-tree-node-test.js', function (assert) {
     assert.expect(1);
@@ -13309,6 +13410,24 @@ define("mdeditor/tests/unit/utils/config-test", ["mdeditor/utils/config", "qunit
     (0, _qunit.test)('it works', function (assert) {
       let result = _config.default.name;
       assert.equal(result, 'ScienceBase');
+    });
+  });
+});
+define("mdeditor/tests/unit/utils/md-interpolate-test", ["mdeditor/utils/md-interpolate", "qunit"], function (_mdInterpolate, _qunit) {
+  "use strict";
+
+  (0, _qunit.module)('Unit | Utility | md-interpolate', function () {
+    // Replace this with your real tests.
+    (0, _qunit.test)('it works', function (assert) {
+      assert.expect(2);
+      let note = "The attribute <em>${value1}</em> has an associated domain: <strong>${value2}</strong>.";
+      let result = (0, _mdInterpolate.interpolate)(note, {
+        value1: 'foo',
+        value2: 'bar'
+      });
+      assert.equal(result, 'The attribute <em>foo</em> has an associated domain: <strong>bar</strong>.');
+      let result2 = (0, _mdInterpolate.parseArgs)(note);
+      assert.deepEqual(result2, ['value1', 'value2']);
     });
   });
 });
