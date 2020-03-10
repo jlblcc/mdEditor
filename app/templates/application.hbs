@@ -4,8 +4,10 @@
   <div class="md-message-wrapper">
     {{#each flashMessages.queue as |flash|}}
     {{#flash-message flash=flash as |component flash|}}
-    {{flash.message}}
-    {{#if flash.showProgress}}
+    {{#if flash.title}}
+      <h4>{{flash.title}}</h4>
+    {{/if}}
+    <p>{{flash.message}}</p>    {{#if flash.showProgress}}
     <div class="progress">
       {{! template-lint-disable no-inline-styles }}
       <div class="progress-bar" role="progressbar"
