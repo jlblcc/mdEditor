@@ -86,6 +86,9 @@ const theModel = DS.Model.extend({
       return [];
     }
   }),
+  contactApi: DS.attr('string', {
+    defaultValue: null
+  }),
   locale: alias('defaultLocale'),
 
   wasLoaded() {

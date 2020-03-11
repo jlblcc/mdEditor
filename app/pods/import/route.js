@@ -29,6 +29,7 @@ import {
   allSettled,
   Promise
 } from 'rsvp';
+import { singularize } from 'ember-inflector';
 
 const generateIdForRecord = Base.create()
   .generateIdForRecord;
@@ -70,11 +71,13 @@ export default Route.extend(ScrollTo, {
     let raw = record.attributes.json;
     let json = raw ? JSON.parse(raw) : null;
 
-    switch(record.type) {
+    switch (record.type) {
     case 'records':
-      return getWithDefault(json, 'metadata.resourceInfo.citation.title', 'NO TITLE');
+      return getWithDefault(json, 'metadata.resourceInfo.citation.title',
+        'NO TITLE');
     case 'dictionaries':
-      return getWithDefault(json, 'dataDictionary.citation.title', 'NO TITLE');
+      return getWithDefault(json, 'dataDictionary.citation.title',
+        'NO TITLE');
     case 'contacts':
       return json.name || 'NO NAME';
     case 'schemas':
@@ -105,7 +108,7 @@ export default Route.extend(ScrollTo, {
       type: null
     });
 
-    if(contact){
+    if(contact) {
       contact.forEach((item) => {
         data.pushObject(template.create({
           attributes: {
@@ -116,7 +119,8 @@ export default Route.extend(ScrollTo, {
       });
     }
 
-    if(get(json, 'metadata.metadataInfo.metadataIdentifier') === undefined) {
+    if(get(json, 'metadata.metadataInfo.metadataIdentifier') ===
+      undefined) {
       json.metadata.metadataInfo.metadataIdentifier = {
         identifier: uuidV4(),
         namespace: 'urn:uuid'
@@ -316,7 +320,7 @@ export default Route.extend(ScrollTo, {
 
             try {
               json = JSON.parse(file.data);
-            } catch(e) {
+            } catch (e) {
               reject(
                 `Failed to parse file: ${file.name}. Is it valid JSON?`
               );
@@ -367,7 +371,7 @@ export default Route.extend(ScrollTo, {
             new Promise((resolve, reject) => {
                 try {
                   json = JSON.parse(response);
-                } catch(e) {
+                } catch (e) {
                   reject(
                     `Failed to parse data. Is it valid JSON?`);
                 }
@@ -412,13 +416,21 @@ export default Route.extend(ScrollTo, {
     },
     importData() {
       let store = this.store;
-      let data = {
-        data: this.currentRouteModel()
-          .get('data')
-          .filterBy('meta.export').rejectBy('type', 'settings')
+      let data = this.currentRouteModel()
+        .get('data').rejectBy('type', 'settings')
+        .filterBy('meta.export');
+      let local = {
+        data: data.filter(rec => {
+          return !store.adapterFor(singularize(rec.type)).host;
+        })
+      };
+      let api = {
+        data: data.filter(rec => {
+          return store.adapterFor(singularize(rec.type)).host;
+        })
       };
 
-      store.importData(data, {
+      store.importData(local, {
           truncate: !this.currentRouteModel()
             .get('merge'),
           json: false
@@ -426,7 +438,20 @@ export default Route.extend(ScrollTo, {
         .then(() => {
           get(this, 'flashMessages')
             .success(
-              `Imported data. Records were
+              `Imported data to local storage. ${local.data.length} Records were
+              ${this.currentRouteModel().get('merge') ? 'merged' : 'replaced'}.`, {
+                extendedTimeout: 1500
+              });
+          //this.transitionTo('dashboard');
+        });
+      store.adapterFor('json-api').importData(api, {
+          truncate: !this.currentRouteModel().get('merge'),
+          json: false
+        })
+        .then(() => {
+          get(this, 'flashMessages')
+            .success(
+              `Imported data to database. Records were
               ${this.currentRouteModel().get('merge') ? 'merged' : 'replaced'}.`, {
                 extendedTimeout: 1500
               });

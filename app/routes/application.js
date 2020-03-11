@@ -124,6 +124,7 @@ export default Route.extend({
 
   actions: {
     error(error) {
+      let route = this;
       console.error(error);
 
       if(error.status === 404) {
@@ -131,8 +132,10 @@ export default Route.extend({
       }
 
       return this.replaceWith('error')
-        .then(function (route) {
-          route.controller.set('lastError', error);
+        .then(function () {
+          if(route.controller) {
+            route.controller.set('lastError', error);
+          }
         });
     },
     didTransition() {

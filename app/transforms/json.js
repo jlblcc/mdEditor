@@ -8,7 +8,7 @@ export default DS.Transform.extend({
   clean: service('cleaner'),
 
   deserialize(serialized) {
-    let json = JSON.parse(serialized);
+    let json = typeof serialized === "object" ? serialized : JSON.parse(serialized);
 
     if(isArray(json)){
       return A(json);
@@ -19,7 +19,8 @@ export default DS.Transform.extend({
 
   serialize(deserialized) {
     let target = isArray(deserialized) ? [] :{};
-    return JSON.stringify(this.clean.clean(deserialized, {target:target}));
+    let json = this.clean.clean(deserialized, {target:target});
+    return JSON.stringify(json);
   }
 
 });

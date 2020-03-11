@@ -1,11 +1,14 @@
 import Route from '@ember/routing/route';
 import DS from 'ember-data';
+import { inject as service } from '@ember/service';
 
 const {
   NotFoundError
 } = DS;
 
 export default Route.extend({
+  flashMessages: service(),
+
   /**
    * The route model
    *
@@ -14,10 +17,10 @@ export default Route.extend({
    * @chainable
    * @return {Object}
    */
-  model: function(params) {
+  model: function (params) {
     let record = this.store.peekRecord('contact', params.contact_id);
 
-    if (record) {
+    if(record) {
       return record;
     }
 
@@ -39,7 +42,7 @@ export default Route.extend({
    *
    * @method deactivate
    */
-  deactivate: function() {
+  deactivate: function () {
     // We grab the model loaded in this route
     let model = this.currentRouteModel();
 
@@ -51,7 +54,7 @@ export default Route.extend({
     }
   },
 
-  setupController: function(controller, model) {
+  setupController: function (controller, model) {
     // Call _super for default behavior
     this._super(controller, model);
 
@@ -87,8 +90,8 @@ export default Route.extend({
   // },
 
   actions: {
-    willTransition: function(transition) {
-      if (transition.targetName === 'contact.new.index') {
+    willTransition: function (transition) {
+      if(transition.targetName === 'contact.new.index') {
         transition.abort();
         return true;
       }
@@ -97,7 +100,7 @@ export default Route.extend({
       var model = this.currentRouteModel();
       // If we are leaving the Route we verify if the model is in
       // 'isNew' state, which means it wasn't saved to the backend.
-      if (model && model.get('isNew')) {
+      if(model && model.get('isNew')) {
         //let contexts = transition.intent.contexts;
         // We call DS#destroyRecord() which removes it from the store
         model.destroyRecord().then(() => transition.retry());
@@ -116,10 +119,22 @@ export default Route.extend({
     },
 
     saveContact() {
+      let fm = this.flashMessages;
+
       this.currentRouteModel()
         .save()
         .then((model) => {
           this.replaceWith('contact.show.edit', model);
+        }, function (err) {
+          // Error callback
+          if(err) {
+            let e = err.errors.firstObject;
+
+            fm.danger(
+              `${e.detail}(Code:${e.code}, Status:${e.status}).`, {
+                title: e.title
+              });
+          }
         });
     },
 
@@ -130,7 +145,7 @@ export default Route.extend({
     },
 
     error(error) {
-      if (error instanceof NotFoundError) {
+      if(error instanceof NotFoundError) {
         this.flashMessages
           .warning('No contact found! Re-directing to new contact...');
         // redirect to new

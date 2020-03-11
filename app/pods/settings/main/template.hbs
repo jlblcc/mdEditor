@@ -80,6 +80,19 @@
       </div>
     </div>
   </div>
+  <div class="alert alert-warning">
+    <h5>JSON API</h5>
+    <div class="form-group-inline">
+      <label class="control-label">Contacts URL</label>
+      <div class="flex-grow">
+        {{input/md-input
+          type="url"
+          value=model.contactApi
+          placeholder="Root URL for the contact JSON API webservice."
+        }}
+      </div>
+    </div>
+  </div>
 </form>
 {{/layout/md-card}}
 
