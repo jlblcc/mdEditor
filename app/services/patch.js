@@ -29,9 +29,9 @@ export default Service.extend({
 
       record.set('json.memberOfOrganization', A(record.get(
         'json.memberOfOrganization')).uniq());
-      record.save().then(function () {
+      // record.save().then(function () {
         record.notifyPropertyChange('currentHash');
-      });
+      // });
 
       break;
     case 'record':
