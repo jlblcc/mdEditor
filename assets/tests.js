@@ -3641,27 +3641,32 @@ define("mdeditor/tests/integration/pods/components/input/md-markdown-area/compon
     (0, _qunit.test)('it renders', async function (assert) {
       // Set any properties with this.set('myProperty', 'value');
       // Handle any actions with this.on('myAction', function(val) { ... });
+      assert.expect(6);
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
         "id": "NfbDl9S4",
         "block": "{\"symbols\":[],\"statements\":[[1,[28,\"input/md-markdown-area\",null,[[\"required\"],[true]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
-      assert.equal((0, _testHelpers.find)('.md-markdown-editor').innerText.replace(/[ \n\s]+/g, '').trim(), '||||Entertext,Markdownissupported.​length:0100:0');
+      assert.equal((0, _testHelpers.find)('.md-markdown-editor').innerText.replace(/[ \n\s]+/g, '').trim(), '||||Entertext,Markdownissupported.​length:010');
       assert.ok((0, _testHelpers.find)('.md-markdown-editor .length.md-error'), 'required ok');
       this.set('markdownValue', 'This is foobar.');
+      this.set('change', value => {
+        assert.equal(value, this.markdownValue, `changed to ${this.markdownValue}`);
+      });
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
-        "id": "f+GzQOI9",
-        "block": "{\"symbols\":[],\"statements\":[[1,[28,\"input/md-markdown-area\",null,[[\"value\",\"maxlength\",\"required\"],[[24,[\"markdownValue\"]],10,false]]],false]],\"hasEval\":false}",
+        "id": "+b3FFYka",
+        "block": "{\"symbols\":[],\"statements\":[[1,[28,\"input/md-markdown-area\",null,[[\"value\",\"maxlength\",\"required\",\"change\"],[[24,[\"markdownValue\"]],10,false,[28,\"action\",[[23,0,[]],[24,[\"change\"]],[24,[\"markdownValue\"]]],null]]]],false]],\"hasEval\":false}",
         "meta": {}
       }));
-      assert.equal((0, _testHelpers.find)('.md-markdown-editor .length.md-error').textContent, 'length: 15', 'maxlength ok'); // Template block usage:
+      assert.equal((0, _testHelpers.find)('.md-markdown-editor .length.md-error').textContent, 'length: 15', 'maxlength ok');
+      this.set('markdownValue', 'This is binbash.'); // Template block usage:
 
       await (0, _testHelpers.render)(Ember.HTMLBars.template({
         "id": "Ltu4oWFp",
         "block": "{\"symbols\":[],\"statements\":[[0,\"\\n\"],[4,\"input/md-markdown-area\",null,null,{\"statements\":[[0,\"        template block text\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"hasEval\":false}",
         "meta": {}
       }));
-      assert.equal((0, _testHelpers.find)('.md-markdown-editor').innerText.replace(/[ \n\s]+/g, '').trim(), '||||Entertext,Markdownissupported.​length:0100:0templateblocktext', 'block');
+      assert.equal((0, _testHelpers.find)('.md-markdown-editor').innerText.replace(/[ \n\s]+/g, '').trim(), '||||Entertext,Markdownissupported.​length:010templateblocktext', 'block');
     });
   });
 });

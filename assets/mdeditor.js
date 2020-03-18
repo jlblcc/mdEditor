@@ -2149,19 +2149,6 @@
     }
   });
 });
-;define("mdeditor/components/simple-mde", ["exports", "ember-simplemde/components/simple-mde"], function (_exports, _simpleMde) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(_exports, "default", {
-    enumerable: true,
-    get: function () {
-      return _simpleMde.default;
-    }
-  });
-});
 ;define("mdeditor/components/sortable-objects", ["exports", "ember-drag-drop/components/sortable-objects"], function (_exports, _sortableObjects) {
   "use strict";
 
@@ -5147,25 +5134,6 @@
     enumerable: true,
     get: function () {
       return _sign.sign;
-    }
-  });
-});
-;define("mdeditor/helpers/simple-mde-preview", ["exports", "ember-simplemde/helpers/simple-mde-preview"], function (_exports, _simpleMdePreview) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(_exports, "default", {
-    enumerable: true,
-    get: function () {
-      return _simpleMdePreview.default;
-    }
-  });
-  Object.defineProperty(_exports, "simpleMdePreview", {
-    enumerable: true,
-    get: function () {
-      return _simpleMdePreview.simpleMdePreview;
     }
   });
 });
@@ -12458,7 +12426,7 @@
 
   _exports.default = _default;
 });
-;define("mdeditor/pods/components/input/md-markdown-area/component", ["exports"], function (_exports) {
+;define("mdeditor/pods/components/input/md-markdown-area/component", ["exports", "easymde"], function (_exports, _easymde) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -12473,11 +12441,20 @@
      * @class md-markdown-editor
      * @constructor
      * @example
-     *   {{md-markdown-editor value=value options=options}}
+     *   {{md-markdown-editor
+     *     value=value
+     *     label="Label"
+     *     placeholder="A short description of the field."
+     *     change=(action (mut value))
+     *     maxlength=300
+     *   }}
      */
 
     /**
-     * Fix fullscreen render inside of liquid-outlet..
+     *
+     * Instantiate editor.
+     * Fix fullscreen render inside of liquid-outlet.
+     * Handle change event.
      *
      * @event didInsertElement
      * @public
@@ -12485,21 +12462,35 @@
     didInsertElement() {
       this._super(...arguments);
 
-      let editor = this.editor;
+      this.currentEditor = new _easymde.default(Ember.assign({
+        element: document.getElementById(`md-${this.elementId}`).querySelector('textarea')
+      }, this.options));
       let $el = this.$();
-      const oldEditorSetOption = editor.codemirror.setOption;
+      const oldEditorSetOption = this.currentEditor.codemirror.setOption;
 
-      editor.codemirror.setOption = function (option, value) {
+      this.currentEditor.codemirror.setOption = function (option, value) {
         oldEditorSetOption.apply(this, arguments);
 
         if (option === 'fullScreen') {
           $el.parents('.liquid-child,.liquid-container, .md-card').toggleClass('full-screen', value);
         }
       };
+
+      this.currentEditor.value(this.value);
+      this.get('currentEditor').codemirror.on('change', () => Ember.run.once(this, function () {
+        if (this.change) {
+          this.change(this.get('currentEditor').value());
+        }
+      }));
+    },
+
+    willDestroyElement() {
+      this.get('currentEditor').toTextArea();
+      this.set('currentEditor', null);
     },
 
     /**
-     * Make sure the value is not null or undefined, for Simple MDE.
+     * Make sure the value is not null or undefined, for EasyMDE.
      *
      * @event didReceiveAttrs
      * @public
@@ -12511,19 +12502,40 @@
         if (Ember.isNone(Ember.get(this, 'value'))) {
           Ember.set(this, 'value', '');
         }
+
+        let editor = this.get('currentEditor');
+
+        if (Ember.isEmpty(editor)) {
+          return;
+        }
+
+        let cursor = editor.codemirror.getDoc().getCursor();
+        editor.value(this.get('value') || '');
+        editor.codemirror.getDoc().setCursor(cursor);
       });
     },
 
+    /**
+     * @private
+     * @variable
+     * to hold the EasyMDE instance
+     */
+    currentEditor: null,
+
+    /**
+     * action to call when the value on the editor changes
+     */
+    change: null,
     classNames: ['md-markdown-editor'],
     classNameBindings: ['label:form-group', 'required', 'errorClass'],
     attributeBindings: ['data-spy'],
 
     /**
-     * The current simplemde editor instance.
+     * The current EasyMDE editor instance.
      *
      * @property editor
      * @type {Object}
-     * @private
+     * @privateabstract
      */
 
     /**
@@ -12534,12 +12546,59 @@
      */
 
     /**
+     * The maximum number of characters allowed.
+     *
+     * @property maxlength
+     * @type {Number}
+     */
+
+    /**
      * If true, the "row" the editor will be initally collapse.
      *
      * @property collapsed
      * @type {Boolean}
      * @default undefined
      */
+
+    /**
+     * If set to false, disable the spell checker.
+     *
+     * @property spellChecker
+     * @type {Boolean}
+     * @default false
+     */
+    spellChecker: false,
+
+    /**
+     * If set to true, use the native broswer spellChecker.
+     *
+     * @property nativeSpellcheck
+     * @type {Boolean}
+     * @default true
+     */
+    nativeSpellcheck: true,
+
+    /**
+     * `textarea` or `contenteditable`. 'contenteditable' option is necessary to
+     * enable nativeSpellcheck.
+     *
+     * @property inputStyle
+     * @type {String}
+     * @default contenteditable
+     */
+    inputStyle: 'contenteditable',
+
+    /**
+     * If set to `true`, force downloads Font Awesome (used for icons). If set to
+     * `false`, prevents downloading. `Undefined` will
+     * intelligently check whether Font Awesome has already been included, then
+     * download accordingly.
+     *
+     * @property autoDownloadFontAwesome
+     * @type {Boolean}
+     * @default false
+     */
+    autoDownloadFontAwesome: false,
 
     /**
      * If true, the collapse control will be added to the label header.
@@ -12567,9 +12626,14 @@
      * @category computed
      * @requires placeholder
      */
-    options: Ember.computed('placeholder', function () {
+    options: Ember.computed('placeholder', 'elementId', function () {
       return {
-        placeholder: Ember.get(this, 'placeholder'),
+        placeholder: this.placeholder,
+        spellChecker: this.spellChecker,
+        nativeSpellcheck: this.nativeSpellcheck,
+        inputStyle: this.inputStyle,
+        autoDownloadFontAwesome: this.autoDownloadFontAwesome,
+        // value: this.value,
         status: [{
           className: 'length',
           defaultValue: el => {
@@ -12578,15 +12642,12 @@
           onUpdate: el => {
             el.innerHTML = `<span class="length md-${Ember.get(this, 'errorClass')}">length: ${Ember.get(this, 'length')}</span>`;
           }
-        }, 'lines', 'words', 'cursor']
+        }, 'lines', 'words']
       };
     }),
-    // fullscreen: Ember.observer('editor.codemirror.options.fullScreen', function(){
-    //   console.info(this.get('editor.codemirror.options.fullScreen'));
-    // }),
 
     /**
-     * Returns the length of hte value string, 0 if falsy.
+     * Returns the length of the value string, 0 if falsy.
      *
      * @property length
      * @type {Number}
@@ -12636,8 +12697,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "YjZZCwaM",
-    "block": "{\"symbols\":[\"&default\"],\"statements\":[[4,\"if\",[[24,[\"label\"]]],null,{\"statements\":[[0,\"    \"],[7,\"label\",true],[10,\"class\",\"md-card-chevron\"],[8],[0,\"\\n\"],[4,\"if\",[[24,[\"collapsible\"]]],null,{\"statements\":[[0,\"        \"],[7,\"a\",true],[10,\"role\",\"button\"],[10,\"data-toggle\",\"collapse\"],[11,\"href\",[29,[\"#\",[28,\"concat\",[\"md-\",[24,[\"elementId\"]]],null]]]],[11,\"aria-expanded\",[28,\"if\",[[24,[\"collapsed\"]],\"false\",\"true\"],null]],[11,\"class\",[28,\"if\",[[24,[\"collapsed\"]],\"collapsed\"],null]],[11,\"aria-controls\",[28,\"concat\",[\"md-\",[24,[\"elementId\"]]],null]],[8],[0,\"\\n        \"],[7,\"span\",true],[10,\"class\",\"fa\"],[8],[9],[0,\"\\n        \"],[1,[22,\"label\"],false],[0,\"\\n        \"],[9],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"        \"],[1,[22,\"label\"],false],[0,\"\\n\"]],\"parameters\":[]}],[0,\"    \"],[9],[0,\"\\n\"]],\"parameters\":[]},null],[7,\"div\",true],[11,\"id\",[28,\"concat\",[\"md-\",[24,[\"elementId\"]]],null]],[11,\"class\",[28,\"if\",[[24,[\"collapsed\"]],\"collapse\",\"in\"],null]],[8],[0,\"\\n  \"],[1,[28,\"simple-mde\",null,[[\"value\",\"options\",\"maxlength\",\"spellcheck\",\"disabled\",\"change\",\"currentEditor\"],[[24,[\"value\"]],[24,[\"options\"]],[24,[\"maxlength\"]],true,[24,[\"disabled\"]],[28,\"if\",[[24,[\"change\"]],[24,[\"change\"]],[28,\"action\",[[23,0,[]],[28,\"mut\",[[24,[\"value\"]]],null]],null]],null],[24,[\"editor\"]]]]],false],[0,\"\\n\"],[9],[0,\"\\n\"],[14,1],[0,\"\\n\"]],\"hasEval\":false}",
+    "id": "34T7RGwH",
+    "block": "{\"symbols\":[\"&default\"],\"statements\":[[4,\"if\",[[24,[\"label\"]]],null,{\"statements\":[[0,\"    \"],[7,\"label\",true],[10,\"class\",\"md-card-chevron\"],[8],[0,\"\\n\"],[4,\"if\",[[24,[\"collapsible\"]]],null,{\"statements\":[[0,\"        \"],[7,\"a\",true],[10,\"role\",\"button\"],[10,\"data-toggle\",\"collapse\"],[11,\"href\",[29,[\"#\",[28,\"concat\",[\"md-\",[24,[\"elementId\"]]],null]]]],[11,\"aria-expanded\",[28,\"if\",[[24,[\"collapsed\"]],\"false\",\"true\"],null]],[11,\"class\",[28,\"if\",[[24,[\"collapsed\"]],\"collapsed\"],null]],[11,\"aria-controls\",[28,\"concat\",[\"md-\",[24,[\"elementId\"]]],null]],[8],[0,\"\\n        \"],[7,\"span\",true],[10,\"class\",\"fa\"],[8],[9],[0,\"\\n        \"],[1,[22,\"label\"],false],[0,\"\\n        \"],[9],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"        \"],[1,[22,\"label\"],false],[0,\"\\n\"]],\"parameters\":[]}],[0,\"    \"],[9],[0,\"\\n\"]],\"parameters\":[]},null],[7,\"div\",true],[11,\"id\",[28,\"concat\",[\"md-\",[24,[\"elementId\"]]],null]],[11,\"class\",[28,\"if\",[[24,[\"collapsed\"]],\"collapse\",\"in\"],null]],[8],[0,\"\\n  \"],[1,[22,\"textarea\"],false],[0,\"\\n\"],[9],[0,\"\\n\"],[14,1],[0,\"\\n\"]],\"hasEval\":false}",
     "meta": {
       "moduleName": "mdeditor/pods/components/input/md-markdown-area/template.hbs"
     }
@@ -23269,8 +23330,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "+ODq+9xu",
-    "block": "{\"symbols\":[\"resource\",\"val\"],\"statements\":[[4,\"with\",[[24,[\"model\",\"json\",\"dataDictionary\"]]],null,{\"statements\":[[0,\"  \"],[7,\"form\",true],[10,\"class\",\"col-xxl-11 col-xxxl-10 col-xxl-offset-1\"],[8],[0,\"\\n    \"],[7,\"h4\",true],[10,\"class\",\"section-header\"],[8],[0,\"\\n      Editing \"],[7,\"em\",true],[8],[1,[24,[\"model\",\"title\"]],false],[9],[0,\"\\n      \"],[1,[28,\"control/md-status\",null,[[\"model\"],[[24,[\"model\"]]]]],false],[0,\"\\n    \"],[9],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"title\",\"collapsible\",\"collapsed\",\"profilePath\",\"data-spy\",\"required\"],[\"Basic Information\",true,false,\"dictionary.main.basicInformation\",\"Basic Information\",true]],{\"statements\":[[0,\"      \"],[1,[28,\"input/md-input\",null,[[\"value\",\"placeholder\",\"label\",\"required\",\"profilePath\",\"data-spy\",\"class\"],[[24,[\"model\",\"title\"]],\"Enter the title for the dictionary.\",\"Title\",true,\"dictionary.main.basicInformation.title\",\"Title\",\"md-embedded\"]]],false],[0,\"\\n\\n\"],[4,\"if\",[[28,\"is-array\",[[23,1,[\"subject\"]]],null]],null,{\"statements\":[[0,\"        \"],[1,[28,\"input/md-codelist-multi\",null,[[\"create\",\"label\",\"tooltip\",\"icon\",\"disabled\",\"allowClear\",\"mdCodeName\",\"showValidations\",\"model\",\"path\",\"placeholder\",\"profilePath\",\"data-spy\",\"class\"],[true,\"Subject\",true,true,[24,[\"disabled\"]],true,\"scope\",true,[24,[\"model\"]],\"json.dataDictionary.subject\",\"Choose type(s) of resource\",\"dictionary.main.basicInformation.subject\",\"Subject\",\"md-embedded\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"title\",\"class\",\"required\",\"collapsible\",\"collapsed\",\"profilePath\",\"data-spy\",\"shadow\"],[\"Responsible Party\",\"md-embedded\",true,false,false,\"dictionary.main.basicInformation.responsibleParty\",\"Responsible Party\",false]],{\"statements\":[[0,\"        \"],[1,[28,\"object/md-party\",null,[[\"model\"],[[23,1,[\"responsibleParty\"]]]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n      \"],[1,[28,\"input/md-markdown-area\",null,[[\"value\",\"profilePath\",\"label\",\"placeholder\",\"data-spy\",\"class\"],[[23,1,[\"description\"]],\"dictionary.main.basicInformation.description\",\"Description\",\"Enter text describing the dictionary.\",\"Description\",\"md-embedded\"]]],false],[0,\"\\n\\n      \"],[1,[28,\"input/md-boolean\",null,[[\"label\",\"text\",\"value\",\"profilePath\"],[\"Dictionary Included?\",\"Dictionary is included with the resource\",[23,1,[\"dictionaryIncludedWithResource\"]],\"dictionary.main.basicInformation.included\"]]],false],[0,\"\\n\\n      \"],[1,[28,\"input/md-input\",null,[[\"value\",\"placeholder\",\"label\",\"required\",\"profilePath\"],[[23,1,[\"dictionaryFunctionalLanguage\"]],\"Describe the language used in the dictionary, e.g. UML.\",\"Functional Language\",false,\"dictionary.main.basicInformation.functionalLanguage\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"object/md-simple-array-table\",null,[[\"title\",\"required\",\"plain\",\"profilePath\",\"value\"],[\"Recommended Use\",false,false,\"dictionary.main.recommendedUse\",[23,1,[\"recommendedUse\"]]]],{\"statements\":[[0,\"      \"],[7,\"td\",true],[8],[0,\"\\n          \"],[1,[28,\"input/md-textarea\",null,[[\"value\",\"placeholder\"],[[23,2,[\"item\",\"value\"]],\"Enter a description of how the dictionary should be used.\"]]],false],[0,\"\\n      \"],[9],[0,\"\\n\"]],\"parameters\":[2]},null],[0,\"\\n    \"],[1,[28,\"object/md-locale-array\",null,[[\"title\",\"data-spy\",\"collapsible\",\"collapsed\",\"required\",\"value\",\"profilePath\"],[\"Locale\",\"Locales\",true,false,false,[23,1,[\"locale\"]],\"dictionary.main.locale\"]]],false],[0,\"\\n\\n  \"],[9],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"\\n\"],[1,[28,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-scroll-spy-dict-edit\",[28,\"component\",[\"control/md-scroll-spy\"],[[\"scrollInit\",\"setScrollTo\"],[[24,[\"scrollTo\"]],[28,\"route-action\",[\"setScrollTo\"],null]]]]]]],false],[0,\"\\n\"]],\"hasEval\":false}",
+    "id": "GoF3JXpR",
+    "block": "{\"symbols\":[\"resource\",\"val\"],\"statements\":[[4,\"with\",[[24,[\"model\",\"json\",\"dataDictionary\"]]],null,{\"statements\":[[0,\"  \"],[7,\"form\",true],[10,\"class\",\"col-xxl-11 col-xxxl-10 col-xxl-offset-1\"],[8],[0,\"\\n    \"],[7,\"h4\",true],[10,\"class\",\"section-header\"],[8],[0,\"\\n      Editing \"],[7,\"em\",true],[8],[1,[24,[\"model\",\"title\"]],false],[9],[0,\"\\n      \"],[1,[28,\"control/md-status\",null,[[\"model\"],[[24,[\"model\"]]]]],false],[0,\"\\n    \"],[9],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"title\",\"collapsible\",\"collapsed\",\"profilePath\",\"data-spy\",\"required\"],[\"Basic Information\",true,false,\"dictionary.main.basicInformation\",\"Basic Information\",true]],{\"statements\":[[0,\"      \"],[1,[28,\"input/md-input\",null,[[\"value\",\"placeholder\",\"label\",\"required\",\"profilePath\",\"data-spy\",\"class\"],[[24,[\"model\",\"title\"]],\"Enter the title for the dictionary.\",\"Title\",true,\"dictionary.main.basicInformation.title\",\"Title\",\"md-embedded\"]]],false],[0,\"\\n\\n\"],[4,\"if\",[[28,\"is-array\",[[23,1,[\"subject\"]]],null]],null,{\"statements\":[[0,\"        \"],[1,[28,\"input/md-codelist-multi\",null,[[\"create\",\"label\",\"tooltip\",\"icon\",\"disabled\",\"allowClear\",\"mdCodeName\",\"showValidations\",\"model\",\"path\",\"placeholder\",\"profilePath\",\"data-spy\",\"class\"],[true,\"Subject\",true,true,[24,[\"disabled\"]],true,\"scope\",true,[24,[\"model\"]],\"json.dataDictionary.subject\",\"Choose type(s) of resource\",\"dictionary.main.basicInformation.subject\",\"Subject\",\"md-embedded\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"title\",\"class\",\"required\",\"collapsible\",\"collapsed\",\"profilePath\",\"data-spy\",\"shadow\"],[\"Responsible Party\",\"md-embedded\",true,false,false,\"dictionary.main.basicInformation.responsibleParty\",\"Responsible Party\",false]],{\"statements\":[[0,\"        \"],[1,[28,\"object/md-party\",null,[[\"model\"],[[23,1,[\"responsibleParty\"]]]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n      \"],[1,[28,\"input/md-markdown-area\",null,[[\"value\",\"profilePath\",\"label\",\"placeholder\",\"data-spy\",\"class\",\"change\"],[[23,1,[\"description\"]],\"dictionary.main.basicInformation.description\",\"Description\",\"Enter text describing the dictionary.\",\"Description\",\"md-embedded\",[28,\"action\",[[23,0,[]],[28,\"mut\",[[23,1,[\"description\"]]],null]],null]]]],false],[0,\"\\n\\n      \"],[1,[28,\"input/md-boolean\",null,[[\"label\",\"text\",\"value\",\"profilePath\"],[\"Dictionary Included?\",\"Dictionary is included with the resource\",[23,1,[\"dictionaryIncludedWithResource\"]],\"dictionary.main.basicInformation.included\"]]],false],[0,\"\\n\\n      \"],[1,[28,\"input/md-input\",null,[[\"value\",\"placeholder\",\"label\",\"required\",\"profilePath\"],[[23,1,[\"dictionaryFunctionalLanguage\"]],\"Describe the language used in the dictionary, e.g. UML.\",\"Functional Language\",false,\"dictionary.main.basicInformation.functionalLanguage\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"object/md-simple-array-table\",null,[[\"title\",\"required\",\"plain\",\"profilePath\",\"value\"],[\"Recommended Use\",false,false,\"dictionary.main.recommendedUse\",[23,1,[\"recommendedUse\"]]]],{\"statements\":[[0,\"      \"],[7,\"td\",true],[8],[0,\"\\n          \"],[1,[28,\"input/md-textarea\",null,[[\"value\",\"placeholder\"],[[23,2,[\"item\",\"value\"]],\"Enter a description of how the dictionary should be used.\"]]],false],[0,\"\\n      \"],[9],[0,\"\\n\"]],\"parameters\":[2]},null],[0,\"\\n    \"],[1,[28,\"object/md-locale-array\",null,[[\"title\",\"data-spy\",\"collapsible\",\"collapsed\",\"required\",\"value\",\"profilePath\"],[\"Locale\",\"Locales\",true,false,false,[23,1,[\"locale\"]],\"dictionary.main.locale\"]]],false],[0,\"\\n\\n  \"],[9],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"\\n\"],[1,[28,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-scroll-spy-dict-edit\",[28,\"component\",[\"control/md-scroll-spy\"],[[\"scrollInit\",\"setScrollTo\"],[[24,[\"scrollTo\"]],[28,\"route-action\",[\"setScrollTo\"],null]]]]]]],false],[0,\"\\n\"]],\"hasEval\":false}",
     "meta": {
       "moduleName": "mdeditor/pods/dictionary/show/edit/index/template.hbs"
     }
@@ -27207,8 +27268,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "KT6qSamh",
-    "block": "{\"symbols\":[\"resource\",\"credit\",\"editing\"],\"statements\":[[4,\"with\",[[24,[\"model\",\"json\",\"metadata\",\"resourceInfo\"]]],null,{\"statements\":[[7,\"div\",true],[10,\"class\",\"row\"],[8],[0,\"\\n    \"],[7,\"form\",true],[10,\"class\",\"col-xxl-11 col-xxxl-10 col-xxl-offset-1\"],[8],[0,\"\\n      \"],[7,\"h4\",true],[10,\"class\",\"section-header\"],[8],[0,\"\\n        Editing \"],[7,\"em\",true],[8],[1,[24,[\"model\",\"title\"]],false],[9],[0,\"\\n        \"],[1,[28,\"control/md-status\",null,[[\"model\"],[[24,[\"model\"]]]]],false],[0,\"\\n      \"],[9],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"title\",\"collapsible\",\"collapsed\",\"profilePath\",\"data-spy\",\"required\"],[\"Basic Information\",true,false,\"record.main.basicInformation\",\"Basic Information\",true]],{\"statements\":[[0,\"\\n\"],[4,\"layout/md-wrap\",null,[[\"data-spy\",\"class\",\"profilePath\"],[\"Record ID\",\"md-embedded\",\"record.main.basicInformation.recordId\"]],{\"statements\":[[0,\"        \"],[7,\"div\",true],[10,\"class\",\"form-group\"],[8],[0,\"\\n          \"],[7,\"label\",true],[10,\"class\",\"required\"],[8],[0,\"Record ID\"],[9],[0,\"\\n          \"],[7,\"div\",true],[10,\"class\",\"input-group input-group-md\"],[8],[0,\"\\n            \"],[1,[28,\"input/md-input\",null,[[\"valuePath\",\"model\",\"placeholder\",\"disabled\"],[\"recordId\",[24,[\"model\"]],\"Assigned Record ID\",true]]],false],[0,\"\\n            \"],[7,\"span\",true],[10,\"class\",\"input-group-btn\"],[8],[0,\"\\n                \"],[7,\"button\",false],[12,\"class\",\"btn btn-warning\"],[12,\"type\",\"button\"],[3,\"action\",[[23,0,[]],[28,\"route-action\",[\"editId\"],null]]],[8],[0,\"\\n                  \"],[1,[28,\"fa-icon\",[\"pencil\"],null],false],[0,\"\\n                  Edit\"],[9],[0,\"\\n                  \"],[1,[28,\"ember-tooltip\",null,[[\"text\",\"tooltipClass\"],[\"Edit the metadata id\",\"ember-tooltip md-tooltip warning\"]]],false],[0,\"\\n            \"],[9],[0,\"\\n          \"],[9],[0,\"\\n        \"],[9],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n        \"],[1,[28,\"input/md-input\",null,[[\"value\",\"placeholder\",\"label\",\"required\",\"profilePath\",\"data-spy\",\"class\"],[[24,[\"model\",\"title\"]],\"Enter the title for the resource.\",\"Title\",true,\"record.main.basicInformation.title\",\"Title\",\"md-embedded\"]]],false],[0,\"\\n\\n\"],[4,\"if\",[[28,\"is-array\",[[23,1,[\"status\"]]],null]],null,{\"statements\":[[0,\"        \"],[1,[28,\"input/md-codelist-multi\",null,[[\"value\",\"label\",\"required\",\"create\",\"tooltip\",\"icon\",\"mdCodeName\",\"placeholder\",\"profilePath\",\"data-spy\",\"class\"],[[23,1,[\"status\"]],\"Status\",true,true,true,false,\"progress\",\"Select the current status\",\"record.main.basicInformation.status\",\"Status\",\"md-embedded\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"title\",\"shadow\",\"data-spy\",\"required\",\"profilePath\"],[\"Default Locale\",false,false,true,\"record.main.basicInformation.defaultLocale\"]],{\"statements\":[[0,\"          \"],[1,[28,\"object/md-locale\",null,[[\"model\",\"profilePath\"],[[23,1,[\"defaultResourceLocale\"]],\"record.main.basicInformation.defaultLocale\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[28,\"is-array\",[[23,1,[\"resourceType\"]]],null]],null,{\"statements\":[[0,\"        \"],[7,\"div\",true],[10,\"class\",\"form-group\"],[8],[0,\"\\n            \"],[1,[28,\"object/md-resource-type-array\",null,[[\"plain\",\"value\",\"required\",\"errorMessage\",\"data-spy\",\"profilePath\"],[false,[23,1,[\"resourceType\"]],true,\"At least one Resource Type is required.\",\"Resource Types\",\"record.main.resourceType\"]]],false],[0,\"\\n        \"],[9],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[28,\"is-array\",[[23,1,[\"pointOfContact\"]]],null]],null,{\"statements\":[[0,\"        \"],[1,[28,\"object/md-party-array\",null,[[\"title\",\"pluralTitle\",\"data-spy\",\"collapsible\",\"collapsed\",\"required\",\"value\",\"profilePath\",\"tipPath\",\"tipModel\"],[\"Point Of Contact\",\"Points of Contact\",\"Point Of Contact\",true,false,true,[23,1,[\"pointOfContact\"]],\"record.main.pointOfContact\",\"json.metadata.resourceInfo.pointOfContact\",[24,[\"model\"]]]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n        \"],[1,[28,\"object/md-citation/preview\",null,[[\"profilePath\",\"citation\",\"muted\",\"required\",\"editCitation\"],[\"record.main.citation\",[23,1,[\"citation\"]],true,true,[28,\"route-action\",[\"editCitation\"],null]]]],false],[0,\"\\n\\n\"],[4,\"layout/md-card\",null,[[\"title\",\"collapsible\",\"collapsed\",\"profilePath\",\"required\"],[\"Description\",true,false,\"record.main.description\",true]],{\"statements\":[[0,\"          \"],[1,[28,\"input/md-markdown-area\",null,[[\"value\",\"profilePath\",\"label\",\"placeholder\",\"required\"],[[23,1,[\"abstract\"]],\"record.main.description.abstract\",\"Abstract\",\"Enter an Abstract describing the resource.\",true]]],false],[0,\"\\n\\n          \"],[1,[28,\"input/md-markdown-area\",null,[[\"value\",\"profilePath\",\"label\",\"placeholder\",\"maxlength\"],[[23,1,[\"shortAbstract\"]],\"record.main.description.shortAbstract\",\"Short Abstract\",\"A short description of the resource. Max of 300 characters.\",300]]],false],[0,\"\\n\\n          \"],[1,[28,\"input/md-textarea\",null,[[\"value\",\"profilePath\",\"label\",\"placeholder\"],[[23,1,[\"purpose\"]],\"record.main.purpose\",\"Purpose\",\"Enter text describing the reason for creating the resource.\"]]],false],[0,\"\\n\\n          \"],[1,[28,\"input/md-textarea\",null,[[\"value\",\"profilePath\",\"label\",\"placeholder\"],[[23,1,[\"supplementalInfo\"]],\"record.main.supplementalInfo\",\"Supplemental Information\",\"Enter text describing other descriptive information about the resource.\"]]],false],[0,\"\\n\\n          \"],[1,[28,\"input/md-textarea\",null,[[\"value\",\"profilePath\",\"label\",\"placeholder\"],[[23,1,[\"environmentDescription\"]],\"record.main.environmentDescription\",\"Environment Description\",\"Description of the processing environment, for example the software, hardware, or the computer operating system.\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[23,1,[\"timePeriod\"]]],null,{\"statements\":[[0,\"        \"],[1,[28,\"object/md-time-period\",null,[[\"model\",\"profilePath\",\"data-spy\",\"label\"],[[23,1,[\"timePeriod\"]],\"record.main.timePeriod\",\"Time Period\",\"Time Period\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"object/md-object-table\",null,[[\"items\",\"header\",\"data-spy\",\"profilePath\",\"buttonText\",\"ellipsis\",\"attributes\",\"collapsible\"],[[23,1,[\"resourceMaintenance\"]],\"Maintenance\",\"Maintenance\",\"record.main.maintenance\",\"Add Maintenance\",true,\"frequency\",true]],{\"statements\":[[0,\"          \"],[1,[28,\"object/md-maintenance\",null,[[\"model\",\"profilePath\"],[[23,3,[]],\"record.main.maintenance\"]]],false],[0,\"\\n\"]],\"parameters\":[3]},null],[0,\"\\n\"],[4,\"if\",[[28,\"is-array\",[[23,1,[\"graphicOverview\"]]],null]],null,{\"statements\":[[0,\"        \"],[1,[28,\"object/md-graphic-array\",null,[[\"model\",\"data-spy\",\"button-text\",\"label\",\"profilePath\"],[[23,1,[\"graphicOverview\"]],\"Graphic Overview\",\"Add Graphic\",\"Graphic Overview\",\"record.main.graphicOverview\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[28,\"is-array\",[[23,1,[\"credit\"]]],null]],null,{\"statements\":[[4,\"object/md-simple-array-table\",null,[[\"data-spy\",\"title\",\"profilePath\",\"value\"],[\"Credit\",\"Credit\",\"record.main.credit\",[23,1,[\"credit\"]]]],{\"statements\":[[0,\"            \"],[7,\"td\",true],[8],[0,\"\\n                \"],[1,[28,\"input/md-input\",null,[[\"value\",\"placeholder\"],[[23,2,[\"item\",\"value\"]],\"Additional credits for the resource.\"]]],false],[0,\"\\n            \"],[9],[0,\"\\n\"]],\"parameters\":[2]},null]],\"parameters\":[]},null],[0,\"    \"],[9],[0,\"\\n\"],[9],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"\\n\"],[1,[28,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-scroll-spy-record-edit\",[28,\"component\",[\"control/md-scroll-spy\"],[[\"scrollInit\",\"setScrollTo\",\"refresh\"],[[24,[\"scrollTo\"]],[28,\"route-action\",[\"setScrollTo\"],null],[24,[\"model\",\"profile\"]]]]]]]],false],[0,\"\\n\"]],\"hasEval\":false}",
+    "id": "9tDdKmHs",
+    "block": "{\"symbols\":[\"resource\",\"credit\",\"editing\"],\"statements\":[[4,\"with\",[[24,[\"model\",\"json\",\"metadata\",\"resourceInfo\"]]],null,{\"statements\":[[7,\"div\",true],[10,\"class\",\"row\"],[8],[0,\"\\n    \"],[7,\"form\",true],[10,\"class\",\"col-xxl-11 col-xxxl-10 col-xxl-offset-1\"],[8],[0,\"\\n      \"],[7,\"h4\",true],[10,\"class\",\"section-header\"],[8],[0,\"\\n        Editing \"],[7,\"em\",true],[8],[1,[24,[\"model\",\"title\"]],false],[9],[0,\"\\n        \"],[1,[28,\"control/md-status\",null,[[\"model\"],[[24,[\"model\"]]]]],false],[0,\"\\n      \"],[9],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"title\",\"collapsible\",\"collapsed\",\"profilePath\",\"data-spy\",\"required\"],[\"Basic Information\",true,false,\"record.main.basicInformation\",\"Basic Information\",true]],{\"statements\":[[0,\"\\n\"],[4,\"layout/md-wrap\",null,[[\"data-spy\",\"class\",\"profilePath\"],[\"Record ID\",\"md-embedded\",\"record.main.basicInformation.recordId\"]],{\"statements\":[[0,\"        \"],[7,\"div\",true],[10,\"class\",\"form-group\"],[8],[0,\"\\n          \"],[7,\"label\",true],[10,\"class\",\"required\"],[8],[0,\"Record ID\"],[9],[0,\"\\n          \"],[7,\"div\",true],[10,\"class\",\"input-group input-group-md\"],[8],[0,\"\\n            \"],[1,[28,\"input/md-input\",null,[[\"valuePath\",\"model\",\"placeholder\",\"disabled\"],[\"recordId\",[24,[\"model\"]],\"Assigned Record ID\",true]]],false],[0,\"\\n            \"],[7,\"span\",true],[10,\"class\",\"input-group-btn\"],[8],[0,\"\\n                \"],[7,\"button\",false],[12,\"class\",\"btn btn-warning\"],[12,\"type\",\"button\"],[3,\"action\",[[23,0,[]],[28,\"route-action\",[\"editId\"],null]]],[8],[0,\"\\n                  \"],[1,[28,\"fa-icon\",[\"pencil\"],null],false],[0,\"\\n                  Edit\"],[9],[0,\"\\n                  \"],[1,[28,\"ember-tooltip\",null,[[\"text\",\"tooltipClass\"],[\"Edit the metadata id\",\"ember-tooltip md-tooltip warning\"]]],false],[0,\"\\n            \"],[9],[0,\"\\n          \"],[9],[0,\"\\n        \"],[9],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n        \"],[1,[28,\"input/md-input\",null,[[\"value\",\"placeholder\",\"label\",\"required\",\"profilePath\",\"data-spy\",\"class\"],[[24,[\"model\",\"title\"]],\"Enter the title for the resource.\",\"Title\",true,\"record.main.basicInformation.title\",\"Title\",\"md-embedded\"]]],false],[0,\"\\n\\n\"],[4,\"if\",[[28,\"is-array\",[[23,1,[\"status\"]]],null]],null,{\"statements\":[[0,\"        \"],[1,[28,\"input/md-codelist-multi\",null,[[\"value\",\"label\",\"required\",\"create\",\"tooltip\",\"icon\",\"mdCodeName\",\"placeholder\",\"profilePath\",\"data-spy\",\"class\"],[[23,1,[\"status\"]],\"Status\",true,true,true,false,\"progress\",\"Select the current status\",\"record.main.basicInformation.status\",\"Status\",\"md-embedded\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[0,\"\\n\"],[4,\"layout/md-card\",null,[[\"title\",\"shadow\",\"data-spy\",\"required\",\"profilePath\"],[\"Default Locale\",false,false,true,\"record.main.basicInformation.defaultLocale\"]],{\"statements\":[[0,\"          \"],[1,[28,\"object/md-locale\",null,[[\"model\",\"profilePath\"],[[23,1,[\"defaultResourceLocale\"]],\"record.main.basicInformation.defaultLocale\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[28,\"is-array\",[[23,1,[\"resourceType\"]]],null]],null,{\"statements\":[[0,\"        \"],[7,\"div\",true],[10,\"class\",\"form-group\"],[8],[0,\"\\n            \"],[1,[28,\"object/md-resource-type-array\",null,[[\"plain\",\"value\",\"required\",\"errorMessage\",\"data-spy\",\"profilePath\"],[false,[23,1,[\"resourceType\"]],true,\"At least one Resource Type is required.\",\"Resource Types\",\"record.main.resourceType\"]]],false],[0,\"\\n        \"],[9],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[28,\"is-array\",[[23,1,[\"pointOfContact\"]]],null]],null,{\"statements\":[[0,\"        \"],[1,[28,\"object/md-party-array\",null,[[\"title\",\"pluralTitle\",\"data-spy\",\"collapsible\",\"collapsed\",\"required\",\"value\",\"profilePath\",\"tipPath\",\"tipModel\"],[\"Point Of Contact\",\"Points of Contact\",\"Point Of Contact\",true,false,true,[23,1,[\"pointOfContact\"]],\"record.main.pointOfContact\",\"json.metadata.resourceInfo.pointOfContact\",[24,[\"model\"]]]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n        \"],[1,[28,\"object/md-citation/preview\",null,[[\"profilePath\",\"citation\",\"muted\",\"required\",\"editCitation\"],[\"record.main.citation\",[23,1,[\"citation\"]],true,true,[28,\"route-action\",[\"editCitation\"],null]]]],false],[0,\"\\n\\n\"],[4,\"layout/md-card\",null,[[\"title\",\"collapsible\",\"collapsed\",\"profilePath\",\"required\"],[\"Description\",true,false,\"record.main.description\",true]],{\"statements\":[[0,\"          \"],[1,[28,\"input/md-markdown-area\",null,[[\"value\",\"profilePath\",\"label\",\"placeholder\",\"required\",\"change\"],[[23,1,[\"abstract\"]],\"record.main.description.abstract\",\"Abstract\",\"Enter an Abstract describing the resource.\",true,[28,\"action\",[[23,0,[]],[28,\"mut\",[[23,1,[\"abstract\"]]],null]],null]]]],false],[0,\"\\n\\n          \"],[1,[28,\"input/md-markdown-area\",null,[[\"value\",\"profilePath\",\"label\",\"placeholder\",\"change\",\"maxlength\"],[[23,1,[\"shortAbstract\"]],\"record.main.description.shortAbstract\",\"Short Abstract\",\"A short description of the resource. Max of 300 characters.\",[28,\"action\",[[23,0,[]],[28,\"mut\",[[23,1,[\"shortAbstract\"]]],null]],null],300]]],false],[0,\"\\n\\n          \"],[1,[28,\"input/md-textarea\",null,[[\"value\",\"profilePath\",\"label\",\"placeholder\"],[[23,1,[\"purpose\"]],\"record.main.purpose\",\"Purpose\",\"Enter text describing the reason for creating the resource.\"]]],false],[0,\"\\n\\n          \"],[1,[28,\"input/md-textarea\",null,[[\"value\",\"profilePath\",\"label\",\"placeholder\"],[[23,1,[\"supplementalInfo\"]],\"record.main.supplementalInfo\",\"Supplemental Information\",\"Enter text describing other descriptive information about the resource.\"]]],false],[0,\"\\n\\n          \"],[1,[28,\"input/md-textarea\",null,[[\"value\",\"profilePath\",\"label\",\"placeholder\"],[[23,1,[\"environmentDescription\"]],\"record.main.environmentDescription\",\"Environment Description\",\"Description of the processing environment, for example the software, hardware, or the computer operating system.\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[23,1,[\"timePeriod\"]]],null,{\"statements\":[[0,\"        \"],[1,[28,\"object/md-time-period\",null,[[\"model\",\"profilePath\",\"data-spy\",\"label\"],[[23,1,[\"timePeriod\"]],\"record.main.timePeriod\",\"Time Period\",\"Time Period\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"object/md-object-table\",null,[[\"items\",\"header\",\"data-spy\",\"profilePath\",\"buttonText\",\"ellipsis\",\"attributes\",\"collapsible\"],[[23,1,[\"resourceMaintenance\"]],\"Maintenance\",\"Maintenance\",\"record.main.maintenance\",\"Add Maintenance\",true,\"frequency\",true]],{\"statements\":[[0,\"          \"],[1,[28,\"object/md-maintenance\",null,[[\"model\",\"profilePath\"],[[23,3,[]],\"record.main.maintenance\"]]],false],[0,\"\\n\"]],\"parameters\":[3]},null],[0,\"\\n\"],[4,\"if\",[[28,\"is-array\",[[23,1,[\"graphicOverview\"]]],null]],null,{\"statements\":[[0,\"        \"],[1,[28,\"object/md-graphic-array\",null,[[\"model\",\"data-spy\",\"button-text\",\"label\",\"profilePath\"],[[23,1,[\"graphicOverview\"]],\"Graphic Overview\",\"Add Graphic\",\"Graphic Overview\",\"record.main.graphicOverview\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[28,\"is-array\",[[23,1,[\"credit\"]]],null]],null,{\"statements\":[[4,\"object/md-simple-array-table\",null,[[\"data-spy\",\"title\",\"profilePath\",\"value\"],[\"Credit\",\"Credit\",\"record.main.credit\",[23,1,[\"credit\"]]]],{\"statements\":[[0,\"            \"],[7,\"td\",true],[8],[0,\"\\n                \"],[1,[28,\"input/md-input\",null,[[\"value\",\"placeholder\"],[[23,2,[\"item\",\"value\"]],\"Additional credits for the resource.\"]]],false],[0,\"\\n            \"],[9],[0,\"\\n\"]],\"parameters\":[2]},null]],\"parameters\":[]},null],[0,\"    \"],[9],[0,\"\\n\"],[9],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"\\n\"],[1,[28,\"to-elsewhere\",null,[[\"named\",\"send\"],[\"md-scroll-spy-record-edit\",[28,\"component\",[\"control/md-scroll-spy\"],[[\"scrollInit\",\"setScrollTo\",\"refresh\"],[[24,[\"scrollTo\"]],[28,\"route-action\",[\"setScrollTo\"],null],[24,[\"model\",\"profile\"]]]]]]]],false],[0,\"\\n\"]],\"hasEval\":false}",
     "meta": {
       "moduleName": "mdeditor/pods/record/show/edit/main/index/template.hbs"
     }
@@ -29382,6 +29443,7 @@
     spotlight: Ember.inject.service(),
     slider: Ember.inject.service(),
     router: Ember.inject.service(),
+    settings: Ember.inject.service(),
 
     /**
      * Models for sidebar navigation
@@ -29396,7 +29458,7 @@
       }), this.store.findAll('dictionary', {
         reload: true
       })];
-      let meta = Ember.A([Ember.Object.create({
+      let metadata = Ember.A([Ember.Object.create({
         type: 'record',
         list: 'records',
         title: 'Metadata Records',
@@ -29412,12 +29474,11 @@
         title: 'Dictionaries',
         icon: 'book'
       })]);
-      let idx = 0;
 
       let mapFn = function (item) {
-        meta[idx].set('listId', Ember.guidFor(item));
-        item.set('meta', meta[idx]);
-        idx = ++idx;
+        let meta = metadata.findBy('type', item.modelName);
+        meta.set('listId', Ember.guidFor(item));
+        item.set('meta', meta);
         return item;
       };
 
@@ -32763,7 +32824,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("mdeditor/app")["default"].create({"repository":"https://github.com/adiwg/mdEditor","defaultProfileId":"org.adiwg.profile.full","name":"mdeditor","version":"0.10.1-rc1+a26a2e11"});
+            require("mdeditor/app")["default"].create({"repository":"https://github.com/adiwg/mdEditor","defaultProfileId":"org.adiwg.profile.full","name":"mdeditor","version":"0.10.1-rc2+2e229028"});
           }
         
 //# sourceMappingURL=mdeditor.map
