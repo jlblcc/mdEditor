@@ -106,9 +106,6 @@ export default JSONAPIAdapter.extend({
     }));
 
     return all(promises)
-      .then(function () {
-        // reload from store
-        console.log(content.data.length);
-      });
+      .then(function () {});
   }
 });
