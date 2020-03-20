@@ -86,8 +86,17 @@ const theModel = DS.Model.extend({
       return [];
     }
   }),
-  contactApi: DS.attr('string', {
-    defaultValue: null
+  jsonApiUrl: DS.attr('string', {
+    defaultValue: ''
+  }),
+  contactApi: DS.attr('boolean', {
+    defaultValue: false
+  }),
+  recordApi: DS.attr('boolean', {
+    defaultValue: false
+  }),
+  dictionaryApi: DS.attr('boolean', {
+    defaultValue: false
   }),
   locale: alias('defaultLocale'),
 

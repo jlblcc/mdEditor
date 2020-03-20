@@ -36,6 +36,7 @@ export default Route.extend({
   slider: service(),
   router: service(),
   settings: service(),
+  flashMessages: service(),
 
   /**
    * Models for sidebar navigation
@@ -94,6 +95,14 @@ export default Route.extend({
       return RSVP.all(profiles).then(() => result);
 
       // return result;
+    }).catch((e) => {
+      let err = e.errors.firstObject;
+      // debugger;
+
+      this.flashMessages.danger(err.detail, {
+        title: err.title,
+        sticky: true
+      });
     });
   },
 

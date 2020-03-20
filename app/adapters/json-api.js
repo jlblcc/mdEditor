@@ -8,7 +8,7 @@ import { singularize } from 'ember-inflector';
 import { all } from 'rsvp';
 
 export default JSONAPIAdapter.extend({
-  host: alias('settings.data.contactApi'),
+  host: alias('settings.data.jsonApiUrl'),
   flashMessages: service(),
   settings: service(),
 
