@@ -48,7 +48,6 @@ const clean = function (obj, options) {
           });
 
           if(!isArray(cleanItem)) {
-
             if(isBlank(cleanItem) || (typeof cleanItem === 'object' &&
                 Object.keys(cleanItem).length === 0)) {
               return;
