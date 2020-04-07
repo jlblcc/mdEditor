@@ -10,6 +10,7 @@ import { A } from '@ember/array';
 //import $ from 'jquery';
 import { inject as service } from '@ember/service';
 import Template from 'mdeditor/mixins/object-template';
+import { ucWords } from 'mdeditor/helpers/uc-words';
 //import InViewportMixin from 'ember-in-viewport';
 
 export default Component.extend(Template, {
@@ -285,28 +286,23 @@ export default Component.extend(Template, {
    */
   showFooter: gt('items.length', 5),
 
-  /*citems: computed('items.@each.val', function () {
-    let i = this.get('items')
-      .map(function (itm) {
-        return Ember.Object.create(itm);
-      });
-    return i;
-  }),*/
-
   attrArray: computed('attributes', function () {
     let attr = this.attributes;
 
-    return attr ? attr.split(',') : null;
+    return attr ?
+      attr.split(',').map(itm => itm.split(':')[0]) : null;
   }),
 
-  attrTitleArray: computed('attrArray', function () {
-    return this.attrArray
+  attrTitleArray: computed('attributes', function () {
+    return this.attributes.split(',')
       .map(function (item) {
-        return item.trim()
-          .split('.')
-          .get('lastObject')
-          .dasherize()
-          .replace(/-/g, ' ');
+        let title = item.trim().split('.').get('lastObject').split(
+          ':');
+
+        return title.length === 1 ? ucWords([title[0].dasherize()
+          .replace(/-/g,
+            ' ')
+        ], { force: false }) : title[1];
       });
   }),
 
@@ -318,14 +314,15 @@ export default Component.extend(Template, {
     return (count > 0) ? 'label-info' : 'label-warning';
   }),
 
-  alertTipMessage: computed('tipModel', 'tipPath', 'errorMessage', function () {
-    if(this.errorMessage) {
-      return this.errorMessage;
-    }
+  alertTipMessage: computed('tipModel', 'tipPath', 'errorMessage',
+    function () {
+      if(this.errorMessage) {
+        return this.errorMessage;
+      }
 
-    return this.tipModel ? this.tipModel.get(
-      `validations.attrs.${this.tipPath}.message`) : null;
-  }),
+      return this.tipModel ? this.tipModel.get(
+        `validations.attrs.${this.tipPath}.message`) : null;
+    }),
 
   actions: {
     deleteItem: function (items, index) {
@@ -345,7 +342,8 @@ export default Component.extend(Template, {
       const owner = getOwner(this);
       const spotlight = this.spotlight;
 
-      let itm = typeOf(Template) === 'class' ? Template.create(owner.ownerInjection()) :
+      let itm = typeOf(Template) === 'class' ? Template.create(owner
+          .ownerInjection()) :
         EmberObject.create({});
       let items = this.items;
 
