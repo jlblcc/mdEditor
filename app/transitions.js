@@ -53,6 +53,12 @@ export default function () {
     this.reverse('toRight')
   );
   this.transition(
+    this.toRoute('record.show.edit.spatial.srs'),
+    this.fromRoute('record.show.edit.spatial.index'),
+    this.use('toLeft'),
+    this.reverse('toRight')
+  );
+  this.transition(
     this.toRoute('record.show.edit.taxonomy.collection.itis'),
     this.fromRoute('record.show.edit.taxonomy.collection.index'),
     this.use('toLeft'),

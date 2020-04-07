@@ -1,6 +1,7 @@
 {{input/md-codelist
   create=true
   label="Reference System Type"
+  data-spy="Reference System Type"
   tooltip=true
   icon=false
   disabled=false
@@ -14,16 +15,18 @@
   class=(if (v-get this "isInvalid") "required")
 }}
 
-{{#if model.referenceSystemIdentifier}}
+{{#if refSystem}}
 
 {{#layout/md-card
-  collapsible=false
+  collapsible=true
+  title="Reference System Identifier"
+  required=(v-get this "isInvalid")
   collapsed=false
-  data-spy=false
   shadow=false
   profilePath=(concat profilePath ".referenceSystemIdentifier")
 }}
-  <label  class={{concat "text-info" (if (v-get this "isInvalid") " required")}}>Reference System Identifier</label>
+  {{!-- <label  class={{concat "text-info" (if (v-get this "isInvalid") "
+  required")}}>Reference System Identifier</label> --}}
 
   {{object/md-identifier
     model=model.referenceSystemIdentifier
@@ -32,5 +35,16 @@
   }}
 {{/layout/md-card}}
 {{/if}}
+
+{{input/md-textarea
+  label="Reference System WKT"
+  data-spy="Reference System WKT"
+  showValidations=true
+  valuePath="wkt"
+  model=this
+  placeholder="Well Known Text (WKT) for spatial reference system."
+  profilePath=(concat profilePath ".referenceSystemWKT")
+  class=(if (v-get this "isInvalid") "required")
+}}
 
 {{yield}}

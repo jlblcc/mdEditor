@@ -1,0 +1,4 @@
+{{object/md-srs model=model profilePath="spatial.spatialReferenceSystem"}}
+
+{{to-elsewhere named="md-scroll-spy-record-edit"
+  send=(component "control/md-scroll-spy"  scrollInit=scrollTo setScrollTo=(route-action "setScrollTo") refresh=model.profile)}}

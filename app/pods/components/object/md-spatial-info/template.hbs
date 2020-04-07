@@ -11,16 +11,16 @@
 
 }}
 
-{{#object/md-object-table
+{{object/md-objectroute-table
  items=model.spatialReferenceSystem
+ editItem=(action "editSrs")
  header="Spatial Reference System"
  buttonText="Add Reference System"
  ellipsis=true
  profilePath=(concat profilePath ".spatialReferenceSystem")
- attributes="referenceSystemType,referenceSystemIdentifier.identifier" as |editing|
+ attributes="referenceSystemType,referenceSystemIdentifier.identifier,referenceSystemWKT:Well Known Text"
+ addSubbar="md-subbar-extra"
 }}
-  {{object/md-srs model=editing profilePath=(concat profilePath ".spatialReferenceSystem")}}
-{{/object/md-object-table}}
 
 {{#object/md-object-table
  items=model.spatialResolution
