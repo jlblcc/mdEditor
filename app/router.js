@@ -13,9 +13,9 @@ Router.map(function () {
   this.route('translate');
   //this.route('publish', function() {});
   this.route('help');
-  this.route('settings', function() {
+  this.route('settings', function () {
     this.route('validation');
-    this.route('profile', function() {
+    this.route('profile', function () {
       this.route('manage');
     });
     this.route('main');
@@ -121,7 +121,11 @@ Router.map(function () {
             });
           });
           this.route('dictionary');
-          this.route('spatial', function () {});
+          this.route('spatial', function () {
+            this.route('srs', {
+              path: 'spatialref/:srs_id'
+            }, function () {});
+          });
           this.route('constraint', function () {});
           this.route('taxonomy', function () {
             this.route('collection', {
