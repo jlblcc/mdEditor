@@ -13,9 +13,14 @@ module('Integration | Component | control/md-button', function(hooks) {
       assert.ok(val, 'Click action');
     });
 
-    await render(hbs`{{control/md-button text="Click me" click=(action myAction true)}}`);
+    await render(hbs`{{control/md-button
+      text="Click me"
+      click=(action myAction true)
+      required=true
+    }}`);
 
     assert.equal(this.element.textContent.trim(), 'Click me');
+    assert.dom(this.element.querySelector('span')).hasClass('required');
     click('.md-button');
 
     // Template block usage:

@@ -4,7 +4,7 @@
   {{#if icon}}
     {{fa-icon icon spin=iconSpin}}
   {{/if}}
-  {{text}}
+  <span class={{if required "required"}}>{{text}}</span>
 {{/if}}
 
 {{#if tooltip}}
