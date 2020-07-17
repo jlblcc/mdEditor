@@ -1,0 +1,33 @@
+.d-flex {
+  display: flex;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.align-self-center {
+  align-self: center;
+}
+
+// Specific use case
+.md-flex-col-575 {
+  @media (min-width: $screen-lg-min) {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 775px;
+  }
+
+  @media (min-width: $screen-xxxl-min) {
+    height: 550px;
+  }
+}
