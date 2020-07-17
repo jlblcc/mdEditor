@@ -6,7 +6,7 @@
 import Component from '@ember/component';
 import { computed, defineProperty } from '@ember/object';
 import { alias, not, notEmpty, and, or } from '@ember/object/computed';
-import { isBlank } from '@ember/utils';
+import { isBlank, typeOf } from '@ember/utils';
 import { assert, debug } from '@ember/debug';
 
 export default Component.extend({
@@ -224,4 +224,28 @@ export default Component.extend({
     this.scheduleMeasurement();
   },
 
+  /**
+   * Whether to show the infotip
+   *
+   * @property infotip
+   * @type Boolean
+   * @default false
+   */
+  infotip: false,
+
+  /**
+   * If the infotop property is a `string`, return infotip. Otherwise,
+   * evaluate infotip as boolean and return placeholder if `truthy`.
+   *
+   * @property infotipText
+   * @type {String, null}
+   * @default "null"
+   * @readOnly
+   * @category computed
+   * @requires placeholder,infotip
+   */
+  infotipText: computed(('placeholder', 'infotip'), function () {
+    return typeOf(this.infotip) === 'string' ? this.infotip : this
+      .infotip ? this.placeholder : null;
+  })
 });

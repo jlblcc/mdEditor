@@ -10,7 +10,7 @@ import { inject as service } from '@ember/service';
 import { notEmpty, alias, not, and, or } from '@ember/object/computed';
 import Component from '@ember/component';
 import { computed, get, defineProperty } from '@ember/object';
-import { isBlank, isNone } from '@ember/utils';
+import { isBlank, isNone, typeOf } from '@ember/utils';
 import { assert, debug } from '@ember/debug';
 import DS from 'ember-data';
 
@@ -340,6 +340,31 @@ export default Component.extend({
           });
         })
     });
+  }),
+
+  /**
+   * Whether to show the infotip
+   *
+   * @property infotip
+   * @type {Boolean, String}
+   * @default false
+   */
+  infotip: false,
+
+  /**
+   * If the infotop property is a `string`, return infotip. Otherwise,
+   * evaluate infotip as boolean and return placeholder if `truthy`.
+   *
+   * @property infotipText
+   * @type {String, null}
+   * @default "null"
+   * @readOnly
+   * @category computed
+   * @requires placeholder,infotip
+   */
+  infotipText: computed(('placeholder', 'infotip'), function () {
+    return typeOf(this.infotip) === 'string' ? this.infotip : this
+      .infotip ? this.placeholder : null;
   }),
 
   /**

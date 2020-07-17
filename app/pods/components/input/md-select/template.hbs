@@ -1,5 +1,8 @@
     {{#if label}}
       <label>{{label}}</label>
+      {{#if infotipText}}
+        {{control/md-infotip text=infotipText}}
+      {{/if}}
     {{/if}}
 <div class="md-input-input">
       {{#component theComponent

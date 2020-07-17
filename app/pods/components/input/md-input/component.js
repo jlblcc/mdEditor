@@ -7,7 +7,7 @@ import { alias, not, notEmpty, and, or } from '@ember/object/computed';
 
 import Component from '@ember/component';
 import { computed, defineProperty } from '@ember/object';
-import { isBlank } from '@ember/utils';
+import { isBlank, typeOf } from '@ember/utils';
 import { assert, debug } from '@ember/debug';
 
 export default Component.extend({
@@ -21,6 +21,7 @@ export default Component.extend({
    *    valuePath=null
    *    label="Name"
    *    placeholder="Enter name."
+   *    infotip=true
    *    required=false
    *  }}
    * ```
@@ -79,7 +80,7 @@ export default Component.extend({
       defineProperty(this, 'required', computed(
           'validation.options.presence{presence,disabled}',
           'disabled',
-          function() {
+          function () {
             return !this.disabled &&
               this.get('validation.options.presence.presence') &&
               !this.get('validation.options.presence.disabled');
@@ -219,6 +220,30 @@ export default Component.extend({
    * @default ''
    * @readOnly
    */
-  valuePath: ''
+  valuePath: '',
 
+  /**
+   * Whether to show the infotip
+   *
+   * @property infotip
+   * @type Boolean
+   * @default false
+   */
+  infotip: false,
+
+  /**
+   * If the infotip property is a `string`, return infotip. Otherwise,
+   * evaluate infotip as boolean and return placeholder if `truthy`.
+   *
+   * @property infotipText
+   * @type {String, null}
+   * @default "null"
+   * @readOnly
+   * @category computed
+   * @requires placeholder,infotip
+   */
+  infotipText: computed(('placeholder', 'infotip'), function () {
+    return typeOf(this.infotip) === 'string' ? this.infotip : this
+      .infotip ? this.placeholder : null;
+  })
 });
