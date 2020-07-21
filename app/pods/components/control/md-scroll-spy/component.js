@@ -10,6 +10,7 @@ import $ from 'jquery';
 import {
   A
 } from '@ember/array';
+import { timeout } from 'ember-concurrency';
 
 export default Component.extend({
   /**
@@ -35,6 +36,16 @@ export default Component.extend({
   offset: 110,
 
   /**
+   * The time in ms to wait before computing links. Useful for animations that
+   * affect visibility.
+   *
+   * @property offset
+   * @type {Number}
+   * @default 250
+   */
+  timeout: 250,
+
+  /**
    * The initial scroll target when the component is inserted.
    *
    * @property scrollInit
@@ -58,28 +69,32 @@ export default Component.extend({
    * @requires refresh,profile.active
    */
   links: computed('refresh', 'profile.active', function () {
-    let liquid = '';
-
-    if($('.liquid-spy').length) {
-      liquid = $('.liquid-spy .liquid-child:first > .liquid-container').length ?
-        '.liquid-spy .liquid-child:first > .liquid-container:last ' :
-        '.liquid-spy ';
-      liquid += '.liquid-child:first ';
-    }
-
-    let $targets = $(`${liquid}[data-spy]:visible`);
     let links = A();
 
-    $targets.each(function (idx, link) {
-      let $link = $(link);
+    timeout(this.timeout).then(() => {
+      let liquid = '';
 
-      links.pushObject({
-        id: $link.attr('id'),
-        text: $link.attr('data-spy'),
-        embedded: $link.hasClass('md-embedded')
+      if($('.liquid-spy').length) {
+        liquid = $(
+            '.liquid-spy .liquid-child:first > .liquid-container')
+          .length ?
+          '.liquid-spy .liquid-child:first > .liquid-container:last ' :
+          '.liquid-spy ';
+        liquid += '.liquid-child:first ';
+      }
+
+      let $targets = $(`${liquid}[data-spy]:visible`);
+
+      $targets.each(function (idx, link) {
+        let $link = $(link);
+
+        links.pushObject({
+          id: $link.attr('id'),
+          text: $link.attr('data-spy'),
+          embedded: $link.hasClass('md-embedded')
+        });
       });
     });
-
     return links;
   }),
 
