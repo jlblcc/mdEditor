@@ -69,7 +69,7 @@ export default Component.extend({
       defineProperty(this, 'required', computed(
         'validation.options.presence.{presence,disabled}',
         'disabled',
-        function() {
+        function () {
           return !this.disabled &&
             this.get('validation.options.presence.presence') &&
             !this.get('validation.options.presence.disabled');
@@ -140,7 +140,7 @@ export default Component.extend({
    * @type Any
    * @required
    */
-  value: null,
+  //value: null,
 
   /**
    * Path in the model to be used for the select list's option value. Both
@@ -278,7 +278,7 @@ export default Component.extend({
    */
   label: null,
 
-  ariaLabel: computed('label', function() {
+  ariaLabel: computed('label', function () {
     return this.label;
   }),
 
@@ -310,7 +310,7 @@ export default Component.extend({
    * @type Ember.computed
    * @return String
    */
-  theComponent: computed('create', function() {
+  theComponent: computed('create', function () {
     return this.create ? 'power-select-with-create' :
       'power-select';
   }),
@@ -329,12 +329,12 @@ export default Component.extend({
    * @type Ember.computed
    * @return PromiseObject
    */
-  selectedItem: computed('value', function() {
+  selectedItem: computed('value', function () {
     let value = this.value;
 
     return DS.PromiseObject.create({
       promise: this.codelist
-        .then(function(arr) {
+        .then(function (arr) {
           return arr.find((item) => {
             return item['codeId'] === value;
           });
@@ -376,9 +376,9 @@ export default Component.extend({
    * @type Ember.computed
    * @return PromiseArray
    */
-  codelist: computed('objectArray', function() {
+  codelist: computed('objectArray', function () {
     const objArray = this.objectArray;
-    let inList = new Promise(function(resolve, reject) {
+    let inList = new Promise(function (resolve, reject) {
       // succeed
       resolve(objArray);
       // or reject
@@ -392,14 +392,15 @@ export default Component.extend({
     let outList = A();
 
     return DS.PromiseArray.create({
-      promise: inList.then(function(arr) {
-        arr.forEach(function(item) {
+      promise: inList.then(function (arr) {
+        arr.forEach(function (item) {
           let newObject = {
             codeId: get(item, codeId),
             codeName: get(item, codeName),
             tooltip: false,
-            icon: icons.get(item[codeName].toString()) || icons.get(
-              defaultIcon)
+            icon: icons.get(item[codeName].toString()) ||
+              icons.get(
+                defaultIcon)
           };
           if(tooltip) {
             newObject.tooltip = get(item, tooltip);
@@ -433,16 +434,23 @@ export default Component.extend({
    *
    * @method setValue
    * @param {Object} selected The object with the value(codeName) to set.
+   * @param {Object} api The public API for the power-select instance.
+   * @param {Event} e The browser event
    */
-  setValue(selected) {
+  setValue(selected, api, e) {
     let val = selected ? selected.codeId : null;
     this.set('value', val);
-    this.change();
+
+    if(this.model && this.path) {
+      this.model.notifyPropertyChange(this.path);
+    }
+    //call change, pass event params
+    this.change(selected, api, this, e);
   },
   actions: {
     // do the binding to value
-    setValue(selected) {
-      this.setValue(selected);
+    setValue(selected, api, e) {
+      this.setValue(selected, api, e);
     },
     create(selected) {
       let code = this.createCode(selected);
@@ -450,6 +458,9 @@ export default Component.extend({
       this.codelist
         .pushObject(code);
       this.setValue(code);
+    },
+    search() {
+      return this.search(...arguments);
     }
   }
 
