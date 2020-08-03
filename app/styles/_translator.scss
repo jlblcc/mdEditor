@@ -11,8 +11,14 @@
     width: 100% !important;
   }
 
-  .md-translator-area textarea {
-    height: 95% !important;
+  .md-translator-area {
+    div {
+      height: inherit;
+    }
+
+    textarea {
+      height: 95% !important;
+    }
   }
 
   iframe {
