@@ -8,7 +8,7 @@ export default Component.extend({
   *
   * @module mdeditor
   * @submodule components-input
-  * @class input/md-select-profile
+  * @class input--md-select-profile
   * @constructor
   */
   profile: service('custom-profile'),
