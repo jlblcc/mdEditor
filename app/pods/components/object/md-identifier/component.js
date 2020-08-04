@@ -1,4 +1,4 @@
-import { alias } from '@ember/object/computed';
+import { alias, and } from '@ember/object/computed';
 import Component from '@ember/component';
 import { getWithDefault, set } from '@ember/object';
 import {
@@ -25,8 +25,7 @@ const theComp = Component.extend(Validations, {
     let model = getWithDefault(this, 'model', {}) || {};
 
     once(this, function () {
-      set(model, 'authority', getWithDefault(model, 'authority',
-        {}));
+      set(model, 'authority', getWithDefault(model, 'authority', {}));
     });
   },
 
@@ -55,7 +54,36 @@ const theComp = Component.extend(Validations, {
    * @type {Boolean}
    */
 
-  identifier: alias('model.identifier')
+  /**
+   * Whether the identifier is collapsible.
+   *
+   * @property collapsible
+   * @type {Boolean}
+   * @default false
+   */
+  collapsible: false,
+
+  /**
+   * Whether the identifier is collapsed, applicable only if `collapsible`.
+   *
+   * @property collapse
+   * @type {Boolean}
+   * @default true
+   */
+  collapse: true,
+
+  /**
+   * Whether the identifier is currently collapsed.
+   *
+   * @property isCollapsed
+   * @type {Boolean}
+   * @default "false"
+   * @readOnly
+   * @category computed
+   * @requires collapsible,collapse
+   */
+  isCollapsed: and('collapsible', 'collapse'),
+  identifier: alias('model.identifier'),
 });
 
 export {
