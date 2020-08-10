@@ -28,7 +28,7 @@ export default Component.extend(Template, {
    *  templateClass=templateClass
    *  previewTemplate=previewTemplate
    *  ellipsis=ellipsis
-   *  attributes=attributes as |editing|
+   *  attributes='attr1:Foo Bar,?attr2:Is Bix?' as |editing|
    * }}
    *
    * {{/object/md-object-table}}
@@ -72,9 +72,12 @@ export default Component.extend(Template, {
   items: A(),
 
   /**
-   * List of items object attributes to display in
-   * md-object-table to aid in choosing the item to edit or
-   * delete.
+   * Comma separated list of object attributes to display in
+   * the md-object-table header row.
+   *
+   * The header for each attirbute may be customized by using the format
+   * `{attribute name}:{custom header}`. The attribute may also be converted to a boolean value
+   * by placing a question mark before the attribute name, i.e.`?{attribute name}`
    *
    * @property attributes
    * @type String
@@ -287,10 +290,17 @@ export default Component.extend(Template, {
   showFooter: gt('items.length', 5),
 
   attrArray: computed('attributes', function () {
-    let attr = this.attributes;
+    let attr = this.attributes ? this.attributes.split(',').map(itm =>
+      itm.split(':')[0]) : null;
 
-    return attr ?
-      attr.split(',').map(itm => itm.split(':')[0]) : null;
+    return attr.map(a => {
+      let bool = a.indexOf('?') === 0;
+
+      return {
+        name: bool ? a.slice(1) : a,
+        bool: bool
+      }
+    });
   }),
 
   attrTitleArray: computed('attributes', function () {

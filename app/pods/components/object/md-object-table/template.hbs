@@ -65,8 +65,10 @@
                             <td class="property">{{component previewTemplate item=item index=index profilePath=profilePath}}</td>
                         {{else}}
                             {{#each attrArray as |prop|}}
-                                {{#if (get item prop)}}
-                                <td class="property"><div class="wrap">{{get item prop}}</div></td>
+                                {{#if (present (get item prop.name))}}
+                                <td class="property">
+                                  <div class="wrap">{{unless prop.bool (get item prop.name) (present (get item prop.name))}}</div>
+                                </td>
                                 {{else}}
                                 <td><em>Not Defined</em></td>
                                 {{/if}}
